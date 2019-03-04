@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Memory" Version="4.5.2" />
+    <PackageReference Include="Mono.Cecil" Version="0.10.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AST\" />
+    <Folder Include="grabbed\" />
+    <Folder Include="grabbed\CharacterSeparatedValues\" />
+    <Folder Include="grabbed\Linq\" />
+    <Folder Include="mappings\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="mappings\API.Mappings.Merged.Google.with.Xamarin.Classes.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="mappings\API.Mappings.Merged.Google.with.Xamarin.Classes.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>
