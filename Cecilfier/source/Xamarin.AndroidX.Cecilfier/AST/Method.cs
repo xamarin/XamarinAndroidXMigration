@@ -18,6 +18,12 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             set;
         }
 
+        public MethodBody Body
+        {
+            get;
+            set;
+        }
+
         public List<Parameter> Parameters
         {
             get;
