@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="BabySteps">
+      <HintPath>..\..\..\Demo\BabySteps\bin\Debug\BabySteps.dll</HintPath>
+    </Reference>
+    <Reference Include="..\..\..\Demo\BabySteps\bin\Debug\BabySteps.androidx-migrated-*.dll">
+    </Reference>
+  </ItemGroup>
+    
+    <ItemGroup>
+        <Parent Include="..\..\..\Demo\BabySteps\bin\Debug\BabySteps.androidx-migrated-*.dll" />
+        <Reference Include="@(Parent)%(Filename)%(Extension)">
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Remove="Class1.cs" />
+    </ItemGroup>
+</Project>
