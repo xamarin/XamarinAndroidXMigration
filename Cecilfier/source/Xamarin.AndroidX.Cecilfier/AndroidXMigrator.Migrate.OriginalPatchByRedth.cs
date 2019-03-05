@@ -5,6 +5,8 @@ using System.Diagnostics;
 
 using Mono.Cecil.Rocks;
 using Mono.Cecil;
+using HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineator.AST;
+using System.Collections.Generic;
 
 namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineator
 {
@@ -14,16 +16,12 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
         Stopwatch timer = new Stopwatch();
 
-        AST.Assembly ast_assembly = null;
-        AST.Namespace ast_namespace = null;
-        AST.Type ast_type = null;
-        AST.Method ast_method = null;
-        AST.Parameter ast_parameter = null;
-
         string replacement = null;
 
         private void MigrateWithWithStringsOriginalPatchByRedth()
         {
+            string msg = $"androidx-migrated-{DateTime.Now.ToString("yyyyMMdd-HHmmss")}";
+
             int idx = this.PathAssemblyOutput.LastIndexOf(Path.DirectorySeparatorChar) + 1;
             string asm = this.PathAssemblyOutput.Substring(idx, this.PathAssemblyOutput.Length - idx );
 
@@ -41,11 +39,40 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
             timer.Start();
 
-            if (File.Exists(this.PathAssemblyOutput))
-            {
-                File.Delete(this.PathAssemblyOutput);
-            }
-            File.Copy(this.PathAssemblyInput, this.PathAssemblyOutput);
+            System.Threading.Tasks.Parallel.Invoke
+                                                (
+                                                    () =>
+                                                    {
+                                                        if (File.Exists(this.PathAssemblyOutput))
+                                                        {
+                                                            File.Delete(this.PathAssemblyOutput);
+                                                        }
+                                                        File.Copy
+                                                                (
+                                                                    this.PathAssemblyInput,
+                                                                    this.PathAssemblyOutput
+                                                                );
+                                                    },
+                                                    () =>
+                                                    {
+                                                        if(File.Exists(Path.ChangeExtension(this.PathAssemblyOutput, "pdb")))
+                                                        {
+                                                            File.Delete(Path.ChangeExtension(this.PathAssemblyOutput, "pdb"));
+                                                        }
+                                                        File.Copy
+                                                               (
+                                                                    Path.ChangeExtension(this.PathAssemblyInput, "pdb"),
+                                                                    Path.ChangeExtension(this.PathAssemblyOutput, "pdb")
+                                                                );
+                                                    }
+                                                );
+ 
+            bool hasPdb = File.Exists(Path.ChangeExtension(this.PathAssemblyInput, "pdb"));
+
+			var readerParams = new ReaderParameters
+			{
+				ReadSymbols = hasPdb,
+			};
 
             asm_def = Mono.Cecil.AssemblyDefinition.ReadAssembly
                                                         (
@@ -54,184 +81,56 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                                                                 {
                                                                     AssemblyResolver = CreateAssemblyResolver(),
                                                                     ReadWrite = true,
-                                                                    //InMemory = true 
+                                                                    //InMemory = true,
+                                                                    ReadSymbols = hasPdb,
                                                                 }
                                                         );
-            var allTypes = asm_def.MainModule.GetAllTypes();
 
             System.Diagnostics.Trace.WriteLine($"===================================================================================");
-            System.Diagnostics.Trace.WriteLine($" migrating assembly                       = {this.PathAssemblyInput}");
-            System.Diagnostics.Trace.WriteLine($"                 types Mono.Cecil       # = {allTypes.Count()}");
+            System.Diagnostics.Trace.WriteLine($"migrating assembly               = {this.PathAssemblyInput}");
 
-
-            ast_assembly = new AST.Assembly
+            AST.Assembly ast_assembly = new AST.Assembly()
             {
                 Name = asm
             };
 
-            foreach (var t in allTypes)
+            foreach(ModuleDefinition module in asm_def.Modules)
             {
-                if
-                    (
-                        t.FullName.StartsWith("Java.Interop")
-                        ||
-                        t.FullName.StartsWith("System")
-                        ||
-                        t.FullName.StartsWith("Microsoft")
-                    )
+                System.Diagnostics.Trace.WriteLine($"--------------------------------------------------------------------------");
+                System.Diagnostics.Trace.WriteLine($"    migrating Module           = {module.Name}");
+                //module.AssemblyReferences;
+
+                AST.Module ast_module = ProcessModule(module);
+
+                if(ast_module != null)
                 {
-                    continue;
-                }
-
-                if(t.HasNestedTypes)
-                {
-                    ProcessNestedTypes(t);
-                }
-                //System.Diagnostics.Trace.WriteLine($"    processing Type");
-                //System.Diagnostics.Trace.WriteLine($"       Name        = {t.Name}");
-                //System.Diagnostics.Trace.WriteLine($"       FullName    = {t.FullName}");
-                //System.Diagnostics.Trace.WriteLine($"       IsClass     = {t.IsClass}");
-                //System.Diagnostics.Trace.WriteLine($"       IsInterface = {t.IsInterface}");
-
-                var methods = t.GetMethods();
-
-                foreach (var method in t.GetMethods())
-                {
-                    //System.Diagnostics.Trace.WriteLine($"        processing method");
-                    //System.Diagnostics.Trace.WriteLine($"           Name        = {method.Name}");
-                    //System.Diagnostics.Trace.WriteLine($"           FullName    = {method.ReturnType.FullName}");
-
-                    var hasSupport = method.MethodReturnType?.ReturnType?.FullName?.StartsWith("Android.Support") ?? false;
-
-                    if (hasSupport)
+                    if (ast_assembly == null)
                     {
-
-                        System.Diagnostics.Trace.WriteLine($"        changing return type");
-                        System.Diagnostics.Trace.WriteLine($"           method.Name    = {method.Name}");
-                        System.Diagnostics.Trace.WriteLine($"           ReturnType     = {method.MethodReturnType.ReturnType.Name}");
-                        System.Diagnostics.Trace.WriteLine($"                          = {method.MethodReturnType.ReturnType.FullName}");
-
-                        string classname = method.MethodReturnType.ReturnType.FullName;
-                        int index = ClassMappingsSortedProjected.Span.BinarySearch(classname);
-                        if (index < 0)
+                        ast_assembly = new AST.Assembly()
                         {
-                            string msg = $"Android.Support class not found in mappings: {classname}";
 
-                            //throw new InvalidOperationException(msg);
-
-                            AndroidSupportNotFoundInGoogle.Add(classname);
-                            continue;
-                        }
-                        replacement = ClassMappingsSorted.Span[index].AndroidXClassFullyQualified;
-                        method.MethodReturnType.ReturnType.Namespace = replacement;
-                        //replacement = method.MethodReturnType.ReturnType.FullName.Replace
-                        //                                                            (
-                        //                                                                "Android.Support",
-                        //                                                                "AndroidX"
-                        //                                                            );
-                        //method.MethodReturnType.ReturnType.FullName = replacement;
-
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.Beep();
-                        log.AppendLine($"{method.Name} returns {method.ReturnType.FullName}");
-                        Console.ResetColor();
-
-                        ast_method = new AST.Method()
-                        {
-                            Name = method.Name,
-                            NameFullyQualified = method.ReturnType.FullName
                         };
-                        ast_type = new AST.Type()
-                        {
-                            Name = t.Name,
-                            NameFullyQualified = t.FullName
-                        };
-                        ast_type.Methods.Add(ast_method);
-
-                        ast_namespace = new AST.Namespace()
-                        {
-                            Name = t.Namespace
-                        };
-                        ast_namespace.Types.Add(ast_type);
-                        ast_assembly.Namespaces.Add(ast_namespace);
                     }
-
-                    if (method.HasParameters)
-                    {
-                        ProcessMethod(method, t);
-                    }
-
-                    string registerAttrMethodName = null;
-                    string registerAttributeJniSig = null;
-                    string registerAttributeNewJniSig = null;
-
-                    var isBindingMethod = false;
-
-                    foreach (var attr in method.CustomAttributes)
-                    {
-                        if (attr.AttributeType.FullName.Equals("Android.Runtime.RegisterAttribute"))
-                        {
-                            var jniSigArg = attr.ConstructorArguments[1];
-
-                            registerAttrMethodName = attr.ConstructorArguments[0].Value.ToString();
-                            registerAttributeJniSig = jniSigArg.Value?.ToString();
-
-                            registerAttributeNewJniSig = ReplaceJniSignature(registerAttributeJniSig);
-
-                            attr.ConstructorArguments[1] = new CustomAttributeArgument(jniSigArg.Type, registerAttributeNewJniSig);
-
-                            isBindingMethod = true;
-
-                            log.AppendLine($"[Register(\"{attr.ConstructorArguments[0].Value}\", \"{registerAttributeNewJniSig}\")]");
-                        }
-                    }
-
-                    //if (!isBindingMethod)
-                    //    return;
-
-                    if (method.HasBody)
-                    {
-                        // Replace all the JNI Signatures inside the method body
-                        foreach (var instr in method.Body.Instructions)
-                        {
-                            if (instr.OpCode.Name == "ldstr")
-                            {
-                                var jniSig = instr.Operand.ToString();
-
-                                var indexOfDot = jniSig.IndexOf('.');
-
-                                // New binding glue style is `methodName.(Lparamater/Type;)Lreturn/Type;`
-                                if (indexOfDot >= 0)
-                                {
-                                    var methodName = jniSig.Substring(0, indexOfDot);
-                                    var newJniSig = ReplaceJniSignature(jniSig.Substring(indexOfDot + 1));
-                                    instr.Operand = $"{methodName}.{newJniSig}";
-
-                                    log.AppendLine($"{methodName} -> {newJniSig}");
-                                }
-                                // Old style is two strings, one with method name and then `(Lparameter/Type;)Lreturn/Type;`
-                                else if (jniSig.Contains('(') && jniSig.Contains(')'))
-                                {
-                                    //var methodName = instr.Previous.Operand.ToString();
-                                    //var newJniSig = ReplaceJniSignature(jniSig);
-
-                                    //instr.Operand = newJniSig;
-
-                                    //log.AppendLine($"{methodName} -> {newJniSig}");
-                                }
-                            }
-                        }
-                    }
+                    ast_assembly.Modules.Add(ast_module);
                 }
             }
 
             timer.Stop();
 
             AndroidXMigrator.AbstractSyntaxTree.Assemblies.Add(ast_assembly);
+
             File.WriteAllText
                 (
-                    $"AbstractSyntaxTree.{ast_assembly.Name}.json",
-                    Newtonsoft.Json.JsonConvert.SerializeObject(ast_assembly, Newtonsoft.Json.Formatting.Indented)
+                    Path.ChangeExtension(this.PathAssemblyInput, $"AbstractSyntaxTree.{msg}.json"),
+                    Newtonsoft.Json.JsonConvert.SerializeObject
+                    (
+                        ast_assembly,
+                        Newtonsoft.Json.Formatting.Indented,
+                        new Newtonsoft.Json.JsonSerializerSettings()
+                        {
+                            NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore
+                        }
+                    )
                 );
 
             log.AppendLine($"{timer.ElapsedMilliseconds}ms");
@@ -244,84 +143,366 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             return;
         }
 
-        private void ProcessMethod(MethodDefinition method, TypeDefinition t)
+        private Module ProcessModule(ModuleDefinition module)
         {
-            bool hasSupport = false;
+            AST.Module ast_module = null;
 
-            foreach (var methodParam in method.Parameters)
-            {
-                // Replace Managed Parameter types
-                if (methodParam.ParameterType.Namespace.StartsWith("Android.Support"))
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.Beep();
-                    hasSupport = true;
-                    log.AppendLine($"{method.Name} paramater {methodParam.ParameterType.FullName}");
-
-                    string classname = methodParam.ParameterType.FullName;
-                    int index = ClassMappingsSortedProjected.Span.BinarySearch(classname);
-                    if (index < 0)
-                    {
-                        string msg = "Android.Support class not found in mappings";
-
-                        //throw new InvalidOperationException(msg);
-
-                        AndroidSupportNotFoundInGoogle.Add(classname);
-                        continue;
-                    }
-                    replacement = ClassMappingsSorted.Span[index].AndroidXClassFullyQualified;
-
-                    methodParam.ParameterType.Namespace = replacement;
-
-                    Console.ResetColor();
-                    ast_parameter = new AST.Parameter()
-                    {
-                        Name = methodParam.Name,
-                        Type = new AST.Type()
-                        {
-                            Name = methodParam.ParameterType.Name,
-                            NameFullyQualified = methodParam.ParameterType.FullName
-                        }
-                    };
-                    ast_method = new AST.Method()
-                    {
-                        Name = method.Name,
-                        NameFullyQualified = method.ReturnType.FullName
-                    };
-                    ast_method.Parameters.Add(ast_parameter);
-
-                    ast_type = new AST.Type()
-                    {
-                        Name = t.Name,
-                        NameFullyQualified = t.FullName
-                    };
-                    ast_type.Methods.Add(ast_method);
-
-                    ast_namespace = new AST.Namespace()
-                    {
-                        Name = t.Namespace
-                    };
-                    ast_namespace.Types.Add(ast_type);
-                    ast_assembly.Namespaces.Add(ast_namespace);
-                }
-            }
-        }
-
-        private void ProcessNestedTypes(TypeDefinition t)
-        {
-            foreach(TypeDefinition t_nested in t.NestedTypes)
+            foreach (TypeDefinition type in module.Types)
             {
                 if
                     (
-                        t_nested.Name.Contains("/<>c__DisplayClass")  // anonymous methods, lambdas 
+                        //type.FullName == "<Module>"
+                        //||
+                        //type.FullName == "<PrivateImplementationDetails>"
+                        //||
+                        type.FullName.StartsWith("AndroidX", StringComparison.Ordinal)
+                        ||
+                        type.FullName.StartsWith("Java.Interop", StringComparison.Ordinal)
+                        ||
+                        type.FullName.StartsWith("System", StringComparison.Ordinal)
+                        ||
+                        type.FullName.StartsWith("Microsoft", StringComparison.Ordinal)
                     )
                 {
                     continue;
                 }
+
+                System.Diagnostics.Trace.WriteLine($"    processing Type");
+                System.Diagnostics.Trace.WriteLine($"        Name        = {type.Name}");
+                System.Diagnostics.Trace.WriteLine($"        FullName    = {type.FullName}");
+                System.Diagnostics.Trace.WriteLine($"        IsClass     = {type.IsClass}");
+                System.Diagnostics.Trace.WriteLine($"        IsInterface = {type.IsInterface}");
+
+                AST.Type ast_type = ProcessType(type);
+
+                if(ast_type == null)
+                {
+                    continue;
+                }
+                else
+                {
+                    if (ast_module == null)
+                    {
+                        ast_module = new AST.Module()
+                        { 
+                            Name = module.Name
+                        };
+                    }
+                    ast_module.Types.Add(ast_type);
+                }
+
             }
 
-            return;
+            return ast_module;
         }
+
+        private AST.Type ProcessType(TypeDefinition type)
+        {
+            AST.Type ast_type = null;
+
+            AST.Type ast_type_base = ProcessBaseType(type.BaseType);
+            if(ast_type_base != null)
+            {
+                TypeDefinition type_found = type.Module.Types
+                                                            .Where(t => t.FullName == ast_type_base.NameFullyQualifiedOldMigratred)
+                                                            .FirstOrDefault();
+            }
+
+            List<AST.Type> ast_types_nested = null;
+            foreach (TypeDefinition type_nested in type.NestedTypes)
+            {
+                AST.Type ast_type_nested = ProcessNestedType(type_nested);
+            }
+
+            List<AST.Method> ast_methods = null;
+            foreach(var method in type.Methods)
+            {
+                AST.Method ast_method = ProcessMethod(method);
+
+                if (ast_method != null)
+                {
+                    ast_methods = new List<AST.Method>();
+                }
+                else
+                {
+                    continue;
+                }
+
+                ast_methods.Add(ast_method);
+            }
+
+            if (ast_type_base == null && ast_methods == null)
+            {
+                return ast_type;
+            }
+
+            ast_type = new AST.Type()
+            {
+                Name = type.Name,
+                NameFullyQualified = type.FullName,
+            };
+
+            if (ast_type_base != null)
+            {
+                ast_type.BaseType = ast_type_base;
+            }
+            if (ast_methods != null)
+            {
+                ast_type_base.Methods = ast_methods;
+            }
+
+            return ast_type;
+        }
+
+        private AST.Type ProcessBaseType(TypeReference type_base)
+        {
+            AST.Type ast_type_base = null;
+
+            if
+                (
+                    type_base == null
+                    ||
+                    ! (type_base?.FullName).StartsWith("Android.Support", StringComparison.Ordinal)
+                )
+            {
+                return ast_type_base;
+            }
+
+            System.Diagnostics.Trace.WriteLine($"        processing BaseType - TypeReference");
+            System.Diagnostics.Trace.WriteLine($"            Name        = {type_base.Name}");
+            System.Diagnostics.Trace.WriteLine($"            FullName    = {type_base.FullName}");
+
+            string type_fqn_old = type_base.FullName;
+
+            string r = FindReplacingTypeFromMappings(type_base.FullName);
+            int idx = r.LastIndexOf('.');
+            type_base.Namespace = r.Substring(0, idx);
+			type_base.Scope.Name = r.Substring(idx + 1, r.Length - idx - 1);
+
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            log.AppendLine($"    BaseType: {type_base.FullName}");
+            Console.ResetColor();
+
+           ast_type_base = new AST.Type()
+           {
+               Name = type_base.Name,
+               NameFullyQualified = type_base.FullName,
+               NameFullyQualifiedOldMigratred = type_fqn_old
+           };
+
+            return ast_type_base;
+        }
+
+        private AST.Type ProcessNestedType(TypeDefinition type_nested)
+        {
+            AST.Type ast_type_nested = null;
+
+            if
+                (
+                    type_nested == null
+                    ||
+                    ! type_nested.FullName.StartsWith("Android.Support")
+                    ||
+                    type_nested.Name.Contains("<>c")  // anonymous methods, lambdas 
+                    ||
+                    type_nested.Name.Contains("<>c__DisplayClass")  // anonymous methods, lambdas 
+                )
+            {
+                return ast_type_nested;
+            }
+            
+            string type_nested_fqn_old = type_nested.FullName;
+            string r = FindReplacingTypeFromMappings(type_nested.FullName);
+            int idx = r.LastIndexOf('.');
+            type_nested.Namespace = r.Substring(0, idx);
+			type_nested.Scope.Name = r.Substring(idx + 1, r.Length - idx - 1);
+            Console.ResetColor();
+
+            ast_type_nested = new AST.Type()
+            {
+               Name = type_nested.Name,
+               NameFullyQualified = type_nested.FullName,
+               NameFullyQualifiedOldMigratred = type_nested_fqn_old
+            };
+
+            return ast_type_nested;
+        }
+
+
+        private AST.Method ProcessMethod(MethodDefinition method)
+        {
+            AST.Method ast_method = null;
+
+            System.Diagnostics.Trace.WriteLine($"        processing method");
+            System.Diagnostics.Trace.WriteLine($"           Name        = {method.Name}");
+            System.Diagnostics.Trace.WriteLine($"           FullName    = {method.ReturnType.FullName}");
+
+            AST.Type ast_method_type_return = ProcessMethodReturnType(method.ReturnType);
+
+            string jni_signature = ProcessMethodJNISignature(method);
+
+            List<AST.Parameter> ast_method_parameters = null;
+            foreach (ParameterDefinition method_parameter in method.Parameters)
+            {
+                AST.Parameter ast_method_parameter = ProcessMethodParameter(method_parameter);
+
+                if (ast_method_parameter != null)
+                {
+                    if(ast_method_parameters == null)
+                    {
+                        ast_method_parameters = new List<AST.Parameter>();
+                    }
+                }
+                else
+                {
+                    continue;
+                }
+                ast_method_parameters.Add(ast_method_parameter);
+            }
+
+            AST.MethodBody ast_method_body = ProcessMethodBody(method.Body);
+
+            if (ast_method_type_return == null && jni_signature == null && ast_method_body == null && ast_method_parameters == null)
+            {
+                return ast_method;
+            }
+
+            ast_method = new AST.Method();
+
+            if (ast_method_type_return != null)
+            {
+                ast_method.ReturnType = ast_method_type_return;
+            }
+
+            if (ast_method_body != null)
+            {
+                ast_method.Body = ast_method_body;
+            }
+
+            if (ast_method_parameters != null)
+            {
+                ast_method.Parameters = ast_method_parameters;
+            }
+
+            return ast_method;
+        }
+
+        private AST.Type ProcessMethodReturnType(TypeReference type_return)
+        {
+            AST.Type ast_type_return = null;
+
+            if (! type_return.FullName.StartsWith("Android.Support"))
+            {
+                return ast_type_return;
+            }
+
+            System.Diagnostics.Trace.WriteLine($"        changing return type");
+            System.Diagnostics.Trace.WriteLine($"           Name    = {type_return.Name}");
+            System.Diagnostics.Trace.WriteLine($"           FullName    = {type_return.FullName}");
+
+            string r = FindReplacingTypeFromMappings(type_return.FullName);
+            type_return.Namespace = replacement;
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            log.AppendLine($"{type_return.Name} returns {type_return.FullName}");
+            Console.ResetColor();
+
+            return ast_type_return;
+        }
+
+        private AST.Parameter ProcessMethodParameter(ParameterDefinition method_parameter)
+        {
+            AST.Parameter ast_method_parameter = null;
+
+
+            string r = FindReplacingTypeFromMappings(method_parameter.ParameterType.FullName);
+            method_parameter.ParameterType.Namespace = r;
+
+            ast_method_parameter = new AST.Parameter()
+            {
+
+            };
+
+            return ast_method_parameter;
+        }
+
+        private string ProcessMethodJNISignature(MethodDefinition method)
+        {
+            string jni_signature = null;
+
+            foreach (CustomAttribute attr in method.CustomAttributes)
+            {
+                if (attr.AttributeType.FullName.Equals("Android.Runtime.RegisterAttribute"))
+                {
+                    CustomAttributeArgument jniSigArg = attr.ConstructorArguments[1];
+
+                    string registerAttrMethodName = attr.ConstructorArguments[0].Value.ToString();
+                    string registerAttributeJniSig = jniSigArg.Value?.ToString();
+                    object registerAttributeNewJniSig = ReplaceJniSignature(registerAttributeJniSig);
+
+                    attr.ConstructorArguments[1] = new CustomAttributeArgument(jniSigArg.Type, registerAttributeNewJniSig);
+
+                    bool isBindingMethod = true;
+
+                    log.AppendLine($"[Register(\"{attr.ConstructorArguments[0].Value}\", \"{registerAttributeNewJniSig}\")]");
+                }
+            }
+
+            return jni_signature;
+        }
+
+        private AST.MethodBody ProcessMethodBody(Mono.Cecil.Cil.MethodBody method_body)
+        {
+            AST.MethodBody ast_method_body = null;
+
+            // Replace all the JNI Signatures inside the method body
+            foreach (Mono.Cecil.Cil.Instruction instr in method_body.Instructions)
+            {
+                if (instr.OpCode.Name == "ldstr")
+                {
+                    string jniSig = instr.Operand.ToString();
+
+                    int indexOfDot = jniSig.IndexOf('.');
+
+                    if (indexOfDot < 0)
+                    {
+                        continue;
+                    }
+
+                    // New binding glue style is `methodName.(Lparamater/Type;)Lreturn/Type;`
+                    if (indexOfDot >= 0)
+                    {
+                        string methodName = jniSig.Substring(0, indexOfDot);
+                        string newJniSig = ReplaceJniSignature(jniSig.Substring(indexOfDot + 1));
+                        instr.Operand = $"{methodName}.{newJniSig}";
+
+                        log.AppendLine($"{methodName} -> {newJniSig}");
+                    }
+                    // Old style is two strings, one with method name and then `(Lparameter/Type;)Lreturn/Type;`
+                    else if (jniSig.Contains('(') && jniSig.Contains(')'))
+                    {
+                        string methodName = instr.Previous.Operand.ToString();
+                        string newJniSig = ReplaceJniSignature(jniSig);
+                        instr.Operand = newJniSig;
+
+                        log.AppendLine($"{methodName} -> {newJniSig}");
+                    }
+                    else
+                    {
+                        string msg = "Method Body Code Smell";
+                        //throw new 
+                    }
+
+                    if (ast_method_body == null)
+                    {
+                        ast_method_body = new MethodBody();
+                    }
+                }
+            }
+
+            return ast_method_body;
+        }
+
+
 
         static string ReplaceJniSignature(string jniSignature)
         {
@@ -369,6 +550,26 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             string newSig = null;  // sb_newSig.ToString();
 
             return newSig;
+        }
+
+        protected string FindReplacingTypeFromMappings(string typename)
+        {
+            string r = null;
+            int index = ClassMappingsSortedProjected.Span.BinarySearch(typename);
+            if (index < 0)
+            {
+                string msg = "Android.Support class not found in mappings";
+
+                //throw new InvalidOperationException(msg);
+
+                AndroidSupportNotFoundInGoogle.Add(typename);
+            }
+            else
+            {
+                r = ClassMappingsSorted.Span[index].AndroidXClassFullyQualified;    
+            }
+
+            return r;
         }
 
         private void MigrateRadeksSample()

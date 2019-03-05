@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineator.AST
+﻿namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineator.AST
 {
     public class Item
     {
@@ -16,6 +13,12 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
         }
 
         public string NameFullyQualified
+        {
+            get;
+            set;
+        }
+
+        public string NameFullyQualifiedOldMigratred
         {
             get;
             set;
