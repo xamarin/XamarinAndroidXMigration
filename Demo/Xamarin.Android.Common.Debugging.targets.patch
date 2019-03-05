@@ -1,0 +1,29 @@
+diff --git a/s (x86)/Microsoft Visual Studio/2019/Preview/MSBuild/Xamarin/Android/Xamarin.Android.Common.Debugging - Copy.targets b/s (x86)/Microsoft Visual Studio/2019/Preview/MSBuild/Xamarin/Android/Xamarin.Android.Common.Debugging.targets
+index 417c831..e9162cb 100644
+--- a/s (x86)/Microsoft Visual Studio/2019/Preview/MSBuild/Xamarin/Android/Xamarin.Android.Common.Debugging - Copy.targets	
++++ b/s (x86)/Microsoft Visual Studio/2019/Preview/MSBuild/Xamarin/Android/Xamarin.Android.Common.Debugging.targets	
+@@ -278,11 +278,11 @@ Copyright (C) 2016 Xamarin. All rights reserved.
+ 			ApkInputPath="$(_PackagedResources)"
+ 			ApkOutputPath="$(ApkFileIntermediate)"
+ 			EmbedAssemblies="$(EmbedAssembliesIntoApk)"
+-			ResolvedUserAssemblies="@(_ResolvedUserAssemblies);@(_AndroidResolvedSatellitePaths)"
++			ResolvedUserAssemblies="@(_ResolvedUserAssemblies_NoAndroidSupport);@(_AndroidResolvedSatellitePaths)"
+ 			ResolvedFrameworkAssemblies="@(_ShrunkFrameworkAssemblies)"
+ 			NativeLibraries="@(_AndroidNativeLibraryForFastDev)"
+ 			AdditionalNativeLibraryReferences="@(_AdditionalNativeLibraryReferences)"
+-			EmbeddedNativeLibraryAssemblies="$(OutDir)$(TargetFileName);@(ReferencePath);@(ReferenceDependencyPaths)"
++			EmbeddedNativeLibraryAssemblies="$(OutDir)$(TargetFileName);@(ReferencePath_NoAndroidSupport);@(ReferenceDependencyPaths_NoAndroidSupport)"
+ 			DalvikClasses="@(_DexFileForFastDev)"
+ 			SupportedAbis="$(_BuildTargetAbis)"
+ 			AndroidSequencePointsMode="$(_SequencePointsMode)"
+@@ -622,8 +622,8 @@ Copyright (C) 2016 Xamarin. All rights reserved.
+ 			EmbedAssemblies="$(EmbedAssembliesIntoApk)"
+ 			PreserveUserData="$(AndroidPreserveUserData)"
+ 			PackageName="$(_AndroidPackage)"
+-			ResolvedAssemblies="@(_ResolvedAssemblies);@(_AndroidResolvedSatellitePaths)"
+-			ResolvedUserAssemblies="@(_ResolvedUserAssemblies);@(_AndroidResolvedSatellitePaths)"
++			ResolvedAssemblies="@(_ResolvedAssemblies_NoAndroidSupport);@(_AndroidResolvedSatellitePaths)"
++			ResolvedUserAssemblies="@(_ResolvedUserAssemblies_NoAndroidSupport);@(_AndroidResolvedSatellitePaths)"
+ 			PackagedResources="$(_PackagedResources)"
+ 			NativeLibraries="@(AndroidNativeLibrary)"
+ 			DalvikClasses="@(_DexFile)"

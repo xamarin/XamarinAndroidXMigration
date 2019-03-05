@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <Target Name="_DoAndroidXRemovesBeforeImports" BeforeTargets="_ResolveLibraryProjectImports">
+
+        <_RemoveAndroidSupport AllItems="@(ReferencePath)">
+            <Output TaskParameter="NewItems" ItemName="ReferencePath_NoAndroidSupport" />
+        </_RemoveAndroidSupport>
+        <_RemoveAndroidSupport AllItems="@(ReferenceDependencyPaths)">
+            <Output TaskParameter="NewItems" ItemName="ReferenceDependencyPaths_NoAndroidSupport" />
+        </_RemoveAndroidSupport>
+
+    </Target>
+
+    <Target Name="_DoAndroidXRemovesAfterPrepare" AfterTargets="_PrepareAssemblies">
+
+        <_RemoveAndroidSupport AllItems="@(_ResolvedAssemblies)">
+            <Output TaskParameter="NewItems" ItemName="_ResolvedAssemblies_NoAndroidSupport" />
+        </_RemoveAndroidSupport>
+        <_RemoveAndroidSupport AllItems="@(_ResolvedUserAssemblies)">
+            <Output TaskParameter="NewItems" ItemName="_ResolvedUserAssemblies_NoAndroidSupport" />
+        </_RemoveAndroidSupport>
+
+    </Target>
+
+    <Target Name="_DoAndroidXThingsBeforeJava" BeforeTargets="_GenerateJavaStubs">
+
+        <PropertyGroup>
+            <MigratorExe>$(MSBuildThisFileDirectory)Hackathon\bin\Debug\Hackathon.exe</MigratorExe>
+        </PropertyGroup>
+
+        <Exec Command="$(MigratorExe) &quot;%(_ResolvedUserAssemblies_NoAndroidSupport.Identity)&quot;" />
+
+    </Target>
+
+
+    <UsingTask TaskName="_RemoveAndroidSupport"
+               TaskFactory="CodeTaskFactory"
+               AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+        <ParameterGroup>
+            <AllItems ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
+            <NewItems ParameterType="Microsoft.Build.Framework.ITaskItem[]" Output="true" />
+        </ParameterGroup>
+        <Task>
+            <Reference Include="System.Xml"/>
+            <Using Namespace="System"/>
+            <Using Namespace="System.Collections.Generic"/>
+            <Using Namespace="System.IO"/>
+            <Using Namespace="System.Linq"/>
+            <Code Type="Fragment" Language="cs">
+            <![CDATA[
+
+            var newItems = new List<ITaskItem>();
+
+            foreach (var item in AllItems)
+            {
+                var fn = Path.GetFileName(item.ItemSpec);
+                if (!fn.StartsWith("Xamarin.Android.Support.") && !fn.StartsWith("Xamarin.Android.Arch."))
+                    newItems.Add(item);
+            }
+
+            NewItems = newItems.ToArray();
+
+            ]]>
+            </Code>
+        </Task>
+    </UsingTask>
+
+</Project>

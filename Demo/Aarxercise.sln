@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoSupportApp", "NoSupportAp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BabySteps", "BabySteps\BabySteps.csproj", "{AE9412FB-459A-4DB8-82C1-987147DB4F5A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{4BCA87DF-8710-49A0-8135-043A8CB63E1E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{AE9412FB-459A-4DB8-82C1-987147DB4F5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE9412FB-459A-4DB8-82C1-987147DB4F5A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AE9412FB-459A-4DB8-82C1-987147DB4F5A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{4BCA87DF-8710-49A0-8135-043A8CB63E1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BCA87DF-8710-49A0-8135-043A8CB63E1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BCA87DF-8710-49A0-8135-043A8CB63E1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BCA87DF-8710-49A0-8135-043A8CB63E1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
