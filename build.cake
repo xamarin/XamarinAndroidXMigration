@@ -8,8 +8,11 @@ var configuration = Argument("configuration", "Release");
 Task("NativeLibrary")
     .Does(() =>
 {
-    var ext = IsRunningOnWindows() ? ".bat" : "";
-    StartProcess("Aar/Aarxercise/gradlew" + ext, "assembleDebug -p Aar/Aarxercise");
+    if (IsRunningOnWindows()) {
+        StartProcess("Aar/Aarxercise/gradlew.bat", "assembleDebug -p Aar/Aarxercise");
+    } else {
+        StartProcess("bash", "Aar/Aarxercise/gradlew assembleDebug -p Aar/Aarxercise");
+    }
 });
 
 Task("Default")
