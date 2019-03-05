@@ -1,7 +1,7 @@
-diff --git a/s (x86)/Microsoft Visual Studio/2019/Preview/MSBuild/Xamarin/Android/Xamarin.Android.Common.Debugging - Copy.targets b/s (x86)/Microsoft Visual Studio/2019/Preview/MSBuild/Xamarin/Android/Xamarin.Android.Common.Debugging.targets
+diff --git a/ogram Files (x86)/Microsoft Visual Studio/2019/Preview/MSBuild/Xamarin/Android/Xamarin.Android.Common.Debugging - Copy.targets b/ogram Files (x86)/Microsoft Visual Studio/2019/Preview/MSBuild/Xamarin/Android/Xamarin.Android.Common.Debugging.targets
 index 417c831..e9162cb 100644
---- a/s (x86)/Microsoft Visual Studio/2019/Preview/MSBuild/Xamarin/Android/Xamarin.Android.Common.Debugging - Copy.targets	
-+++ b/s (x86)/Microsoft Visual Studio/2019/Preview/MSBuild/Xamarin/Android/Xamarin.Android.Common.Debugging.targets	
+--- a/ogram Files (x86)/Microsoft Visual Studio/2019/Preview/MSBuild/Xamarin/Android/Xamarin.Android.Common.Debugging - Copy.targets	
++++ b/ogram Files (x86)/Microsoft Visual Studio/2019/Preview/MSBuild/Xamarin/Android/Xamarin.Android.Common.Debugging.targets	
 @@ -278,11 +278,11 @@ Copyright (C) 2016 Xamarin. All rights reserved.
  			ApkInputPath="$(_PackagedResources)"
  			ApkOutputPath="$(ApkFileIntermediate)"

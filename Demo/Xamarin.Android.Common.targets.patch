@@ -1,7 +1,7 @@
-diff --git a/s (x86)/Microsoft Visual Studio/2019/Preview/MSBuild/Xamarin/Android/Xamarin.Android.Common - Copy.targets b/s (x86)/Microsoft Visual Studio/2019/Preview/MSBuild/Xamarin/Android/Xamarin.Android.Common.targets
+diff --git a/ogram Files (x86)/Microsoft Visual Studio/2019/Preview/MSBuild/Xamarin/Android/Xamarin.Android.Common - Copy.targets b/ogram Files (x86)/Microsoft Visual Studio/2019/Preview/MSBuild/Xamarin/Android/Xamarin.Android.Common.targets
 index 271b611..48e58a6 100644
---- a/s (x86)/Microsoft Visual Studio/2019/Preview/MSBuild/Xamarin/Android/Xamarin.Android.Common - Copy.targets	
-+++ b/s (x86)/Microsoft Visual Studio/2019/Preview/MSBuild/Xamarin/Android/Xamarin.Android.Common.targets	
+--- a/ogram Files (x86)/Microsoft Visual Studio/2019/Preview/MSBuild/Xamarin/Android/Xamarin.Android.Common - Copy.targets	
++++ b/ogram Files (x86)/Microsoft Visual Studio/2019/Preview/MSBuild/Xamarin/Android/Xamarin.Android.Common.targets	
 @@ -475,7 +475,7 @@ Copyright (C) 2011-2012 Xamarin. All rights reserved.
    <GetAdditionalResourcesFromAssemblies
        AndroidSdkDirectory="$(_AndroidSdkDirectory)"

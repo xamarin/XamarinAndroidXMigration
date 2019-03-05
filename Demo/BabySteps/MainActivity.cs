@@ -1,25 +1,76 @@
 ﻿using Android.App;
 using Android.OS;
+using Android.Widget;
+using BabyStepsLib;
 using System;
 
 namespace BabySteps
 {
-	[Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
+	[Activity(Label = "Android.Support", Theme = "@style/AppTheme", MainLauncher = true)]
 	public class MainActivity : Android.Support.V7.App.AppCompatActivity
 	{
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			var actualBase = GetType().BaseType.FullName;
-			Console.WriteLine("FullName => " + actualBase);
+			Console.WriteLine("\nMainActivity.Base => " + actualBase);
+
+			base.OnCreate(savedInstanceState);
+
+			SetContentView(Resource.Layout.activity_main);
+
+			var button1 = FindViewById<Button>(Resource.Id.button1);
+			button1.Text = "Go to AndroidX";
+			button1.Click += (_, __) => StartActivity(typeof(AndroidXActivity));
+
+			var button2 = FindViewById<Button>(Resource.Id.button2);
+			button2.Text = "Go to Custom";
+			button2.Click += (_, __) => StartActivity(typeof(CustomActivity));
+
+			var button3 = FindViewById<Button>(Resource.Id.button3);
+			button3.Text = "Go to Native";
+			button3.Click += (_, __) => StartActivity(typeof(NativeActivity));
+		}
+	}
+
+	[Activity(Label = "AndroidX", Theme = "@style/AppTheme")]
+	public class AndroidXActivity : AndroidX.AppCompat.App.AppCompatActivity
+	{
+		protected override void OnCreate(Bundle savedInstanceState)
+		{
+			var actualBase = GetType().BaseType.FullName;
+			Console.WriteLine("\nAndroidXActivity.Base => " + actualBase);
 
 			base.OnCreate(savedInstanceState);
 
 			SetContentView(Resource.Layout.activity_main);
 		}
+	}
 
-		protected override void OnResume()
+	[Activity(Label = "Custom", Theme = "@style/AppTheme")]
+	public class CustomActivity : LibraryActivity
+	{
+		protected override void OnCreate(Bundle savedInstanceState)
 		{
-			base.OnResume();
+			var actualBase = GetType().BaseType.FullName;
+			Console.WriteLine("\nCustomActivity.Base => " + actualBase);
+
+			base.OnCreate(savedInstanceState);
+
+			SetContentView(Resource.Layout.activity_main);
+		}
+	}
+
+	[Activity(Label = "Native", Theme = "@style/AppTheme")]
+	public class NativeActivity : Activity
+	{
+		protected override void OnCreate(Bundle savedInstanceState)
+		{
+			var actualBase = GetType().BaseType.FullName;
+			Console.WriteLine("\nNativeActivity.Base => " + actualBase);
+
+			base.OnCreate(savedInstanceState);
+
+			SetContentView(Resource.Layout.activity_main);
 		}
 	}
 }

@@ -1,29 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-    <Target Name="_DoAndroidXRemovesBeforeImports" BeforeTargets="_ResolveLibraryProjectImports">
-
+    <Target Name="_DoAndroidXRemovesBeforeImports" BeforeTargets="_ResolveLibraryProjectImports"
+            Condition="'$(AndroidApplication)' == 'true'">
         <_RemoveAndroidSupport AllItems="@(ReferencePath)">
             <Output TaskParameter="NewItems" ItemName="ReferencePath_NoAndroidSupport" />
         </_RemoveAndroidSupport>
         <_RemoveAndroidSupport AllItems="@(ReferenceDependencyPaths)">
             <Output TaskParameter="NewItems" ItemName="ReferenceDependencyPaths_NoAndroidSupport" />
         </_RemoveAndroidSupport>
-
     </Target>
-
-    <Target Name="_DoAndroidXRemovesAfterPrepare" AfterTargets="_PrepareAssemblies">
-
+    <Target Name="_DoAndroidXRemovesAfterPrepare" AfterTargets="_PrepareAssemblies"
+            Condition="'$(AndroidApplication)' == 'true'">
         <_RemoveAndroidSupport AllItems="@(_ResolvedAssemblies)">
             <Output TaskParameter="NewItems" ItemName="_ResolvedAssemblies_NoAndroidSupport" />
         </_RemoveAndroidSupport>
         <_RemoveAndroidSupport AllItems="@(_ResolvedUserAssemblies)">
             <Output TaskParameter="NewItems" ItemName="_ResolvedUserAssemblies_NoAndroidSupport" />
         </_RemoveAndroidSupport>
-
     </Target>
 
-    <Target Name="_DoAndroidXThingsBeforeJava" BeforeTargets="_GenerateJavaStubs">
+
+    <Target Name="_DoNoAppStuff1" BeforeTargets="_ResolveLibraryProjectImports"
+            Condition="'$(AndroidApplication)' != 'true'">
+        <ItemGroup>
+            <ReferencePath_NoAndroidSupport Include="@(ReferencePath)" />
+            <ReferenceDependencyPaths_NoAndroidSupport Include="@(ReferenceDependencyPaths)" />
+        </ItemGroup>
+    </Target>
+    <Target Name="_DoNoAppStuff2" AfterTargets="_PrepareAssemblies"
+            Condition="'$(AndroidApplication)' != 'true'">
+        <ItemGroup>
+            <_ResolvedAssemblies_NoAndroidSupport Include="@(_ResolvedAssemblies)" />
+            <_ResolvedUserAssemblies_NoAndroidSupport Include="@(_ResolvedUserAssemblies)" />
+        </ItemGroup>
+    </Target>
+
+
+    <Target Name="_DoAndroidXThingsBeforeJava" BeforeTargets="_GenerateJavaStubs"
+            Condition="'$(AndroidApplication)' == 'true'">
 
         <PropertyGroup>
             <MigratorExe>$(MSBuildThisFileDirectory)Hackathon\bin\Debug\Hackathon.exe</MigratorExe>
