@@ -14,5 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\source\Xamarin.AndroidX.Cecilfier\Xamarin.AndroidX.Cecilfier.csproj" />
+    <ProjectReference Include="..\..\samples\Xamarin.AndroidX.Cecilfier.App\Xamarin.AndroidX.Cecilfier.App.csproj" />
   </ItemGroup>
 </Project>

@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.XUnit", "Tests.XUnit\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XtremelyDummyProjectForReferencingAssemblies", "XtremelyDummyProjectForReferencingAssemblies\XtremelyDummyProjectForReferencingAssemblies.csproj", "{60A4581A-02FC-4DBE-AE63-A35B5A1C16F3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{5BD475CB-CC54-41F6-98F2-1ECD4CBABA85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.AndroidX.Cecilfier.App", "..\samples\Xamarin.AndroidX.Cecilfier.App\Xamarin.AndroidX.Cecilfier.App.csproj", "{5581F573-616B-4938-9989-D1F4EA8C9E08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,8 +33,13 @@ Global
 		{60A4581A-02FC-4DBE-AE63-A35B5A1C16F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60A4581A-02FC-4DBE-AE63-A35B5A1C16F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60A4581A-02FC-4DBE-AE63-A35B5A1C16F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5581F573-616B-4938-9989-D1F4EA8C9E08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5581F573-616B-4938-9989-D1F4EA8C9E08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5581F573-616B-4938-9989-D1F4EA8C9E08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5581F573-616B-4938-9989-D1F4EA8C9E08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{87A8ECE5-97B6-48F2-9C77-B8E7CC0B8E1E} = {E447B266-0996-4458-987D-3F1177632D28}
+		{5581F573-616B-4938-9989-D1F4EA8C9E08} = {5BD475CB-CC54-41F6-98F2-1ECD4CBABA85}
 	EndGlobalSection
 EndGlobal
