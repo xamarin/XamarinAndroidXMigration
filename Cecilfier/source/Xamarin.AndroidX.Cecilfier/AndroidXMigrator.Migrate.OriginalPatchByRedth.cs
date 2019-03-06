@@ -1,72 +1,56 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Diagnostics;
 
-using Mono.Cecil.Rocks;
 using Mono.Cecil;
-using HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineator.AST;
 using System.Collections.Generic;
+
+using HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineator.AST;
 
 namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineator
 {
     public partial class AndroidXMigrator
     {
-        System.Text.StringBuilder log = new System.Text.StringBuilder();
-
-        Stopwatch timer = new Stopwatch();
-
-        string replacement = null;
-
-        private void MigrateWithWithStringsOriginalPatchByRedth()
+        private void MigrateWithWithStringsOriginalPatchByRedth(ref long duration)
         {
-            string msg = $"androidx-migrated-{DateTime.Now.ToString("yyyyMMdd-HHmmss")}";
+            string msg = $"{DateTime.Now.ToString("yyyyMMdd-HHmmss")}-androidx-migrated";
 
             int idx = this.PathAssemblyOutput.LastIndexOf(Path.DirectorySeparatorChar) + 1;
             string asm = this.PathAssemblyOutput.Substring(idx, this.PathAssemblyOutput.Length - idx );
 
             if
                 (
-                    asm.StartsWith("Java.Interop", StringComparison.InvariantCultureIgnoreCase)
-                    ||
                     asm.StartsWith("System", StringComparison.InvariantCultureIgnoreCase)
                     ||
                     asm.StartsWith("Microsoft", StringComparison.InvariantCultureIgnoreCase)
+                    ||
+                    asm.StartsWith("Java.Interop", StringComparison.InvariantCultureIgnoreCase)
                 )
             {
+                duration = -1;
+
                 return;
             }
 
+            log = new System.Text.StringBuilder();
+            timer = new System.Diagnostics.Stopwatch();
             timer.Start();
 
-            System.Threading.Tasks.Parallel.Invoke
-                                                (
-                                                    () =>
-                                                    {
-                                                        if (File.Exists(this.PathAssemblyOutput))
-                                                        {
-                                                            File.Delete(this.PathAssemblyOutput);
-                                                        }
-                                                        File.Copy
-                                                                (
-                                                                    this.PathAssemblyInput,
-                                                                    this.PathAssemblyOutput
-                                                                );
-                                                    },
-                                                    () =>
-                                                    {
-                                                        if(File.Exists(Path.ChangeExtension(this.PathAssemblyOutput, "pdb")))
-                                                        {
-                                                            File.Delete(Path.ChangeExtension(this.PathAssemblyOutput, "pdb"));
-                                                        }
-                                                        File.Copy
-                                                               (
-                                                                    Path.ChangeExtension(this.PathAssemblyInput, "pdb"),
-                                                                    Path.ChangeExtension(this.PathAssemblyOutput, "pdb")
-                                                                );
-                                                    }
-                                                );
- 
+            if (File.Exists(this.PathAssemblyOutput))
+            {
+                File.Delete(this.PathAssemblyOutput);
+            }
+            File.Copy(this.PathAssemblyInput, this.PathAssemblyOutput);
+
+            if(File.Exists(Path.ChangeExtension(this.PathAssemblyOutput, "pdb")))
+            {
+                File.Delete(Path.ChangeExtension(this.PathAssemblyOutput, "pdb"));
+            }
+            if (File.Exists(Path.ChangeExtension(this.PathAssemblyInput, "pdb")))
+            {
+                File.Copy(Path.ChangeExtension(this.PathAssemblyInput, "pdb"), Path.ChangeExtension(this.PathAssemblyOutput, "pdb"));
+            }
+
             bool hasPdb = File.Exists(Path.ChangeExtension(this.PathAssemblyInput, "pdb"));
 
 			var readerParams = new ReaderParameters
@@ -100,7 +84,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 System.Diagnostics.Trace.WriteLine($"    migrating Module           = {module.Name}");
                 //module.AssemblyReferences;
 
-                AST.Module ast_module = ProcessModule(module);
+                AST.Module ast_module = ProcessModuleRedth(module);
 
                 if(ast_module != null)
                 {
@@ -115,9 +99,13 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 }
             }
 
+            AndroidXMigrator.AbstractSyntaxTree.Assemblies.Add(ast_assembly);
             timer.Stop();
 
-            AndroidXMigrator.AbstractSyntaxTree.Assemblies.Add(ast_assembly);
+            log.AppendLine($"{timer.ElapsedMilliseconds}ms");
+            System.Diagnostics.Trace.WriteLine($"{timer.ElapsedMilliseconds}ms");
+            //System.Diagnostics.Trace.WriteLine(log.ToString());
+
 
             File.WriteAllText
                 (
@@ -133,19 +121,62 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                     )
                 );
 
-            log.AppendLine($"{timer.ElapsedMilliseconds}ms");
 
             System.Diagnostics.Debug.WriteLine(log.ToString());
             System.IO.File.WriteAllText(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.txt"), log.ToString());
 
             asm_def.Write();
 
+            duration = timer.ElapsedMilliseconds;
+
             return;
         }
 
-        private Module ProcessModule(ModuleDefinition module)
+        private Module ProcessModuleRedth(ModuleDefinition module)
         {
             AST.Module ast_module = null;
+
+            foreach (TypeReference type in module.GetTypeReferences())
+            {
+                if
+                    (
+                        //type.FullName == "<Module>"
+                        //||
+                        //type.FullName == "<PrivateImplementationDetails>"
+                        //||
+                        type.FullName.StartsWith("System.", StringComparison.Ordinal)
+                        ||
+                        type.FullName.StartsWith("Microsoft.", StringComparison.Ordinal)
+                        ||
+                        type.FullName.StartsWith("AndroidX.", StringComparison.Ordinal)
+                        ||
+                        type.FullName.StartsWith("Java.Interop.", StringComparison.Ordinal)
+                    )
+                {
+                    continue;
+                }
+                System.Diagnostics.Trace.WriteLine($"    processing ReferenceType");
+                System.Diagnostics.Trace.WriteLine($"        Name        = {type.Name}");
+                System.Diagnostics.Trace.WriteLine($"        FullName    = {type.FullName}");
+
+                AST.Type ast_type = ProcessTypeReferenceRedth(type);
+
+                if (ast_type == null)
+                {
+                    continue;
+                }
+                else
+                {
+                    if (ast_module == null)
+                    {
+                        ast_module = new AST.Module()
+                        {
+                            Name = module.Name
+                        };
+                    }
+                    ast_module.TypesReference.Add(ast_type);
+                }
+            }
 
             foreach (TypeDefinition type in module.Types)
             {
@@ -155,13 +186,13 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                         //||
                         //type.FullName == "<PrivateImplementationDetails>"
                         //||
-                        type.FullName.StartsWith("AndroidX", StringComparison.Ordinal)
+                        type.FullName.StartsWith("System.", StringComparison.Ordinal)
                         ||
-                        type.FullName.StartsWith("Java.Interop", StringComparison.Ordinal)
+                        type.FullName.StartsWith("Microsoft.", StringComparison.Ordinal)
                         ||
-                        type.FullName.StartsWith("System", StringComparison.Ordinal)
+                        type.FullName.StartsWith("AndroidX.", StringComparison.Ordinal)
                         ||
-                        type.FullName.StartsWith("Microsoft", StringComparison.Ordinal)
+                        type.FullName.StartsWith("Java.Interop.", StringComparison.Ordinal)
                     )
                 {
                     continue;
@@ -173,7 +204,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 System.Diagnostics.Trace.WriteLine($"        IsClass     = {type.IsClass}");
                 System.Diagnostics.Trace.WriteLine($"        IsInterface = {type.IsInterface}");
 
-                AST.Type ast_type = ProcessType(type);
+                AST.Type ast_type = ProcessTypeRedth(type);
 
                 if(ast_type == null)
                 {
@@ -196,11 +227,11 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             return ast_module;
         }
 
-        private AST.Type ProcessType(TypeDefinition type)
+        private AST.Type ProcessTypeRedth(TypeDefinition type)
         {
             AST.Type ast_type = null;
 
-            AST.Type ast_type_base = ProcessBaseType(type.BaseType);
+            AST.Type ast_type_base = ProcessBaseTypeRedth(type.BaseType);
             if(ast_type_base != null)
             {
                 TypeDefinition type_found = type.Module.Types
@@ -211,13 +242,24 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             List<AST.Type> ast_types_nested = null;
             foreach (TypeDefinition type_nested in type.NestedTypes)
             {
-                AST.Type ast_type_nested = ProcessNestedType(type_nested);
+                AST.Type ast_type_nested = ProcessNestedTypeRedth(type_nested);
+
+                if (ast_type_nested != null)
+                {
+                    ast_types_nested = new List<AST.Type>();
+                }
+                else
+                {
+                    continue;
+                }
+
+                ast_types_nested.Add(ast_type_nested);
             }
 
             List<AST.Method> ast_methods = null;
             foreach(var method in type.Methods)
             {
-                AST.Method ast_method = ProcessMethod(method);
+                AST.Method ast_method = ProcessMethodRedth(method);
 
                 if (ast_method != null)
                 {
@@ -242,19 +284,63 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 NameFullyQualified = type.FullName,
             };
 
-            if (ast_type_base != null)
+            if (ast_type != null)
             {
                 ast_type.BaseType = ast_type_base;
             }
             if (ast_methods != null)
             {
-                ast_type_base.Methods = ast_methods;
+                ast_type.Methods = ast_methods;
             }
 
             return ast_type;
         }
 
-        private AST.Type ProcessBaseType(TypeReference type_base)
+        private AST.Type ProcessTypeReferenceRedth(TypeReference type)
+        {
+            AST.Type ast_type_base = null;
+
+            if
+                (
+                    type == null
+                    ||
+                    ! (type?.FullName).StartsWith("Android.Support.", StringComparison.Ordinal)
+                )
+            {
+                return ast_type_base;
+            }
+
+            System.Diagnostics.Trace.WriteLine($"        processing References - TypeReference");
+            System.Diagnostics.Trace.WriteLine($"            Name        = {type.Name}");
+            System.Diagnostics.Trace.WriteLine($"            FullName    = {type.FullName}");
+
+            string type_fqn_old = type.FullName;
+
+            string r = FindReplacingTypeFromMappings(type.FullName);
+            if (string.IsNullOrEmpty(r))
+            {
+                return ast_type_base;
+            }
+
+            int idx = r.LastIndexOf('.');
+            type.Namespace = r.Substring(0, idx);
+			type.Scope.Name = r.Substring(idx + 1, r.Length - idx - 1);
+
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            log.AppendLine($"    BaseType: {type.FullName}");
+            Console.ResetColor();
+
+           ast_type_base = new AST.Type()
+           {
+               Name = type.Name,
+               NameFullyQualified = type.FullName,
+               NameFullyQualifiedOldMigratred = type_fqn_old
+           };
+
+            return ast_type_base;
+        }
+
+        private AST.Type ProcessBaseTypeRedth(TypeReference type_base)
         {
             AST.Type ast_type_base = null;
 
@@ -262,7 +348,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 (
                     type_base == null
                     ||
-                    ! (type_base?.FullName).StartsWith("Android.Support", StringComparison.Ordinal)
+                    ! (type_base?.FullName).StartsWith("Android.Support.", StringComparison.Ordinal)
                 )
             {
                 return ast_type_base;
@@ -275,7 +361,15 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             string type_fqn_old = type_base.FullName;
 
             string r = FindReplacingTypeFromMappings(type_base.FullName);
+            if (string.IsNullOrEmpty(r))
+            {
+                return ast_type_base;
+            }
             int idx = r.LastIndexOf('.');
+            if (idx < 0)
+            {
+                return ast_type_base;
+            }
             type_base.Namespace = r.Substring(0, idx);
 			type_base.Scope.Name = r.Substring(idx + 1, r.Length - idx - 1);
 
@@ -293,7 +387,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             return ast_type_base;
         }
 
-        private AST.Type ProcessNestedType(TypeDefinition type_nested)
+        private AST.Type ProcessNestedTypeRedth(TypeDefinition type_nested)
         {
             AST.Type ast_type_nested = null;
 
@@ -301,7 +395,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 (
                     type_nested == null
                     ||
-                    ! type_nested.FullName.StartsWith("Android.Support")
+                    ! type_nested.FullName.StartsWith("Android.Support.")
                     ||
                     type_nested.Name.Contains("<>c")  // anonymous methods, lambdas 
                     ||
@@ -313,9 +407,14 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             
             string type_nested_fqn_old = type_nested.FullName;
             string r = FindReplacingTypeFromMappings(type_nested.FullName);
-            int idx = r.LastIndexOf('.');
-            type_nested.Namespace = r.Substring(0, idx);
-			type_nested.Scope.Name = r.Substring(idx + 1, r.Length - idx - 1);
+            if (string.IsNullOrEmpty(r))
+            {
+                return ast_type_nested;
+            }
+            int idx1 = r.LastIndexOf('.');
+            int idx2 = r.LastIndexOf('/');
+            type_nested.Namespace = r.Substring(0, idx1);
+			//type_nested.Scope.Name = r.Substring(idx1 + 1, r.Length - idx2 - 1);
             Console.ResetColor();
 
             ast_type_nested = new AST.Type()
@@ -329,7 +428,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
         }
 
 
-        private AST.Method ProcessMethod(MethodDefinition method)
+        private AST.Method ProcessMethodRedth(MethodDefinition method)
         {
             AST.Method ast_method = null;
 
@@ -337,14 +436,14 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             System.Diagnostics.Trace.WriteLine($"           Name        = {method.Name}");
             System.Diagnostics.Trace.WriteLine($"           FullName    = {method.ReturnType.FullName}");
 
-            AST.Type ast_method_type_return = ProcessMethodReturnType(method.ReturnType);
+            AST.Type ast_method_type_return = ProcessMethodReturnTypeRedth(method.ReturnType);
 
-            string jni_signature = ProcessMethodJNISignature(method);
+            string jni_signature = ProcessMethodJNISignatureRedth(method);
 
             List<AST.Parameter> ast_method_parameters = null;
             foreach (ParameterDefinition method_parameter in method.Parameters)
             {
-                AST.Parameter ast_method_parameter = ProcessMethodParameter(method_parameter);
+                AST.Parameter ast_method_parameter = ProcessMethodParameterRedth(method_parameter);
 
                 if (ast_method_parameter != null)
                 {
@@ -360,7 +459,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 ast_method_parameters.Add(ast_method_parameter);
             }
 
-            AST.MethodBody ast_method_body = ProcessMethodBody(method.Body);
+            AST.MethodBody ast_method_body = ProcessMethodBodyRedth(method.Body);
 
             if (ast_method_type_return == null && jni_signature == null && ast_method_body == null && ast_method_parameters == null)
             {
@@ -387,11 +486,11 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             return ast_method;
         }
 
-        private AST.Type ProcessMethodReturnType(TypeReference type_return)
+        private AST.Type ProcessMethodReturnTypeRedth(TypeReference type_return)
         {
             AST.Type ast_type_return = null;
 
-            if (! type_return.FullName.StartsWith("Android.Support"))
+            if (! type_return.FullName.StartsWith("Android.Support."))
             {
                 return ast_type_return;
             }
@@ -401,6 +500,10 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             System.Diagnostics.Trace.WriteLine($"           FullName    = {type_return.FullName}");
 
             string r = FindReplacingTypeFromMappings(type_return.FullName);
+            if (string.IsNullOrEmpty(r))
+            {
+                return ast_type_return;
+            }
             type_return.Namespace = replacement;
             Console.ForegroundColor = ConsoleColor.DarkRed;
             log.AppendLine($"{type_return.Name} returns {type_return.FullName}");
@@ -409,12 +512,25 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             return ast_type_return;
         }
 
-        private AST.Parameter ProcessMethodParameter(ParameterDefinition method_parameter)
+        private AST.Parameter ProcessMethodParameterRedth(ParameterDefinition method_parameter)
         {
             AST.Parameter ast_method_parameter = null;
 
+            if
+                (
+                    method_parameter == null
+                    ||
+                    ! method_parameter.ParameterType.FullName.StartsWith("Android.Support.", StringComparison.Ordinal)
+                )
+            {
+                return ast_method_parameter;
+            }
 
             string r = FindReplacingTypeFromMappings(method_parameter.ParameterType.FullName);
+            if (string.IsNullOrEmpty(r))
+            {
+                return ast_method_parameter;
+            }
             method_parameter.ParameterType.Namespace = r;
 
             ast_method_parameter = new AST.Parameter()
@@ -425,7 +541,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             return ast_method_parameter;
         }
 
-        private string ProcessMethodJNISignature(MethodDefinition method)
+        private string ProcessMethodJNISignatureRedth(MethodDefinition method)
         {
             string jni_signature = null;
 
@@ -437,7 +553,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
                     string registerAttrMethodName = attr.ConstructorArguments[0].Value.ToString();
                     string registerAttributeJniSig = jniSigArg.Value?.ToString();
-                    object registerAttributeNewJniSig = ReplaceJniSignature(registerAttributeJniSig);
+                    object registerAttributeNewJniSig = ReplaceJniSignatureRedth(registerAttributeJniSig);
 
                     attr.ConstructorArguments[1] = new CustomAttributeArgument(jniSigArg.Type, registerAttributeNewJniSig);
 
@@ -450,9 +566,14 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             return jni_signature;
         }
 
-        private AST.MethodBody ProcessMethodBody(Mono.Cecil.Cil.MethodBody method_body)
+        private AST.MethodBody ProcessMethodBodyRedth(Mono.Cecil.Cil.MethodBody method_body)
         {
             AST.MethodBody ast_method_body = null;
+
+            if (method_body == null)
+            {
+                return ast_method_body;
+            }
 
             // Replace all the JNI Signatures inside the method body
             foreach (Mono.Cecil.Cil.Instruction instr in method_body.Instructions)
@@ -472,7 +593,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                     if (indexOfDot >= 0)
                     {
                         string methodName = jniSig.Substring(0, indexOfDot);
-                        string newJniSig = ReplaceJniSignature(jniSig.Substring(indexOfDot + 1));
+                        string newJniSig = ReplaceJniSignatureRedth(jniSig.Substring(indexOfDot + 1));
                         instr.Operand = $"{methodName}.{newJniSig}";
 
                         log.AppendLine($"{methodName} -> {newJniSig}");
@@ -481,7 +602,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                     else if (jniSig.Contains('(') && jniSig.Contains(')'))
                     {
                         string methodName = instr.Previous.Operand.ToString();
-                        string newJniSig = ReplaceJniSignature(jniSig);
+                        string newJniSig = ReplaceJniSignatureRedth(jniSig);
                         instr.Operand = newJniSig;
 
                         log.AppendLine($"{methodName} -> {newJniSig}");
@@ -504,7 +625,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
 
 
-        static string ReplaceJniSignature(string jniSignature)
+        static string ReplaceJniSignatureRedth(string jniSignature)
         {
             if
                 (
@@ -550,36 +671,6 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             string newSig = null;  // sb_newSig.ToString();
 
             return newSig;
-        }
-
-        protected string FindReplacingTypeFromMappings(string typename)
-        {
-            string r = null;
-            int index = ClassMappingsSortedProjected.Span.BinarySearch(typename);
-            if (index < 0)
-            {
-                string msg = "Android.Support class not found in mappings";
-
-                //throw new InvalidOperationException(msg);
-
-                AndroidSupportNotFoundInGoogle.Add(typename);
-            }
-            else
-            {
-                r = ClassMappingsSorted.Span[index].AndroidXClassFullyQualified;    
-            }
-
-            return r;
-        }
-
-        private void MigrateRadeksSample()
-        {
-            var a = AssemblyDefinition.ReadAssembly ("a.dll", new ReaderParameters { ReadWrite = true, InMemory = true });
-            var b = AssemblyDefinition.ReadAssembly ("b.dll", new ReaderParameters { ReadWrite = true, InMemory = true });
-            var t = a.MainModule.GetType ("N1.Abc");
-            t.Namespace = "N2";
-            a.Write ("a.dll");
-            b.Write ("b.dll");
         }
     }
 }

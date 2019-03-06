@@ -8,14 +8,9 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
         public Module()
         {
             Types = new List<Type>();
+            TypesReference = new List<Type>();
 
             return;
-        }
-
-        public string Name
-        {
-            get;
-            set;
         }
 
         public List<Type> Types
@@ -24,5 +19,10 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             set;
         }
 
+        public List<Type> TypesReference
+        {
+            get;
+            set;
+        }
     }
 }
