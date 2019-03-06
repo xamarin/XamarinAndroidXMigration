@@ -3,8 +3,9 @@
 # test-xamarin-androidx-cecilfier.sh
 
 # sh ./build.sh 
+# cd ./Cecilfier/
 # dotnet publish ./samples/Xamarin.AndroidX.Cecilfier.App
-# cp ./samples/
+# cp ./samples/Xamarin.AndroidX.Cecilfier.App/bin/Debug/netcoreapp3.0/publish/* ./bin/
 
 
 
