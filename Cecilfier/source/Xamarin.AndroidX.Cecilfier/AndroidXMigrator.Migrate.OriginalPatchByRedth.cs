@@ -18,7 +18,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
         string replacement = null;
 
-        private void MigrateWithWithStringsOriginalPatchByRedth()
+        private void MigrateWithWithStringsOriginalPatchByRedth(ref long duration)
         {
             string msg = $"androidx-migrated-{DateTime.Now.ToString("yyyyMMdd-HHmmss")}";
 
@@ -34,6 +34,8 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                     asm.StartsWith("Microsoft", StringComparison.InvariantCultureIgnoreCase)
                 )
             {
+                duration = -1;
+
                 return;
             }
 
@@ -115,9 +117,13 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 }
             }
 
+            AndroidXMigrator.AbstractSyntaxTree.Assemblies.Add(ast_assembly);
             timer.Stop();
 
-            AndroidXMigrator.AbstractSyntaxTree.Assemblies.Add(ast_assembly);
+            log.AppendLine($"{timer.ElapsedMilliseconds}ms");
+            System.Diagnostics.Trace.WriteLine($"{timer.ElapsedMilliseconds}ms");
+            //System.Diagnostics.Trace.WriteLine(log.ToString());
+
 
             File.WriteAllText
                 (
@@ -133,12 +139,13 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                     )
                 );
 
-            log.AppendLine($"{timer.ElapsedMilliseconds}ms");
 
             System.Diagnostics.Debug.WriteLine(log.ToString());
             System.IO.File.WriteAllText(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log.txt"), log.ToString());
 
             asm_def.Write();
+
+            duration = timer.ElapsedMilliseconds;
 
             return;
         }
@@ -146,6 +153,48 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
         private Module ProcessModule(ModuleDefinition module)
         {
             AST.Module ast_module = null;
+
+            foreach (TypeReference type in module.GetTypeReferences())
+            {
+                if
+                    (
+                        //type.FullName == "<Module>"
+                        //||
+                        //type.FullName == "<PrivateImplementationDetails>"
+                        //||
+                        type.FullName.StartsWith("AndroidX", StringComparison.Ordinal)
+                        ||
+                        type.FullName.StartsWith("Java.Interop", StringComparison.Ordinal)
+                        ||
+                        type.FullName.StartsWith("System", StringComparison.Ordinal)
+                        ||
+                        type.FullName.StartsWith("Microsoft", StringComparison.Ordinal)
+                    )
+                {
+                    continue;
+                }
+                System.Diagnostics.Trace.WriteLine($"    processing ReferenceType");
+                System.Diagnostics.Trace.WriteLine($"        Name        = {type.Name}");
+                System.Diagnostics.Trace.WriteLine($"        FullName    = {type.FullName}");
+
+                AST.Type ast_type = ProcessTypeReference(type);
+
+                if (ast_type == null)
+                {
+                    continue;
+                }
+                else
+                {
+                    if (ast_module == null)
+                    {
+                        ast_module = new AST.Module()
+                        {
+                            Name = module.Name
+                        };
+                    }
+                    ast_module.TypesReference.Add(ast_type);
+                }
+            }
 
             foreach (TypeDefinition type in module.Types)
             {
@@ -242,16 +291,55 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 NameFullyQualified = type.FullName,
             };
 
-            if (ast_type_base != null)
+            if (ast_type != null)
             {
                 ast_type.BaseType = ast_type_base;
             }
             if (ast_methods != null)
             {
-                ast_type_base.Methods = ast_methods;
+                ast_type.Methods = ast_methods;
             }
 
             return ast_type;
+        }
+
+        private AST.Type ProcessTypeReference(TypeReference type)
+        {
+            AST.Type ast_type_base = null;
+
+            if
+                (
+                    type == null
+                    ||
+                    ! (type?.FullName).StartsWith("Android.Support", StringComparison.Ordinal)
+                )
+            {
+                return ast_type_base;
+            }
+
+            System.Diagnostics.Trace.WriteLine($"        processing References - TypeReference");
+            System.Diagnostics.Trace.WriteLine($"            Name        = {type.Name}");
+            System.Diagnostics.Trace.WriteLine($"            FullName    = {type.FullName}");
+
+            string type_fqn_old = type.FullName;
+
+            string r = FindReplacingTypeFromMappings(type.FullName);
+            int idx = r.LastIndexOf('.');
+            type.Namespace = r.Substring(0, idx);
+			type.Scope.Name = r.Substring(idx + 1, r.Length - idx - 1);
+
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            log.AppendLine($"    BaseType: {type.FullName}");
+            Console.ResetColor();
+
+           ast_type_base = new AST.Type()
+           {
+               Name = type.Name,
+               NameFullyQualified = type.FullName,
+               NameFullyQualifiedOldMigratred = type_fqn_old
+           };
+
+            return ast_type_base;
         }
 
         private AST.Type ProcessBaseType(TypeReference type_base)

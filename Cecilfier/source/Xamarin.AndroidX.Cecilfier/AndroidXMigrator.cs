@@ -6,6 +6,8 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using Core.Linq;
 
+[assembly:System.Runtime.CompilerServices.InternalsVisibleTo("Tests.XUnit")]
+
 namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineator
 {
     public partial class AndroidXMigrator
@@ -43,6 +45,8 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
             return;
         }
+
+        public static HashSet<string> AndroidSupportNotFoundInGoogle = new HashSet<string>();
 
         // Android Support for searching
         // sorted for BinarySearch
@@ -219,8 +223,6 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
         }
         //-------------------------------------------------------------------------------------------------------------------
 
-        public static HashSet<string> AndroidSupportNotFoundInGoogle = new HashSet<string>();
-
         private static void Initialize()
         {
             System.Diagnostics.Trace.WriteLine($"    Initialize...");
@@ -258,17 +260,19 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             set;
         }
 
-        partial void MigrateWithSpanMemory();
+        partial void MigrateWithSpanMemory(ref long duration);
 
         public void Migrate(bool span_memory_implementation = false)
         {
+            long duration = -1;
+
             if (span_memory_implementation)
             {
-                MigrateWithSpanMemory(); 
+                MigrateWithSpanMemory(ref duration); 
             }
             else
             {
-                MigrateWithWithStringsOriginalPatchByRedth();
+                MigrateWithWithStringsOriginalPatchByRedth(ref duration);
             }
 
             return;
