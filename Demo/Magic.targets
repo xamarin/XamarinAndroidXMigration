@@ -8,7 +8,7 @@
             <MigratorExe>$(MSBuildThisFileDirectory)Hackathon\bin\Debug\Hackathon.exe</MigratorExe>
         </PropertyGroup>
 
-        <Exec Command="$(MigratorExe) &quot;%(_ResolvedUserAssemblies_NoAndroidSupport.Identity)&quot;" />
+        <Exec Command="$(MigratorExe) &quot;%(_ResolvedUserAssemblies_NoAndroidSupport.Identity)&quot; &quot;%(_ResolvedUserAssemblies_NoAndroidSupport.Identity)&quot;" />
 
     </Target>
 

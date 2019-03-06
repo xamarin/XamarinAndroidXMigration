@@ -3070,17 +3070,17 @@ namespace BabySteps
 			// aapt resource value: 0x7f0d0069
 			public const int action_bar_title = 2131558505;
 			
-			// aapt resource value: 0x7f0d00ad
-			public const int action_container = 2131558573;
+			// aapt resource value: 0x7f0d00ae
+			public const int action_container = 2131558574;
 			
 			// aapt resource value: 0x7f0d008e
 			public const int action_context_bar = 2131558542;
 			
-			// aapt resource value: 0x7f0d00b8
-			public const int action_divider = 2131558584;
+			// aapt resource value: 0x7f0d00b9
+			public const int action_divider = 2131558585;
 			
-			// aapt resource value: 0x7f0d00ae
-			public const int action_image = 2131558574;
+			// aapt resource value: 0x7f0d00af
+			public const int action_image = 2131558575;
 			
 			// aapt resource value: 0x7f0d000a
 			public const int action_menu_divider = 2131558410;
@@ -3097,11 +3097,11 @@ namespace BabySteps
 			// aapt resource value: 0x7f0d006b
 			public const int action_mode_close_button = 2131558507;
 			
-			// aapt resource value: 0x7f0d00af
-			public const int action_text = 2131558575;
+			// aapt resource value: 0x7f0d00b0
+			public const int action_text = 2131558576;
 			
-			// aapt resource value: 0x7f0d00b9
-			public const int actions = 2131558585;
+			// aapt resource value: 0x7f0d00ba
+			public const int actions = 2131558586;
 			
 			// aapt resource value: 0x7f0d006c
 			public const int activity_chooser_view_content = 2131558508;
@@ -3133,14 +3133,14 @@ namespace BabySteps
 			// aapt resource value: 0x7f0d0030
 			public const int bottom = 2131558448;
 			
-			// aapt resource value: 0x7f0d009d
-			public const int button1 = 2131558557;
-			
 			// aapt resource value: 0x7f0d009e
-			public const int button2 = 2131558558;
+			public const int button1 = 2131558558;
 			
 			// aapt resource value: 0x7f0d009f
-			public const int button3 = 2131558559;
+			public const int button2 = 2131558559;
+			
+			// aapt resource value: 0x7f0d00a0
+			public const int button3 = 2131558560;
 			
 			// aapt resource value: 0x7f0d0072
 			public const int buttonPanel = 2131558514;
@@ -3157,8 +3157,8 @@ namespace BabySteps
 			// aapt resource value: 0x7f0d0086
 			public const int checkbox = 2131558534;
 			
-			// aapt resource value: 0x7f0d00b7
-			public const int chronometer = 2131558583;
+			// aapt resource value: 0x7f0d00b8
+			public const int chronometer = 2131558584;
 			
 			// aapt resource value: 0x7f0d0061
 			public const int clip_horizontal = 2131558497;
@@ -3169,8 +3169,8 @@ namespace BabySteps
 			// aapt resource value: 0x7f0d005d
 			public const int collapseActionView = 2131558493;
 			
-			// aapt resource value: 0x7f0d00a3
-			public const int container = 2131558563;
+			// aapt resource value: 0x7f0d00a4
+			public const int container = 2131558564;
 			
 			// aapt resource value: 0x7f0d0082
 			public const int content = 2131558530;
@@ -3178,8 +3178,8 @@ namespace BabySteps
 			// aapt resource value: 0x7f0d0075
 			public const int contentPanel = 2131558517;
 			
-			// aapt resource value: 0x7f0d00a4
-			public const int coordinator = 2131558564;
+			// aapt resource value: 0x7f0d00a5
+			public const int coordinator = 2131558565;
 			
 			// aapt resource value: 0x7f0d007c
 			public const int custom = 2131558524;
@@ -3193,20 +3193,20 @@ namespace BabySteps
 			// aapt resource value: 0x7f0d006f
 			public const int default_activity_button = 2131558511;
 			
-			// aapt resource value: 0x7f0d00a6
-			public const int design_bottom_sheet = 2131558566;
+			// aapt resource value: 0x7f0d00a7
+			public const int design_bottom_sheet = 2131558567;
+			
+			// aapt resource value: 0x7f0d00ac
+			public const int design_menu_item_action_area = 2131558572;
 			
 			// aapt resource value: 0x7f0d00ab
-			public const int design_menu_item_action_area = 2131558571;
+			public const int design_menu_item_action_area_stub = 2131558571;
 			
 			// aapt resource value: 0x7f0d00aa
-			public const int design_menu_item_action_area_stub = 2131558570;
+			public const int design_menu_item_text = 2131558570;
 			
 			// aapt resource value: 0x7f0d00a9
-			public const int design_menu_item_text = 2131558569;
-			
-			// aapt resource value: 0x7f0d00a8
-			public const int design_navigation_view = 2131558568;
+			public const int design_navigation_view = 2131558569;
 			
 			// aapt resource value: 0x7f0d004c
 			public const int disableHome = 2131558476;
@@ -3265,8 +3265,8 @@ namespace BabySteps
 			// aapt resource value: 0x7f0d0071
 			public const int icon = 2131558513;
 			
-			// aapt resource value: 0x7f0d00ba
-			public const int icon_group = 2131558586;
+			// aapt resource value: 0x7f0d00bb
+			public const int icon_group = 2131558587;
 			
 			// aapt resource value: 0x7f0d005e
 			public const int ifRoom = 2131558494;
@@ -3274,8 +3274,8 @@ namespace BabySteps
 			// aapt resource value: 0x7f0d006e
 			public const int image = 2131558510;
 			
-			// aapt resource value: 0x7f0d00b3
-			public const int info = 2131558579;
+			// aapt resource value: 0x7f0d00b4
+			public const int info = 2131558580;
 			
 			// aapt resource value: 0x7f0d0068
 			public const int italic = 2131558504;
@@ -3286,8 +3286,11 @@ namespace BabySteps
 			// aapt resource value: 0x7f0d002d
 			public const int labeled = 2131558445;
 			
-			// aapt resource value: 0x7f0d00a2
-			public const int largeLabel = 2131558562;
+			// aapt resource value: 0x7f0d00a3
+			public const int largeLabel = 2131558563;
+			
+			// aapt resource value: 0x7f0d009d
+			public const int layout = 2131558557;
 			
 			// aapt resource value: 0x7f0d0034
 			public const int left = 2131558452;
@@ -3304,8 +3307,8 @@ namespace BabySteps
 			// aapt resource value: 0x7f0d0070
 			public const int list_item = 2131558512;
 			
-			// aapt resource value: 0x7f0d00bc
-			public const int masked = 2131558588;
+			// aapt resource value: 0x7f0d00bd
+			public const int masked = 2131558589;
 			
 			// aapt resource value: 0x7f0d009c
 			public const int message = 2131558556;
@@ -3325,8 +3328,8 @@ namespace BabySteps
 			// aapt resource value: 0x7f0d0043
 			public const int multiply = 2131558467;
 			
-			// aapt resource value: 0x7f0d00a7
-			public const int navigation_header_container = 2131558567;
+			// aapt resource value: 0x7f0d00a8
+			public const int navigation_header_container = 2131558568;
 			
 			// aapt resource value: 0x7f0d005f
 			public const int never = 2131558495;
@@ -3337,14 +3340,14 @@ namespace BabySteps
 			// aapt resource value: 0x7f0d003c
 			public const int normal = 2131558460;
 			
-			// aapt resource value: 0x7f0d00b5
-			public const int notification_background = 2131558581;
+			// aapt resource value: 0x7f0d00b6
+			public const int notification_background = 2131558582;
+			
+			// aapt resource value: 0x7f0d00b2
+			public const int notification_main_column = 2131558578;
 			
 			// aapt resource value: 0x7f0d00b1
-			public const int notification_main_column = 2131558577;
-			
-			// aapt resource value: 0x7f0d00b0
-			public const int notification_main_column_container = 2131558576;
+			public const int notification_main_column_container = 2131558577;
 			
 			// aapt resource value: 0x7f0d0049
 			public const int outline = 2131558473;
@@ -3373,11 +3376,11 @@ namespace BabySteps
 			// aapt resource value: 0x7f0d0035
 			public const int right = 2131558453;
 			
-			// aapt resource value: 0x7f0d00b4
-			public const int right_icon = 2131558580;
+			// aapt resource value: 0x7f0d00b5
+			public const int right_icon = 2131558581;
 			
-			// aapt resource value: 0x7f0d00b2
-			public const int right_side = 2131558578;
+			// aapt resource value: 0x7f0d00b3
+			public const int right_side = 2131558579;
 			
 			// aapt resource value: 0x7f0d0014
 			public const int save_image_matrix = 2131558420;
@@ -3454,8 +3457,8 @@ namespace BabySteps
 			// aapt resource value: 0x7f0d0050
 			public const int showTitle = 2131558480;
 			
-			// aapt resource value: 0x7f0d00a1
-			public const int smallLabel = 2131558561;
+			// aapt resource value: 0x7f0d00a2
+			public const int smallLabel = 2131558562;
 			
 			// aapt resource value: 0x7f0d0002
 			public const int snackbar_action = 2131558402;
@@ -3523,11 +3526,11 @@ namespace BabySteps
 			// aapt resource value: 0x7f0d003d
 			public const int textStart = 2131558461;
 			
-			// aapt resource value: 0x7f0d00a0
-			public const int textView = 2131558560;
+			// aapt resource value: 0x7f0d00a1
+			public const int textView = 2131558561;
 			
-			// aapt resource value: 0x7f0d00ac
-			public const int text_input_password_toggle = 2131558572;
+			// aapt resource value: 0x7f0d00ad
+			public const int text_input_password_toggle = 2131558573;
 			
 			// aapt resource value: 0x7f0d0004
 			public const int textinput_counter = 2131558404;
@@ -3538,8 +3541,8 @@ namespace BabySteps
 			// aapt resource value: 0x7f0d0006
 			public const int textinput_helper_text = 2131558406;
 			
-			// aapt resource value: 0x7f0d00b6
-			public const int time = 2131558582;
+			// aapt resource value: 0x7f0d00b7
+			public const int time = 2131558583;
 			
 			// aapt resource value: 0x7f0d0023
 			public const int title = 2131558435;
@@ -3556,8 +3559,8 @@ namespace BabySteps
 			// aapt resource value: 0x7f0d007d
 			public const int topPanel = 2131558525;
 			
-			// aapt resource value: 0x7f0d00a5
-			public const int touch_outside = 2131558565;
+			// aapt resource value: 0x7f0d00a6
+			public const int touch_outside = 2131558566;
 			
 			// aapt resource value: 0x7f0d0017
 			public const int transition_current_scene = 2131558423;
@@ -3589,8 +3592,8 @@ namespace BabySteps
 			// aapt resource value: 0x7f0d0007
 			public const int view_offset_helper = 2131558407;
 			
-			// aapt resource value: 0x7f0d00bb
-			public const int visible = 2131558587;
+			// aapt resource value: 0x7f0d00bc
+			public const int visible = 2131558588;
 			
 			// aapt resource value: 0x7f0d0060
 			public const int withText = 2131558496;
