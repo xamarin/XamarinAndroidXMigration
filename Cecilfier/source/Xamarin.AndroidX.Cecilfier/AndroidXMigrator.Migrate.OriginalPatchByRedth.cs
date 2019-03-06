@@ -501,6 +501,15 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
         {
             AST.Parameter ast_method_parameter = null;
 
+            if
+                (
+                    method_parameter == null
+                    ||
+                    ! method_parameter.ParameterType.FullName.StartsWith("Android.Support", StringComparison.Ordinal)
+                )
+            {
+                return ast_method_parameter;
+            }
 
             string r = FindReplacingTypeFromMappings(method_parameter.ParameterType.FullName);
             method_parameter.ParameterType.Namespace = r;
