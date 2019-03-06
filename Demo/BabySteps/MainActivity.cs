@@ -1,5 +1,7 @@
 ﻿using Android.App;
 using Android.OS;
+using Android.Support.V7.Widget;
+using Android.Views;
 using Android.Widget;
 using BabyStepsLib;
 using System;
@@ -29,6 +31,16 @@ namespace BabySteps
 			var button3 = FindViewById<Button>(Resource.Id.button3);
 			button3.Text = "Go to Native";
 			button3.Click += (_, __) => StartActivity(typeof(NativeActivity));
+
+			var layout = FindViewById<LinearLayout>(Resource.Id.layout);
+			layout.AddView(CreateCheckBox(this));
+		}
+
+		private static View CreateCheckBox(Android.Support.V7.App.AppCompatActivity activity)
+		{
+			var checkbox = new AppCompatCheckBox(activity);
+			checkbox.Text = "Check Box!";
+			return checkbox;
 		}
 	}
 

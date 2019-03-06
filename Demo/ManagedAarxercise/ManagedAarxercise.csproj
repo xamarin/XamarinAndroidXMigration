@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ManagedAarxerciser.cs" />
+    <Compile Include="MagicType.cs" />
     <Compile Include="ManagedSimpleFragment.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
