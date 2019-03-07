@@ -9,10 +9,17 @@ namespace Hackathon
 	{
 		private static Dictionary<string, string> assemblyMappings = new Dictionary<string, string>
 		{
-			{ "Xamarin.Android.Support.v7.AppCompat", "Xamarin.AndroidX.Appcompat.Appcompat" },
-			{ "Xamarin.Android.Support.Fragment", "Xamarin.AndroidX.Fragment.Fragment" },
-			{ "Xamarin.Android.Support.Compat", "Xamarin.AndroidX.Core.Core" },
-			{ "Xamarin.Android.Support.Core.UI", "Xamarin.AndroidX.Legacy.CoreUI" },
+			{ "Xamarin.Android.Support.v7.AppCompat", "Xamarin.AndroidX.AppCompat" },
+			{ "Xamarin.Android.Support.Fragment", "Xamarin.AndroidX.Fragment" },
+			{ "Xamarin.Android.Support.Compat", "Xamarin.AndroidX.Core" },
+			{ "Xamarin.Android.Support.Core.UI", "Xamarin.AndroidX.Legacy.Support.Core.UI" },
+			{ "Xamarin.Android.Support.Design", "Xamarin.Google.Android.Material" },
+			{ "Xamarin.Android.Support.v7.CardView", "Xamarin.AndroidX.CardView" },
+			{ "Xamarin.Android.Support.v7.RecyclerView", "Xamarin.AndroidX.RecyclerView" },
+			{ "Xamarin.Android.Support.DrawerLayout", "Xamarin.AndroidX.DrawerLayout" },
+			{ "Xamarin.Android.Support.ViewPager", "Xamarin.AndroidX.ViewPager" },
+			{ "Xamarin.Android.Support.SwipeRefreshLayout", "Xamarin.AndroidX.SwipeRefreshLayout" },
+			{ "Xamarin.Android.Support.CoordinaterLayout", "Xamarin.AndroidX.CoordinatorLayout" },
 		};
 
 		static void Main(string[] args)
@@ -24,9 +31,12 @@ namespace Hackathon
 
 			var hasPdb = File.Exists(Path.ChangeExtension(filename, "pdb"));
 
+			var resolver = new DefaultAssemblyResolver();
+			resolver.AddSearchDirectory(Path.GetDirectoryName(filename));
 			var readerParams = new ReaderParameters
 			{
 				ReadSymbols = hasPdb,
+				AssemblyResolver = resolver
 			};
 			var assembly = AssemblyDefinition.ReadAssembly(filename, readerParams);
 			//Console.WriteLine($"Processing assembly '{filename}'...");
@@ -36,10 +46,10 @@ namespace Hackathon
 			{
 				foreach (var typeRef in module.GetTypeReferences())
 				{
-					//Console.WriteLine($" => Processing type reference '{typeRef.FullName}'...");
-
 					if (!csv.TryGetValue(typeRef.FullName, out var newName) || typeRef.FullName == newName.FN)
 						continue;
+
+					Console.WriteLine($" => Processing type reference '{typeRef.FullName}'...");
 
 					var old = typeRef.FullName;
 					typeRef.Namespace = newName.NS;
@@ -56,7 +66,7 @@ namespace Hackathon
 					}
 					else
 					{
-						Console.WriteLine($"*** Potential error for assembly {typeRef.Scope.Name}' ***");
+						Console.WriteLine($"     *** Potential error for assembly {typeRef.Scope.Name}' ***");
 					}
 
 					needsMigration = true;
