@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<UsingTask TaskName="JetifierWrapper.JetifyFiles" AssemblyFile="./JetifierWrapper.dll"/>
+
+	<PropertyGroup>
+		<IsUnix Condition="'$(OS)'=='Unix'">true</IsUnix>
+		<IsUnix Condition="'$(OS)'!='Unix'">false</IsUnix>
+	</PropertyGroup>
+	<ItemGroup>
+		<FilesToJetify Include="./**/*.aar" Exclude="./**/*-jetified.aar" />
+		<FilesToClean Include="./**/*-jetified.aar;*.zip;*.jar;*.dll" />
+	</ItemGroup>
+
+	<Target Name="Build">
+		<JetifyFiles JetifierWrapperPath="./JetifierWrapper.jar" Files="@(FilesToJetify)" Verbosity="verbose" IsUnix="$(IsUnix)">
+			<Output TaskParameter="JetifiedFiles" ItemName="JetifiedFiles" />
+		</JetifyFiles>
+		<Message Text="The jetified file path is %(JetifiedFiles.Identity)" />
+	</Target>
+</Project>
