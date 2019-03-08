@@ -13,12 +13,12 @@ namespace JetifierWrapper {
 		#region Properties
 
 		[Required]
-		public string JetifierWrapperFullPath { get; set; }
+		public string JetifierWrapperPath { get; set; }
 		[Required]
 		public ITaskItem [] Files { get; set; }
 		[Output]
 		public ITaskItem [] JetifiedFiles { get; set; }
-		public string ConfigurationFullPath { get; set; }
+		public string ConfigurationPath { get; set; }
 		public string Verbosity { get; set; }
 		public bool IsDejetify { get; set; }
 		public bool IsStrict { get; set; }
@@ -60,15 +60,15 @@ namespace JetifierWrapper {
 				}
 			}
 
-			var libDirectory = $"{Path.GetDirectoryName (JetifierWrapperFullPath)}{Path.DirectorySeparatorChar}lib{Path.DirectorySeparatorChar}";
+			var libDirectory = $"{Path.GetDirectoryName (JetifierWrapperPath)}{Path.DirectorySeparatorChar}lib{Path.DirectorySeparatorChar}";
 			var jarFiles = Directory.GetFiles (libDirectory, "*.jar", SearchOption.TopDirectoryOnly);
 
 			var classpathJoinSymbol = IsUnix ? ":" : ";";
-			var classPath = $"\"{JetifierWrapperFullPath}{classpathJoinSymbol}{string.Join (classpathJoinSymbol, jarFiles)}\"";
+			var classPath = $"\"{JetifierWrapperPath}{classpathJoinSymbol}{string.Join (classpathJoinSymbol, jarFiles)}\"";
 			var javaMainClass = "com.xamarin.androidx.jetifierWrapper.Main";
 			var inputFiles = $"-i \"{string.Join ("\" -i \"", files)}\"";
 			var oututFiles = $"-o \"{string.Join ("\" -o \"", jetifiedFiles)}\"";
-			var configurationOption = string.IsNullOrWhiteSpace (ConfigurationFullPath) ? "" : $"-c {ConfigurationFullPath}";
+			var configurationOption = string.IsNullOrWhiteSpace (ConfigurationPath) ? "" : $"-c {ConfigurationPath}";
 			var verbosityOption = string.IsNullOrWhiteSpace (Verbosity) ? "" : $"-l {Verbosity}";
 			var reversedOption = IsDejetify ? "-r" : "";
 			var strictOption = IsStrict ? "-s" : "";
@@ -87,7 +87,7 @@ namespace JetifierWrapper {
 					RedirectStandardOutput = true,
 					UseShellExecute = false,
 					CreateNoWindow = true,
-					WorkingDirectory = $"{Path.GetDirectoryName (JetifierWrapperFullPath)}{Path.DirectorySeparatorChar}"
+					WorkingDirectory = $"{Path.GetDirectoryName (JetifierWrapperPath)}{Path.DirectorySeparatorChar}"
 				};
 
 				var process = new Process { StartInfo = processStartInfo };
