@@ -1,8 +1,9 @@
 using Mono.Cecil;
 using System.Linq;
+using Xamarin.AndroidX.Migration.Cecil;
 using Xunit;
 
-namespace Xamarin.AndroidX.Migration.Cecil.Tests
+namespace Xamarin.AndroidX.Migration.Tests
 {
 	public class ManagedMigrationTests : BaseTests
 	{

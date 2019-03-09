@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Xamarin.AndroidX.Migration.Cecil.Tests
+namespace Xamarin.AndroidX.Migration.Tests
 {
 	public static class Utils
 	{

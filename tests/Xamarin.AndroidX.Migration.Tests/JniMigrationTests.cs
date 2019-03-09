@@ -2,7 +2,7 @@ using Mono.Cecil;
 using System.Linq;
 using Xunit;
 
-namespace Xamarin.AndroidX.Migration.Cecil.Tests
+namespace Xamarin.AndroidX.Migration.Tests
 {
 	public class JniMigrationTests : BaseTests
 	{

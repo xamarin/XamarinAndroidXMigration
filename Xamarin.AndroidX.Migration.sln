@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Managed.AndroidX
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Managed.Support", "tests\Aarxercise.Managed.Support\Aarxercise.Managed.Support.csproj", "{3EE93671-9B98-4B5B-925F-4629D3946100}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.AndroidX.Migration.Cecil.Tests", "tests\Xamarin.AndroidX.Migration.Cecil.Tests\Xamarin.AndroidX.Migration.Cecil.Tests.csproj", "{10832A33-2961-4B0D-8977-7BE49B391F16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.AndroidX.Migration.Tests", "tests\Xamarin.AndroidX.Migration.Tests\Xamarin.AndroidX.Migration.Tests.csproj", "{10832A33-2961-4B0D-8977-7BE49B391F16}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.AndroidX.Migration.Cecil", "source\Xamarin.AndroidX.Migration.Cecil\Xamarin.AndroidX.Migration.Cecil.csproj", "{F22FB2D5-8920-4C8F-9807-0D1E13A16742}"
 EndProject
@@ -28,6 +28,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.XUnit", "tests\Tests.XUnit\Tests.XUnit.csproj", "{B81EC314-41C9-4D22-A9B3-7C25EF372CCE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XtremelyDummyProjectForReferencingAssemblies", "tests\XtremelyDummyProjectForReferencingAssemblies\XtremelyDummyProjectForReferencingAssemblies.csproj", "{78D18B71-6DE5-41EC-92C1-E76305948FBC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "externals", "externals", "{F422DC0C-A441-47E9-ABAE-24D7ED879C85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Android.Tools.Bytecode", "externals\Java.Interop\src\Xamarin.Android.Tools.Bytecode\Xamarin.Android.Tools.Bytecode.csproj", "{B17475BC-45A2-47A3-B8FC-62F3A0959EE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,6 +83,10 @@ Global
 		{78D18B71-6DE5-41EC-92C1-E76305948FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78D18B71-6DE5-41EC-92C1-E76305948FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78D18B71-6DE5-41EC-92C1-E76305948FBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B17475BC-45A2-47A3-B8FC-62F3A0959EE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B17475BC-45A2-47A3-B8FC-62F3A0959EE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B17475BC-45A2-47A3-B8FC-62F3A0959EE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B17475BC-45A2-47A3-B8FC-62F3A0959EE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +103,7 @@ Global
 		{5D79A273-62F0-460E-A381-14D2DE43F68F} = {AB12F426-C62D-40D7-958C-F39E9915BCDB}
 		{B81EC314-41C9-4D22-A9B3-7C25EF372CCE} = {6E6A8AA4-CAD6-47F4-B4AD-767E62854548}
 		{78D18B71-6DE5-41EC-92C1-E76305948FBC} = {6E6A8AA4-CAD6-47F4-B4AD-767E62854548}
+		{B17475BC-45A2-47A3-B8FC-62F3A0959EE0} = {F422DC0C-A441-47E9-ABAE-24D7ED879C85}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8C146F1E-AE90-4D07-9920-5956E1C57719}

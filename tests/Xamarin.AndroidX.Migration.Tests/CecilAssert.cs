@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace Xamarin.AndroidX.Migration.Cecil.Tests
+namespace Xamarin.AndroidX.Migration.Tests
 {
 	public static class CecilAssert
 	{

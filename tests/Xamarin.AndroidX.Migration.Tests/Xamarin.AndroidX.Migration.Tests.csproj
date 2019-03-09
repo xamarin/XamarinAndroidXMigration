@@ -14,7 +14,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\externals\Java.Interop\src\Xamarin.Android.Tools.Bytecode\Xamarin.Android.Tools.Bytecode.csproj" />
     <ProjectReference Include="..\..\source\Xamarin.AndroidX.Migration.Cecil\Xamarin.AndroidX.Migration.Cecil.csproj" />
+  </ItemGroup>
+
+  <!-- Jetifier test assets -->
+  <ItemGroup>
+    <Content Include="..\Aarxersise.Java.AndroidX\app\build\outputs\aar\app-debug.aar">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>aarxersise.java.androidx.aar</Link>
+    </Content>
+    <Content Include="..\Aarxersise.Java.Support\app\build\outputs\aar\app-debug.aar">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>aarxersise.java.support.aar</Link>
+    </Content>
+  </ItemGroup>
+
+  <!-- Cecilfier test assets -->
+  <ItemGroup>
     <ProjectReference Include="..\Aarxercise.Binding.AndroidX\Aarxercise.Binding.AndroidX.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <OutputItemType>Content</OutputItemType>
