@@ -8,10 +8,17 @@ var configuration = Argument("configuration", "Release");
 Task("NativeLibrary")
     .Does(() =>
 {
-    if (IsRunningOnWindows()) {
-        StartProcess("Aar/Aarxercise/gradlew.bat", "assembleDebug -p Aar/Aarxercise");
-    } else {
-        StartProcess("bash", "Aar/Aarxercise/gradlew assembleDebug -p Aar/Aarxercise");
+    var nativeProjects = new [] {
+        "tests/Aarxersise.Java.AndroidX",
+        "tests/Aarxersise.Java.Support"
+    };
+
+    foreach (var native in nativeProjects) {
+        if (IsRunningOnWindows()) {
+            StartProcess($"{native}/gradlew.bat", $"assembleDebug -p {native}");
+        } else {
+            StartProcess("bash", $"{native}/gradlew assembleDebug -p {native}");
+        }
     }
 });
 
@@ -29,7 +36,6 @@ Task("JetifierMSBuild")
     .IsDependentOn("JetifierNative")
     .Does(() =>
 {
-
 });
 
 Task("JetifierNative")
