@@ -8,12 +8,19 @@ Because the tests use dynamic assemblies and Android assets, it has to be built
 first - either as part of MSBuild or via a Cake script.
 
 **Native Java**
+
+> These artifacts need to be built using 
+> `.\build.ps1 -script tests\build.cake`.
+
  - `Aarxersise.Java.AndroidX` - this is a native Java library that uses
    AndroidX
  - `Aarxersise.Java.Support` - this is a native Java library that uses Android
    Support
 
 **Managed**
+
+> These assets are build as part of the MSBuild process.
+
  - `Aarxercise.Binding.AndroidX` - this is a binding project for
    `Aarxersise.Java.AndroidX`
  - `Aarxercise.Binding.Support` - this is a binding project for
