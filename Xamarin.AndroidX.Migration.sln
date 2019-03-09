@@ -25,6 +25,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.AndroidX.Cecilfier"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.AndroidX.Cecilfier.App", "source\Xamarin.AndroidX.Cecilfier.App\Xamarin.AndroidX.Cecilfier.App.csproj", "{5D79A273-62F0-460E-A381-14D2DE43F68F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.XUnit", "tests\Tests.XUnit\Tests.XUnit.csproj", "{B81EC314-41C9-4D22-A9B3-7C25EF372CCE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XtremelyDummyProjectForReferencingAssemblies", "tests\XtremelyDummyProjectForReferencingAssemblies\XtremelyDummyProjectForReferencingAssemblies.csproj", "{78D18B71-6DE5-41EC-92C1-E76305948FBC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +71,14 @@ Global
 		{5D79A273-62F0-460E-A381-14D2DE43F68F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D79A273-62F0-460E-A381-14D2DE43F68F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D79A273-62F0-460E-A381-14D2DE43F68F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B81EC314-41C9-4D22-A9B3-7C25EF372CCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B81EC314-41C9-4D22-A9B3-7C25EF372CCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B81EC314-41C9-4D22-A9B3-7C25EF372CCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B81EC314-41C9-4D22-A9B3-7C25EF372CCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78D18B71-6DE5-41EC-92C1-E76305948FBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78D18B71-6DE5-41EC-92C1-E76305948FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78D18B71-6DE5-41EC-92C1-E76305948FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78D18B71-6DE5-41EC-92C1-E76305948FBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +93,8 @@ Global
 		{C110FCE9-90B5-4CD8-93F3-20F1E3F9D1A9} = {AB12F426-C62D-40D7-958C-F39E9915BCDB}
 		{E08BF419-069D-4177-9035-CFB25889F5B9} = {AB12F426-C62D-40D7-958C-F39E9915BCDB}
 		{5D79A273-62F0-460E-A381-14D2DE43F68F} = {AB12F426-C62D-40D7-958C-F39E9915BCDB}
+		{B81EC314-41C9-4D22-A9B3-7C25EF372CCE} = {6E6A8AA4-CAD6-47F4-B4AD-767E62854548}
+		{78D18B71-6DE5-41EC-92C1-E76305948FBC} = {6E6A8AA4-CAD6-47F4-B4AD-767E62854548}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8C146F1E-AE90-4D07-9920-5956E1C57719}

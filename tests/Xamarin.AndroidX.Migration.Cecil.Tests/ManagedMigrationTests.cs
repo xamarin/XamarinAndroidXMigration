@@ -4,13 +4,8 @@ using Xunit;
 
 namespace Xamarin.AndroidX.Migration.Cecil.Tests
 {
-	public class PureManagedTests
+	public class ManagedMigrationTests : BaseTests
 	{
-		private const string ManagedSupportDll = "Aarxercise.Managed.Support.dll";
-		private const string ManagedAndroidXDll = "Aarxercise.Managed.AndroidX.dll";
-		private const string BindingSupportDll = "Aarxercise.Binding.Support.dll";
-		private const string BindingAndroidXDll = "Aarxercise.Binding.AndroidX.dll";
-
 		private readonly static Migrator migrator = new Migrator();
 
 		[Theory]
