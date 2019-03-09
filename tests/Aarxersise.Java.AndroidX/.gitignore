@@ -1,3 +1,6 @@
+# Undo the main ignore
+!gradle/wrapper/gradle-wrapper.jar
+
 # Built application files
 *.apk
 *.ap_
