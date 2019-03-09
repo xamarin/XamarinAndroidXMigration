@@ -1,0 +1,35 @@
+# Tests Directory
+
+This directory contains all the test code and assets.
+
+## Assets
+
+Because the tests use dynamic assemblies and Android assets, it has to be built
+first - either as part of MSBuild or via a Cake script.
+
+**Native Java**
+ - `Aarxersise.Java.AndroidX` - this is a native Java library that uses
+   AndroidX
+ - `Aarxersise.Java.Support` - this is a native Java library that uses Android
+   Support
+
+**Managed**
+ - `Aarxercise.Binding.AndroidX` - this is a binding project for
+   `Aarxersise.Java.AndroidX`
+ - `Aarxercise.Binding.Support` - this is a binding project for
+   `Aarxersise.Java.Support`
+ - `Aarxercise.Managed.AndroidX` - this is a Xamarin.Android project that does
+   not use any native code and uses AndroidX
+ - `Aarxercise.Managed.Support` - this is a Xamarin.Android project that does
+   not use any native code and uses Android Support
+
+## Tests
+
+ - `Xamarin.AndroidX.Migration.Tests` - this is a test project that makes sure
+   everything is working as expected
+
+## To Be Categorized / Merged
+
+ - `artifacts`
+ - `Tests.XUnit`
+ - `XtremelyDummyProjectForReferencingAssemblies`
