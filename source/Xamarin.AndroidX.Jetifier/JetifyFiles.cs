@@ -7,7 +7,7 @@ using System.IO;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
-namespace JetifierWrapper {
+namespace Xamarin.AndroidX.Jetifier {
 	public class JetifyFiles : Task {
 
 		#region Properties
@@ -76,7 +76,6 @@ namespace JetifierWrapper {
 			var noParallelOption = NoParallel ? "-noParallel" : "";
 			var helpOption = PrintHelp ? "-h" : "";
 
-
 			try {
 				var processStartInfo = new ProcessStartInfo {
 					FileName = "java",
@@ -101,7 +100,5 @@ namespace JetifierWrapper {
 
 			return true;
 		}
-
-
 	}
 }
