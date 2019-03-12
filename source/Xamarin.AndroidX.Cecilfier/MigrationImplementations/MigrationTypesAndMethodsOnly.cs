@@ -1,17 +1,25 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 using Mono.Cecil;
-using System.Collections.Generic;
 
-using HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineator.AST;
+using HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineator;
+using AST=HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineator.AST;
 
-namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineator
+namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
 {
-    public partial class AndroidXMigrator
+    public class MigrationTypesAndMethodsOnly : MigrationImplementation
     {
-        private void MigrateWithWithStringsOriginalPatchByMathew(ref long duration)
+        public MigrationTypesAndMethodsOnly(AndroidXMigrator migrator) : base(migrator)
+        {
+            androidx_migrator = migrator;
+
+            return;
+        }
+
+        public override void Migrate(ref long duration)
         {
             string msg = $"{DateTime.Now.ToString("yyyyMMdd-HHmmss")}-androidx-migrated";
 
@@ -132,7 +140,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             return;
         }
 
-        private Module ProcessModuleMathew(ModuleDefinition module)
+        private AST.Module ProcessModuleMathew(ModuleDefinition module)
         {
             AST.Module ast_module = null;
 
@@ -573,7 +581,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
                     if (ast_method_body == null)
                     {
-                        ast_method_body = new MethodBody();
+                        ast_method_body = new AST.MethodBody();
                     }
                 }
             }

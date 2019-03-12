@@ -21,6 +21,7 @@
     <Folder Include="grabbed\CharacterSeparatedValues\" />
     <Folder Include="grabbed\Linq\" />
     <Folder Include="mappings\" />
+    <Folder Include="MigrationImplementations\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="mappings\API.Mappings.Merged.Google.with.Xamarin.Classes.csv" />
