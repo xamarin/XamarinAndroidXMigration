@@ -55,7 +55,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             }
             else
             {
-                implementation = new MigrationTypesAndMethodsOnly(this);
+                implementation = new MigrationTypesAndMethodsWithLogging(this);
                 //implementation = new MigrationTraversingWithLogging(this);
                 implementation.Migrate(ref duration); 
             }

@@ -92,7 +92,7 @@ namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
                 System.Diagnostics.Trace.WriteLine($"    migrating Module           = {module.Name}");
                 //module.AssemblyReferences;
 
-                AST.Module ast_module = ProcessModuleRedth(module);
+                AST.Module ast_module = ProcessModule(module);
 
                 if(ast_module != null)
                 {
@@ -140,7 +140,7 @@ namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
             return;
         }
 
-        private AST.Module ProcessModuleRedth(ModuleDefinition module)
+        private AST.Module ProcessModule(ModuleDefinition module)
         {
             AST.Module ast_module = null;
 
@@ -167,7 +167,7 @@ namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
                 System.Diagnostics.Trace.WriteLine($"        Name        = {type.Name}");
                 System.Diagnostics.Trace.WriteLine($"        FullName    = {type.FullName}");
 
-                AST.Type ast_type = ProcessTypeReferenceRedth(type);
+                AST.Type ast_type = ProcessTypeReference(type);
 
                 if (ast_type == null)
                 {
@@ -212,7 +212,7 @@ namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
                 System.Diagnostics.Trace.WriteLine($"        IsClass     = {type.IsClass}");
                 System.Diagnostics.Trace.WriteLine($"        IsInterface = {type.IsInterface}");
 
-                AST.Type ast_type = ProcessTypeRedth(type);
+                AST.Type ast_type = ProcessType(type);
 
                 if(ast_type == null)
                 {
@@ -235,11 +235,11 @@ namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
             return ast_module;
         }
 
-        private AST.Type ProcessTypeRedth(TypeDefinition type)
+        private AST.Type ProcessType(TypeDefinition type)
         {
             AST.Type ast_type = null;
 
-            AST.Type ast_type_base = ProcessBaseTypeRedth(type.BaseType);
+            AST.Type ast_type_base = ProcessBaseType(type.BaseType);
             if(ast_type_base != null)
             {
                 TypeDefinition type_found = type.Module.Types
@@ -250,7 +250,7 @@ namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
             List<AST.Type> ast_types_nested = null;
             foreach (TypeDefinition type_nested in type.NestedTypes)
             {
-                AST.Type ast_type_nested = ProcessNestedTypeRedth(type_nested);
+                AST.Type ast_type_nested = ProcessNestedType(type_nested);
 
                 if (ast_type_nested != null)
                 {
@@ -267,7 +267,7 @@ namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
             List<AST.Method> ast_methods = null;
             foreach(var method in type.Methods)
             {
-                AST.Method ast_method = ProcessMethodRedth(method);
+                AST.Method ast_method = ProcessMethod(method);
 
                 if (ast_method != null)
                 {
@@ -304,7 +304,7 @@ namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
             return ast_type;
         }
 
-        private AST.Type ProcessTypeReferenceRedth(TypeReference type)
+        private AST.Type ProcessTypeReference(TypeReference type)
         {
             AST.Type ast_type_base = null;
 
@@ -348,7 +348,7 @@ namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
             return ast_type_base;
         }
 
-        private AST.Type ProcessBaseTypeRedth(TypeReference type_base)
+        private AST.Type ProcessBaseType(TypeReference type_base)
         {
             AST.Type ast_type_base = null;
 
@@ -395,7 +395,7 @@ namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
             return ast_type_base;
         }
 
-        private AST.Type ProcessNestedTypeRedth(TypeDefinition type_nested)
+        private AST.Type ProcessNestedType(TypeDefinition type_nested)
         {
             AST.Type ast_type_nested = null;
 
@@ -436,7 +436,7 @@ namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
         }
 
 
-        private AST.Method ProcessMethodRedth(MethodDefinition method)
+        private AST.Method ProcessMethod(MethodDefinition method)
         {
             AST.Method ast_method = null;
 
@@ -444,14 +444,14 @@ namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
             System.Diagnostics.Trace.WriteLine($"           Name        = {method.Name}");
             System.Diagnostics.Trace.WriteLine($"           FullName    = {method.ReturnType.FullName}");
 
-            AST.Type ast_method_type_return = ProcessMethodReturnTypeRedth(method.ReturnType);
+            AST.Type ast_method_type_return = ProcessMethodReturnType(method.ReturnType);
 
-            string jni_signature = ProcessMethodJNISignatureRedth(method);
+            string jni_signature = ProcessMethodJNISignature(method);
 
             List<AST.Parameter> ast_method_parameters = null;
             foreach (ParameterDefinition method_parameter in method.Parameters)
             {
-                AST.Parameter ast_method_parameter = ProcessMethodParameterRedth(method_parameter);
+                AST.Parameter ast_method_parameter = ProcessMethodParameter(method_parameter);
 
                 if (ast_method_parameter != null)
                 {
@@ -467,7 +467,7 @@ namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
                 ast_method_parameters.Add(ast_method_parameter);
             }
 
-            AST.MethodBody ast_method_body = ProcessMethodBodyRedth(method.Body);
+            AST.MethodBody ast_method_body = ProcessMethodBody(method.Body);
 
             if (ast_method_type_return == null && jni_signature == null && ast_method_body == null && ast_method_parameters == null)
             {
@@ -494,7 +494,7 @@ namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
             return ast_method;
         }
 
-        private AST.Type ProcessMethodReturnTypeRedth(TypeReference type_return)
+        private AST.Type ProcessMethodReturnType(TypeReference type_return)
         {
             AST.Type ast_type_return = null;
 
@@ -520,7 +520,7 @@ namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
             return ast_type_return;
         }
 
-        private AST.Parameter ProcessMethodParameterRedth(ParameterDefinition method_parameter)
+        private AST.Parameter ProcessMethodParameter(ParameterDefinition method_parameter)
         {
             AST.Parameter ast_method_parameter = null;
 
@@ -549,7 +549,7 @@ namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
             return ast_method_parameter;
         }
 
-        private string ProcessMethodJNISignatureRedth(MethodDefinition method)
+        private string ProcessMethodJNISignature(MethodDefinition method)
         {
             string jni_signature = null;
 
@@ -561,7 +561,7 @@ namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
 
                     string registerAttrMethodName = attr.ConstructorArguments[0].Value.ToString();
                     string registerAttributeJniSig = jniSigArg.Value?.ToString();
-                    object registerAttributeNewJniSig = ReplaceJniSignatureRedth(registerAttributeJniSig);
+                    object registerAttributeNewJniSig = ReplaceJniSignature(registerAttributeJniSig);
 
                     attr.ConstructorArguments[1] = new CustomAttributeArgument(jniSigArg.Type, registerAttributeNewJniSig);
 
@@ -574,7 +574,7 @@ namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
             return jni_signature;
         }
 
-        private AST.MethodBody ProcessMethodBodyRedth(Mono.Cecil.Cil.MethodBody method_body)
+        private AST.MethodBody ProcessMethodBody(Mono.Cecil.Cil.MethodBody method_body)
         {
             AST.MethodBody ast_method_body = null;
 
@@ -601,7 +601,7 @@ namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
                     if (indexOfDot >= 0)
                     {
                         string methodName = jniSig.Substring(0, indexOfDot);
-                        string newJniSig = ReplaceJniSignatureRedth(jniSig.Substring(indexOfDot + 1));
+                        string newJniSig = ReplaceJniSignature(jniSig.Substring(indexOfDot + 1));
                         instr.Operand = $"{methodName}.{newJniSig}";
 
                         log.AppendLine($"{methodName} -> {newJniSig}");
@@ -610,7 +610,7 @@ namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
                     else if (jniSig.Contains('(') && jniSig.Contains(')'))
                     {
                         string methodName = instr.Previous.Operand.ToString();
-                        string newJniSig = ReplaceJniSignatureRedth(jniSig);
+                        string newJniSig = ReplaceJniSignature(jniSig);
                         instr.Operand = newJniSig;
 
                         log.AppendLine($"{methodName} -> {newJniSig}");
@@ -633,7 +633,7 @@ namespace Xamarin.AndroidX.Cecilfier.MigrationImplementations
 
 
 
-        static string ReplaceJniSignatureRedth(string jniSignature)
+        static string ReplaceJniSignature(string jniSignature)
         {
             if
                 (
