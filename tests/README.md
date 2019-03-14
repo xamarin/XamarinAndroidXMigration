@@ -10,7 +10,7 @@ first - either as part of MSBuild or via a Cake script.
 **Native Java**
 
 > These artifacts need to be built using 
-> `.\build.ps1 -script tests\build.cake`.
+> `.\build.ps1 --target=NativeAssets`.
 
  - `Aarxersise.Java.AndroidX` - this is a native Java library that uses
    AndroidX

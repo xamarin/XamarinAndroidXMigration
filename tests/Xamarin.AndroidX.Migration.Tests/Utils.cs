@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace Xamarin.AndroidX.Migration.Tests
 {
@@ -27,5 +30,21 @@ namespace Xamarin.AndroidX.Migration.Tests
 
 		public static object[] GetArguments(this CustomAttribute attribute) =>
 			attribute?.ConstructorArguments?.Select(a => a.Value)?.ToArray() ?? new object[0];
+
+		public static async Task DownloadFileAsync(string facebookTestUrl, string facebookZip)
+		{
+			using (var client = new HttpClient())
+			{
+				client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(
+					"Xamarin.AndroidX.Migration.Tests",
+					"1.0.0"));
+
+				using (var stream = await client.GetStreamAsync(facebookTestUrl))
+				using (var dest = File.OpenWrite(facebookZip))
+				{
+					await stream.CopyToAsync(dest);
+				}
+			}
+		}
 	}
 }

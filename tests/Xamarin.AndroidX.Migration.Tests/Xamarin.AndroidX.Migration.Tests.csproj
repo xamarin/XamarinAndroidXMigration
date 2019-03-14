@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -27,6 +27,10 @@
     <Content Include="..\Aarxersise.Java.Support\app\build\outputs\aar\app-debug.aar">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>aarxersise.java.support.aar</Link>
+    </Content>
+    <Content Include="..\..\output\JetifierWrapper.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>JetifierWrapper.zip</Link>
     </Content>
   </ItemGroup>
 
