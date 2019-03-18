@@ -32,6 +32,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>JetifierWrapper.zip</Link>
     </Content>
+    <Content Include="..\..\externals\AndroidSupport.Merged.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>AndroidSupport.Merged.dll</Link>
+    </Content>
+    <Content Include="..\..\externals\AndroidX.Merged.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>AndroidX.Merged.dll</Link>
+    </Content>
   </ItemGroup>
 
   <!-- Cecilfier test assets -->

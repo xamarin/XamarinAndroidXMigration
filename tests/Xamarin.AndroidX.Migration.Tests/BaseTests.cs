@@ -8,6 +8,9 @@ namespace Xamarin.AndroidX.Migration.Tests
 {
 	public class BaseTests
 	{
+		public const string MergedSupportDll = "AndroidSupport.Merged.dll";
+		public const string MergedAndroidXDll = "AndroidX.Merged.dll";
+
 		public const string ManagedSupportDll = "Aarxercise.Managed.Support.dll";
 		public const string ManagedAndroidXDll = "Aarxercise.Managed.AndroidX.dll";
 		public const string BindingSupportDll = "Aarxercise.Binding.Support.dll";
