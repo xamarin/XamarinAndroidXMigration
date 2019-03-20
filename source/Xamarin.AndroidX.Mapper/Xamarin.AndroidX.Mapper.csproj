@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**\*.cs;**\*.md</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="Mono.Cecil" Version="0.10.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Xamarin.AndroidX.Cecilfier\Xamarin.AndroidX.Cecilfier.csproj" />
+    <ProjectReference Include="..\Xamarin.AndroidX.Data\Xamarin.AndroidX.Data.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Files\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Files\assembly-analysis-report.md" />
+    <EmbeddedResource Include="Files\migration-mapping-analysis-report.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MappingsXamarin.cs" />
+    <Compile Include="MappingsMergedJoined.cs" />
+    <Compile Include="ReportGenerator.cs" />
+    <Compile Include="MappingsGoogle.cs" />
+  </ItemGroup>
+</Project>
