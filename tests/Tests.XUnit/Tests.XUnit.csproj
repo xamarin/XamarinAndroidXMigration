@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\source\Xamarin.AndroidX.Cecilfier\Xamarin.AndroidX.Cecilfier.csproj" />
-    <ProjectReference Include="..\..\source\Xamarin.AndroidX.Cecilfier.App\Xamarin.AndroidX.Cecilfier.App.csproj" />
+    <ProjectReference Include="..\..\source\App.Xamarin.AndroidX.Cecilfier\App.Xamarin.AndroidX.Cecilfier.csproj" />
+    <ProjectReference Include="..\..\source\App.Xamarin.AndroidX.Mapper\App.Xamarin.AndroidX.Mapper.csproj" />
   </ItemGroup>
 </Project>

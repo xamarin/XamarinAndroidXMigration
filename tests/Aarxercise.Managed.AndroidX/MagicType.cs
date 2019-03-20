@@ -7,7 +7,7 @@ using AndroidX.Legacy.Widget;
 namespace ManagedAarxercise
 {
 	public class MagicType<T> : AppCompatActivity
-        where T : Space
+        where T : AndroidX.Legacy.Widget.Space
 	{
 		private Fragment theFrag;
 		private View theView;
