@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Xamarin.Android.Tools.Bytecode;
@@ -50,8 +46,8 @@ namespace Xamarin.AndroidX.Migration.Tests
 		[Fact]
 		public void JetifierMigratesLayoutFiles()
 		{
-			var migratedAar = SupportAar;
-			// TODO: migratedAar = Jetifier.Jetify(SupportAar)
+			var results = RunJetifierWrapper(SupportAar);
+			var migratedAar = results[0].Output;
 
 			var migratedLayout = ReadAarEntry(migratedAar, "res/layout/supportlayout.xml");
 			var androidxLayout = ReadAarEntry(AndroidXAar, "res/layout/supportlayout.xml");
@@ -68,8 +64,8 @@ namespace Xamarin.AndroidX.Migration.Tests
 		[Fact]
 		public void CanReadJarFileAfterMigration()
 		{
-			var migratedAar = SupportAar;
-			// TODO: migratedAar = Jetifier.Jetify(SupportAar)
+			var results = RunJetifierWrapper(SupportAar);
+			var migratedAar = results[0].Output;
 
 			var jar = ReadAarEntry(migratedAar, "classes.jar");
 
@@ -88,8 +84,8 @@ namespace Xamarin.AndroidX.Migration.Tests
 		[Fact]
 		public void JavaTypesAreMigratedAfterJetifier()
 		{
-			var migratedAar = SupportAar;
-			// TODO: migratedAar = Jetifier.Jetify(SupportAar)
+			var results = RunJetifierWrapper(SupportAar);
+			var migratedAar = results[0].Output;
 
 			var jar = ReadAarEntry(migratedAar, "classes.jar");
 
@@ -127,7 +123,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 			var results = RunJetifierWrapper(aarFiles);
 
 			// read the classes
-			var commonAar = results.FirstOrDefault(pait => Path.GetFileNameWithoutExtension(pait.Input) == "facebook-common");
+			var commonAar = results.FirstOrDefault(pair => Path.GetFileNameWithoutExtension(pair.Input) == "facebook-common");
 			var jar = ReadAarEntry(commonAar.Output, "classes.jar");
 			var classPath = new ClassPath();
 			classPath.Load(jar);

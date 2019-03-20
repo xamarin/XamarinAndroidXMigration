@@ -12,4 +12,15 @@ public class SimpleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.simplefragment, container, false);
     }
+
+    public Fragment getSomething() {
+        return null;
+    }
+
+    public Fragment getAnotherThing() {
+        return null;
+    }
+
+    public void setSomething(Fragment fragment) {
+    }
 }

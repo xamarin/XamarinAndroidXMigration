@@ -25,6 +25,9 @@
 		public string FullName =>
 			$"{Namespace}.{Name}";
 
+		public string JavaFullName =>
+			$"{Namespace.Replace('.', '/')}/{Name.Replace('.', '$')}";
+
 		public bool IsEmpty =>
 			Namespace == string.Empty || Name == string.Empty;
 

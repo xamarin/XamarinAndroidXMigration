@@ -12,4 +12,8 @@
     <EmbeddedResource Include="..\..\mappings\androidx-mapping.csv" Link="androidx-mapping.csv" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\externals\Java.Interop\src\Xamarin.Android.Tools.Bytecode\Xamarin.Android.Tools.Bytecode.csproj" />
+  </ItemGroup>
+
 </Project>
