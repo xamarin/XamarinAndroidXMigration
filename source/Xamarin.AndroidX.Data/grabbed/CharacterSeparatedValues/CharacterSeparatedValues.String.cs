@@ -22,17 +22,20 @@ namespace Core.Text
             set;
         }
 
-        public IEnumerable<string[]> ParseTemporaryImplementation()
-                        // // Error CS0702: Constraint cannot be special class 'ValueType'         
-                        // where T : ValueType
+        public IEnumerable<string[]> ParseTemporaryImplementation(bool has_header = true)
         {
             string[] lines = Text.Split
                                         (
                                             new string[] { Environment.NewLine, @"\n" },
-                                            StringSplitOptions.RemoveEmptyEntries
+                                            StringSplitOptions.None
                                         );
+            int index_start = 0;
+            if (has_header)
+            {
+                index_start = 1;
+            }
 
-            for (int i = 0; i < lines.Length; i++)
+            for (int i = index_start; i < lines.Length; i++)
             {
                 string[] columns = lines[i].Split
                                         (
@@ -44,7 +47,7 @@ namespace Core.Text
             }
         }
 
-        public delegate IEnumerable<T> TransformationMethod<T>(IEnumerable<string[]> untyped_data);
+        public delegate IEnumerable<RowType> TransformationMethod<RowType>(IEnumerable<string[]> untyped_data);
 
         protected TransformationMethod<string[]> TransformationDefault;
 
