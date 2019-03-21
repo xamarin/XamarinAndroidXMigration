@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Android.Tools.Bytec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.AndroidX.Jetifier", "source\Xamarin.AndroidX.Jetifier\Xamarin.AndroidX.Jetifier.csproj", "{C6EBD819-D99B-4F21-8D8D-EA0C26B0E67E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "grepinator", "source\grepinator\grepinator.csproj", "{3E8251F9-1F90-4E8C-9120-672DB2C65E79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{C6EBD819-D99B-4F21-8D8D-EA0C26B0E67E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6EBD819-D99B-4F21-8D8D-EA0C26B0E67E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6EBD819-D99B-4F21-8D8D-EA0C26B0E67E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E8251F9-1F90-4E8C-9120-672DB2C65E79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E8251F9-1F90-4E8C-9120-672DB2C65E79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E8251F9-1F90-4E8C-9120-672DB2C65E79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E8251F9-1F90-4E8C-9120-672DB2C65E79}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,6 +117,7 @@ Global
 		{78D18B71-6DE5-41EC-92C1-E76305948FBC} = {6E6A8AA4-CAD6-47F4-B4AD-767E62854548}
 		{B17475BC-45A2-47A3-B8FC-62F3A0959EE0} = {F422DC0C-A441-47E9-ABAE-24D7ED879C85}
 		{C6EBD819-D99B-4F21-8D8D-EA0C26B0E67E} = {AB12F426-C62D-40D7-958C-F39E9915BCDB}
+		{3E8251F9-1F90-4E8C-9120-672DB2C65E79} = {AB12F426-C62D-40D7-958C-F39E9915BCDB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8C146F1E-AE90-4D07-9920-5956E1C57719}
