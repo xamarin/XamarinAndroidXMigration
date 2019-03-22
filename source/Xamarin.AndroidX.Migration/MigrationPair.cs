@@ -1,18 +1,18 @@
-﻿namespace Xamarin.AndroidX.Migration.Cecil
+﻿namespace Xamarin.AndroidX.Migration
 {
-	public struct AssemblyPair
+	public struct MigrationPair
 	{
-		public string Source;
-		public string Destination;
+		public readonly string Source;
+		public readonly string Destination;
 
-		public AssemblyPair(string source, string destination)
+		public MigrationPair(string source, string destination)
 		{
 			Source = source;
 			Destination = destination;
 		}
 
 		public override bool Equals(object obj) =>
-			obj is AssemblyPair other &&
+			obj is MigrationPair other &&
 			Source == other.Source &&
 			Destination == other.Destination;
 
@@ -28,10 +28,10 @@
 			destination = Destination;
 		}
 
-		public static implicit operator (string Source, string Destination) (AssemblyPair value) =>
+		public static implicit operator (string Source, string Destination) (MigrationPair value) =>
 			(value.Source, value.Destination);
 
-		public static implicit operator AssemblyPair((string Source, string Destination) value) =>
-			new AssemblyPair(value.Source, value.Destination);
+		public static implicit operator MigrationPair((string Source, string Destination) value) =>
+			new MigrationPair(value.Source, value.Destination);
 	}
 }

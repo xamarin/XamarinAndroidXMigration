@@ -46,8 +46,12 @@ namespace Xamarin.AndroidX.Migration.Tests
 		[Fact]
 		public void JetifierMigratesLayoutFiles()
 		{
-			var results = RunJetifierWrapper(SupportAar);
-			var migratedAar = results[0].Output;
+			var migratedAar = Utils.GetTempFilename();
+
+			var jetifier = new Jetifier();
+			var result = jetifier.Jetify(SupportAar, migratedAar);
+
+			Assert.True(result);
 
 			var migratedLayout = ReadAarEntry(migratedAar, "res/layout/supportlayout.xml");
 			var androidxLayout = ReadAarEntry(AndroidXAar, "res/layout/supportlayout.xml");
@@ -64,8 +68,12 @@ namespace Xamarin.AndroidX.Migration.Tests
 		[Fact]
 		public void CanReadJarFileAfterMigration()
 		{
-			var results = RunJetifierWrapper(SupportAar);
-			var migratedAar = results[0].Output;
+			var migratedAar = Utils.GetTempFilename();
+
+			var jetifier = new Jetifier();
+			var result = jetifier.Jetify(SupportAar, migratedAar);
+
+			Assert.True(result);
 
 			var jar = ReadAarEntry(migratedAar, "classes.jar");
 
@@ -84,8 +92,12 @@ namespace Xamarin.AndroidX.Migration.Tests
 		[Fact]
 		public void JavaTypesAreMigratedAfterJetifier()
 		{
-			var results = RunJetifierWrapper(SupportAar);
-			var migratedAar = results[0].Output;
+			var migratedAar = Utils.GetTempFilename();
+
+			var jetifier = new Jetifier();
+			var result = jetifier.Jetify(SupportAar, migratedAar);
+
+			Assert.True(result);
 
 			var jar = ReadAarEntry(migratedAar, "classes.jar");
 
@@ -120,11 +132,14 @@ namespace Xamarin.AndroidX.Migration.Tests
 
 			// run jetifier
 			var aarFiles = Directory.GetFiles(workspace, "*.aar", SearchOption.AllDirectories);
-			var results = RunJetifierWrapper(aarFiles);
+			var pairs = aarFiles.Select(f => new MigrationPair(f, Path.ChangeExtension(f, "jetified.aar"))).ToArray();
+			var jetifier = new Jetifier();
+			var result = jetifier.Jetify(pairs);
+			Assert.True(result);
 
 			// read the classes
-			var commonAar = results.FirstOrDefault(pair => Path.GetFileNameWithoutExtension(pair.Input) == "facebook-common");
-			var jar = ReadAarEntry(commonAar.Output, "classes.jar");
+			var commonAar = pairs.FirstOrDefault(pair => Path.GetFileNameWithoutExtension(pair.Source) == "facebook-common");
+			var jar = ReadAarEntry(commonAar.Destination, "classes.jar");
 			var classPath = new ClassPath();
 			classPath.Load(jar);
 			var packages = classPath.GetPackages();
@@ -134,7 +149,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 			var activity = classes.FirstOrDefault(c => c.ThisClass.Name.Value == "com/facebook/FacebookActivity");
 
 			// read the layout
-			var migratedLayout = ReadAarEntry(commonAar.Output, "res/layout/com_facebook_device_auth_dialog_fragment.xml");
+			var migratedLayout = ReadAarEntry(commonAar.Destination, "res/layout/com_facebook_device_auth_dialog_fragment.xml");
 
 			// check
 			Assert.Equal("androidx/fragment/app/FragmentActivity", activity.SuperClass.Name.Value);

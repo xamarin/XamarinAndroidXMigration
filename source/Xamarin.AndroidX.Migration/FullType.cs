@@ -1,12 +1,12 @@
-﻿namespace Xamarin.AndroidX.Migration.Cecil
+﻿namespace Xamarin.AndroidX.Migration
 {
 	public struct FullType
 	{
 		public static FullType Empty = new FullType(string.Empty, string.Empty, string.Empty);
 
-		public string Assembly;
-		public string Namespace;
-		public string Name;
+		public readonly string Assembly;
+		public readonly string Namespace;
+		public readonly string Name;
 
 		public FullType(string ns, string n)
 		{

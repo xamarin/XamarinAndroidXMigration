@@ -133,6 +133,11 @@ Task("Tests")
     .IsDependentOn("Libraries")
     .Does(() =>
 {
+    var testTasks = GetFiles("tests/*.BuildTasks.Tests/*.BuildTasks.Tests.proj");
+    foreach (var proj in testTasks) {
+        MSBuild(proj);
+    }
+
     var testProjects = GetFiles("./tests/*.Tests/*.csproj");
     foreach (var proj in testProjects) {
         DotNetCoreTest(proj.FullPath, new DotNetCoreTestSettings {

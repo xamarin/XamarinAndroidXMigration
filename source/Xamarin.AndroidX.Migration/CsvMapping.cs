@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Xamarin.AndroidX.Migration.Cecil
+namespace Xamarin.AndroidX.Migration
 {
 	public class CsvMapping
 	{
 		private static readonly Lazy<CsvMapping> instance = new Lazy<CsvMapping>(() => new CsvMapping());
 
-		private const string MappingResource = "Xamarin.AndroidX.Migration.Cecil.androidx-mapping.csv";
+		private const string MappingResourcePath = "Tools/Mappings/androidx-mapping.csv";
 
 		private readonly SortedDictionary<string, FullType> mapping = new SortedDictionary<string, FullType>();
 		private readonly SortedDictionary<string, FullType> reverseMapping = new SortedDictionary<string, FullType>();
@@ -19,8 +19,9 @@ namespace Xamarin.AndroidX.Migration.Cecil
 		public CsvMapping()
 		{
 			var assembly = typeof(CsvMapping).Assembly;
+			var mappingFile = Path.Combine(Path.GetDirectoryName(assembly.Location), MappingResourcePath);
 
-			using (var stream = assembly.GetManifestResourceStream(MappingResource))
+			using (var stream = File.OpenRead(mappingFile))
 			using (var reader = new StreamReader(stream))
 			{
 				LoadMapping(reader);
@@ -107,6 +108,7 @@ namespace Xamarin.AndroidX.Migration.Cecil
 			SupportNetType,
 			AndroidXNetNamespace,
 			AndroidXNetType,
+			SupportNetAssembly,
 			AndroidXNetAssembly,
 			SupportJavaPackage,
 			SupportJavaClass,

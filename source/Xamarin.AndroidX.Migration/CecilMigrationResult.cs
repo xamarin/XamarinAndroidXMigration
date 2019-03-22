@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace Xamarin.AndroidX.Migration.Cecil
+namespace Xamarin.AndroidX.Migration
 {
 	[Flags]
-	public enum MigrationResult
+	public enum CecilMigrationResult
 	{
 		Skipped = 0,
 

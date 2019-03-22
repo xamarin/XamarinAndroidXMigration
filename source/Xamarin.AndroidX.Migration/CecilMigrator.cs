@@ -1,45 +1,55 @@
 ﻿using Mono.Cecil;
+using Mono.Cecil.Cil;
 using Mono.Cecil.Pdb;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using Xamarin.Android.Tools.Bytecode;
 
-namespace Xamarin.AndroidX.Migration.Cecil
+namespace Xamarin.AndroidX.Migration
 {
-	public class Migrator
+	public class CecilMigrator
 	{
-		public Migrator()
+		private const string RegisterAttributeFullName = "Android.Runtime.RegisterAttribute";
+		private const string StringFullName = "System.String";
+
+		public CecilMigrator()
 			: this(CsvMapping.Instance)
 		{
 		}
 
-		public Migrator(Stream stream)
+		public CecilMigrator(Stream stream)
 			: this(new CsvMapping(stream))
 		{
 		}
 
-		public Migrator(CsvMapping mapping)
+		public CecilMigrator(CsvMapping mapping)
 		{
-			Mapping = CsvMapping.Instance;
+			Mapping = mapping;
 		}
 
 		public CsvMapping Mapping { get; }
 
-		public MigrationResult Migrate(AssemblyPair[] assemblies, bool verbose)
+		public bool Verbose { get; set; }
+
+		public CecilMigrationResult Migrate(IEnumerable<MigrationPair> assemblies)
 		{
-			var result = MigrationResult.Skipped;
+			var result = CecilMigrationResult.Skipped;
 
 			foreach (var pair in assemblies)
 			{
-				result |= Migrate(pair.Source, pair.Destination, verbose);
+				result |= Migrate(pair.Source, pair.Destination);
 			}
 
 			return result;
 		}
 
-		public MigrationResult Migrate(AssemblyPair assemblies, bool verbose) =>
-			Migrate(assemblies.Source, assemblies.Destination, verbose);
+		public CecilMigrationResult Migrate(MigrationPair assemblies) =>
+			Migrate(assemblies.Source, assemblies.Destination);
 
-		public MigrationResult Migrate(string source, string destination, bool verbose)
+		public CecilMigrationResult Migrate(string source, string destination)
 		{
 			if (string.IsNullOrWhiteSpace(source))
 				throw new ArgumentException($"Invalid source assembly path specified: '{source}'.", nameof(source));
@@ -54,7 +64,7 @@ namespace Xamarin.AndroidX.Migration.Cecil
 			var tempPdbPath = Path.ChangeExtension(destination, "temp.pdb");
 
 			var hasPdb = File.Exists(pdbPath);
-			var result = MigrationResult.Skipped;
+			var result = CecilMigrationResult.Skipped;
 
 			using (var resolver = new DefaultAssemblyResolver())
 			{
@@ -69,20 +79,24 @@ namespace Xamarin.AndroidX.Migration.Cecil
 
 				using (var assembly = AssemblyDefinition.ReadAssembly(source, readerParams))
 				{
-					if (verbose)
+					if (Verbose)
 						Console.WriteLine($"Processing assembly '{source}'...");
 
-					result = MigrateAssembly(assembly, verbose);
+					result = MigrateAssembly(assembly);
 
 					requiresSave =
-						result.HasFlag(MigrationResult.ContainedSupport) ||
-						result.HasFlag(MigrationResult.ContainedJni);
+						result.HasFlag(CecilMigrationResult.ContainedSupport) ||
+						result.HasFlag(CecilMigrationResult.ContainedJni);
 
 					if (requiresSave)
 					{
 						Stream symbolStream = null;
+						PdbWriterProvider symbolWriter = null;
 						if (hasPdb)
+						{
 							symbolStream = File.Create(tempPdbPath);
+							symbolWriter = new PdbWriterProvider();
+						}
 
 						try
 						{
@@ -94,7 +108,7 @@ namespace Xamarin.AndroidX.Migration.Cecil
 							{
 								WriteSymbols = hasPdb,
 								SymbolStream = symbolStream,
-								SymbolWriterProvider = new PdbWriterProvider()
+								SymbolWriterProvider = symbolWriter
 							});
 						}
 						finally
@@ -108,8 +122,18 @@ namespace Xamarin.AndroidX.Migration.Cecil
 					{
 						hasPdb = false;
 
-						if (verbose)
+						if (Verbose)
 							Console.WriteLine($"Skipped assembly '{source}' due to lack of support types.");
+
+						if (!source.Equals(destination, StringComparison.OrdinalIgnoreCase))
+						{
+							if (Verbose)
+								Console.WriteLine($"Copying source assembly '{source}' to '{destination}'.");
+
+							File.Copy(source, destination, true);
+							if (hasPdb)
+								File.Copy(pdbPath, destPdbPath, true);
+						}
 					}
 				}
 
@@ -128,54 +152,60 @@ namespace Xamarin.AndroidX.Migration.Cecil
 			return result;
 		}
 
-		private MigrationResult MigrateAssembly(AssemblyDefinition assembly, bool verbose)
+		public bool MigrateJniString(string jniString, out string newJniString)
 		{
-			var result = MigrateNetTypes(assembly, verbose);
+			newJniString = null;
+			return false;
+		}
 
-			if (result.HasFlag(MigrationResult.PotentialJni))
+		private CecilMigrationResult MigrateAssembly(AssemblyDefinition assembly)
+		{
+			var result = MigrateNetTypes(assembly);
+
+			if (result.HasFlag(CecilMigrationResult.PotentialJni))
 			{
-				result |= MigrateJniStrings(assembly, verbose);
+				result |= MigrateJniStrings(assembly);
 			}
 
 			return result;
 		}
 
-		private MigrationResult MigrateNetTypes(AssemblyDefinition assembly, bool verbose)
+		private CecilMigrationResult MigrateNetTypes(AssemblyDefinition assembly)
 		{
-			var result = MigrationResult.Skipped;
+			var result = CecilMigrationResult.Skipped;
 
 			foreach (var support in assembly.MainModule.GetTypeReferences())
 			{
 				if (!Mapping.TryGetAndroidXType(support.FullName, out var androidx) || support.FullName == androidx.FullName)
 				{
-					if (!result.HasFlag(MigrationResult.PotentialJni))
+					if (!result.HasFlag(CecilMigrationResult.PotentialJni))
 					{
-						if (support.FullName == "Android.Runtime.RegisterAttribute")
-							result |= MigrationResult.PotentialJni;
+						if (support.FullName == RegisterAttributeFullName)
+							result |= CecilMigrationResult.PotentialJni;
 					}
 
 					continue;
 				}
 
-				if (verbose)
+				if (Verbose)
 					Console.WriteLine($"  Processing type reference '{support.FullName}'...");
 
 				var old = support.FullName;
 				support.Namespace = androidx.Namespace;
 
-				if (verbose)
+				if (Verbose)
 					Console.WriteLine($"    Mapped type '{old}' to '{support.FullName}'.");
 
 				if (!string.IsNullOrWhiteSpace(androidx.Assembly) && support.Scope.Name != androidx.Assembly)
 				{
-					if (verbose)
+					if (Verbose)
 						Console.WriteLine($"    Mapped assembly '{support.Scope.Name}' to '{androidx.Assembly}'.");
 
 					support.Scope.Name = androidx.Assembly;
 				}
 				else if (support.Scope.Name == androidx.Assembly)
 				{
-					if (verbose)
+					if (Verbose)
 						Console.WriteLine($"    Already mapped assembly '{support.Scope.Name}'.");
 				}
 				else
@@ -183,17 +213,17 @@ namespace Xamarin.AndroidX.Migration.Cecil
 					Console.WriteLine($"    *** Potential error for assembly {support.Scope.Name}' to '{androidx.Assembly}'. ***");
 				}
 
-				result |= MigrationResult.ContainedSupport;
+				result |= CecilMigrationResult.ContainedSupport;
 			}
 
 			return result;
 		}
 
-		private static MigrationResult MigrateJniStrings(AssemblyDefinition assembly, bool verbose)
+		private CecilMigrationResult MigrateJniStrings(AssemblyDefinition assembly)
 		{
 			Console.WriteLine($"    *** Assembly contains JNI strings. ***");
 
-			return MigrationResult.Skipped;
+			return CecilMigrationResult.Skipped;
 		}
 	}
 }

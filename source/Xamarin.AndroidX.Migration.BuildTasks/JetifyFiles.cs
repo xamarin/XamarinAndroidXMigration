@@ -7,7 +7,7 @@ using System.IO;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
-namespace Xamarin.AndroidX.Jetifier {
+namespace Xamarin.AndroidX.Migration.BuildTasks {
 	public class JetifyFiles : Task {
 
 		#region Properties
@@ -60,7 +60,7 @@ namespace Xamarin.AndroidX.Jetifier {
 				}
 			}
 
-			var libDirectory = $"{Path.GetDirectoryName (JetifierWrapperPath)}{Path.DirectorySeparatorChar}lib{Path.DirectorySeparatorChar}";
+			var libDirectory = Path.Combine(Path.GetDirectoryName (JetifierWrapperPath));
 			var jarFiles = Directory.GetFiles (libDirectory, "*.jar", SearchOption.TopDirectoryOnly);
 
 			var classpathJoinSymbol = IsUnix ? ":" : ";";

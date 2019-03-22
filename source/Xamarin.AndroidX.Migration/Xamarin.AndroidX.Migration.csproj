@@ -9,7 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="..\..\mappings\androidx-mapping.csv" Link="androidx-mapping.csv" />
+    <Content Include="..\..\mappings\androidx-mapping.csv" Link="Tools\Mappings\androidx-mapping.csv" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\output\JetifierWrapper\*" Link="Tools\JetifierWrapper\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>
