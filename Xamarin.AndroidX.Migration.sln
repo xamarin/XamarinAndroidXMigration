@@ -33,15 +33,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Android.Tools.Bytec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.AndroidX.Jetifier", "source\Xamarin.AndroidX.Jetifier\Xamarin.AndroidX.Jetifier.csproj", "{C6EBD819-D99B-4F21-8D8D-EA0C26B0E67E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "grepinator", "source\grepinator\grepinator.csproj", "{3E8251F9-1F90-4E8C-9120-672DB2C65E79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Xamarin.AndroidX.Cecilfier", "source\App.Xamarin.AndroidX.Cecilfier\App.Xamarin.AndroidX.Cecilfier.csproj", "{943F2B19-12CD-4344-8B0A-84B0EF61BDEE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Xamarin.AndroidX.Cecilfier", "source\App.Xamarin.AndroidX.Cecilfier\App.Xamarin.AndroidX.Cecilfier.csproj", "{943F2B19-12CD-4344-8B0A-84B0EF61BDEE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Xamarin.AndroidX.Mapper", "source\App.Xamarin.AndroidX.Mapper\App.Xamarin.AndroidX.Mapper.csproj", "{2CCCF8C5-498B-4105-B270-3822954E46DC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Xamarin.AndroidX.Mapper", "source\App.Xamarin.AndroidX.Mapper\App.Xamarin.AndroidX.Mapper.csproj", "{2CCCF8C5-498B-4105-B270-3822954E46DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.AndroidX.Data", "source\Xamarin.AndroidX.Data\Xamarin.AndroidX.Data.csproj", "{798CA1B3-11D6-4F21-B9F1-2D981DDB8D3F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.AndroidX.Data", "source\Xamarin.AndroidX.Data\Xamarin.AndroidX.Data.csproj", "{798CA1B3-11D6-4F21-B9F1-2D981DDB8D3F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.AndroidX.Mapper", "source\Xamarin.AndroidX.Mapper\Xamarin.AndroidX.Mapper.csproj", "{E3AFD520-57D9-4313-AF03-634B0D434470}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.AndroidX.Mapper", "source\Xamarin.AndroidX.Mapper\Xamarin.AndroidX.Mapper.csproj", "{E3AFD520-57D9-4313-AF03-634B0D434470}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,10 +95,6 @@ Global
 		{C6EBD819-D99B-4F21-8D8D-EA0C26B0E67E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6EBD819-D99B-4F21-8D8D-EA0C26B0E67E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6EBD819-D99B-4F21-8D8D-EA0C26B0E67E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3E8251F9-1F90-4E8C-9120-672DB2C65E79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3E8251F9-1F90-4E8C-9120-672DB2C65E79}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3E8251F9-1F90-4E8C-9120-672DB2C65E79}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3E8251F9-1F90-4E8C-9120-672DB2C65E79}.Release|Any CPU.Build.0 = Release|Any CPU
 		{943F2B19-12CD-4344-8B0A-84B0EF61BDEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{943F2B19-12CD-4344-8B0A-84B0EF61BDEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{943F2B19-12CD-4344-8B0A-84B0EF61BDEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -134,7 +128,6 @@ Global
 		{78D18B71-6DE5-41EC-92C1-E76305948FBC} = {6E6A8AA4-CAD6-47F4-B4AD-767E62854548}
 		{B17475BC-45A2-47A3-B8FC-62F3A0959EE0} = {F422DC0C-A441-47E9-ABAE-24D7ED879C85}
 		{C6EBD819-D99B-4F21-8D8D-EA0C26B0E67E} = {AB12F426-C62D-40D7-958C-F39E9915BCDB}
-		{3E8251F9-1F90-4E8C-9120-672DB2C65E79} = {AB12F426-C62D-40D7-958C-F39E9915BCDB}
 		{943F2B19-12CD-4344-8B0A-84B0EF61BDEE} = {AB12F426-C62D-40D7-958C-F39E9915BCDB}
 		{2CCCF8C5-498B-4105-B270-3822954E46DC} = {AB12F426-C62D-40D7-958C-F39E9915BCDB}
 		{798CA1B3-11D6-4F21-B9F1-2D981DDB8D3F} = {AB12F426-C62D-40D7-958C-F39E9915BCDB}
