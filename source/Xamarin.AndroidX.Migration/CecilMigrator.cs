@@ -88,6 +88,10 @@ namespace Xamarin.AndroidX.Migration
 						result.HasFlag(CecilMigrationResult.ContainedSupport) ||
 						result.HasFlag(CecilMigrationResult.ContainedJni);
 
+					var dir = Path.GetDirectoryName(destination);
+					if (!Directory.Exists(dir))
+						Directory.CreateDirectory(dir);
+
 					if (requiresSave)
 					{
 						Stream symbolStream = null;
@@ -100,10 +104,6 @@ namespace Xamarin.AndroidX.Migration
 
 						try
 						{
-							var dir = Path.GetDirectoryName(destination);
-							if (!Directory.Exists(dir))
-								Directory.CreateDirectory(dir);
-
 							assembly.Write(tempDllPath, new WriterParameters
 							{
 								WriteSymbols = hasPdb,
@@ -120,8 +120,6 @@ namespace Xamarin.AndroidX.Migration
 					}
 					else
 					{
-						hasPdb = false;
-
 						if (Verbose)
 							Console.WriteLine($"Skipped assembly '{source}' due to lack of support types.");
 
@@ -139,9 +137,12 @@ namespace Xamarin.AndroidX.Migration
 
 				if (requiresSave)
 				{
-					File.Copy(tempDllPath, destination, true);
-					File.Delete(tempDllPath);
-					if (hasPdb)
+					if (File.Exists(tempDllPath))
+					{
+						File.Copy(tempDllPath, destination, true);
+						File.Delete(tempDllPath);
+					}
+					if (File.Exists(tempPdbPath))
 					{
 						File.Copy(tempPdbPath, destPdbPath, true);
 						File.Delete(tempPdbPath);

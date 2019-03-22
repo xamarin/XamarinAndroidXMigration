@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<UsingTask TaskName="Xamarin.AndroidX.Migration.BuildTasks.JetifyFiles" AssemblyFile="..\..\source\Xamarin.AndroidX.Migration.BuildTasks\bin\Release\net472\Xamarin.AndroidX.Migration.BuildTasks.dll" />
+	<UsingTask TaskName="Xamarin.AndroidX.Migration.BuildTasks.JetifyFiles" AssemblyFile="..\..\source\Xamarin.AndroidX.Migration.BuildTasks\bin\Release\net47\Xamarin.AndroidX.Migration.BuildTasks.dll" />
 
 	<PropertyGroup>
 		<IsUnix Condition="'$(OS)'=='Unix'">true</IsUnix>
 		<IsUnix Condition="'$(OS)'!='Unix'">false</IsUnix>
 
-		<JetifierWrapperPath>..\..\source\Xamarin.AndroidX.Migration.BuildTasks\bin\Release\net472\Tools\JetifierWrapper\JetifierWrapper.jar</JetifierWrapperPath>
+		<JetifierWrapperPath>..\..\source\Xamarin.AndroidX.Migration.BuildTasks\bin\Release\net47\Tools\JetifierWrapper\JetifierWrapper.jar</JetifierWrapperPath>
 		<TestArtifactsRoot>..\..\externals\test-assets\facebook-sdk\</TestArtifactsRoot>
 	</PropertyGroup>
 
