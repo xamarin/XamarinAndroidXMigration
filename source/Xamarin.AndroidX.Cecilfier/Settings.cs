@@ -17,6 +17,12 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 #elif RELEASE
                 wd  = "./bin/Release/netcoreapp2.1/";
                 #endif
+                #elif NETCOREAPP && NETCOREAPP2_2
+                #if DEBUG
+                wd = "./bin/Debug/netcoreapp2.2/";
+                #elif RELEASE
+                wd = "./bin/Release/netcoreapp2.2/";
+                #endif
                 #elif NETCOREAPP && NETCOREAPP3_0
                 #if DEBUG
                 wd = "./bin/Debug/netcoreapp3.0/";
