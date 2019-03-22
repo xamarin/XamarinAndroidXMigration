@@ -10,6 +10,8 @@ jobs:
     pool:
       vmImage: vs2017-win2016
     steps:
+      - checkout: self
+        submodules: recursive
       - powershell: .\build.ps1
         displayName: Run build
 
@@ -18,6 +20,8 @@ jobs:
     pool:
       vmImage: macos-10.13
     steps:
+      - checkout: self
+        submodules: recursive
       - bash: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(MONO_VERSION)
         displayName: Switch to the latest Xamarin SDK
       - bash: echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_$(XCODE_VERSION).app;sudo xcode-select --switch /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
