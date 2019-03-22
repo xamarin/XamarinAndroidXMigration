@@ -79,6 +79,8 @@ namespace Xamarin.AndroidX.Migration.Tests
 		{
 			var migrator = new CecilMigrator();
 			var wasChanged = migrator.MigrateJniString(supportJni, out var mappedJni);
+
+			Assert.Equal(supportJni != androidxJni, wasChanged);
 			if (wasChanged)
 				Assert.Equal(androidxJni, mappedJni);
 			else
