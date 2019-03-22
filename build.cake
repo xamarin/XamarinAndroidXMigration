@@ -140,9 +140,12 @@ Task("Tests")
 
     var testProjects = GetFiles("./tests/*.Tests/*.csproj");
     foreach (var proj in testProjects) {
-        DotNetCoreTest(proj.FullPath, new DotNetCoreTestSettings {
+        DotNetCoreTest(proj.GetFilename().ToString(), new DotNetCoreTestSettings {
             Configuration = configuration,
             NoBuild = true,
+            TestAdapterPath = ".",
+            Logger = "xunit",
+            WorkingDirectory = proj.GetDirectory(),
         });
     }
 });

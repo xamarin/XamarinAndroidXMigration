@@ -28,3 +28,7 @@ jobs:
         displayName: Switch to the latest Xcode
       - bash: sh ./build.sh
         displayName: Run build
+      - task: PublishTestResults@2
+        inputs:
+          testResultsFormat: xUnit
+          testResultsFiles: tests/**/TestResults/TestResults.xml
