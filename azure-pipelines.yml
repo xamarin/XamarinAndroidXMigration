@@ -16,6 +16,7 @@ jobs:
         displayName: Run build
       - task: PublishTestResults@2
         displayName: Publish test results
+        testRunTitle: Windows Tests
         condition: always()
         inputs:
           testResultsFormat: xUnit
@@ -36,6 +37,7 @@ jobs:
         displayName: Run build
       - task: PublishTestResults@2
         displayName: Publish test results
+        testRunTitle: macOS Tests
         condition: always()
         inputs:
           testResultsFormat: xUnit
