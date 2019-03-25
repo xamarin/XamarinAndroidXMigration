@@ -3,9 +3,6 @@ variables:
   MONO_VERSION: 5_16_0
   XCODE_VERSION: 10.1
 
-trigger:
- - master
-
 jobs:
 
   - job: build_windows
@@ -13,17 +10,35 @@ jobs:
     pool:
       vmImage: vs2017-win2016
     steps:
+      - checkout: self
+        submodules: recursive
       - powershell: .\build.ps1
         displayName: Run build
+      - task: PublishTestResults@2
+        displayName: Publish test results
+        condition: always()
+        inputs:
+          testResultsFormat: xUnit
+          testResultsFiles: tests/**/TestResults/TestResults.xml
+          testRunTitle: Windows Tests
 
   - job: build_macos
     displayName: Build on macOS
     pool:
       vmImage: macos-10.13
     steps:
+      - checkout: self
+        submodules: recursive
       - bash: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(MONO_VERSION)
         displayName: Switch to the latest Xamarin SDK
       - bash: echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_$(XCODE_VERSION).app;sudo xcode-select --switch /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
         displayName: Switch to the latest Xcode
       - bash: sh ./build.sh
         displayName: Run build
+      - task: PublishTestResults@2
+        displayName: Publish test results
+        condition: always()
+        inputs:
+          testResultsFormat: xUnit
+          testResultsFiles: tests/**/TestResults/TestResults.xml
+          testRunTitle: macOS Tests
