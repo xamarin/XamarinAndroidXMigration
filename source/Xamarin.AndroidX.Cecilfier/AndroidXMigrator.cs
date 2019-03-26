@@ -4,6 +4,8 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+
 using Core.Linq;
 
 [assembly:System.Runtime.CompilerServices.InternalsVisibleTo("Tests.XUnit")]
@@ -70,11 +72,11 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
         public static void LoadMappingsClasses(string file)
         {
-            System.Diagnostics.Trace.WriteLine($" reading csv = {file}");
+            Trace.WriteLine($" reading csv = {file}");
             Core.Text.CharacterSeparatedValues csv = new Core.Text.CharacterSeparatedValues();
             string content = csv.LoadAsync(file).Result;
 
-            System.Diagnostics.Trace.WriteLine($"    parsing csv...");
+            Trace.WriteLine($"    parsing csv...");
             IEnumerable<string[]> mapping = csv
                                             .ParseTemporaryImplementation()
                                             .ToList()
@@ -184,7 +186,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 >
                 Convert_ClassMappings(IEnumerable<string[]> untyped_data)
         {
-             System.Diagnostics.Trace.WriteLine($"    converting csv to strongly typed data");
+             Trace.WriteLine($"    converting csv to strongly typed data");
            //int n = untyped_data.Count();
 
             //for(int i = 0; i < n; i++)
@@ -225,7 +227,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
         private static void Initialize()
         {
-            System.Diagnostics.Trace.WriteLine($"    Initialize...");
+            Trace.WriteLine($"    Initialize...");
             memory_android_support = string.Intern("Android.Support").AsMemory();
             memory_androidx = string.Intern("AndroidX").AsMemory();
 

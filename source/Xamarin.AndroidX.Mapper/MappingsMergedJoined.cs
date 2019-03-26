@@ -75,78 +75,79 @@ namespace Xamarin.AndroidX.Mapper
                     >
                             MergeJoinEnumeratorBlock()
         {
-            foreach
-                (
-                    (
-                        string TypenameFullyQualifiedAndroidSupport,
-                        string TypenameFullyQualifiedAndroidX
-                    )
-                        row in MappingsAndroidSupport.GoogleMappingsData.Mapping
-                )
+            (
+                string TypenameFullyQualifiedAndroidSupport,
+                string TypenameFullyQualifiedAndroidX,
+                string TypenameFullyQualifiedXamarin
+            )[]
+                map_sorted = null;
+            (
+                string TypenameFullyQualifiedAndroidSupport,
+                string TypenameFullyQualifiedAndroidX,
+                string TypenameFullyQualifiedXamarin
+            )[]
+                map_searched = null;
+
+            string[] map_searched_index = null;
+
+            int n_as = this.MappingsAndroidSupport.MappingsForMigrationMergeJoin.Count();
+            int n_ax = this.MappingsAndroidSupport.MappingsForMigrationMergeJoin.Count();
+
+            if (n_as > n_ax)
             {
-                string tnfq_as = row.TypenameFullyQualifiedAndroidSupport;
-                string tnfq_ax = row.TypenameFullyQualifiedAndroidX;
+                map_sorted = this.MappingsAndroidSupport
+                                        .MappingsForMigrationMergeJoin
+                                        .ToArray()
+                                        ;
+                map_searched = this.MappingsAndroidX
+                                        .MappingsForMigrationMergeJoin
+                                        .OrderBy(tuple => tuple.TypenameFullyQualifiedAndroidSupport)
+                                        .ToArray()
+                                        ;
+                map_searched_index = map_searched
+                                        .Select(tuple => tuple.TypenameFullyQualifiedAndroidSupport)
+                                        .ToArray()
+                                        ;
+            }
+            else
+            {
+                map_sorted = this.MappingsAndroidX
+                                        .MappingsForMigrationMergeJoin
+                                        .OrderBy(tuple => tuple.TypenameFullyQualifiedAndroidX)
+                                        .ToArray()
+                                        ;
+                map_searched = this.MappingsAndroidSupport
+                                        .MappingsForMigrationMergeJoin
+                                        .OrderBy(tuple => tuple.TypenameFullyQualifiedAndroidSupport)
+                                        .ToArray()
+                                        ;
+                map_searched_index = map_searched
+                                        .Select(tuple => tuple.TypenameFullyQualifiedAndroidSupport)
+                                        .ToArray()
+                                        ;
 
-                string tn_xm_as_found = null;
-                string tn_xm_ax_found = null;
+                //File.WriteAllText("map_sorted.csv", string.Join(Environment.NewLine, map_sorted));
+            }                                            
 
-                //Parallel.Invoke
-                //    (
-                //        () =>
-                        //{
-                            var array_as = MappingsAndroidSupport
-                                            .MappingsForMigrationMergeJoin
-                                            .OrderBy(tuple => tuple.TypenameFullyQualifiedAndroidSupport)
-                                            .ToArray()
-                                            ;
-                            var array_as_index = array_as
-                                                    .Select(tuple => tuple.TypenameFullyQualifiedAndroidSupport)
-                                                    .ToArray()
-                                                    ;
-                            int index_as = Array.BinarySearch(array_as_index, tnfq_as);
+            foreach(var tuple_as in map_sorted)
+            {
+                int index = Array.BinarySearch(map_searched_index, tuple_as.TypenameFullyQualifiedAndroidX);
 
-                            if (index_as >= 0 && index_as < array_as.Length)
-                            {
-                                tn_xm_as_found = array_as[index_as].TypenameFullyQualifiedXamarin;
-                            }
-                        //},
-                        //() =>
-                        //{
-                            var array_ax = MappingsAndroidX
-                                            .MappingsForMigrationMergeJoin
-                                            .OrderBy(tuple => tuple.TypenameFullyQualifiedAndroidX)
-                                            .ToArray()
-                                            ;
-                            var array_ax_index = array_ax
-                                                    .Select(tuple => tuple.TypenameFullyQualifiedAndroidX)
-                                                    .ToArray()
-                                                    ;
-                            int index_ax = Array.BinarySearch(array_ax_index, tnfq_ax);
+                string found_ax = null;
+                string found_ax_xm = null;
+                if (index >= 0 && index < map_sorted.Count())
+                {
+                    found_ax = map_sorted[index].TypenameFullyQualifiedAndroidX;
+                    found_ax_xm = map_sorted[index].TypenameFullyQualifiedXamarin;
+                }
 
-                            if (index_ax >= 0 && index_ax < array_ax.Length)
-                            {
-                                tn_xm_ax_found = array_ax[index_ax].TypenameFullyQualifiedXamarin;
-                            }
-                    //    }
-                    //);
-
-                (
-                    string TypenameFullyQualifiedAndroidSupport,
-                    string TypenameFullyQualifiedAndroidX,
-                    string TypenameFullyQualifiedXamarinAndroidSupport,
-                    string TypenameFullyQualifiedXamarinAndroidX
-                )
-                    mapping;
-
-                mapping =
-                        (
-                            TypenameFullyQualifiedAndroidSupport: tnfq_as,
-                            TypenameFullyQualifiedAndroidX: tnfq_ax,
-                            TypenameFullyQualifiedXamarinAndroidSupport: tn_xm_as_found,
-                            TypenameFullyQualifiedXamarinAndroidX: tn_xm_ax_found
-                        );
-
-                yield return mapping;
+                yield return
+                    (
+                        TypenameFullyQualifiedAndroidSupport: tuple_as.TypenameFullyQualifiedAndroidSupport,
+                        TypenameFullyQualifiedAndroidX: found_ax,
+                        TypenameFullyQualifiedXamarinAndroidSupport: tuple_as.TypenameFullyQualifiedXamarin,
+                        TypenameFullyQualifiedXamarinAndroidX: found_ax_xm
+                    );
             }
         }
 

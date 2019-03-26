@@ -1,9 +1,10 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Diagnostics;
+using System.Collections.Generic;
 
 using Mono.Cecil;
-using System.Collections.Generic;
 
 using HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineator.AST;
 
@@ -84,8 +85,8 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                                                                 }
                                                         );
 
-            System.Diagnostics.Trace.WriteLine($"===================================================================================");
-            System.Diagnostics.Trace.WriteLine($"migrating assembly               = {this.PathAssemblyInput}");
+            Trace.WriteLine($"===================================================================================");
+            Trace.WriteLine($"migrating assembly               = {this.PathAssemblyInput}");
 
             var csv = LoadMapping("mappings/API.Mappings.Merged.Google.with.Xamarin.Classes.csv");
 
@@ -93,8 +94,8 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
             foreach (ModuleDefinition module in asm_def.Modules)
             {
-                System.Diagnostics.Trace.WriteLine($"--------------------------------------------------------------------------");
-                System.Diagnostics.Trace.WriteLine($"    migrating Module           = {module.Name}");
+                Trace.WriteLine($"--------------------------------------------------------------------------");
+                Trace.WriteLine($"    migrating Module           = {module.Name}");
                 //module.AssemblyReferences;
 
                 foreach (var typeRef in module.GetTypes())
@@ -160,8 +161,8 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             timer.Stop();
 
             log.AppendLine($"{timer.ElapsedMilliseconds}ms");
-            System.Diagnostics.Trace.WriteLine($"{timer.ElapsedMilliseconds}ms");
-            //System.Diagnostics.Trace.WriteLine(log.ToString());
+            Trace.WriteLine($"{timer.ElapsedMilliseconds}ms");
+            //Trace.WriteLine(log.ToString());
 
 
             File.WriteAllText

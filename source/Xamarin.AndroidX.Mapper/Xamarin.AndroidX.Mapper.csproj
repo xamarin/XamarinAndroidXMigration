@@ -11,8 +11,8 @@
     <PackageReference Include="Mono.Cecil" Version="0.10.3" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Xamarin.AndroidX.Cecilfier\Xamarin.AndroidX.Cecilfier.csproj" />
     <ProjectReference Include="..\Xamarin.AndroidX.Data\Xamarin.AndroidX.Data.csproj" />
+    <ProjectReference Include="..\Xamarin.AndroidX.Cecilfier\Xamarin.AndroidX.Cecilfier.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\" />

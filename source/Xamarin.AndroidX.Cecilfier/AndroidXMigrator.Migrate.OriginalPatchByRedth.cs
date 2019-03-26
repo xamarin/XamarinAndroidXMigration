@@ -1,9 +1,10 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Diagnostics;
+using System.Collections.Generic;
 
 using Mono.Cecil;
-using System.Collections.Generic;
 
 using HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineator.AST;
 
@@ -84,8 +85,8 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                                                                 }
                                                         );
 
-            System.Diagnostics.Trace.WriteLine($"===================================================================================");
-            System.Diagnostics.Trace.WriteLine($"migrating assembly               = {this.PathAssemblyInput}");
+            Trace.WriteLine($"===================================================================================");
+            Trace.WriteLine($"migrating assembly               = {this.PathAssemblyInput}");
 
             AST.Assembly ast_assembly = new AST.Assembly()
             {
@@ -94,8 +95,8 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
             foreach(ModuleDefinition module in asm_def.Modules)
             {
-                System.Diagnostics.Trace.WriteLine($"--------------------------------------------------------------------------");
-                System.Diagnostics.Trace.WriteLine($"    migrating Module           = {module.Name}");
+                Trace.WriteLine($"--------------------------------------------------------------------------");
+                Trace.WriteLine($"    migrating Module           = {module.Name}");
                 //module.AssemblyReferences;
 
                 AST.Module ast_module = ProcessModuleRedth(module);
@@ -117,8 +118,8 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             timer.Stop();
 
             log.AppendLine($"{timer.ElapsedMilliseconds}ms");
-            System.Diagnostics.Trace.WriteLine($"{timer.ElapsedMilliseconds}ms");
-            //System.Diagnostics.Trace.WriteLine(log.ToString());
+            Trace.WriteLine($"{timer.ElapsedMilliseconds}ms");
+            //Trace.WriteLine(log.ToString());
 
 
             File.WriteAllText
@@ -169,9 +170,9 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 {
                     continue;
                 }
-                System.Diagnostics.Trace.WriteLine($"    processing ReferenceType");
-                System.Diagnostics.Trace.WriteLine($"        Name        = {type.Name}");
-                System.Diagnostics.Trace.WriteLine($"        FullName    = {type.FullName}");
+                Trace.WriteLine($"    processing ReferenceType");
+                Trace.WriteLine($"        Name        = {type.Name}");
+                Trace.WriteLine($"        FullName    = {type.FullName}");
 
                 AST.Type ast_type = ProcessTypeReferenceRedth(type);
 
@@ -220,11 +221,11 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                     continue;
                 }
 
-                System.Diagnostics.Trace.WriteLine($"    processing Type");
-                System.Diagnostics.Trace.WriteLine($"        Name        = {type.Name}");
-                System.Diagnostics.Trace.WriteLine($"        FullName    = {type.FullName}");
-                System.Diagnostics.Trace.WriteLine($"        IsClass     = {type.IsClass}");
-                System.Diagnostics.Trace.WriteLine($"        IsInterface = {type.IsInterface}");
+                Trace.WriteLine($"    processing Type");
+                Trace.WriteLine($"        Name        = {type.Name}");
+                Trace.WriteLine($"        FullName    = {type.FullName}");
+                Trace.WriteLine($"        IsClass     = {type.IsClass}");
+                Trace.WriteLine($"        IsInterface = {type.IsInterface}");
 
                 AST.Type ast_type = ProcessTypeRedth(type);
 
@@ -347,9 +348,9 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 return ast_type_base;
             }
 
-            System.Diagnostics.Trace.WriteLine($"        processing References - TypeReference");
-            System.Diagnostics.Trace.WriteLine($"            Name        = {type.Name}");
-            System.Diagnostics.Trace.WriteLine($"            FullName    = {type.FullName}");
+            Trace.WriteLine($"        processing References - TypeReference");
+            Trace.WriteLine($"            Name        = {type.Name}");
+            Trace.WriteLine($"            FullName    = {type.FullName}");
 
             string type_fqn_old = type.FullName;
 
@@ -395,9 +396,9 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 return ast_type_base;
             }
 
-            System.Diagnostics.Trace.WriteLine($"        processing BaseType - TypeReference");
-            System.Diagnostics.Trace.WriteLine($"            Name        = {type_base.Name}");
-            System.Diagnostics.Trace.WriteLine($"            FullName    = {type_base.FullName}");
+            Trace.WriteLine($"        processing BaseType - TypeReference");
+            Trace.WriteLine($"            Name        = {type_base.Name}");
+            Trace.WriteLine($"            FullName    = {type_base.FullName}");
 
             string type_fqn_old = type_base.FullName;
 
@@ -475,9 +476,9 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
         {
             AST.Method ast_method = null;
 
-            System.Diagnostics.Trace.WriteLine($"        processing method");
-            System.Diagnostics.Trace.WriteLine($"           Name        = {method.Name}");
-            System.Diagnostics.Trace.WriteLine($"           FullName    = {method.ReturnType.FullName}");
+            Trace.WriteLine($"        processing method");
+            Trace.WriteLine($"           Name        = {method.Name}");
+            Trace.WriteLine($"           FullName    = {method.ReturnType.FullName}");
 
             AST.Type ast_method_type_return = ProcessMethodReturnTypeRedth(method.ReturnType);
 
@@ -547,9 +548,9 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 return ast_type_return;
             }
 
-            System.Diagnostics.Trace.WriteLine($"        changing return type");
-            System.Diagnostics.Trace.WriteLine($"           Name    = {type_return.Name}");
-            System.Diagnostics.Trace.WriteLine($"           FullName    = {type_return.FullName}");
+            Trace.WriteLine($"        changing return type");
+            Trace.WriteLine($"           Name    = {type_return.Name}");
+            Trace.WriteLine($"           FullName    = {type_return.FullName}");
 
             string r = FindReplacingTypeFromMappings(type_return.FullName);
             if (string.IsNullOrEmpty(r))
@@ -686,7 +687,9 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 (
                     //-------------------------------
                     // WTF ??
-                    jniSignature.Contains("Forms.Init(); prior to using it.") // WTF
+                    // Use Application Insights without Xamarin Forms
+                    // https://github.com/Microsoft/ApplicationInsights-Xamarin/issues/2
+                    jniSignature.Contains("Forms.Init(); prior to using it.") // WTF ???
                     ||
                     jniSignature.Contains("Init() before this")
                     ||

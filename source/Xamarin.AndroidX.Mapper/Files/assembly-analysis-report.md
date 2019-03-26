@@ -24,6 +24,14 @@
 
     *   [./$FILENAME$.TARNIG.csv](./$FILENAME$.TARNIG.csv)
 
+*   TARNIGF - types Android registered NOT found in Google's Mappings FIXED 
+
+    *   FIXED - containing type found in Google's Mappings
+
+    *   N = $NTARNIGF$
+
+    *   [./$FILENAME$.TARNIGF.csv](./$FILENAME$.TARNIGF.csv)
+
 *   TNAR - types nested Android registered
 
     *   N = $NTNAR$
@@ -38,11 +46,19 @@
 
     *   [./$FILENAME$.TNARIG.csv](./$FILENAME$.TNARIG.csv)
     
-*   TNARNIG - types nested Android registered NOT in Google\'s mappings
+*   TNARNIG - types nested Android registered NOT in Google's mappings
 
     *   N = $NTNARNIG$
 
     *   [./$FILENAME$.TNARNIG.csv](./$FILENAME$.TNARNIG.csv)
+    
+*   TNARNIGF - types nested Android registered NOT in Google's mappings FIXED
+
+    *   FIXED - containing type found in Google's Mappings
+    
+    *   N = $NTNARNIGF$
+
+    *   [./$FILENAME$.TNARNIGF.csv](./$FILENAME$.TNARNIGF.csv)
     
 *   TAUR - types Android unregistered 
         
@@ -72,5 +88,20 @@ GoogleMapping = $GoogleMappings$;
 ### Size Reduction
 
 $SizeReductionReport$
+
+
+## Artifacts for downloads
+
+AndroidX: 
+
+*   https://dev.azure.com/xamarin/public/_build/results?buildId=517
+
+*   https://github.com/xamarin/AndroidSupportComponents/commit/35c1e15052f0f2f2ef6088ced006e959508d97b7
+
+Android Support: 
+
+*   https://dev.azure.com/xamarin/public/_build/results?buildId=578&view=results
+
+*   https://github.com/xamarin/AndroidSupportComponents/commit/df95df2721031fc533e29e39059517757010d432
 
 

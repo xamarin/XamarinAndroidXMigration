@@ -1,0 +1,115 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackOnBuild>true</PackOnBuild>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    
+    <Description>MSBuild targets/tasks for AndroidX migration (Android.Support to AndroidX)</Description>
+  </PropertyGroup>
+  
+    <!--
+    Project as a NuGet package.
+    -->
+    <PropertyGroup>
+        <PackOnBuild>true</PackOnBuild>
+        <!-- 
+        Suppresses the warnings about the package not having assemblies in lib/*/.dll.
+        -->
+        <NoPackageAnalysis>true</NoPackageAnalysis>
+        <!-- 
+        Change the default location where NuGet will put the build output 
+        
+           This changes the default folder where assemblies will be placed in the package.
+            The default is 'lib', but that is incorrect since these assemblies are mean to be used
+            by MSBuild, and to meant to be referenced as API from the NuGet package.
+        
+            tools/
+            tasks/
+        -->
+        <BuildOutputTargetFolder>tools</BuildOutputTargetFolder>
+        <!-- 
+        put the package output into a nuget test folder 
+        -->
+        <PackageOutputPath>$(HOME)/nuget-local</PackageOutputPath>
+        
+        <!-- 
+        nuget packaging
+        -->
+        <PackageId>Xamarin.AndroidX.Cecilfier.MSBuildTask</PackageId>
+        <Title>
+            Xamarin.AndroidX.Cecilfier.MSBuildTask
+        </Title>
+        <summary>
+            MSBuild targets/tasks for AndroidX migration (Android.Support to AndroidX)
+        </summary>
+        <Description>
+            MSBuild targets/tasks for AndroidX migration (Android.Support to AndroidX)
+        </Description>
+        <Owners>Microsoft, Xamarin Inc.</Owners>
+        <Authors>Microsoft, Xamarin Inc.</Authors>
+        <Copyright>2019</Copyright>
+        <ProjectUrl>
+          https://github.com/xamarin/XamarinAndroidXMigration/
+        </ProjectUrl>
+        <RepositoryUrl>
+          https://github.com/xamarin/XamarinAndroidXMigration/
+        </RepositoryUrl>
+        <iconUrl>
+          https://github.com/xamarin/XamarinAndroidXMigration/
+        </iconUrl>
+        <license>LICENSE</license>
+        <licenseUrl>
+          https://github.com/xamarin/XamarinAndroidXMigration/
+        </licenseUrl>
+        <VersionPrefix>0.0.1</VersionPrefix>
+        <!--
+        VersionSuffix - For debugging and local nuget feed 
+        -->        
+        <VersionSuffix>alpha-$([System.DateTime]::Now.ToString('yyyyMMddHHmmss'))</VersionSuffix>
+        <PackageVersion>$(Version)</PackageVersion>
+        <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+        <PackageTags>
+            xamarin, android, bindings, utilities, androidx, migration, android support
+        </PackageTags>
+    </PropertyGroup>
+  
+    <ItemGroup>
+      <!--
+        PrivateAssets="All" is essential. This prevents these build-only dependencies
+        from ending up in the NuGet package's list of dependencies.
+       -->
+      <PackageReference Include="NETStandard.Library" Version="2.0.3" PrivateAssets="All" />
+      <PackageReference Include="Microsoft.Build.Framework" Version="15.8.166" PrivateAssets="All" />
+      <PackageReference Include="Microsoft.Build.Tasks.Core" Version="15.8.166" PrivateAssets="All" />
+      <PackageReference Include="Microsoft.Build.Utilities.Core" Version="15.8.166" PrivateAssets="All" />
+      <!-- 
+          marks all packages as 'local only' so they don't end up in the nuspec 
+      -->
+      <PackageReference Update="@(PackageReference)" PrivateAssets="All" />        
+      <PackageReference Include="System.Linq" Version="4.3.0" />
+    </ItemGroup>
+
+  
+  <ItemGroup>
+    <None Include="build\Xamarin.AndroidX.Cecilfier.MSBuildTask.props">
+      <PackagePath>build/</PackagePath>
+      <Pack>true</Pack>
+    </None>
+    <None Include="build\Xamarin.AndroidX.Cecilfier.MSBuildTask.targets">
+      <PackagePath>build/</PackagePath>
+      <Pack>true</Pack>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="build\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CecilizeTask.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Xamarin.AndroidX.Cecilfier\Xamarin.AndroidX.Cecilfier.csproj" />
+    <ProjectReference Include="..\Xamarin.AndroidX.Data\Xamarin.AndroidX.Data.csproj" />
+  </ItemGroup>
+</Project>

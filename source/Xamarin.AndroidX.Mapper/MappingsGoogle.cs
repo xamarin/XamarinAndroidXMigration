@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -38,6 +39,10 @@ namespace Xamarin.AndroidX.Mapper
                 // ... Read the string.
                 result = content.ReadAsStringAsync().Result;
             }
+
+            int index = url.LastIndexOf('/');
+            string filename = url.Substring(index + 1, url.Length - index - 1);
+            File.WriteAllText(filename, result);
 
             return result;
         }

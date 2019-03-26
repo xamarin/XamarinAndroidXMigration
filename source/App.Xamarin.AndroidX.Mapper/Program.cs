@@ -1,35 +1,55 @@
-﻿using System.Linq;
-using Xamarin.AndroidX.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
+using Core;
+
+using Xamarin.AndroidX.Data;
 
 using Xamarin.AndroidX.Mapper;
 
 namespace App.Xamarin.AndroidX.Mapper
 {
-    using System;
-    using System.Collections.Generic;
-    using Core;
 
     class Program
     {
-
         static string url_base = "https://github.com/moljac/HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Data/raw/master/data/";
 
         static void Main(string[] args)
         {
+            Trace.Listeners.Add
+                            (
+                            new TextWriterTraceListener
+                                                        (
+                                                            "Xamarin.AndroidX.Mapper.log",
+                                                            "Xamarin.AndroidX.Mapper"
+                                                        )
+                            );
+            Trace.Listeners.Add(new ConsoleTraceListener());
+
+            Trace.WriteLine($"Downloading...");
+
+            Trace.WriteLine($"          {url_base}Android.Support/AndroidSupport.Merged.dll");
+            Trace.WriteLine($"          to:");
+            Trace.WriteLine($"          AndroidSupport.Merged.dll");
 
             MappingsXamarin xamarin_android_support = new MappingsXamarin();
             xamarin_android_support.Download
                                     (
-                                        "Android.Support.merged",
+                                        "AndroidSupport.Merged",
                                         $"{url_base}Android.Support/AndroidSupport.Merged.dll"
                                     );
+
+            Trace.WriteLine($"          {url_base}AndroidX/AndroidX.Merged.dll");
+            Trace.WriteLine($"          to:");
+            Trace.WriteLine($"          AndroidX.Merged.dll");
 
             MappingsXamarin xamarin_androidx = new MappingsXamarin();
             xamarin_androidx.Download
                                     (
-                                        "AndroidX.merged",
-                                        $"{url_base}AndroidX/AndroidSupport.Merged.dll"
+                                        "AndroidX.Merged",
+                                        $"{url_base}AndroidX/AndroidX.Merged.dll"
                                     );
 
             // various Data objects will prepare Collections for faster search

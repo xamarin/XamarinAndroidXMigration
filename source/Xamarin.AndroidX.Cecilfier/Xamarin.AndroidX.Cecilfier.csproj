@@ -2,19 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <BaseDirectory>..\Xamarin.AndroidX.Cecilfier</BaseDirectory>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <LangVersion>latest</LangVersion>
+    <OutputPath>..\Xamarin.AndroidX.Cecilfier\bin\Debug\netstandard2.0</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <LangVersion>latest</LangVersion>
+    <OutputPath>..\Xamarin.AndroidX.Cecilfier\bin\Release\netstandard2.0</OutputPath>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="System.Memory" Version="4.5.2" />
-    <PackageReference Include="Mono.Cecil" Version="0.10.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-  </ItemGroup>
   <ItemGroup>
     <Folder Include="AST\" />
     <Folder Include="grabbed\" />
@@ -30,5 +26,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Xamarin.AndroidX.Data\Xamarin.AndroidX.Data.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Memory" Version="4.5.2" />
+    <PackageReference Include="Mono.Cecil" Version="0.10.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>
 </Project>

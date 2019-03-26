@@ -4,7 +4,6 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\source\Xamarin.AndroidX.Mapper\Xamarin.AndroidX.Mapper.csproj" />
   </ItemGroup>
