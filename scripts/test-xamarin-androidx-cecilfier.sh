@@ -5,7 +5,7 @@
 # sh ./build.sh 
 # cd ./Cecilfier/
 # dotnet publish ./samples/Xamarin.AndroidX.Cecilfier.App
-# cp ./samples/Xamarin.AndroidX.Cecilfier.App/bin/Debug/netcoreapp3.0/publish/* ./bin/
+# cp ./samples/Xamarin.AndroidX.Cecilfier.App/bin/Debug/netcoreapp2.2/publish/* ./bin/
 
 
 
@@ -22,7 +22,7 @@
 
 
 # mono \
-#     ./samples/Xamarin.AndroidX.Cecilfier.App/bin/Debug/netcoreapp3.0/Xamarin.AndroidX.Cecilfier.App.dll \
+#     ./samples/Xamarin.AndroidX.Cecilfier.App/bin/Debug/netcoreapp2.2/Xamarin.AndroidX.Cecilfier.App.dll \
 #     /exact-pairs \
 #         ../Demo/BabySteps/bin/Debug/BabySteps.dll:../Demo/BabySteps/bin/Debug/BabySteps.AAAA.dll \
 #         ../Demo/AarxerciseDemoApp/bin/Debug/Aarxercise.dll=../Demo/AarxerciseDemoApp/bin/Debug/Aarxercise.AAA.dll \

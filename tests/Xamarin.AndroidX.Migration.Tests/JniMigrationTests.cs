@@ -2,7 +2,7 @@ using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
 using System.Linq;
-using Xamarin.AndroidX.Migration.Cecil;
+using Xamarin.AndroidX.Migration;
 using Xunit;
 
 namespace Xamarin.AndroidX.Migration.Tests
@@ -77,7 +77,10 @@ namespace Xamarin.AndroidX.Migration.Tests
 			"(L;L;L;)Landroidx/appcompat/app/AlertDialog$Builder;")]
 		public void JniStringAreCorrectlyMapped(string supportJni, string androidxJni)
 		{
+			var migrator = new CecilMigrator();
 			var wasChanged = migrator.MigrateJniString(supportJni, out var mappedJni);
+
+			Assert.Equal(supportJni != androidxJni, wasChanged);
 			if (wasChanged)
 				Assert.Equal(androidxJni, mappedJni);
 			else
@@ -92,9 +95,10 @@ namespace Xamarin.AndroidX.Migration.Tests
 		{
 			var mappedDll = Utils.GetTempFilename();
 
+			var migrator = new CecilMigrator();
 			var result = migrator.Migrate(assembly, mappedDll);
 
-			Assert.NotEqual(MigrationResult.Skipped, result);
+			Assert.NotEqual(CecilMigrationResult.Skipped, result);
 		}
 
 		[Theory]
@@ -103,12 +107,13 @@ namespace Xamarin.AndroidX.Migration.Tests
 		{
 			var mappedDll = Utils.GetTempFilename();
 
+			var migrator = new CecilMigrator();
 			var result = migrator.Migrate(supportDll, mappedDll);
 
 			var expectedResult =
-				MigrationResult.ContainedJni |
-				MigrationResult.ContainedSupport |
-				MigrationResult.PotentialJni;
+				CecilMigrationResult.ContainedJni |
+				CecilMigrationResult.ContainedSupport |
+				CecilMigrationResult.PotentialJni;
 			Assert.Equal(expectedResult, result);
 
 			using (var support = AssemblyDefinition.ReadAssembly(supportDll))
@@ -154,6 +159,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 		{
 			var mappedDll = Utils.GetTempFilename();
 
+			var migrator = new CecilMigrator();
 			migrator.Migrate(supportDll, mappedDll);
 
 			using (var support = AssemblyDefinition.ReadAssembly(supportDll))
@@ -197,6 +203,99 @@ namespace Xamarin.AndroidX.Migration.Tests
 						}
 					}
 				}
+			}
+		}
+
+		[Theory]
+		[InlineData(MergedAndroidXDll)]
+		public void EnsureAllMethodWithJniHaveRegisterAttributes(string assemblyPath)
+		{
+			// this is not really a test for any reason but to confirm the
+			// logic in the migration:
+			//  - all methods with register attributes belong to a type with a
+			//    register attribute
+			//  - all methods that contain JNI belong to a method that has a
+			//    register attribute, or, if there is no register attribute on
+			//    the method, then the type has it.
+			using (var assembly = AssemblyDefinition.ReadAssembly(assemblyPath))
+			{
+				foreach (var type in assembly.MainModule.Types)
+				{
+					var typeRegister = type.GetRegisterAttribute();
+					var annotationAttribute = type.GetAnnotationAttribute();
+
+					foreach (var property in type.Properties)
+					{
+						var propertyRegister = property.GetRegisterAttribute();
+
+						// make sure if the property has a register attribute, then so does the type
+						if (propertyRegister != null)
+							if ((typeRegister ?? annotationAttribute) == null)
+								throw new Exception($"Attribute missing on type {type.FullName} for property {property.Name}.");
+					}
+
+					foreach (var method in type.Methods)
+					{
+						var methodRegister = method.GetRegisterAttribute();
+
+						var property = type.Properties.FirstOrDefault(p => p.GetMethod == method || p.SetMethod == method);
+						var propertyRegister = property?.GetRegisterAttribute();
+
+						// make sure if the method has a register attribute, then so does the type
+						if (methodRegister != null)
+							if (typeRegister == null)
+								throw new Exception($"Attribute missing on type {type.FullName} for method {method.Name}.");
+
+						if (!method.HasBody)
+							continue;
+
+						foreach (var instruction in method.Body.Instructions)
+						{
+							if (instruction.OpCode == OpCodes.Ldstr)
+							{
+								var str = instruction.Operand as string;
+
+								// make sure if the method contains JNI, then either the type
+								// or method has a [Register] attribute
+								if ((str.Contains("/") && !str.Contains("//")) ||
+									(str.Contains("(") && str.Contains(")")))
+								{
+									if (!IsTypeException(type))
+										if (typeRegister == null)
+											throw new Exception($"Attribute missing on type {type.FullName} for JNI in method {method.Name}.");
+
+									if (!IsMethodException(method))
+										if ((methodRegister ?? propertyRegister) == null)
+											throw new Exception($"Attribute missing on JNI method & property {method.Name} for type {type.FullName}.");
+								}
+							}
+						}
+					}
+				}
+			}
+
+			bool IsTypeException(TypeDefinition type)
+			{
+				return (
+					// the __TypeRegistrations type does not have register attributes
+					type.Name.EndsWith("__TypeRegistrations")
+				);
+			}
+
+			bool IsMethodException(MethodDefinition method)
+			{
+				return (
+					// the __TypeRegistrations type does not have register attributes
+					method.DeclaringType.Name.EndsWith("__TypeRegistrations")
+				) || (
+					// the static constructor does not have an attribute
+					method.Name == ".cctor"
+				) || (
+					// the invokers/implementors do not have register attributes on the methods
+					method.DeclaringType.IsClass &&
+					!method.DeclaringType.IsPublic &&
+					(method.DeclaringType.Name.EndsWith("Invoker") || method.DeclaringType.Name.EndsWith("Implementor"))
+				);
 			}
 		}
 	}
