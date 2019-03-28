@@ -104,7 +104,7 @@ public class Main {
         END_TIME = System.currentTimeMillis();
         double duration = (END_TIME - START_TIME) / 1000.0;
 
-        System.out.println("Execution time: " + duration + " seconds");
+        Log.INSTANCE.i("Main","The jetifier process took: " + duration + " seconds");
     }
 
     private static void createOptionsFromJetifier() {
