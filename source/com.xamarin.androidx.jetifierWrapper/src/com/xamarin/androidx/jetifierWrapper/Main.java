@@ -1,8 +1,17 @@
 package com.xamarin.androidx.jetifierWrapper;
 
+import com.android.tools.build.jetifier.core.config.*;
 import com.android.tools.build.jetifier.core.utils.Log;
+import com.android.tools.build.jetifier.processor.FileMapping;
+import com.android.tools.build.jetifier.processor.Processor;
+import com.android.tools.build.jetifier.processor.archive.*;
+
 import org.apache.commons.cli.*;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,14 +29,23 @@ public class Main {
     private static Option REVERSED_OPTION;
     private static Option STRICT_OPTION;
     private static Option REBUILD_TOP_OF_TREE_OPTION;
+    private static Option STRIP_SIGNATURES_OPTION;
     private static Option PARALLEL_OPTION;
     private static Option NO_PARALLEL_OPTION;
     private static Option HELP_OPTION;
+
+    private static boolean IS_REVERSED;
+    private static boolean IS_STRICT;
+    private static boolean SHOULD_REBUILD_TOP_OF_TREE;
+    private static boolean SHOULD_STRIP_SIGNATURES;
 
     private static CommandLine COMMAND_LINE;
 
     private static String[] INPUT_VALUES;
     private static String[] OUTPUT_VALUES;
+
+    private static Config JETIFIER_CONFIG;
+    private static Processor JETIFIER_PROCESSOR;
 
     private static long START_TIME;
     private static long END_TIME;
@@ -68,15 +86,25 @@ public class Main {
             return;
         }
 
-        if (COMMAND_LINE.hasOption(NO_PARALLEL_OPTION.getOpt()))
-            executeJetifier();
-        else
-            executeJetifierInParallel();
+        String[] arguments = getArgumentsForJetifier();
+        JETIFIER_CONFIG = ConfigParser.INSTANCE.loadDefaultConfig();
+        JETIFIER_PROCESSOR = Processor.Companion.createProcessor3(JETIFIER_CONFIG, IS_REVERSED, SHOULD_REBUILD_TOP_OF_TREE, !IS_STRICT, false, SHOULD_STRIP_SIGNATURES, null);
+
+
+        try {
+            if (COMMAND_LINE.hasOption(NO_PARALLEL_OPTION.getOpt()))
+                executeJetifier(arguments);
+            else
+                executeJetifierInParallel(arguments);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
 
         END_TIME = System.currentTimeMillis();
         double duration = (END_TIME - START_TIME) / 1000.0;
 
-        System.out.println("Execution time: " + duration + " seconds");
+        Log.INSTANCE.i("Main","The jetifier process took: " + duration + " seconds");
     }
 
     private static void createOptionsFromJetifier() {
@@ -119,6 +147,7 @@ public class Main {
         REVERSED_OPTION = OPTIONS.getOption("r");
         STRICT_OPTION = OPTIONS.getOption("s");
         REBUILD_TOP_OF_TREE_OPTION = OPTIONS.getOption("rebuildTopOfTree");
+        STRIP_SIGNATURES_OPTION = OPTIONS.getOption("stripSignatures");
         PARALLEL_OPTION = OPTIONS.getOption("p");
         NO_PARALLEL_OPTION = OPTIONS.getOption("noParallel");
         HELP_OPTION = OPTIONS.getOption("h");
@@ -138,59 +167,73 @@ public class Main {
         new HelpFormatter().printHelp("Jetifier Wrapper", OPTIONS);
     }
 
-    private static void executeJetifier() {
+    private static void executeJetifier(String[] arguments) throws IOException {
         Log.INSTANCE.i("Main", "Executing jetifier tool in sequential way.");
 
-        String[] arguments = getArgumentsForJetifier();
         int argumentsLength = arguments.length;
         int inputsLength = INPUT_VALUES.length;
 
         for (int i = 0, j = argumentsLength - 3; i < inputsLength; i++) {
-            String[] iterationArguments = Arrays.copyOf(arguments, argumentsLength);
             String inputFile = INPUT_VALUES[i];
             String outputFile = OUTPUT_VALUES[i];
 
-            iterationArguments[j] = inputFile;
-            iterationArguments[j + 2] = outputFile;
-
             Log.INSTANCE.v("Main", "Jetifiying " + inputFile + " file into " + outputFile + " file.");
 
-            Companion.main(iterationArguments);
+            if (inputFile.toLowerCase().endsWith(".aar") || inputFile.toLowerCase().endsWith(".zip") || inputFile.toLowerCase().endsWith(".jar")) {
+                String[] iterationArguments = Arrays.copyOf(arguments, argumentsLength);
+                iterationArguments[j] = inputFile;
+                iterationArguments[j + 2] = outputFile;
+
+                Companion.main(iterationArguments);
+            } else {
+                ArchiveFile archiveFile = getArchiveFile(inputFile);
+                JETIFIER_PROCESSOR.visit(archiveFile);
+                save(archiveFile, outputFile);
+            }
 
             Log.INSTANCE.v("Main", "File " + inputFile + " jetified into " + outputFile + " file.");
         }
     }
 
-    private static void executeJetifierInParallel() {
+    private static void executeJetifierInParallel(String[] arguments) throws IOException {
         Log.INSTANCE.i("Main", "Executing jetifier tool in parallel way.");
 
-        String[] arguments = getArgumentsForJetifier();
         int argumentsLength = arguments.length;
         int inputsLength = INPUT_VALUES.length;
 
         int numberOfThreads = inputsLength > MAX_THREADS ? MAX_THREADS : inputsLength;
         ExecutorService executor = Executors.newFixedThreadPool(numberOfThreads);
-        List<Future<String[]>> jetifierWorks = new ArrayList<>();
+        List<Future<JetifierData>> jetifierWorks = new ArrayList<>();
 
         for (int i = 0, j = argumentsLength - 3; i < inputsLength; i++) {
-            String[] iterationArguments = Arrays.copyOf(arguments, argumentsLength);
             String inputFile = INPUT_VALUES[i];
             String outputFile = OUTPUT_VALUES[i];
 
-            iterationArguments[j] = inputFile;
-            iterationArguments[j + 2] = outputFile;
+            FileMapping fileMapping = new FileMapping(new File (inputFile), new File (outputFile));
+            String[] iterationArguments = null;
+            ArchiveItem archiveItem = null;
+
+            if (inputFile.toLowerCase().endsWith(".aar") || inputFile.toLowerCase().endsWith(".zip") || inputFile.toLowerCase().endsWith(".jar")) {
+                iterationArguments = Arrays.copyOf(arguments, argumentsLength);
+                iterationArguments[j] = inputFile;
+                iterationArguments[j + 2] = outputFile;
+            } else {
+                archiveItem = getArchiveFile(inputFile);
+            }
+
+            JetifierData jetifierData = new JetifierData(fileMapping, iterationArguments, archiveItem, JETIFIER_PROCESSOR);
 
             Log.INSTANCE.v("Main", "Jetifiying " + inputFile + " file into " + outputFile + " file.");
 
-            Callable<String[]> jetifier = new JetifierCallable(iterationArguments, inputFile, outputFile);
-            Future<String[]> jetifierWork = executor.submit(jetifier);
+            Callable<JetifierData> jetifier = new JetifierCallable(jetifierData);
+            Future<JetifierData> jetifierWork = executor.submit(jetifier);
             jetifierWorks.add(jetifierWork);
         }
 
-        for (Future<String[]> jetifierWork : jetifierWorks) {
+        for (Future<JetifierData> jetifierWork : jetifierWorks) {
             try {
-                String[] files = jetifierWork.get();
-                Log.INSTANCE.v("Main", "File " + files[0] + " jetified into " + files[1] + " file.");
+                JetifierData jetifierData = jetifierWork.get();
+                Log.INSTANCE.v("Main", "File " + jetifierData.getFileMapping().getFrom().getAbsolutePath() + " jetified into " + jetifierData.getFileMapping().getTo().getAbsolutePath() + " file.");
             } catch (InterruptedException e) {
                 Log.INSTANCE.e("Main", e.getMessage());
             } catch (ExecutionException e) {
@@ -216,14 +259,21 @@ public class Main {
             argumentsList.add(logLevel);
         }
 
-        if (COMMAND_LINE.hasOption(REVERSED_OPTION.getOpt()))
+        IS_REVERSED = COMMAND_LINE.hasOption(REVERSED_OPTION.getOpt());
+        if (IS_REVERSED)
             argumentsList.add("-" + REVERSED_OPTION.getOpt());
 
-        if (COMMAND_LINE.hasOption(STRICT_OPTION.getOpt()))
+        IS_STRICT = COMMAND_LINE.hasOption(STRICT_OPTION.getOpt());
+        if (IS_STRICT)
             argumentsList.add("-" + STRICT_OPTION.getOpt());
 
-        if (COMMAND_LINE.hasOption(REBUILD_TOP_OF_TREE_OPTION.getOpt()))
+        SHOULD_REBUILD_TOP_OF_TREE = COMMAND_LINE.hasOption(REBUILD_TOP_OF_TREE_OPTION.getOpt());
+        if (SHOULD_REBUILD_TOP_OF_TREE)
             argumentsList.add("-" + REBUILD_TOP_OF_TREE_OPTION.getOpt());
+
+        SHOULD_STRIP_SIGNATURES = COMMAND_LINE.hasOption(STRIP_SIGNATURES_OPTION.getOpt());
+        if (SHOULD_STRIP_SIGNATURES)
+            argumentsList.add("-" + STRIP_SIGNATURES_OPTION.getOpt());
 
         argumentsList.add("-i");
         argumentsList.add("");
@@ -234,6 +284,17 @@ public class Main {
         return argumentsList.toArray(arguments);
     }
 
+    public static ArchiveFile getArchiveFile(String inputFilename) throws IOException {
+        Path path = Paths.get(inputFilename);
+        byte[] fileContent = Files.readAllBytes(path);
+        return new ArchiveFile(path, fileContent);
+    }
+
+    private static void save(ArchiveItem archiveItem, String outputFilename) throws IOException {
+        FileOutputStream outputStream = new FileOutputStream(outputFilename);
+        archiveItem.writeSelfTo(outputStream);
+    }
+
     static {
         START_TIME = System.currentTimeMillis();
         OPTIONS = new Options();
@@ -241,20 +302,57 @@ public class Main {
 
 }
 
-class JetifierCallable implements Callable<String[]> {
-    private String[] arguments;
-    private String inputFile;
-    private String outputFile;
+class JetifierCallable implements Callable<JetifierData> {
+    private JetifierData jetifierData;
 
-    public JetifierCallable (String[] arguments, String inputFile, String outputFile) {
-        this.arguments = arguments;
-        this.inputFile = inputFile;
-        this.outputFile = outputFile;
+    public JetifierCallable (JetifierData jetifierData) {
+        this.jetifierData = jetifierData;
     }
 
     @Override
-    public String[] call() throws Exception {
-        Companion.main(arguments);
-        return new String[] { inputFile, outputFile };
+    public JetifierData call() throws Exception {
+        if (jetifierData.getArguments() != null)
+            Companion.main(jetifierData.getArguments());
+        else {
+            jetifierData.getProcessor().visit((ArchiveFile)jetifierData.getArchiveItem());
+            save(jetifierData.getArchiveItem(), jetifierData.getFileMapping().getTo().getAbsolutePath());
+        }
+
+        return jetifierData;
+    }
+
+    private void save(ArchiveItem archiveItem, String outputFilename) throws IOException {
+        FileOutputStream outputStream = new FileOutputStream(outputFilename);
+        archiveItem.writeSelfTo(outputStream);
+    }
+}
+
+class JetifierData {
+    private FileMapping fileMapping;
+    private String[] arguments;
+    private ArchiveItem archiveItem;
+    private Processor processor;
+
+    public JetifierData (FileMapping fileMapping, String[] arguments, ArchiveItem archiveItem, Processor processor) {
+        this.fileMapping = fileMapping;
+        this.arguments = arguments;
+        this.archiveItem = archiveItem;
+        this.processor = processor;
+    }
+
+    public String[] getArguments() {
+        return arguments;
+    }
+
+    public FileMapping getFileMapping() {
+        return fileMapping;
+    }
+
+    public ArchiveItem getArchiveItem() {
+        return archiveItem;
+    }
+
+    public Processor getProcessor() {
+        return processor;
     }
 }

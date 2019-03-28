@@ -5,7 +5,7 @@ var verbosity = Argument("v", Argument("verbosity", "Normal"));
 var configuration = Argument("c", Argument("configuration", "Release"));
 
 var jetifierVersion = "1.0.0";
-var jetifierBetaVersion = "-beta02";
+var jetifierBetaVersion = "-beta04";
 var jetifierDownloadUrl = $"https://dl.google.com/dl/android/studio/jetifier-zips/{jetifierVersion}{jetifierBetaVersion}/jetifier-standalone.zip";
 
 var azureBuildNumber = "670";
