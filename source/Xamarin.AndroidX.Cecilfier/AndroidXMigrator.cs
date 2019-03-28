@@ -33,7 +33,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                                                         {
                                                             Settings.WorkingDirectory,
                                                             "mappings",
-                                                            "API.Mappings.Merged.Google.with.Xamarin.Classes.csv"
+                                                            "MigrationMappings.csv"
                                                         }
                                                     );
                                 LoadMappingsClasses(file);
@@ -52,23 +52,17 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
         // Android Support for searching
         // sorted for BinarySearch
-        private static Memory<string> ClassMappingsSortedProjected;
+        private static Memory<string> map_sorted_as_jni_index;
 
         private static Memory
                 <
                     (
-                        string ClassName,
-                        string AndroidSupportClass,
-                        string AndroidXClass,
-                        string AndroidSupportClassFullyQualified,
-                        string AndroidXClassFullyQualified,
-                        // formatting space
-                        string PackageAndroidSupport,
-                        string PackageAndroidX,
-                        string ManagedNamespaceXamarinAndroidSupport,
-                        string ManagedNamespaceXamarinAndroidX
+                        string TypenameFullyQualifiedAndroidSupport,
+                        string TypenameFullyQualifiedAndroidX,
+                        string TypenameFullyQualifiedXamarinAndroidSupport,
+                        string TypenameFullyQualifiedXamarinAndroidX
                     )
-                > ClassMappingsSorted;
+                > map_sorted_as_jni;
 
         public static void LoadMappingsClasses(string file)
         {
@@ -84,16 +78,10 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             IEnumerable
                     <
                         (
-                            string ClassName,
-                            string AndroidSupportClass,
-                            string AndroidXClass,
-                            string AndroidSupportClassFullyQualified,
-                            string AndroidXClassFullyQualified,
-                            // formatting space
-                            string PackageAndroidSupport,
-                            string PackageAndroidX,
-                            string ManagedNamespaceXamarinAndroidSupport,
-                            string ManagedNamespaceXamarinAndroidX
+                            string TypenameFullyQualifiedAndroidSupport,
+                            string TypenameFullyQualifiedAndroidX,
+                            string TypenameFullyQualifiedXamarinAndroidSupport,
+                            string TypenameFullyQualifiedXamarinAndroidX
                         )
                     >
                     mapping_strongly_typed;
@@ -112,23 +100,23 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
         private static void InitializePerformance()
         {
-            ClassMappingsSorted = ClassMappings
-                                            .Where(i => !string.IsNullOrEmpty(i.AndroidSupportClassFullyQualified))
-                                            .OrderBy(i => i.AndroidSupportClassFullyQualified)
-                                            .ToArray()
-                                            .AsMemory()
+            map_sorted_as_jni = ClassMappings
+                                        //.Where(i => !string.IsNullOrEmpty(i.TypenameFullyQualifiedAndroidSupport))
+                                        .OrderBy(i => i.TypenameFullyQualifiedAndroidSupport)
+                                        .ToArray()
+                                        .AsMemory()
+                                        ;
+
+            int n = map_sorted_as_jni.Length;
+
+            map_sorted_as_jni_index = map_sorted_as_jni
+                                            .Select(i => i.TypenameFullyQualifiedAndroidSupport)
                                             ;
 
-            int n = ClassMappingsSorted.Length;
-
-            ClassMappingsSortedProjected = ClassMappingsSorted
-                                                    .Select(i => i.AndroidSupportClassFullyQualified)
-                                                    ;
-
             // Test
-            string classname = "Android.Support.CustomTabs.CustomTabsServiceConnection";
-            int idx = ClassMappingsSortedProjected.Span.BinarySearch(classname);
-            if( idx != 42 )
+            string classname = "android.support.customtabs.CustomTabsServiceConnection";
+            int idx = map_sorted_as_jni_index.Span.BinarySearch(classname);
+            if( idx != 2213 )
             {
                 string msg =
                     "Android.Support sorted classnames changed"
@@ -150,16 +138,10 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             //ReadOnlyMemory
                     <
                         (
-                            string ClassName,
-                            string AndroidSupportClass,
-                            string AndroidXClass,
-                            string AndroidSupportClassFullyQualified,
-                            string AndroidXClassFullyQualified,
-                            // formatting space
-                            string PackageAndroidSupport,
-                            string PackageAndroidX,
-                            string ManagedNamespaceXamarinAndroidSupport,
-                            string ManagedNamespaceXamarinAndroidX
+                            string TypenameFullyQualifiedAndroidSupport,
+                            string TypenameFullyQualifiedAndroidX,
+                            string TypenameFullyQualifiedXamarinAndroidSupport,
+                            string TypenameFullyQualifiedXamarinAndroidX
                         )
                     >
                 ClassMappings
@@ -172,16 +154,10 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             IEnumerable
                    <
                     (
-                        string ClassName,
-                        string AndroidSupportClass,
-                        string AndroidXClass,
-                        string AndroidSupportClassFullyQualified,
-                        string AndroidXClassFullyQualified,
-                        // formatting space
-                        string PackageAndroidSupport,
-                        string PackageAndroidX,
-                        string ManagedNamespaceXamarinAndroidSupport,
-                        string ManagedNamespaceXamarinAndroidX
+                        string TypenameFullyQualifiedAndroidSupport,
+                        string TypenameFullyQualifiedAndroidX,
+                        string TypenameFullyQualifiedXamarinAndroidSupport,
+                        string TypenameFullyQualifiedXamarinAndroidX
                     )
                 >
                 Convert_ClassMappings(IEnumerable<string[]> untyped_data)
@@ -199,27 +175,10 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
                 yield return
                         (
-                            //ClassName: row_data[0],
-                            //AndroidSupportClass: row_data[1],
-                            //AndroidXClass: row_data[2],
-                            //AndroidSupportClassFullyQualified: row_data[3],
-                            //AndroidXClassFullyQualified: row_data[4],
-                            //      formatting space
-                            //PackageAndroidSupport: row_data[5],
-                            //PackageAndroidX: row_data[6],
-                            //ManagedNamespaceXamarinAndroidSupport: row_data[7],
-                            //ManagedNamespaceXamarinAndroidX: row_data[8]
-
-                            ClassName: row[0],
-                            AndroidSupportClass: row[1],
-                            AndroidXClass: row[2],
-                            AndroidSupportClassFullyQualified: row[3],
-                            AndroidXClassFullyQualified: row[4],
-                                 // formatting space
-                            PackageAndroidSupport: row[5],
-                            PackageAndroidX: row[6],
-                            ManagedNamespaceXamarinAndroidSupport: row[7],
-                            ManagedNamespaceXamarinAndroidX: row[8]
+                            TypenameFullyQualifiedAndroidSupport: row[0],
+                            TypenameFullyQualifiedAndroidX: row[1],
+                            TypenameFullyQualifiedXamarinAndroidSupport: row[2],
+                            TypenameFullyQualifiedXamarinAndroidX: row[3]
                         );
             }
         }

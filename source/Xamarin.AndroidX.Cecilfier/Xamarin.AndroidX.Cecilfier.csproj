@@ -17,19 +17,19 @@
     <Folder Include="mappings\" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="mappings\API.Mappings.Merged.Google.with.Xamarin.Classes.csv" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="mappings\API.Mappings.Merged.Google.with.Xamarin.Classes.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Xamarin.AndroidX.Data\Xamarin.AndroidX.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Memory" Version="4.5.2" />
     <PackageReference Include="Mono.Cecil" Version="0.10.3" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="mappings\MigrationMappings.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="mappings\MigrationMappings.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

@@ -762,20 +762,20 @@ namespace Xamarin.AndroidX.Mapper
                                             // check containing type of the nested type
                                             int idx_tn = java_type.IndexOf('$', 0);
                                             string t_tn = null;
-                                            if (idx_tn < 0)
+                                            if (idx_tn >= 0 && idx_tn < java_type.Length)
                                             {
-                                                t_tn = java_type;
+                                                t_tn = java_type.Substring(0, idx_tn);
                                             }
                                             else
                                             {
-                                                t_tn = java_type.Substring(0, idx_tn);
+                                                t_tn = java_type;
                                             }
                                             int idx_t_tn = System.Array.BinarySearch
                                                                         (
                                                                             mapping_sorted_android_support_index,
                                                                             t_tn
                                                                         );
-                                            if (idx_t_tn >= 0 && idx_t_tn < mapping_sorted_android_support_index.Count() - 1)
+                                            if (idx_t_tn >= 0 && idx_t_tn < mapping_sorted_android_support_index.Count())
                                             {
                                                 // containing type of the nested type was found in google mappings
                                                 TNARNIGF.Add
@@ -786,16 +786,17 @@ namespace Xamarin.AndroidX.Mapper
                                                             )
                                                         );
                                             }
-                                            //else
+                                            else
                                             {
-                                                TNARNIG.Add
-                                                        (
-                                                            (
-                                                                JavaTypeFullyQualified: java_type,
-                                                                ManagedTypeFullyQualified: managed_type_fq
-                                                            )
-                                                        );
+                                                java_type = null;
                                             }
+                                            TNARNIG.Add
+                                                    (
+                                                        (
+                                                            JavaTypeFullyQualified: java_type,
+                                                            ManagedTypeFullyQualified: managed_type_fq
+                                                        )
+                                                    );
                                         }
                                         //......................................................................
 
@@ -933,20 +934,20 @@ namespace Xamarin.AndroidX.Mapper
                                     // check containing type of the nested type
                                     int idx_tn = java_type.IndexOf('$', 0);
                                     string t_tn = null;
-                                    if (idx_tn < 0)
+                                    if (idx_tn >= 0 && idx_tn < java_type.Length)
                                     {
-                                        t_tn = java_type;
+                                        t_tn = java_type.Substring(0, idx_tn);
                                     }
                                     else
                                     {
-                                        t_tn = java_type.Substring(0, idx_tn);
+                                        t_tn = java_type;
                                     }
                                     int idx_t_tn = System.Array.BinarySearch
                                                                 (
                                                                     mapping_sorted_androidx_index,
                                                                     t_tn
                                                                 );
-                                    if (idx_t_tn >= 0 && idx_t_tn < mapping_sorted_androidx_index.Count() - 1)
+                                    if (idx_t_tn >= 0 && idx_t_tn < mapping_sorted_androidx_index.Count())
                                     {
                                         // containing type of the nested type was found in google mappings
                                         TARNIGF.Add
@@ -957,16 +958,17 @@ namespace Xamarin.AndroidX.Mapper
                                                     )
                                                 );
                                     }
-                                    //else
+                                    else
                                     {
-                                        TARNIG.Add
-                                                (
-                                                    (
-                                                        JavaTypeFullyQualified: java_type,
-                                                        ManagedTypeFullyQualified: managed_type_fq
-                                                    )
-                                                );
+                                        java_type = null;
                                     }
+                                    TARNIG.Add
+                                            (
+                                                (
+                                                    JavaTypeFullyQualified: java_type,
+                                                    ManagedTypeFullyQualified: managed_type_fq
+                                                )
+                                            );
                                 }
                                 //......................................................................
 

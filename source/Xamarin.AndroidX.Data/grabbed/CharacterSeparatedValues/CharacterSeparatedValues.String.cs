@@ -22,7 +22,7 @@ namespace Core.Text
             set;
         }
 
-        public IEnumerable<string[]> ParseTemporaryImplementation(bool has_header = true)
+        public IEnumerable<string[]> ParseTemporaryImplementation(bool has_header = false)
         {
             string[] lines = Text.Split
                                         (
@@ -34,6 +34,7 @@ namespace Core.Text
             {
                 index_start = 1;
             }
+
 
             for (int i = index_start; i < lines.Length; i++)
             {

@@ -38,7 +38,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 typename = tn;
             }
 
-            int index = ClassMappingsSortedProjected.Span.BinarySearch(typename);
+            int index = map_sorted_as_jni_index.Span.BinarySearch(typename);
             if (index < 0)
             {
                 string msg = "Android.Support class not found in mappings";
@@ -50,7 +50,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             }
             else
             {
-                r = ClassMappingsSorted.Span[index].AndroidXClassFullyQualified;    
+                r = map_sorted_as_jni.Span[index].TypenameFullyQualifiedAndroidSupport;    
             }
             return r;
         }

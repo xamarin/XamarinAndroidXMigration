@@ -91,10 +91,26 @@ namespace Xamarin.AndroidX.Mapper
                     >
                     mapping_full;
 
+        protected
+            IEnumerable
+                    <
+                        (
+                            string TypenameFullyQualifiedAndroidSupport,
+                            string TypenameFullyQualifiedAndroidX,
+                            string TypenameFullyQualifiedXamarinAndroidSupport,
+                            string TypenameFullyQualifiedXamarinAndroidX
+                        )
+                    >
+                    mapping_full_ax_unmatched_removed;
+
         public void MergeJoin()
         {
-            as_with_merged_ax = this.MergeJoinAndroidXIntoAndroidSupport().ToArray();
-            ax_with_merged_as = this.MergeJoinAndroidSupportIntoAndroidX().ToArray();
+            as_with_merged_ax = this.MergeJoinAndroidSupportWithAndroidX().ToArray();
+            Trace.WriteLine($"   Android.Support with merged AndroidX)");
+            Trace.WriteLine($"      n = {as_with_merged_ax.Count()})");
+            ax_with_merged_as = this.MergeJoinAndroidXWithAndroidSupport().ToArray();
+            Trace.WriteLine($"   AndroidX with merged Android.Support)");
+            Trace.WriteLine($"      n = {ax_with_merged_as.Count()})");
 
             Trace.WriteLine($"Concat");
             Trace.WriteLine($"   .OrderBy(tuple => tuple.TypenameFullyQualifiedAndroidSupport)");
@@ -111,7 +127,28 @@ namespace Xamarin.AndroidX.Mapper
             Trace.WriteLine($"  Done");
             MappingsForMigration = mapping_full.ToArray();
             Trace.WriteLine($"  n = {MappingsForMigration.Length}");
-                        
+            Trace.WriteLine($"  removing AndroidX types without matching in Android.Support");
+            mapping_full_ax_unmatched_removed = MappingsForMigration
+                                                    .Where
+                                                        (
+                                                            t =>
+                                                            {
+                                                                return
+                                                                    !
+                                                                        (
+                                                                            string.IsNullOrEmpty(t.TypenameFullyQualifiedAndroidSupport)
+                                                                            &&
+                                                                            string.IsNullOrEmpty(t.TypenameFullyQualifiedAndroidX)
+                                                                            &&
+                                                                            string.IsNullOrEmpty(t.TypenameFullyQualifiedXamarinAndroidSupport)
+                                                                        );
+                                                            }
+                                                        )
+                                                        .ToArray()
+                                                        ;
+            Trace.WriteLine($"  n = {mapping_full_ax_unmatched_removed.Count()}");
+            MappingsForMigration = mapping_full_ax_unmatched_removed.ToArray();
+            
             return;
         }
 
@@ -125,31 +162,11 @@ namespace Xamarin.AndroidX.Mapper
                             string TypenameFullyQualifiedXamarinAndroidX
                         )
                     >
-                            MergeJoinAndroidXIntoAndroidSupport()
+                            MergeJoinAndroidSupportWithAndroidX()
         {
-            Trace.WriteLine($"Merging AndroidX mapping data into AndroidSupport");
-            Trace.WriteLine($"          preparing data (sorting for binary sort)");
-
-            (
-                string TypenameFullyQualifiedAndroidSupport,
-                string TypenameFullyQualifiedAndroidX,
-                string TypenameFullyQualifiedXamarin
-            )[]
-                map_ax_sorted = null;
-
-            map_ax_sorted = this.MappingsAndroidX.MappingsForMigrationMergeJoin
-                                    .OrderBy(tuple => tuple.TypenameFullyQualifiedAndroidX)
-                                    .ToArray()
-                                    ;
-
-            string[] map_ax_sorted_index = map_ax_sorted
-                                                .Select(tuple => tuple.TypenameFullyQualifiedAndroidX)
-                                                .ToArray()
-                                                ;
 
             Trace.WriteLine($"          foreach loop over Android.Support");
             Trace.WriteLine($"          searching AndroidX");
-            Trace.WriteLine($"               n = {map_ax_sorted_index.Length}");
             foreach
                 (
                     (
@@ -160,38 +177,46 @@ namespace Xamarin.AndroidX.Mapper
                     row_as in this.MappingsAndroidSupport.MappingsForMigrationMergeJoin
                 )
             {
-                string tn_ax = row_as.TypenameFullyQualifiedAndroidX;
-                int index_ax = Array.BinarySearch(map_ax_sorted_index, tn_ax);
-
-                string tn_as = row_as.TypenameFullyQualifiedAndroidSupport;
+                string tn_as_in_as = row_as.TypenameFullyQualifiedAndroidSupport;
+                string tn_ax_in_as = row_as.TypenameFullyQualifiedAndroidX;
                 string tnm_as = row_as.TypenameFullyQualifiedXamarin;
-                string tnm_ax = null;
 
-                if (index_ax >= 0 && index_ax < map_ax_sorted_index.Length)
+
+                var found =
+                            (
+                                from row_ax in this.MappingsAndroidX.MappingsForMigrationMergeJoin
+                                    where
+                                       ! string.IsNullOrEmpty(tn_as_in_as)
+                                       &&
+                                       ! string.IsNullOrEmpty(tn_ax_in_as)
+                                       &&
+                                       ! string.IsNullOrEmpty(row_ax.TypenameFullyQualifiedAndroidSupport)
+                                       &&
+                                       ! string.IsNullOrEmpty(row_ax.TypenameFullyQualifiedAndroidX)
+                                       &&
+                                       row_ax.TypenameFullyQualifiedAndroidSupport == tn_as_in_as
+                                       &&
+                                       row_ax.TypenameFullyQualifiedAndroidX == tn_ax_in_as
+                                    select row_ax
+                            )
+                            .ToArray();
+
+                if (found.Length > 4)
                 {
-                    string tn_ax_test = map_ax_sorted[index_ax].TypenameFullyQualifiedAndroidX;
-                    string tn_as_test = map_ax_sorted[index_ax].TypenameFullyQualifiedAndroidSupport;
-                    if
-                        (
-                            tn_ax != tn_ax_test
-                            ||
-                            tn_as != tn_as_test
-                        )
-                    {
-                        // crap
-                        string msg = null;
-                    }
-
-                    tnm_ax = map_ax_sorted[index_ax].TypenameFullyQualifiedXamarin;
+                    throw new InvalidOperationException("Suspicious mappings");
                 }
-                yield return
-                        (
-                            TypenameFullyQualifiedAndroidSupport: tn_as,
-                            TypenameFullyQualifiedAndroidX: tn_ax,
-                            TypenameFullyQualifiedXamarinAndroidSupport: tnm_as,
-                            TypenameFullyQualifiedXamarinAndroidX: tnm_ax
-                        );
-                
+
+                foreach (var f in found)
+                {
+                    yield return
+                            (
+                                TypenameFullyQualifiedAndroidSupport: tn_as_in_as,
+                                TypenameFullyQualifiedAndroidX: f.TypenameFullyQualifiedAndroidX,
+                                TypenameFullyQualifiedXamarinAndroidSupport: tnm_as,
+                                TypenameFullyQualifiedXamarinAndroidX: f.TypenameFullyQualifiedXamarin
+                            );
+
+                }
             }
         }
 
@@ -205,31 +230,11 @@ namespace Xamarin.AndroidX.Mapper
                             string TypenameFullyQualifiedXamarinAndroidX
                         )
                     >
-                            MergeJoinAndroidSupportIntoAndroidX()
+                            MergeJoinAndroidXWithAndroidSupport()
         {
             Trace.WriteLine($"Merging Android.Support mapping data into AndroidX");
             Trace.WriteLine($"          preparing data (sorting for binary sort)");
 
-            (
-                string TypenameFullyQualifiedAndroidSupport,
-                string TypenameFullyQualifiedAndroidX,
-                string TypenameFullyQualifiedXamarin
-            )[]
-                map_as_sorted = null;
-
-            map_as_sorted = this.MappingsAndroidSupport.MappingsForMigrationMergeJoin
-                                    .OrderBy(tuple => tuple.TypenameFullyQualifiedAndroidSupport)
-                                    .ToArray()
-                                    ;
-
-            string[] map_as_sorted_index = map_as_sorted
-                                                .Select(tuple => tuple.TypenameFullyQualifiedAndroidSupport)
-                                                .ToArray()
-                                                ;
-
-            Trace.WriteLine($"          foreach loop over Androidx");
-            Trace.WriteLine($"          searching Android.Support");
-            Trace.WriteLine($"               n = {map_as_sorted_index.Length}");
             foreach
                 (
                     (
@@ -240,38 +245,46 @@ namespace Xamarin.AndroidX.Mapper
                     row_ax in this.MappingsAndroidX.MappingsForMigrationMergeJoin
                 )
             {
-                string tn_as = row_ax.TypenameFullyQualifiedAndroidSupport;
-                int index_as = Array.BinarySearch(map_as_sorted_index, tn_as);
-
-                string tn_ax = row_ax.TypenameFullyQualifiedAndroidSupport;
+                string tn_as_in_ax = row_ax.TypenameFullyQualifiedAndroidSupport;
+                string tn_ax_in_ax = row_ax.TypenameFullyQualifiedAndroidX;
                 string tnm_ax = row_ax.TypenameFullyQualifiedXamarin;
-                string tnm_as = null;
 
-                if (index_as >= 0 && index_as < map_as_sorted_index.Length)
+                var found =
+                            (
+                                from row_as in this.MappingsAndroidSupport.MappingsForMigrationMergeJoin
+                                    where
+                                       ! string.IsNullOrEmpty(tn_as_in_ax)
+                                       &&
+                                       ! string.IsNullOrEmpty(tn_ax_in_ax)
+                                       &&
+                                       ! string.IsNullOrEmpty(row_as.TypenameFullyQualifiedAndroidSupport)
+                                       &&
+                                       ! string.IsNullOrEmpty(row_as.TypenameFullyQualifiedAndroidX)
+                                       &&
+                                       row_as.TypenameFullyQualifiedAndroidSupport == tn_as_in_ax
+                                       &&
+                                       row_as.TypenameFullyQualifiedAndroidX == tn_ax_in_ax
+                                    select row_as
+                            )
+                            .ToArray();
+
+                if (found.Length > 4)
                 {
-                    string tn_as_test = map_as_sorted[index_as].TypenameFullyQualifiedAndroidSupport;
-                    string tn_ax_test = map_as_sorted[index_as].TypenameFullyQualifiedAndroidX;
-                    if
-                        (
-                            tn_ax != tn_ax_test
-                            ||
-                            tn_as != tn_as_test
-                        )
-                    {
-                        // crap
-                        string msg = null;
-                    }
-
-                    tnm_as = map_as_sorted[index_as].TypenameFullyQualifiedXamarin;
+                    throw new InvalidOperationException("Suspicious mappings");
                 }
-                yield return
-                        (
-                            TypenameFullyQualifiedAndroidSupport: tn_as,
-                            TypenameFullyQualifiedAndroidX: tn_ax,
-                            TypenameFullyQualifiedXamarinAndroidSupport: tnm_as,
-                            TypenameFullyQualifiedXamarinAndroidX: tnm_ax
-                        );
-                                
+
+                foreach (var f in found)
+                {
+                    yield return
+                            (
+                                TypenameFullyQualifiedAndroidSupport: f.TypenameFullyQualifiedAndroidSupport,
+                                TypenameFullyQualifiedAndroidX: tn_ax_in_ax,
+                                TypenameFullyQualifiedXamarinAndroidSupport: f.TypenameFullyQualifiedXamarin,
+                                TypenameFullyQualifiedXamarinAndroidX: tnm_ax
+                            );
+
+                }
+                
             }
         }
 

@@ -87,6 +87,18 @@ namespace Xamarin.AndroidX.Cecilfier.App
 
             Console.WriteLine($"Xamarin.AndroidX.Migration");
             Console.WriteLine($"    subcommand: exact-pairs");
+
+            if (option_exact_pairs.Count() == 0)
+            {
+                option_exact_pairs.Add
+                    (
+                        "../../../"
+                        +
+                        "../../../../X/Xamarin.AndroidX.Test.Libraries/externals/Telerik_UI_for_Xamarin_2019_1_220_1_Trial/Binaries/Android/Telerik.Xamarin.Android.Chart.dll",
+                        "/Project/tmp/"
+                    );
+
+            }
             foreach(KeyValuePair<string, string> kvp in option_exact_pairs)
             {
                 string file = Path.GetFileName($"{kvp.Key}");
@@ -94,19 +106,13 @@ namespace Xamarin.AndroidX.Cecilfier.App
                 Console.WriteLine($"        {kvp.Key} to {kvp.Value}");
                 Console.WriteLine($"        to ");
                 Console.WriteLine($"            {kvp.Value}");
-                List<string> dlls = new List<string>(
-                                                        Directory.EnumerateFiles
-                                                                    (
-                                                                        directory,
-                                                                        file,
-                                                                        SearchOption.AllDirectories
-                                                                    )
-                                                    )
+                IEnumerable<string> files = Directory.EnumerateFiles(directory, file, SearchOption.AllDirectories);
+                List<string> dlls = new List<string>(files)
                                                     .Where(x => ! x.Contains("linksrc"))
                                                     .Where(x => ! x.Contains("android/assets"))
                                                     .Where(x => ! x.Contains(".app/"))
                                                     .Where(x => ! x.Contains(".resources.dll"))
-                                                    .ToList();
+                                                    .ToList()
                                                     ;
                        
                 AndroidXMigrator migrator = null;
