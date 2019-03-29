@@ -13,86 +13,53 @@ namespace Xamarin.AndroidX.Migration.BuildTasks {
 		#region Properties
 
 		[Required]
-		public string JetifierWrapperPath { get; set; }
-		[Required]
 		public ITaskItem [] Files { get; set; }
 		[Output]
 		public ITaskItem [] JetifiedFiles { get; set; }
+		public string JetifierWrapperPath { get; set; }
 		public string ConfigurationPath { get; set; }
-		public string Verbosity { get; set; }
-		public bool IsDejetify { get; set; }
+		public bool Verbosity { get; set; }
+		public bool Dejetify { get; set; }
 		public bool IsStrict { get; set; }
-		public bool IsRebuildTopOfTree { get; set; }
+		public bool ShouldRebuildTopOfTree { get; set; }
+		public bool ShouldStripSignatures { get; set; }
 		public bool NoParallel { get; set; }
 		public bool PrintHelp { get; set; }
-		public bool OverrideFiles { get; set; }
-		[Required]
-		public bool IsUnix { get; set; }
+		public bool NoOverrideFiles { get; set; }
 
 		#endregion
 
-		public JetifyFiles ()
-		{
-		}
-
 		public override bool Execute ()
 		{
-			var files = new List<string> ();
-			var jetifiedFiles = new List<string> ();
-			var filesLength = Files.Length;
+			var archives = new List<MigrationPair> ();
 
-			JetifiedFiles = new ITaskItem [filesLength];
-			Array.Copy (Files, JetifiedFiles, filesLength);
+			for (int i = 0; i < Files.Length; i++) {
+				var inputFile = Files [i].ItemSpec;
+				var outputFile = inputFile;
 
-			for (int i = 0; i < filesLength; i++) {
-				var currentFile = Files [i].ItemSpec;
-				files.Add (currentFile);
-				jetifiedFiles.Add (currentFile);
-
-				if (!OverrideFiles) {
-					var jetifiedFile = Path.GetDirectoryName (currentFile);
-					jetifiedFile += Path.DirectorySeparatorChar;
-					jetifiedFile += $"{Path.GetFileNameWithoutExtension (currentFile)}-jetified";
-					jetifiedFile += Path.GetExtension (currentFile);
-
-					jetifiedFiles [i] = jetifiedFile;
-					JetifiedFiles [i].ItemSpec = jetifiedFile;
+				if (NoOverrideFiles) {
+					outputFile = Path.GetDirectoryName (inputFile);
+					outputFile += Path.DirectorySeparatorChar;
+					outputFile += $"{Path.GetFileNameWithoutExtension (inputFile)}-jetified";
+					outputFile += Path.GetExtension (inputFile);
 				}
+
+				archives.Add ((inputFile, outputFile));
 			}
 
-			var libDirectory = Path.Combine(Path.GetDirectoryName (JetifierWrapperPath));
-			var jarFiles = Directory.GetFiles (libDirectory, "*.jar", SearchOption.TopDirectoryOnly);
-
-			var classpathJoinSymbol = IsUnix ? ":" : ";";
-			var classPath = $"\"{JetifierWrapperPath}{classpathJoinSymbol}{string.Join (classpathJoinSymbol, jarFiles)}\"";
-			var javaMainClass = "com.xamarin.androidx.jetifierWrapper.Main";
-			var inputFiles = $"-i \"{string.Join ("\" -i \"", files)}\"";
-			var oututFiles = $"-o \"{string.Join ("\" -o \"", jetifiedFiles)}\"";
-			var configurationOption = string.IsNullOrWhiteSpace (ConfigurationPath) ? "" : $"-c {ConfigurationPath}";
-			var verbosityOption = string.IsNullOrWhiteSpace (Verbosity) ? "" : $"-l {Verbosity}";
-			var reversedOption = IsDejetify ? "-r" : "";
-			var strictOption = IsStrict ? "-s" : "";
-			var rebuildTopOfTreeOption = IsRebuildTopOfTree ? "-rebuildTopOfTree" : "";
-			var noParallelOption = NoParallel ? "-noParallel" : "";
-			var helpOption = PrintHelp ? "-h" : "";
+			var jetifier = new Jetifier {
+				ConfigurationPath = ConfigurationPath,
+				Verbose = Verbosity,
+				Dejetify = Dejetify,
+				IsStrict = IsStrict,
+				ShouldRebuildTopOfTree = ShouldRebuildTopOfTree,
+				ShouldStripSignatures = ShouldStripSignatures,
+				NoParallel = NoParallel,
+				PrintHelp = PrintHelp
+			};
 
 			try {
-				var processStartInfo = new ProcessStartInfo {
-					FileName = "java",
-					Arguments = $"-cp {classPath} {javaMainClass} {inputFiles} " +
-						$"{oututFiles} {configurationOption} {verbosityOption} " +
-						$"{reversedOption} {strictOption} {rebuildTopOfTreeOption} " +
-						$"{noParallelOption} {helpOption}",
-					RedirectStandardOutput = true,
-					UseShellExecute = false,
-					CreateNoWindow = true,
-					WorkingDirectory = $"{Path.GetDirectoryName (JetifierWrapperPath)}{Path.DirectorySeparatorChar}"
-				};
-
-				var process = new Process { StartInfo = processStartInfo };
-				process.Start ();
-				string result = process.StandardOutput.ReadToEnd ();
-				Log.LogMessage (MessageImportance.Normal, result);
+				jetifier.Jetify (archives);
 			} catch (Exception ex) {
 				Log.LogErrorFromException (ex);
 				return false;
