@@ -88,7 +88,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             Trace.WriteLine($"===================================================================================");
             Trace.WriteLine($"migrating assembly               = {this.PathAssemblyInput}");
 
-            var csv = LoadMapping("mappings/API.Mappings.Merged.Google.with.Xamarin.Classes.csv");
+            var csv = LoadMapping("mappings/MigrationMappings.csv");
 
             bool needsMigration = false;
 
@@ -102,11 +102,20 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 {
                     //Console.WriteLine($" => Processing type reference '{typeRef.FullName}'...");
 
-                    if (!csv.TryGetValue(typeRef.FullName, out var newName) || typeRef.FullName == newName.FN)
+                    //if (!csv.TryGetValue(typeRef.FullName, out var newName) || typeRef.FullName == newName.FN)
+                    //    continue;
+
+                    var found = from row in csv
+                                where
+                                    row.TypenameFullyQualifiedXamarinAndroidSupport == typeRef.FullName
+                                select row;
+                    if (found.Count() == 0)
+                    {
                         continue;
+                    }
 
                     var old = typeRef.FullName;
-                    typeRef.Namespace = newName.NS;
+                    //typeRef.Namespace = newName.NS;
                     Console.WriteLine($"     => Mapped type '{old}' to '{typeRef.FullName}'.");
 
                     if (assemblyMappings.TryGetValue(typeRef.Scope.Name, out var newAssembly) && typeRef.Scope.Name != newAssembly)
@@ -130,11 +139,20 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 {
                     //Console.WriteLine($" => Processing type reference '{typeRef.FullName}'...");
 
-                    if (!csv.TryGetValue(typeRef.FullName, out var newName) || typeRef.FullName == newName.FN)
+                    //if (!csv.TryGetValue(typeRef.FullName, out var newName) || typeRef.FullName == newName.FN)
+                    //    continue;
+
+                    var found = from row in csv
+                                where
+                                    row.TypenameFullyQualifiedXamarinAndroidSupport == typeRef.FullName
+                                select row;
+                    if (found.Count() == 0)
+                    {
                         continue;
+                    }
 
                     var old = typeRef.FullName;
-                    typeRef.Namespace = newName.NS;
+                    //typeRef.Namespace = newName.NS;
                     Console.WriteLine($"     => Mapped type '{old}' to '{typeRef.FullName}'.");
 
                     if (assemblyMappings.TryGetValue(typeRef.Scope.Name, out var newAssembly) && typeRef.Scope.Name != newAssembly)
@@ -190,11 +208,20 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             return;
         }
 
-        private static Dictionary<string, (string NS, string T, string FN)> LoadMapping(string csvFile)
+        private static
+            //Dictionary<string, (string NS, string T, string FN)>
+            IEnumerable
+                <
+                    (
+                        string TypenameFullyQualifiedAndroidSupport,
+                        string TypenameFullyQualifiedAndroidX,
+                        string TypenameFullyQualifiedXamarinAndroidSupport,
+                        string TypenameFullyQualifiedXamarinAndroidX
+                    )
+                >
+                    LoadMapping(string csvFile)
         {
             var root = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
-            var dic = new Dictionary<string, (string NS, string T, string FN)>();
 
             foreach (var line in File.ReadAllText(Path.Combine(root, csvFile)).Split('\r', '\n'))
             {
@@ -203,20 +230,27 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
                 var split = line.Split(',');
 
-                var support = split[(int)Columns.AndroidSupportClassFullyQualified];
-                var ns = split[(int)Columns.ManagedNamespaceXamarinAndroidX];
-                var androidx = split[(int)Columns.AndroidXClassFullyQualified];
+                var support = split[(int)Columns.TypenameFullyQualifiedAndroidSupport];
+                //var ns = split[(int)Columns.ManagedNamespaceXamarinAndroidX];
+                var androidx = split[(int)Columns.TypenameFullyQualifiedAndroidX];
+
+                var xm_as = split[(int)Columns.TypenameFullyQualifiedXamarinAndroidSupport];
+                var xm_ax = split[(int)Columns.TypenameFullyQualifiedXamarinAndroidX];
 
                 if (string.IsNullOrWhiteSpace(support) ||
                     string.IsNullOrWhiteSpace(support) ||
                     string.IsNullOrWhiteSpace(androidx))
                     continue;
 
-                var t = androidx.Substring(ns.Length + 1);
-                dic[support] = (NS: ns, T: t, FN: androidx);
-            }
+                yield return
+                    (
+                        TypenameFullyQualifiedAndroidSupport: support,
+                        TypenameFullyQualifiedAndroidX: androidx,
+                        TypenameFullyQualifiedXamarinAndroidSupport: xm_as,
+                        TypenameFullyQualifiedXamarinAndroidX: xm_ax
+                    );
 
-            return dic;
+            }
         }
 
         private static Dictionary<string, string> assemblyMappings = new Dictionary<string, string>
@@ -229,15 +263,10 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
         private enum Columns
         {
-            ClassName,
-            AndroidSupportClass,
-            AndroidXClass,
-            AndroidSupportClassFullyQualified,
-            AndroidXClassFullyQualified,
-            PackageAndroidSupport,
-            PackageAndroidX,
-            ManagedNamespaceXamarinAndroidSupport,
-            ManagedNamespaceXamarinAndroidX
+            TypenameFullyQualifiedAndroidSupport,
+            TypenameFullyQualifiedAndroidX,
+            TypenameFullyQualifiedXamarinAndroidSupport,
+            TypenameFullyQualifiedXamarinAndroidX
         }
     }
 }
