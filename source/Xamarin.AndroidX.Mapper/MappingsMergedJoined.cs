@@ -549,6 +549,7 @@ namespace Xamarin.AndroidX.Mapper
                         text = text.Replace("(", "");
                         text = text.Replace(")", "");
                         text = text.Replace(" ", "");
+                        text = text.Replace(",", ";");
                         File.WriteAllText("MigrationMappings.csv", text);
                     }
                 );

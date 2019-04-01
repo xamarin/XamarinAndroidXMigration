@@ -90,15 +90,48 @@ namespace Xamarin.AndroidX.Cecilfier.App
 
             if (option_exact_pairs.Count() == 0)
             {
+                string prfx = "../../../../../";
+
                 option_exact_pairs.Add
                     (
-                        "../../../"
-                        +
-                        "../../../../X/Xamarin.AndroidX.Test.Libraries/externals/Telerik_UI_for_Xamarin_2019_1_220_1_Trial/Binaries/Android/Telerik.Xamarin.Android.Chart.dll",
-                        "/Project/tmp/"
+                        $"{prfx}/tests/Aarxercise.Binding.AndroidX/bin/Debug/Aarxercise.Binding.AndroidX.dll",
+                        $"{prfx}/tests/Aarxercise.Binding.AndroidX/bin/Debug/Aarxercise.Binding.AndroidX.ax.dll"
                     );
+                option_exact_pairs.Add
+                    (
+                        $"{prfx}/tests/Aarxercise.Binding.Support/bin/Debug/Aarxercise.Binding.Support.dll",
+                        $"{prfx}/tests/Aarxercise.Binding.Support/bin/Debug/Aarxercise.Binding.Support.ax.dll"
+                    );
+                option_exact_pairs.Add
+                    (
+                        $"{prfx}/tests/Aarxercise.Managed.AndroidX/bin/Debug/Aarxercise.Managed.AndroidX.dll",
+                        $"{prfx}/tests/Aarxercise.Managed.AndroidX/bin/Debug/Aarxercise.Managed.AndroidX.ax.dll"
+                    );
+                option_exact_pairs.Add
+                    (
+                        $"{prfx}/tests/Aarxercise.Managed.Support/bin/Debug/Aarxercise.Managed.Support.dll",
+                        $"{prfx}/tests/Aarxercise.Managed.Support/bin/Debug/Aarxercise.Managed.Support.ax.dll"
+                    );
+                option_exact_pairs.Add
+                    (
+                        $"{prfx}/tests/Aarxercise.Java.AndroidX/bin/Debug/Aarxercise.Java.AndroidX.dll",
+                        $"{prfx}/tests/Aarxercise.Java.AndroidX/bin/Debug/Aarxercise.Java.AndroidX.ax.dll"
+                    );
+                option_exact_pairs.Add
+                    (
+                        $"{prfx}/tests/Aarxercise.Java.Support/bin/Debug/Aarxercise.Java.Support.dll",
+                        $"{prfx}/tests/Aarxercise.Java.Support/bin/Debug/Aarxercise.Java.Support.ax.dll"
+                    );
+                //option_exact_pairs.Add
+                //    (
+                //        "../../../"
+                //        +
+                //        "../../../../X/Xamarin.AndroidX.Test.Libraries/externals/Telerik_UI_for_Xamarin_2019_1_220_1_Trial/Binaries/Android/Telerik.Xamarin.Android.Chart.dll",
+                //        "/Project/tmp/"
+                //    );
 
             }
+
             foreach(KeyValuePair<string, string> kvp in option_exact_pairs)
             {
                 string file = Path.GetFileName($"{kvp.Key}");

@@ -1241,6 +1241,7 @@ namespace Xamarin.AndroidX.Mapper
                         text = text.Replace("(", "");
                         text = text.Replace(")", "");
                         text = text.Replace(" ", "");
+                        text = text.Replace(",", ";");
                         File.WriteAllText(Path.ChangeExtension(filename, "dll.TAR.csv"), text);
                     },
                     () =>
@@ -1249,6 +1250,7 @@ namespace Xamarin.AndroidX.Mapper
                         text = text.Replace("(", "");
                         text = text.Replace(")", "");
                         text = text.Replace(" ", "");
+                        text = text.Replace(",", ";");
                         File.WriteAllText(Path.ChangeExtension(filename, "dll.TARIG.csv"), text);
                     },
                     () =>
@@ -1257,6 +1259,7 @@ namespace Xamarin.AndroidX.Mapper
                         text = text.Replace("(", "");
                         text = text.Replace(")", "");
                         text = text.Replace(" ", "");
+                        text = text.Replace(",", ";");
                         File.WriteAllText(Path.ChangeExtension(filename, "dll.TARNIG.csv"), text);
                     },
                     () =>
@@ -1265,6 +1268,7 @@ namespace Xamarin.AndroidX.Mapper
                         text = text.Replace("(", "");
                         text = text.Replace(")", "");
                         text = text.Replace(" ", "");
+                        text = text.Replace(",", ";");
                         File.WriteAllText(Path.ChangeExtension(filename, "dll.TARNIGF.csv"), text);
                     },
                     () =>
@@ -1273,6 +1277,7 @@ namespace Xamarin.AndroidX.Mapper
                         text = text.Replace("(", "");
                         text = text.Replace(")", "");
                         text = text.Replace(" ", "");
+                        text = text.Replace(",", ";");
                         File.WriteAllText(Path.ChangeExtension(filename, "TAUR.csv"), text);
                     },
                     () =>
@@ -1281,6 +1286,7 @@ namespace Xamarin.AndroidX.Mapper
                         text = text.Replace("(", "");
                         text = text.Replace(")", "");
                         text = text.Replace(" ", "");
+                        text = text.Replace(",", ";");
                         File.WriteAllText(Path.ChangeExtension(filename, "dll.TNAR.csv"), text);
                     },
                     () =>
@@ -1289,6 +1295,7 @@ namespace Xamarin.AndroidX.Mapper
                         text = text.Replace("(", "");
                         text = text.Replace(")", "");
                         text = text.Replace(" ", "");
+                        text = text.Replace(",", ";");
                         File.WriteAllText(Path.ChangeExtension(filename, "dll.TNARIG.csv"), text);
                     },
                     () =>
@@ -1297,6 +1304,7 @@ namespace Xamarin.AndroidX.Mapper
                         text = text.Replace("(", "");
                         text = text.Replace(")", "");
                         text = text.Replace(" ", "");
+                        text = text.Replace(",", ";");
                         File.WriteAllText(Path.ChangeExtension(filename, "dll.TNARNIG.csv"), text);
                     },
                     () =>
@@ -1305,6 +1313,7 @@ namespace Xamarin.AndroidX.Mapper
                         text = text.Replace("(", "");
                         text = text.Replace(")", "");
                         text = text.Replace(" ", "");
+                        text = text.Replace(",", ";");
                         File.WriteAllText(Path.ChangeExtension(filename, "dll.TNARNIGF.csv"), text);
                     },
                     () =>
@@ -1313,6 +1322,7 @@ namespace Xamarin.AndroidX.Mapper
                         text = text.Replace("(", "");
                         text = text.Replace(")", "");
                         text = text.Replace(" ", "");
+                        text = text.Replace(",", ";");
                         File.WriteAllText(Path.ChangeExtension(filename, "dll.TR.csv"), text);
                     },
                     () =>
@@ -1321,6 +1331,7 @@ namespace Xamarin.AndroidX.Mapper
                         text = text.Replace("(", "");
                         text = text.Replace(")", "");
                         text = text.Replace(" ", "");
+                        text = text.Replace(",", ";");
                         File.WriteAllText(Path.ChangeExtension(filename, "dll.TRAR.csv"), text);
                     },
                     () =>
@@ -1329,6 +1340,7 @@ namespace Xamarin.AndroidX.Mapper
                         text = text.Replace("(", "");
                         text = text.Replace(")", "");
                         text = text.Replace(" ", "");
+                        text = text.Replace(",", ";");
                         File.WriteAllText(Path.ChangeExtension(filename, "dll.MappingsForMigrationMergeJoin.csv"), text);
                     }
                 );

@@ -50,7 +50,7 @@ namespace Core.Text
             {
                 string[] columns = lines[i].Split
                                         (
-                                            new char[] { ',' },
+                                            new char[] { ';', ',' },
                                             StringSplitOptions.None
                                         );
 

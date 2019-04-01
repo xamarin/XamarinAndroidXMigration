@@ -228,7 +228,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 if (string.IsNullOrWhiteSpace(line))
                     continue;
 
-                var split = line.Split(',');
+                var split = line.Split(new char[] { ';', ',' });
 
                 var support = split[(int)Columns.TypenameFullyQualifiedAndroidSupport];
                 //var ns = split[(int)Columns.ManagedNamespaceXamarinAndroidX];
