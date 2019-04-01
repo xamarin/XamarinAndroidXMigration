@@ -4,9 +4,6 @@
 	<UsingTask TaskName="Xamarin.AndroidX.Migration.BuildTasks.JetifyFiles" AssemblyFile="..\..\source\Xamarin.AndroidX.Migration.BuildTasks\bin\Release\net47\Xamarin.AndroidX.Migration.BuildTasks.dll" />
 
 	<PropertyGroup>
-		<IsUnix Condition="'$(OS)'=='Unix'">true</IsUnix>
-		<IsUnix Condition="'$(OS)'!='Unix'">false</IsUnix>
-
 		<JetifierWrapperPath>..\..\source\Xamarin.AndroidX.Migration.BuildTasks\bin\Release\net47\Tools\JetifierWrapper\JetifierWrapper.jar</JetifierWrapperPath>
 		<TestArtifactsRoot>..\..\externals\test-assets\facebook-sdk\</TestArtifactsRoot>
 	</PropertyGroup>
@@ -17,7 +14,7 @@
 	</ItemGroup>
 
 	<Target Name="Build">
-		<JetifyFiles JetifierWrapperPath="$(JetifierWrapperPath)" Files="@(FilesToJetify)" Verbosity="true" IsUnix="$(IsUnix)">
+		<JetifyFiles JetifierWrapperPath="$(JetifierWrapperPath)" Files="@(FilesToJetify)" Verbosity="true">
 			<Output TaskParameter="JetifiedFiles" ItemName="JetifiedFiles" />
 		</JetifyFiles>
 		<Message Text="The jetified file path is %(JetifiedFiles.Identity)" />

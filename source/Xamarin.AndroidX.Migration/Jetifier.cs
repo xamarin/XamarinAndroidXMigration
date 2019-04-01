@@ -60,7 +60,8 @@ namespace Xamarin.AndroidX.Migration
 
 			var proc = Process.Start (new ProcessStartInfo (JavaPath) {
 				Arguments = $"-classpath \"{classPath}\" \"{JetifierWrapperMain}\" {string.Join (" ", archiveArgs)}{c}{l}{r}{s}{rebuildTopOfTree}{stripSignatures}{h}",
-				RedirectStandardOutput = true
+				RedirectStandardOutput = true,
+				UseShellExecute = false
 			});
 
 			var output = proc.StandardOutput.ReadToEnd ();
