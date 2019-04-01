@@ -19,7 +19,7 @@ namespace Xamarin.AndroidX.Data
             return;
         }
 
-       public IEnumerable<string[]> DataTable
+       public string[][] DataTable
         {
             get;
             set;

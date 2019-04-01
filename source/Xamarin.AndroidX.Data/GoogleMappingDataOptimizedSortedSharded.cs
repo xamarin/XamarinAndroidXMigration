@@ -20,16 +20,14 @@ namespace Xamarin.AndroidX.Data
         }
 
         public
-            IEnumerable
-                <
-                    (
-                        string TypenameAndroidSupport,
-                        string PackagenameAndroidSupport,
-                        string TypenameAndroidX,
-                        string PackagenameAndroidX
-                    )
-                >
-                        Mapping
+            (
+                string TypenameAndroidSupport,
+                string PackagenameAndroidSupport,
+                string TypenameAndroidX,
+                string PackagenameAndroidX
+            )
+                []
+                    Mapping
         {
             get;
             protected set;
@@ -96,7 +94,7 @@ namespace Xamarin.AndroidX.Data
                                         )
                                     >();
 
-            this.Mapping = Cast();
+            this.Mapping = Cast().ToArray();
             this.MappingSorted = this.Mapping
                                         .OrderBy(tuple => tuple.PackagenameAndroidSupport)
                                         .ThenBy(tuple => tuple.TypenameAndroidSupport)

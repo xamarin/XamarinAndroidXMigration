@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -31,6 +32,9 @@ namespace Xamarin.AndroidX.Mapper
 
         public static string Download(string url)
         {
+            Trace.WriteLine($"Downloading...");
+            Trace.WriteLine($"          {url}");
+
             string result = null;
 
             using (HttpResponseMessage response = client.GetAsync(url).Result)
@@ -43,6 +47,10 @@ namespace Xamarin.AndroidX.Mapper
             int index = url.LastIndexOf('/');
             string filename = url.Substring(index + 1, url.Length - index - 1);
             File.WriteAllText(filename, result);
+
+            Trace.WriteLine($"  saved ...");
+            Trace.WriteLine($"          to");
+            Trace.WriteLine($"          {filename}");
 
             return result;
         }
@@ -72,14 +80,18 @@ namespace Xamarin.AndroidX.Mapper
         }
 
 
-        public static IEnumerable<string[]> Parse()
+        public static string[][] Parse()
         {
             CharacterSeparatedValues csv = new CharacterSeparatedValues()
             {
                 Text = MappingsRawClasses
             };
 
-            return csv.ParseTemporaryImplementation();
+            return csv.ParseTemporaryImplementation
+                                                (
+                                                    has_header: true
+                                                )
+                                                .ToArray();
         }
 
 

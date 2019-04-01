@@ -26,7 +26,7 @@ namespace App.Xamarin.AndroidX.Mapper
                                                             "Xamarin.AndroidX.Mapper"
                                                         )
                             );
-            Trace.Listeners.Add(new ConsoleTraceListener());
+            //Trace.Listeners.Add(new ConsoleTraceListener());
 
             Trace.WriteLine($"Downloading...");
 

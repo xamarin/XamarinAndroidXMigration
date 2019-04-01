@@ -181,41 +181,152 @@ namespace Xamarin.AndroidX.Mapper
                 string tn_ax_in_as = row_as.TypenameFullyQualifiedAndroidX;
                 string tnm_as = row_as.TypenameFullyQualifiedXamarin;
 
-
                 var found =
                             (
                                 from row_ax in this.MappingsAndroidX.MappingsForMigrationMergeJoin
                                     where
-                                       ! string.IsNullOrEmpty(tn_as_in_as)
+                                       !string.IsNullOrEmpty(tn_as_in_as)
                                        &&
-                                       ! string.IsNullOrEmpty(tn_ax_in_as)
+                                       !string.IsNullOrEmpty(tn_ax_in_as)
                                        &&
-                                       ! string.IsNullOrEmpty(row_ax.TypenameFullyQualifiedAndroidSupport)
+                                       !string.IsNullOrEmpty(row_ax.TypenameFullyQualifiedAndroidSupport)
                                        &&
-                                       ! string.IsNullOrEmpty(row_ax.TypenameFullyQualifiedAndroidX)
+                                       !string.IsNullOrEmpty(row_ax.TypenameFullyQualifiedAndroidX)
                                        &&
                                        row_ax.TypenameFullyQualifiedAndroidSupport == tn_as_in_as
                                        &&
                                        row_ax.TypenameFullyQualifiedAndroidX == tn_ax_in_as
-                                    select row_ax
+                                select row_ax
                             )
+                            .Distinct()
                             .ToArray();
 
-                if (found.Length > 4)
+                // no looping - for debugging and perfomrance!!!
+                (
+                    string TypenameFullyQualifiedAndroidSupport,
+                    string TypenameFullyQualifiedAndroidX,
+                    string TypenameFullyQualifiedXamarinAndroidSupport,
+                    string TypenameFullyQualifiedXamarinAndroidX
+                )
+                    mapping_single;
+                int n_found = found.Length;
+                switch (n_found)
                 {
-                    throw new InvalidOperationException("Suspicious mappings");
-                }
-
-                foreach (var f in found)
-                {
-                    yield return
-                            (
-                                TypenameFullyQualifiedAndroidSupport: tn_as_in_as,
-                                TypenameFullyQualifiedAndroidX: f.TypenameFullyQualifiedAndroidX,
-                                TypenameFullyQualifiedXamarinAndroidSupport: tnm_as,
-                                TypenameFullyQualifiedXamarinAndroidX: f.TypenameFullyQualifiedXamarin
-                            );
-
+                    case 0:
+                        Trace.WriteLine($"   mapping not found: {tn_as_in_as}");
+                        break;
+                    case 1:
+                        mapping_single =
+                                (
+                                    TypenameFullyQualifiedAndroidSupport: tn_as_in_as,
+                                    // breakpoint condition for tests: f.TypenameFullyQualifiedAndroidX.StartsWith("android.")
+                                    // should be 158 with material cases
+                                    TypenameFullyQualifiedAndroidX: found[0].TypenameFullyQualifiedAndroidX,
+                                    TypenameFullyQualifiedXamarinAndroidSupport: tnm_as,
+                                    TypenameFullyQualifiedXamarinAndroidX: found[0].TypenameFullyQualifiedXamarin
+                                );
+                        yield return mapping_single;
+                        break;
+                    case 2:
+                        mapping_single =
+                                (
+                                    TypenameFullyQualifiedAndroidSupport: tn_as_in_as,
+                                    // breakpoint condition for tests: f.TypenameFullyQualifiedAndroidX.StartsWith("android.")
+                                    // should be 158 with material cases
+                                    TypenameFullyQualifiedAndroidX: found[0].TypenameFullyQualifiedAndroidX,
+                                    TypenameFullyQualifiedXamarinAndroidSupport: tnm_as,
+                                    TypenameFullyQualifiedXamarinAndroidX: found[0].TypenameFullyQualifiedXamarin
+                                );
+                        yield return mapping_single;
+                        mapping_single =
+                                (
+                                    TypenameFullyQualifiedAndroidSupport: tn_as_in_as,
+                                    // breakpoint condition for tests: f.TypenameFullyQualifiedAndroidX.StartsWith("android.")
+                                    // should be 158 with material cases
+                                    TypenameFullyQualifiedAndroidX: found[1].TypenameFullyQualifiedAndroidX,
+                                    TypenameFullyQualifiedXamarinAndroidSupport: tnm_as,
+                                    TypenameFullyQualifiedXamarinAndroidX: found[1].TypenameFullyQualifiedXamarin
+                                );
+                        yield return mapping_single;
+                        break;
+                    case 3:
+                        mapping_single =
+                               (
+                                   TypenameFullyQualifiedAndroidSupport: tn_as_in_as,
+                                   // breakpoint condition for tests: f.TypenameFullyQualifiedAndroidX.StartsWith("android.")
+                                   // should be 158 with material cases
+                                   TypenameFullyQualifiedAndroidX: found[0].TypenameFullyQualifiedAndroidX,
+                                   TypenameFullyQualifiedXamarinAndroidSupport: tnm_as,
+                                   TypenameFullyQualifiedXamarinAndroidX: found[0].TypenameFullyQualifiedXamarin
+                               );
+                        yield return mapping_single;
+                        mapping_single =
+                                (
+                                    TypenameFullyQualifiedAndroidSupport: tn_as_in_as,
+                                    // breakpoint condition for tests: f.TypenameFullyQualifiedAndroidX.StartsWith("android.")
+                                    // should be 158 with material cases
+                                    TypenameFullyQualifiedAndroidX: found[1].TypenameFullyQualifiedAndroidX,
+                                    TypenameFullyQualifiedXamarinAndroidSupport: tnm_as,
+                                    TypenameFullyQualifiedXamarinAndroidX: found[1].TypenameFullyQualifiedXamarin
+                                );
+                        yield return mapping_single;
+                        mapping_single =
+                                (
+                                    TypenameFullyQualifiedAndroidSupport: tn_as_in_as,
+                                    // breakpoint condition for tests: f.TypenameFullyQualifiedAndroidX.StartsWith("android.")
+                                    // should be 158 with material cases
+                                    TypenameFullyQualifiedAndroidX: found[2].TypenameFullyQualifiedAndroidX,
+                                    TypenameFullyQualifiedXamarinAndroidSupport: tnm_as,
+                                    TypenameFullyQualifiedXamarinAndroidX: found[2].TypenameFullyQualifiedXamarin
+                                );
+                        yield return mapping_single;
+                        break;
+                    case 4:
+                        mapping_single =
+                               (
+                                   TypenameFullyQualifiedAndroidSupport: tn_as_in_as,
+                                   // breakpoint condition for tests: f.TypenameFullyQualifiedAndroidX.StartsWith("android.")
+                                   // should be 158 with material cases
+                                   TypenameFullyQualifiedAndroidX: found[0].TypenameFullyQualifiedAndroidX,
+                                   TypenameFullyQualifiedXamarinAndroidSupport: tnm_as,
+                                   TypenameFullyQualifiedXamarinAndroidX: found[0].TypenameFullyQualifiedXamarin
+                               );
+                        yield return mapping_single;
+                        mapping_single =
+                                (
+                                    TypenameFullyQualifiedAndroidSupport: tn_as_in_as,
+                                    // breakpoint condition for tests: f.TypenameFullyQualifiedAndroidX.StartsWith("android.")
+                                    // should be 158 with material cases
+                                    TypenameFullyQualifiedAndroidX: found[1].TypenameFullyQualifiedAndroidX,
+                                    TypenameFullyQualifiedXamarinAndroidSupport: tnm_as,
+                                    TypenameFullyQualifiedXamarinAndroidX: found[1].TypenameFullyQualifiedXamarin
+                                );
+                        yield return mapping_single;
+                        mapping_single =
+                                (
+                                    TypenameFullyQualifiedAndroidSupport: tn_as_in_as,
+                                    // breakpoint condition for tests: f.TypenameFullyQualifiedAndroidX.StartsWith("android.")
+                                    // should be 158 with material cases
+                                    TypenameFullyQualifiedAndroidX: found[2].TypenameFullyQualifiedAndroidX,
+                                    TypenameFullyQualifiedXamarinAndroidSupport: tnm_as,
+                                    TypenameFullyQualifiedXamarinAndroidX: found[2].TypenameFullyQualifiedXamarin
+                                );
+                        yield return mapping_single;
+                        mapping_single =
+                                (
+                                    TypenameFullyQualifiedAndroidSupport: tn_as_in_as,
+                                    // breakpoint condition for tests: f.TypenameFullyQualifiedAndroidX.StartsWith("android.")
+                                    // should be 158 with material cases
+                                    TypenameFullyQualifiedAndroidX: found[3].TypenameFullyQualifiedAndroidX,
+                                    TypenameFullyQualifiedXamarinAndroidSupport: tnm_as,
+                                    TypenameFullyQualifiedXamarinAndroidX: found[3].TypenameFullyQualifiedXamarin
+                                );
+                        yield return mapping_single;
+                        break;
+                    default:
+                        // >= 5
+                        // just a stupid empirical test
+                        throw new InvalidOperationException("Suspicious mappings");
                 }
             }
         }
@@ -266,25 +377,137 @@ namespace Xamarin.AndroidX.Mapper
                                        row_as.TypenameFullyQualifiedAndroidX == tn_ax_in_ax
                                     select row_as
                             )
+                            .Distinct()
                             .ToArray();
 
-                if (found.Length > 4)
+                // no looping - for debugging and perfomrance!!!
+                (
+                    string TypenameFullyQualifiedAndroidSupport,
+                    string TypenameFullyQualifiedAndroidX,
+                    string TypenameFullyQualifiedXamarinAndroidSupport,
+                    string TypenameFullyQualifiedXamarinAndroidX
+                )
+                    mapping_single;
+                int n_found = found.Length;
+                switch (n_found)
                 {
-                    throw new InvalidOperationException("Suspicious mappings");
+                    case 0:
+                        Trace.WriteLine($"   mapping not found: {tn_ax_in_ax}");
+                        break;
+                    case 1:
+                        mapping_single =
+                                (
+                                    TypenameFullyQualifiedAndroidSupport: tn_as_in_ax,
+                                    // breakpoint condition for tests: f.TypenameFullyQualifiedAndroidX.StartsWith("android.")
+                                    // should be 158 with material cases
+                                    TypenameFullyQualifiedAndroidX: found[0].TypenameFullyQualifiedAndroidX,
+                                    TypenameFullyQualifiedXamarinAndroidSupport: found[0].TypenameFullyQualifiedXamarin,
+                                    TypenameFullyQualifiedXamarinAndroidX: tnm_ax
+                                );
+                        yield return mapping_single;
+                        break;
+                    case 2:
+                        mapping_single =
+                                (
+                                    TypenameFullyQualifiedAndroidSupport: tn_as_in_ax,
+                                    // breakpoint condition for tests: f.TypenameFullyQualifiedAndroidX.StartsWith("android.")
+                                    // should be 158 with material cases
+                                    TypenameFullyQualifiedAndroidX: found[0].TypenameFullyQualifiedAndroidX,
+                                    TypenameFullyQualifiedXamarinAndroidSupport: found[0].TypenameFullyQualifiedXamarin,
+                                    TypenameFullyQualifiedXamarinAndroidX: tnm_ax
+                                );
+                        yield return mapping_single;
+                        mapping_single =
+                                (
+                                    TypenameFullyQualifiedAndroidSupport: tn_as_in_ax,
+                                    // breakpoint condition for tests: f.TypenameFullyQualifiedAndroidX.StartsWith("android.")
+                                    // should be 158 with material cases
+                                    TypenameFullyQualifiedAndroidX: found[1].TypenameFullyQualifiedAndroidX,
+                                    TypenameFullyQualifiedXamarinAndroidSupport: found[1].TypenameFullyQualifiedXamarin,
+                                    TypenameFullyQualifiedXamarinAndroidX: tnm_ax
+                                );
+                        yield return mapping_single;
+                        break;
+                    case 3:
+                        mapping_single =
+                               (
+                                   TypenameFullyQualifiedAndroidSupport: tn_as_in_ax,
+                                   // breakpoint condition for tests: f.TypenameFullyQualifiedAndroidX.StartsWith("android.")
+                                   // should be 158 with material cases
+                                   TypenameFullyQualifiedAndroidX: found[0].TypenameFullyQualifiedAndroidX,
+                                    TypenameFullyQualifiedXamarinAndroidSupport: found[0].TypenameFullyQualifiedXamarin,
+                                    TypenameFullyQualifiedXamarinAndroidX: tnm_ax
+                               );
+                        yield return mapping_single;
+                        mapping_single =
+                                (
+                                    TypenameFullyQualifiedAndroidSupport: tn_as_in_ax,
+                                    // breakpoint condition for tests: f.TypenameFullyQualifiedAndroidX.StartsWith("android.")
+                                    // should be 158 with material cases
+                                    TypenameFullyQualifiedAndroidX: found[1].TypenameFullyQualifiedAndroidX,
+                                    TypenameFullyQualifiedXamarinAndroidSupport: found[1].TypenameFullyQualifiedXamarin,
+                                    TypenameFullyQualifiedXamarinAndroidX: tnm_ax
+                                );
+                        yield return mapping_single;
+                        mapping_single =
+                                (
+                                    TypenameFullyQualifiedAndroidSupport: tn_as_in_ax,
+                                    // breakpoint condition for tests: f.TypenameFullyQualifiedAndroidX.StartsWith("android.")
+                                    // should be 158 with material cases
+                                    TypenameFullyQualifiedAndroidX: found[2].TypenameFullyQualifiedAndroidX,
+                                    TypenameFullyQualifiedXamarinAndroidSupport: found[2].TypenameFullyQualifiedXamarin,
+                                    TypenameFullyQualifiedXamarinAndroidX: tnm_ax
+                                );
+                        yield return mapping_single;
+                        break;
+                    case 4:
+                        mapping_single =
+                               (
+                                   TypenameFullyQualifiedAndroidSupport: tn_as_in_ax,
+                                   // breakpoint condition for tests: f.TypenameFullyQualifiedAndroidX.StartsWith("android.")
+                                   // should be 158 with material cases
+                                   TypenameFullyQualifiedAndroidX: found[0].TypenameFullyQualifiedAndroidX,
+                                    TypenameFullyQualifiedXamarinAndroidSupport: found[0].TypenameFullyQualifiedXamarin,
+                                    TypenameFullyQualifiedXamarinAndroidX: tnm_ax
+                               );
+                        yield return mapping_single;
+                        mapping_single =
+                                (
+                                    TypenameFullyQualifiedAndroidSupport: tn_as_in_ax,
+                                    // breakpoint condition for tests: f.TypenameFullyQualifiedAndroidX.StartsWith("android.")
+                                    // should be 158 with material cases
+                                    TypenameFullyQualifiedAndroidX: found[1].TypenameFullyQualifiedAndroidX,
+                                    TypenameFullyQualifiedXamarinAndroidSupport: found[1].TypenameFullyQualifiedXamarin,
+                                    TypenameFullyQualifiedXamarinAndroidX: tnm_ax
+                                );
+                        yield return mapping_single;
+                        mapping_single =
+                                (
+                                    TypenameFullyQualifiedAndroidSupport: tn_as_in_ax,
+                                    // breakpoint condition for tests: f.TypenameFullyQualifiedAndroidX.StartsWith("android.")
+                                    // should be 158 with material cases
+                                    TypenameFullyQualifiedAndroidX: found[2].TypenameFullyQualifiedAndroidX,
+                                    TypenameFullyQualifiedXamarinAndroidSupport: found[2].TypenameFullyQualifiedXamarin,
+                                    TypenameFullyQualifiedXamarinAndroidX: tnm_ax
+                                );
+                        yield return mapping_single;
+                        mapping_single =
+                                (
+                                    TypenameFullyQualifiedAndroidSupport: tn_as_in_ax,
+                                    // breakpoint condition for tests: f.TypenameFullyQualifiedAndroidX.StartsWith("android.")
+                                    // should be 158 with material cases
+                                    TypenameFullyQualifiedAndroidX: found[3].TypenameFullyQualifiedAndroidX,
+                                    TypenameFullyQualifiedXamarinAndroidSupport: found[3].TypenameFullyQualifiedXamarin,
+                                    TypenameFullyQualifiedXamarinAndroidX: tnm_ax
+                                );
+                        yield return mapping_single;
+                        break;
+                    default:
+                        // >= 5
+                        // just a stupid empirical test
+                        throw new InvalidOperationException("Suspicious mappings");
                 }
 
-                foreach (var f in found)
-                {
-                    yield return
-                            (
-                                TypenameFullyQualifiedAndroidSupport: f.TypenameFullyQualifiedAndroidSupport,
-                                TypenameFullyQualifiedAndroidX: tn_ax_in_ax,
-                                TypenameFullyQualifiedXamarinAndroidSupport: f.TypenameFullyQualifiedXamarin,
-                                TypenameFullyQualifiedXamarinAndroidX: tnm_ax
-                            );
-
-                }
-                
             }
         }
 

@@ -22,13 +22,23 @@ namespace Core.Text
             set;
         }
 
-        public IEnumerable<string[]> ParseTemporaryImplementation(bool has_header = false)
+        public IEnumerable<string[]> ParseTemporaryImplementation
+                                                        (
+                                                            bool has_header = false
+                                                        )
         {
-            string[] lines = Text.Split
-                                        (
-                                            new string[] { Environment.NewLine, @"\n" },
-                                            StringSplitOptions.None
-                                        );
+            string[] line_separators = new string[] { "\n", "\r\n", Environment.NewLine, };
+
+            return ParseTemporaryImplementation(line_separators, has_header);
+        }
+        public IEnumerable<string[]> ParseTemporaryImplementation
+                                                        (
+                                                            string[] line_separators,
+                                                            bool has_header = false
+                                                        )
+        {
+            string[] lines = Text.Split(line_separators, StringSplitOptions.None);
+
             int index_start = 0;
             if (has_header)
             {
