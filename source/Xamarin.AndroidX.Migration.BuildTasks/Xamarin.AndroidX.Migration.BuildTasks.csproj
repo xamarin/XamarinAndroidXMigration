@@ -13,4 +13,7 @@
     <ProjectReference Include="..\Xamarin.AndroidX.Migration\Xamarin.AndroidX.Migration.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Mono.Cecil" Version="0.10.3" />
+  </ItemGroup>
 </Project>
