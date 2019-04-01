@@ -16,6 +16,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\externals\Java.Interop\src\Xamarin.Android.Tools.Bytecode\Xamarin.Android.Tools.Bytecode.csproj" />
+    <ProjectReference Include="..\..\source\Xamarin.AndroidX.Cecilfier\Xamarin.AndroidX.Cecilfier.csproj" />
+    <ProjectReference Include="..\..\source\Xamarin.AndroidX.Data\Xamarin.AndroidX.Data.csproj" />
+    <ProjectReference Include="..\..\source\Xamarin.AndroidX.Mapper\Xamarin.AndroidX.Mapper.csproj" />
     <ProjectReference Include="..\..\source\Xamarin.AndroidX.Migration\Xamarin.AndroidX.Migration.csproj" />
   </ItemGroup>
 

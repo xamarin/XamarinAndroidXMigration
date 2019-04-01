@@ -8,6 +8,20 @@ namespace Xamarin.AndroidX.Migration.Tests
 {
 	public static class CecilAssert
 	{
+		public static void Equal(IEnumerable<AssemblyNameReference> expected, IEnumerable<AssemblyNameReference> actual)
+		{
+			Assert.Equal(
+				expected.Select(GetAssemblyFullName),
+				actual.Select(GetAssemblyFullName));
+		}
+
+		public static void NotEqual(IEnumerable<AssemblyNameReference> expected, IEnumerable<AssemblyNameReference> actual)
+		{
+			Assert.NotEqual(
+				expected.Select(GetAssemblyFullName),
+				actual.Select(GetAssemblyFullName));
+		}
+
 		public static void Equal(IEnumerable<TypeDefinition> expected, IEnumerable<TypeDefinition> actual)
 		{
 			Assert.Equal(
@@ -57,6 +71,12 @@ namespace Xamarin.AndroidX.Migration.Tests
 				value += " : " + t.BaseType?.FullName;
 			if (t.HasInterfaces)
 				value += ", " + string.Join(", ", t.Interfaces.Select(i => i.InterfaceType.FullName));
+			return value;
+		}
+
+		private static string GetAssemblyFullName(AssemblyNameReference name)
+		{
+			var value = name.FullName;
 			return value;
 		}
 
