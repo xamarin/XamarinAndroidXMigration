@@ -48,33 +48,33 @@ namespace Xamarin.AndroidX.Migration.BuildTasks {
 				var outputFile = inputFile;
 
 				// If .dll, we need to extract the zip file and jetify it.
-				if (inputFile.EndsWith (".dll", true, CultureInfo.CurrentCulture)) {
-					var dllFile = inputFile;
-					var resources = new List<string> ();
+				//if (inputFile.EndsWith (".dll", true, CultureInfo.CurrentCulture)) {
+				//	var dllFile = inputFile;
+				//	var resources = new List<string> ();
 
-					// Extract the zip file and add it to the list to jetify
-					foreach (var resourceName in resourcesName) {
-						inputFile = Path.Combine (cachePath, Path.GetFileNameWithoutExtension (dllFile), resourceName);
-						outputFile = inputFile;
+				//	// Extract the zip file and add it to the list to jetify
+				//	foreach (var resourceName in resourcesName) {
+				//		inputFile = Path.Combine (cachePath, Path.GetFileNameWithoutExtension (dllFile), resourceName);
+				//		outputFile = inputFile;
 
-						if (!ExtractResourceToDiskIfExists (dllFile, resourceName, inputFile))
-							continue;
+				//		if (!ExtractResourceToDiskIfExists (dllFile, resourceName, inputFile))
+				//			continue;
 
-						if (NoOverrideFiles)
-							dllFile = AddJetifiedSufix (dllFile);
+				//		if (NoOverrideFiles)
+				//			dllFile = AddJetifiedSufix (dllFile);
 
-						archivesToJetify.Add ((inputFile, outputFile));
-						resources.Add (outputFile);
-					}
+				//		archivesToJetify.Add ((inputFile, outputFile));
+				//		resources.Add (outputFile);
+				//	}
 
-					if (resources.Count > 0)
-						archivesToEmbed.Add ((dllFile, resources));
-				} else {
+				//	if (resources.Count > 0)
+				//		archivesToEmbed.Add ((dllFile, resources));
+				//} else {
 					if (NoOverrideFiles)
 						outputFile = AddJetifiedSufix (inputFile);
 
 					archivesToJetify.Add ((inputFile, outputFile));
-				}
+				//}
 			}
 
 			var jetifier = new Jetifier {
@@ -95,10 +95,11 @@ namespace Xamarin.AndroidX.Migration.BuildTasks {
 				return false;
 			}
 
-			foreach (var archives in archivesToEmbed)
-				foreach (var archive in archives.Archives)
-					if (!ReplaceResource (archives.Source, archive))
-						return false;
+			//foreach (var archives in archivesToEmbed) {
+			//	foreach (var archive in archives.Archives)
+			//		if (!ReplaceResource (archives.Source, archive))
+			//			return false;
+			//}
 
 			return true;
 		}
@@ -108,11 +109,37 @@ namespace Xamarin.AndroidX.Migration.BuildTasks {
 		// Add the jetify suffix to the path
 		public string AddJetifiedSufix (string path)
 		{
-			path = Path.GetDirectoryName (path);
-			path += Path.DirectorySeparatorChar;
-			path += $"{Path.GetFileNameWithoutExtension (path)}{jetifiedSuffix}";
-			path += Path.GetExtension (path);
-			return path;
+			var jetifiedPath = Path.GetDirectoryName (path);
+			jetifiedPath += Path.DirectorySeparatorChar;
+			jetifiedPath += $"{Path.GetFileNameWithoutExtension (path)}{jetifiedSuffix}";
+			jetifiedPath += Path.GetExtension (path);
+			return jetifiedPath;
+		}
+
+		public string RemoveJetifiedSufix (string path)
+		{
+			var unjetifiedPath = Path.GetDirectoryName (path);
+			unjetifiedPath += Path.DirectorySeparatorChar;
+			unjetifiedPath += $"{Path.GetFileNameWithoutExtension (path)}".Replace (jetifiedSuffix, "");
+			unjetifiedPath += Path.GetExtension (path);
+			return unjetifiedPath;
+		}
+
+		public bool CreateJetifiedFile (string filePath)
+		{
+			var unjetifiedPath = RemoveJetifiedSufix (filePath);
+
+			try {
+				using (var unjetifiedStream = File.Open (unjetifiedPath, FileMode.Open))
+				using (var fileStream = File.Open (filePath, FileMode.Create)) {
+					unjetifiedStream.CopyTo (fileStream);
+				}
+				return true;
+			} catch (Exception ex) {
+				Log.LogError ($"Could not create the jetified {filePath} file.\n{ex.Message}");
+				return false;
+			}
+
 		}
 
 		// Extract the resource to the disk
@@ -121,18 +148,18 @@ namespace Xamarin.AndroidX.Migration.BuildTasks {
 			var assembly = AssemblyDefinition.ReadAssembly (dllPath);
 
 			foreach (var resource in assembly.MainModule.Resources) {
-				if (resource.Name != resourceName)
+				if (resource.Name.ToLower () != resourceName.ToLower ())
 					continue;
 
 				try {
 					using (var resourceStream = File.Open (resourcePath, FileMode.Create)) {
 						var embeddedResource = (EmbeddedResource)resource;
-						var bytes = embeddedResource.GetResourceData ();
-						resourceStream.Write (bytes, 0, bytes.Length);
+						var stream = embeddedResource.GetResourceStream ();
+						stream.CopyTo (resourceStream);
 					}
 					return true;
 				} catch (Exception ex) {
-					Log.LogWarning ($"Could not extract the {resourceName} resource file from {dllPath}.\n{ex.Message}");
+					Log.LogWarning ($"Could not extract the {resourceName} resource file from {dllPath} and save it into {resourcePath}.\nException message: {ex.Message}");
 					return false;
 				}
 			}
