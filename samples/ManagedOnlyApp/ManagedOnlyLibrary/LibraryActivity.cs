@@ -2,7 +2,7 @@
 using Android.Support.V7.App;
 using System;
 
-namespace BabyStepsLib
+namespace ManagedOnlyLibrary
 {
 	public class LibraryActivity : AppCompatActivity
 	{

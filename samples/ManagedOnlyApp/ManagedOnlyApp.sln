@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28606.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BabySteps", "BabySteps\BabySteps.csproj", "{AE9412FB-459A-4DB8-82C1-987147DB4F5A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagedOnlyApp", "ManagedOnlyApp\ManagedOnlyApp.csproj", "{AE9412FB-459A-4DB8-82C1-987147DB4F5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BabyStepsLib", "BabyStepsLib\BabyStepsLib.csproj", "{32BC8516-B224-4E61-B820-DF728A720DA4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagedOnlyLibrary", "ManagedOnlyLibrary\ManagedOnlyLibrary.csproj", "{32BC8516-B224-4E61-B820-DF728A720DA4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

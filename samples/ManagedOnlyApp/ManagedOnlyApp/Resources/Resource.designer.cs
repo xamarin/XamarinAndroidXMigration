@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("BabySteps.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("ManagedOnlyApp.Resource", IsApplication=true)]
 
-namespace BabySteps
+namespace ManagedOnlyApp
 {
 	
 	

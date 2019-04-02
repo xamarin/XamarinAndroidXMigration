@@ -3,10 +3,10 @@ using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using BabyStepsLib;
+using ManagedOnlyLibrary;
 using System;
 
-namespace BabySteps
+namespace ManagedOnlyApp
 {
 	[Activity(Label = "Android.Support", Theme = "@style/AppTheme", MainLauncher = true)]
 	public class MainActivity : Android.Support.V7.App.AppCompatActivity
