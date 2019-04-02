@@ -111,26 +111,26 @@ namespace Xamarin.AndroidX.Cecilfier.App
             if (option_exact_pairs.Count() == 0)
             {
                 string prfx = "../../../../../";
-
+                string cfg = "Debug";
                 option_exact_pairs.Add
                     (
-                        $"{prfx}/tests/Aarxercise.Binding.AndroidX/bin/Debug/Aarxercise.Binding.AndroidX.dll",
-                        $"{prfx}/tests/Aarxercise.Binding.AndroidX/bin/Debug/Aarxercise.Binding.AndroidX.ax.dll"
+                        $"{prfx}/tests/Aarxercise.Binding.AndroidX/bin/{cfg}/Aarxercise.Binding.AndroidX.dll",
+                        $"{prfx}/tests/Aarxercise.Binding.AndroidX/bin/{cfg}/Aarxercise.Binding.AndroidX.ax.dll"
                     );
                 option_exact_pairs.Add
                     (
-                        $"{prfx}/tests/Aarxercise.Binding.Support/bin/Debug/Aarxercise.Binding.Support.dll",
-                        $"{prfx}/tests/Aarxercise.Binding.Support/bin/Debug/Aarxercise.Binding.Support.ax.dll"
+                        $"{prfx}/tests/Aarxercise.Binding.Support/bin/{cfg}/Aarxercise.Binding.Support.dll",
+                        $"{prfx}/tests/Aarxercise.Binding.Support/bin/{cfg}/Aarxercise.Binding.Support.ax.dll"
                     );
                 option_exact_pairs.Add
                     (
-                        $"{prfx}/tests/Aarxercise.Managed.AndroidX/bin/Debug/Aarxercise.Managed.AndroidX.dll",
-                        $"{prfx}/tests/Aarxercise.Managed.AndroidX/bin/Debug/Aarxercise.Managed.AndroidX.ax.dll"
+                        $"{prfx}/tests/Aarxercise.Managed.AndroidX/bin/{cfg}/Aarxercise.Managed.AndroidX.dll",
+                        $"{prfx}/tests/Aarxercise.Managed.AndroidX/bin/{cfg}/Aarxercise.Managed.AndroidX.ax.dll"
                     );
                 option_exact_pairs.Add
                     (
-                        $"{prfx}/tests/Aarxercise.Managed.Support/bin/Debug/Aarxercise.Managed.Support.dll",
-                        $"{prfx}/tests/Aarxercise.Managed.Support/bin/Debug/Aarxercise.Managed.Support.ax.dll"
+                        $"{prfx}/tests/Aarxercise.Managed.Support/bin/{cfg}/Aarxercise.Managed.Support.dll",
+                        $"{prfx}/tests/Aarxercise.Managed.Support/bin/{cfg}/Aarxercise.Managed.Support.ax.dll"
                     );
                 //option_exact_pairs.Add
                 //    (

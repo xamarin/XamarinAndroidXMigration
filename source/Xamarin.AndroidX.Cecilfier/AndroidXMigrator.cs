@@ -248,8 +248,8 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             {
                 MigrateWithWithStringsOriginalPatchByRedth(ref duration);
                 PerformanceData.Add((PathAssemblyOutput, "Redth Original", duration));
-                MigrateWithWithStringsMathewsShortcuts(ref duration);
-                PerformanceData.Add((PathAssemblyOutput, "Matthews Shortcuts", duration));
+                //MigrateWithWithStringsMathewsShortcuts(ref duration);
+                //PerformanceData.Add((PathAssemblyOutput, "Matthews Shortcuts", duration));
             }
 
             string fp = Path.ChangeExtension(this.PathAssemblyInput, "problems.txt");
