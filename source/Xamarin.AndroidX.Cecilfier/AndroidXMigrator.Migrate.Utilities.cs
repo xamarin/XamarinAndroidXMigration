@@ -14,11 +14,45 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
         string replacement = null;
         List<string> Problems = new List<string>();
 
-        protected string FindReplacingTypeFromMappings(string typename)
+        //-------------------------------------------------------------------------------------------
+        // Android Support for searching MANAGED types
+        // sorted for BinarySearch
+        private static Memory
+                <
+                    (
+                        string TypenameFullyQualifiedAndroidSupport,
+                        string TypenameFullyQualifiedAndroidX,
+                        string TypenameFullyQualifiedXamarinAndroidSupport,
+                        string TypenameFullyQualifiedXamarinAndroidX
+                    )
+                > map_sorted_tn_xm_as;
+
+        // "index" for searching
+        private static Memory<string> map_sorted_tn_xm_as_index;
+        //-------------------------------------------------------------------------------------------
+
+        //-------------------------------------------------------------------------------------------
+        // Android Support for searching JAVA types
+        // sorted for BinarySearch
+        private static Memory
+                <
+                    (
+                        string TypenameFullyQualifiedAndroidSupport,
+                        string TypenameFullyQualifiedAndroidX,
+                        string TypenameFullyQualifiedXamarinAndroidSupport,
+                        string TypenameFullyQualifiedXamarinAndroidX
+                    )
+                > map_sorted_tn_java_as;
+
+        // "index" for searching
+        private static Memory<string> map_sorted_tn_java_as_index;
+        //-------------------------------------------------------------------------------------------
+
+        protected string FindReplacingTypeFromMappingsManaged(string typename)
         {
             string r = null;
 
-            if ( ! typename.StartsWith("Android.Support"))
+            if ( ! typename.StartsWith("Android.Support", StringComparison.Ordinal))
             {
                 return r;
             }
@@ -33,7 +67,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 int idx1 = typename.LastIndexOf('.');
                 if (idx1 < 0)
                 {
-                    Problems.Add($"FindReplacingTypeFromMappings type w/o namespace: {typename}");
+                    Problems.Add($"FindReplacingTypeFromMappingsManaged type w/o namespace: {typename}");
                     return r;
                 }
                 string tn = typename.Substring(0, idx1);
@@ -43,19 +77,19 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 typename = tn;
             }
 
-            int index = map_sorted_jni_tnxm_as_index.Span.BinarySearch(typename);
+            int index = map_sorted_tn_xm_as_index.Span.BinarySearch(typename);
             if (index < 0)
             {
-                string msg = "Android.Support class not found in mappings";
+                string msg = "Android.Support MANAGED class not found in mappings";
 
                 //throw new InvalidOperationException(msg);
 
                 AndroidSupportNotFoundInGoogle.Add(typename);
-                Problems.Add($"FindReplacingTypeFromMappings Android.Support class not found in mappings: {typename}");
+                Problems.Add($"FindReplacingTypeFromMappingsManaged Android.Support class not found in mappings: {typename}");
             }
             else
             {
-                r = map_sorted_jni_tnxm_as.Span[index].TypenameFullyQualifiedXamarinAndroidX;
+                r = map_sorted_tn_xm_as.Span[index].TypenameFullyQualifiedXamarinAndroidX;
 
                 Trace.WriteLine($"Mapping found");
                 Trace.WriteLine($"   typename   = {typename}");
@@ -63,9 +97,36 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 Trace.WriteLine($"   r          = {r}");
             }
 
+            return r;
+        }
+
+        protected string FindReplacingTypeFromMappingsJava(string typename)
+        {
+            string r = null;
+
+            int index = map_sorted_tn_java_as_index.Span.BinarySearch(typename);
+            if (index < 0)
+            {
+                string msg = "Android.Support java class not found in mappings";
+
+                //throw new InvalidOperationException(msg);
+
+                AndroidSupportNotFoundInGoogle.Add(typename);
+                Problems.Add($"FindReplacingTypeFromMappingsJava Android.Support class not found in mappings: {typename}");
+            }
+            else
+            {
+                r = map_sorted_tn_xm_as.Span[index].TypenameFullyQualifiedAndroidX;
+
+                Trace.WriteLine($"Mapping found");
+                Trace.WriteLine($"   typename   = {typename}");
+                Trace.WriteLine($"   to");
+                Trace.WriteLine($"   r          = {r}");
+            }
 
             return r;
         }
+
 
         private void MigrateRadeksSample()
         {

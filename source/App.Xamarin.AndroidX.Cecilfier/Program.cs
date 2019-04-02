@@ -112,6 +112,11 @@ namespace Xamarin.AndroidX.Cecilfier.App
             {
                 string prfx = "../../../../../";
                 string cfg = "Debug";
+                //option_exact_pairs.Add
+                //    (
+                //        $"{prfx}/externals/test-assets/merged-dlls/AndroidSupport.Merged.dll",
+                //        $"{prfx}/externals/test-assets/merged-dlls/AndroidSupport.Merged.ax.dll"
+                //    );
                 option_exact_pairs.Add
                     (
                         $"{prfx}/tests/Aarxercise.Binding.AndroidX/bin/{cfg}/Aarxercise.Binding.AndroidX.dll",

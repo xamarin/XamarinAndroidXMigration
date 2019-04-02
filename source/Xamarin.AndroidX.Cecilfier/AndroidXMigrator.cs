@@ -50,19 +50,6 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
         public static HashSet<string> AndroidSupportNotFoundInGoogle = new HashSet<string>();
 
-        // Android Support for searching
-        // sorted for BinarySearch
-        private static Memory<string> map_sorted_jni_tnxm_as_index;
-
-        private static Memory
-                <
-                    (
-                        string TypenameFullyQualifiedAndroidSupport,
-                        string TypenameFullyQualifiedAndroidX,
-                        string TypenameFullyQualifiedXamarinAndroidSupport,
-                        string TypenameFullyQualifiedXamarinAndroidX
-                    )
-                > map_sorted_jni_tnxm_as;
 
         public static void LoadMappingsClasses(string file)
         {
@@ -100,23 +87,39 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
         private static void InitializePerformance()
         {
-            map_sorted_jni_tnxm_as = ClassMappings
+            map_sorted_tn_xm_as = ClassMappings
                                         //.Where(i => !string.IsNullOrEmpty(i.TypenameFullyQualifiedAndroidSupport))
                                         .OrderBy(i => i.TypenameFullyQualifiedXamarinAndroidSupport)
                                         .ToArray()
                                         .AsMemory()
                                         ;
 
-            int n = map_sorted_jni_tnxm_as.Length;
+            //int n = map_sorted_tn_xm_as.Length;
 
             // searching after managed Xamarin Android.Support mapping to find AndroidX type
-            map_sorted_jni_tnxm_as_index = map_sorted_jni_tnxm_as
+            map_sorted_tn_xm_as_index = map_sorted_tn_xm_as
                                             .Select(i => i.TypenameFullyQualifiedXamarinAndroidSupport)
+                                            .ToArray()
+                                            .AsMemory()
+                                            ;
+
+
+            map_sorted_tn_java_as = ClassMappings
+                                        //.Where(i => !string.IsNullOrEmpty(i.TypenameFullyQualifiedAndroidSupport))
+                                        .OrderBy(i => i.TypenameFullyQualifiedAndroidSupport)
+                                        .ToArray()
+                                        .AsMemory()
+                                        ;
+
+            map_sorted_tn_java_as_index = map_sorted_tn_java_as
+                                            .Select(i => i.TypenameFullyQualifiedAndroidSupport)
+                                            .ToArray()
+                                            .AsMemory()
                                             ;
 
             // TODO: move this to unit tests
             string classname = "Android.Support.CustomTabs.CustomTabsServiceConnection";
-            int idx = map_sorted_jni_tnxm_as_index.Span.BinarySearch(classname);
+            int idx = map_sorted_tn_xm_as_index.Span.BinarySearch(classname);
             //if( idx != 603 )
             //{
             //    string msg =
