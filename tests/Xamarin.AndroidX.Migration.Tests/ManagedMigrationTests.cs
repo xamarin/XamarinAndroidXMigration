@@ -45,7 +45,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 		[InlineData(BindingSupportDll, BindingAndroidXDll, AvailableMigrators.AndroidXMigrator, CecilMigrationResult.Skipped)]
 		public void AssembliesHaveTheSameTypesAfterMigration(string supportDll, string androidXDll, AvailableMigrators migrator, CecilMigrationResult expectedResult)
 		{
-			var migratedDll = Utils.RunMigration(migrator, supportDll, expectedResult);
+			var migratedDll = RunMigration(migrator, supportDll, expectedResult);
 
 			using (var migrated = AssemblyDefinition.ReadAssembly(migratedDll))
 			using (var androidx = AssemblyDefinition.ReadAssembly(androidXDll))
@@ -61,7 +61,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 		[InlineData(BindingSupportDll, BindingAndroidXDll, AvailableMigrators.AndroidXMigrator, CecilMigrationResult.Skipped)]
 		public void AssembliesHaveTheSameReferencesAfterMigration(string supportDll, string androidXDll, AvailableMigrators migrator, CecilMigrationResult expectedResult)
 		{
-			var migratedDll = Utils.RunMigration(migrator, supportDll, expectedResult);
+			var migratedDll = RunMigration(migrator, supportDll, expectedResult);
 
 			using (var migrated = AssemblyDefinition.ReadAssembly(migratedDll))
 			using (var androidx = AssemblyDefinition.ReadAssembly(androidXDll))
@@ -79,7 +79,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 		[InlineData(BindingSupportDll, BindingAndroidXDll, AvailableMigrators.AndroidXMigrator, CecilMigrationResult.Skipped)]
 		public void AllTypesHaveTheSameMembers(string supportDll, string androidXDll, AvailableMigrators migrator, CecilMigrationResult expectedResult)
 		{
-			var migratedDll = Utils.RunMigration(migrator, supportDll, expectedResult);
+			var migratedDll = RunMigration(migrator, supportDll, expectedResult);
 
 			using (var migrated = AssemblyDefinition.ReadAssembly(migratedDll))
 			using (var androidx = AssemblyDefinition.ReadAssembly(androidXDll))

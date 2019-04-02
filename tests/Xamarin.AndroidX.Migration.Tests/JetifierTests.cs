@@ -66,6 +66,96 @@ namespace Xamarin.AndroidX.Migration.Tests
 		}
 
 		[Fact]
+		public void JetifierMigratesIndividualLayoutFiles()
+		{
+			var migratedLayout = Utils.GetTempFilename();
+
+			var supportLayout = CreateFile("supportlayout.xml",
+@"<?xml version=""1.0"" encoding=""utf-8""?>
+<RelativeLayout xmlns:android=""http://schemas.android.com/apk/res/android""
+                android:orientation=""vertical""
+                android:layout_width=""match_parent""
+                android:layout_height=""match_parent"">
+    <android.support.v7.widget.AppCompatButton
+        android:id=""@+id/appcompatButton""
+        android:layout_width=""wrap_content""
+        android:layout_height=""wrap_content""
+        android:layout_centerInParent=""true""
+        android:text=""AppCompat Button"" />
+</RelativeLayout>");
+
+			var jetifier = new Jetifier();
+			var result = jetifier.Jetify(supportLayout, migratedLayout);
+
+			Assert.True(result);
+
+			Assert.Equal(
+				"androidx.appcompat.widget.AppCompatButton",
+				XDocument.Load(migratedLayout).Root.Elements().FirstOrDefault().Name.LocalName);
+		}
+
+		[Fact]
+		public void JetifierMigratesIndividualProguardFiles()
+		{
+			var migratedLayout = Utils.GetTempFilename();
+
+			var supportLayout = CreateFile("proguard.txt", @"
+-keepclassmembers class android.support.v7.widget.AppCompatButton {
+   public *;
+}");
+
+			var jetifier = new Jetifier();
+			var result = jetifier.Jetify(supportLayout, migratedLayout);
+
+			Assert.True(result);
+
+			Assert.Contains("androidx.appcompat.widget.AppCompatButton", File.ReadAllText(migratedLayout));
+		}
+
+		[Fact]
+		public void JetifierMigratesIndividualProguardFilesWithWildcards()
+		{
+			var migratedLayout = Utils.GetTempFilename();
+
+			var supportLayout = CreateFile("proguard.txt", @"
+-keepclassmembers class android.support.v7.widget.* {
+   public *;
+}");
+
+			var jetifier = new Jetifier();
+			var result = jetifier.Jetify(supportLayout, migratedLayout);
+
+			Assert.True(result);
+
+			Assert.Contains("androidx.appcompat.widget.*", File.ReadAllText(migratedLayout));
+		}
+
+		[Fact]
+		public void JetifierMigratesIndividualManifestFiles()
+		{
+			var migratedLayout = Utils.GetTempFilename();
+
+			var supportLayout = CreateFile("AndroidManifest.xml",
+@"<?xml version=""1.0"" encoding=""utf-8""?>
+<manifest xmlns:android=""http://schemas.android.com/apk/res/android""
+          android:versionCode=""1""
+          android:versionName=""1.0""
+          package=""SimpleWidget.SimpleWidget"">
+  <uses-sdk android:minSdkVersion=""8"" android:targetSdkVersion=""8"" />
+  <application android:name=""mono.android.app.Application"" android:debuggable=""true"">
+    <service android:name=""android.arch.lifecycle.LifecycleService"" />
+  </application>
+</manifest>");
+
+			var jetifier = new Jetifier();
+			var result = jetifier.Jetify(supportLayout, migratedLayout);
+
+			Assert.True(result);
+
+			Assert.Contains("<service android:name=\"androidx.lifecycle.LifecycleService\" />", File.ReadAllText(migratedLayout));
+		}
+
+		[Fact]
 		public void CanReadJarFileAfterMigration()
 		{
 			var migratedAar = Utils.GetTempFilename();

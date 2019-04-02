@@ -16,11 +16,22 @@ namespace Xamarin.AndroidX.Migration.Tests
 		private const string RegisterAttributeFullName = "Android.Runtime.RegisterAttribute";
 		private const string AnnotationAttributeFullName = "Android.Runtime.AnnotationAttribute";
 
-		public static string GetTempFilename(string filename = null) =>
-			Path.Combine(
+		public static string GetTempFilename(string filename = null, bool createDirectory = true)
+		{
+			var newPath = Path.Combine(
 				Path.GetTempPath(),
 				Guid.NewGuid().ToString(),
 				filename ?? Guid.NewGuid().ToString());
+
+			if (createDirectory)
+			{
+				var dir = Path.GetDirectoryName(newPath);
+				if (!Directory.Exists(dir))
+					Directory.CreateDirectory(dir);
+			}
+
+			return newPath;
+		}
 
 		public static IEnumerable<TypeDefinition> GetPublicTypes(this AssemblyDefinition assembly) =>
 			assembly.MainModule.GetTypes().Where(t => t.IsPublic || t.IsNestedPublic);
@@ -55,50 +66,5 @@ namespace Xamarin.AndroidX.Migration.Tests
 				}
 			}
 		}
-
-		public static string RunMigration(AvailableMigrators migrator, string supportDll, CecilMigrationResult expectedResult)
-		{
-			if (migrator == AvailableMigrators.CecilMigrator)
-				return RunCecilMigratorMigration(supportDll, expectedResult);
-			if (migrator == AvailableMigrators.AndroidXMigrator)
-				return RunAndroidXMigratorMigration(supportDll);
-
-			throw new ArgumentOutOfRangeException(nameof(migrator));
-		}
-
-		public static string RunCecilMigratorMigration(string supportDll, CecilMigrationResult expectedResult)
-		{
-			var migratedDll = GetTempFilename();
-
-			var migrator = new CecilMigrator();
-			var result = migrator.Migrate(supportDll, migratedDll);
-
-			// TODO: implement the JNI migration
-			if (false)
-			{
-				Assert.Equal(expectedResult, result);
-			}
-
-			return migratedDll;
-		}
-
-		public static string RunAndroidXMigratorMigration(string supportDll)
-		{
-			var migratedDll = GetTempFilename();
-
-			var dir = Path.GetDirectoryName(migratedDll);
-			Directory.CreateDirectory(dir);
-
-			var migrator = new AndroidXMigrator(supportDll, migratedDll);
-			migrator.Migrate();
-
-			return $"{migratedDll}.redth.dll";
-		}
-	}
-
-	public enum AvailableMigrators
-	{
-		CecilMigrator,
-		AndroidXMigrator,
 	}
 }
