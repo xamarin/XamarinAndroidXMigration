@@ -32,7 +32,7 @@ namespace Tests.XUnit
                        
             foreach (string dll in dlls)
             {
-                string msg = $"androidx-migrated-{DateTime.Now.ToString("yyyyMMdd-HHmmss")}";
+                string msg = $"{DateTime.Now.ToString("yyyyMMdd-HHmmss")}-androidx-migrated";
                 migrator = new AndroidXMigrator(dll, dll.Replace(".dll", $".{msg}.dll"));
                 migrator.Migrate();
             }
@@ -65,7 +65,7 @@ namespace Tests.XUnit
                        
             foreach (string dll in dlls)
             {
-                string msg = $"androidx-migrated-{DateTime.Now.ToString("yyyyMMdd-HHmmss")}";
+                string msg = $"{DateTime.Now.ToString("yyyyMMdd-HHmmss")}-androidx-migrated";
                 migrator = new AndroidXMigrator(dll, dll.Replace(".dll", $".{msg}.dll"));
                 migrator.Migrate();
             }
