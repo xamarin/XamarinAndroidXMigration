@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using Xunit;
+using HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineator;
 
 namespace Xamarin.AndroidX.Migration.Tests
 {
@@ -18,6 +19,8 @@ namespace Xamarin.AndroidX.Migration.Tests
 
 		public const string SupportAar = "aarxersise.java.support.aar";
 		public const string AndroidXAar = "aarxersise.java.androidx.aar";
+
+		public const string FacebookSdkZip = "facebook-android-sdk.zip";
 
 		public static Stream ReadAarEntry(string aarFilename, string entryFilename)
 		{
@@ -43,5 +46,69 @@ namespace Xamarin.AndroidX.Migration.Tests
 
 			return null;
 		}
+
+		public static string ExtractAarEntry(string aarFilename, string entryFilename)
+		{
+			var destFile = Utils.GetTempFilename(entryFilename);
+
+			using (var file = File.OpenWrite(destFile))
+			using (var stream = ReadAarEntry(aarFilename, entryFilename))
+			{
+				stream.CopyTo(file);
+			}
+
+			return destFile;
+		}
+
+		public static string CreateFile(string filename, string contents)
+		{
+			var destFile = Utils.GetTempFilename(filename);
+
+			File.WriteAllText(destFile, contents);
+
+			return destFile;
+		}
+
+		public static string RunMigration(AvailableMigrators migrator, string supportDll, CecilMigrationResult expectedResult)
+		{
+			if (migrator == AvailableMigrators.CecilMigrator)
+				return RunCecilMigratorMigration(supportDll, expectedResult);
+			if (migrator == AvailableMigrators.AndroidXMigrator)
+				return RunAndroidXMigratorMigration(supportDll);
+
+			throw new ArgumentOutOfRangeException(nameof(migrator));
+		}
+
+		public static string RunCecilMigratorMigration(string supportDll, CecilMigrationResult expectedResult)
+		{
+			var migratedDll = Utils.GetTempFilename();
+
+			var migrator = new CecilMigrator();
+			var result = migrator.Migrate(supportDll, migratedDll);
+
+			// TODO: implement the JNI migration
+			if (false)
+			{
+				Assert.Equal(expectedResult, result);
+			}
+
+			return migratedDll;
+		}
+
+		public static string RunAndroidXMigratorMigration(string supportDll)
+		{
+			var migratedDll = Utils.GetTempFilename();
+
+			var migrator = new AndroidXMigrator(supportDll, migratedDll);
+			migrator.Migrate();
+
+			return $"{migratedDll}.redth.dll";
+		}
+	}
+
+	public enum AvailableMigrators
+	{
+		CecilMigrator,
+		AndroidXMigrator,
 	}
 }

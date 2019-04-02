@@ -6,6 +6,9 @@ using System.IO;
 using System.Linq;
 
 using HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineator;
+using System.Reflection;
+using System.Runtime.Versioning;
+using System.Diagnostics;
 
 namespace Xamarin.AndroidX.Cecilfier.App
 {
@@ -21,6 +24,23 @@ namespace Xamarin.AndroidX.Cecilfier.App
 
         public static void Main(string[] args)
         {
+            // https://docs.microsoft.com/en-us/dotnet/standard/frameworks
+            string framework = System.Reflection.Assembly
+                                                .GetEntryAssembly()?
+                                                .GetCustomAttribute<TargetFrameworkAttribute>()?
+                                                .FrameworkName;
+            var stats = new
+            {
+                OsPlatform = System.Runtime.InteropServices.RuntimeInformation.OSDescription,
+                AspDotnetVersion = framework
+            };
+
+            #if NETCOREAPP3_0
+            Trace.Listeners.Add(new ConsoleTraceListener());
+            #else
+            // TODO: move custom ConsoleTraceListener class from HolisticWare.Core
+            #endif
+
             //System.Diagnostics.Debugger.Break();
 
             Dictionary<string, string> current = null;
@@ -91,37 +111,37 @@ namespace Xamarin.AndroidX.Cecilfier.App
             if (option_exact_pairs.Count() == 0)
             {
                 string prfx = "../../../../../";
-
+                string cfg = "Debug";
                 option_exact_pairs.Add
                     (
-                        $"{prfx}/tests/Aarxercise.Binding.AndroidX/bin/Debug/Aarxercise.Binding.AndroidX.dll",
-                        $"{prfx}/tests/Aarxercise.Binding.AndroidX/bin/Debug/Aarxercise.Binding.AndroidX.ax.dll"
+                        $"{prfx}/tests/Aarxercise.Binding.AndroidX/bin/{cfg}/Aarxercise.Binding.AndroidX.dll",
+                        $"{prfx}/tests/Aarxercise.Binding.AndroidX/bin/{cfg}/Aarxercise.Binding.AndroidX.ax.dll"
                     );
                 option_exact_pairs.Add
                     (
-                        $"{prfx}/tests/Aarxercise.Binding.Support/bin/Debug/Aarxercise.Binding.Support.dll",
-                        $"{prfx}/tests/Aarxercise.Binding.Support/bin/Debug/Aarxercise.Binding.Support.ax.dll"
+                        $"{prfx}/tests/Aarxercise.Binding.Support/bin/{cfg}/Aarxercise.Binding.Support.dll",
+                        $"{prfx}/tests/Aarxercise.Binding.Support/bin/{cfg}/Aarxercise.Binding.Support.ax.dll"
                     );
                 option_exact_pairs.Add
                     (
-                        $"{prfx}/tests/Aarxercise.Managed.AndroidX/bin/Debug/Aarxercise.Managed.AndroidX.dll",
-                        $"{prfx}/tests/Aarxercise.Managed.AndroidX/bin/Debug/Aarxercise.Managed.AndroidX.ax.dll"
+                        $"{prfx}/tests/Aarxercise.Managed.AndroidX/bin/{cfg}/Aarxercise.Managed.AndroidX.dll",
+                        $"{prfx}/tests/Aarxercise.Managed.AndroidX/bin/{cfg}/Aarxercise.Managed.AndroidX.ax.dll"
                     );
                 option_exact_pairs.Add
                     (
-                        $"{prfx}/tests/Aarxercise.Managed.Support/bin/Debug/Aarxercise.Managed.Support.dll",
-                        $"{prfx}/tests/Aarxercise.Managed.Support/bin/Debug/Aarxercise.Managed.Support.ax.dll"
+                        $"{prfx}/tests/Aarxercise.Managed.Support/bin/{cfg}/Aarxercise.Managed.Support.dll",
+                        $"{prfx}/tests/Aarxercise.Managed.Support/bin/{cfg}/Aarxercise.Managed.Support.ax.dll"
                     );
-                option_exact_pairs.Add
-                    (
-                        $"{prfx}/tests/Aarxercise.Java.AndroidX/bin/Debug/Aarxercise.Java.AndroidX.dll",
-                        $"{prfx}/tests/Aarxercise.Java.AndroidX/bin/Debug/Aarxercise.Java.AndroidX.ax.dll"
-                    );
-                option_exact_pairs.Add
-                    (
-                        $"{prfx}/tests/Aarxercise.Java.Support/bin/Debug/Aarxercise.Java.Support.dll",
-                        $"{prfx}/tests/Aarxercise.Java.Support/bin/Debug/Aarxercise.Java.Support.ax.dll"
-                    );
+                //option_exact_pairs.Add
+                //    (
+                //        $"{prfx}/tests/Aarxercise.Java.AndroidX/bin/Debug/Aarxercise.Java.AndroidX.dll",
+                //        $"{prfx}/tests/Aarxercise.Java.AndroidX/bin/Debug/Aarxercise.Java.AndroidX.ax.dll"
+                //    );
+                //option_exact_pairs.Add
+                //    (
+                //        $"{prfx}/tests/Aarxercise.Java.Support/bin/Debug/Aarxercise.Java.Support.dll",
+                //        $"{prfx}/tests/Aarxercise.Java.Support/bin/Debug/Aarxercise.Java.Support.ax.dll"
+                //    );
                 //option_exact_pairs.Add
                 //    (
                 //        "../../../"

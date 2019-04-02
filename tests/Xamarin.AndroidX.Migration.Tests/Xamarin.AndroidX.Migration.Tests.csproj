@@ -40,6 +40,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>AndroidX.Merged.dll</Link>
     </Content>
+    <Content Include="..\..\externals\test-assets\facebook-sdk\facebook-android-sdk.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>facebook-android-sdk.zip</Link>
+    </Content>
   </ItemGroup>
 
   <!-- Cecilfier test assets -->

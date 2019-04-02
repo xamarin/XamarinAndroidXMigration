@@ -205,17 +205,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             {
                 if
                     (
-                        //type.FullName == "<Module>"
-                        //||
-                        //type.FullName == "<PrivateImplementationDetails>"
-                        //||
-                        type.FullName.StartsWith("System.", StringComparison.Ordinal)
-                        ||
-                        type.FullName.StartsWith("Microsoft.", StringComparison.Ordinal)
-                        ||
-                        type.FullName.StartsWith("AndroidX.", StringComparison.Ordinal)
-                        ||
-                        type.FullName.StartsWith("Java.Interop.", StringComparison.Ordinal)
+                        ! type.FullName.StartsWith("Android.Support", StringComparison.Ordinal)
                     )
                 {
                     continue;
@@ -266,9 +256,11 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             else
             {
                 int idx = r.LastIndexOf('.');
-                type.Namespace = r.Substring(0, idx);
-                type.Scope.Name = r.Substring(idx + 1, r.Length - idx - 1);
-                Console.ResetColor();
+                string ns = r.Substring(0, idx);
+                string tn = r.Substring(idx + 1, r.Length - idx - 1);
+                string tnfq = $"{ns}.{tn}";
+                type.Namespace = ns;
+                type.Scope.Name = ns;
             }
 
             AST.Type ast_type_base = ProcessBaseTypeRedth(type.BaseType);
@@ -359,10 +351,16 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             {
                 return ast_type_base;
             }
+            else
+            {
+                int idx = r.LastIndexOf('.');
+                string ns = r.Substring(0, idx);
+                string tn = r.Substring(idx + 1, r.Length - idx - 1);
+                string tnfq = $"{ns}.{tn}";
+                type.Namespace = ns;
+                type.Scope.Name = ns;
+            }
 
-            int idx = r.LastIndexOf('.');
-            type.Namespace = r.Substring(0, idx);
-			type.Scope.Name = r.Substring(idx + 1, r.Length - idx - 1);
 
             Console.ForegroundColor = ConsoleColor.DarkRed;
             log.AppendLine($"    BaseType: {type.FullName}");
@@ -407,13 +405,21 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             {
                 return ast_type_base;
             }
+
             int idx = r.LastIndexOf('.');
             if (idx < 0)
             {
                 return ast_type_base;
             }
-            type_base.Namespace = r.Substring(0, idx);
-			type_base.Scope.Name = r.Substring(idx + 1, r.Length - idx - 1);
+            else
+            {
+                string ns = r.Substring(0, idx);
+                string tn = r.Substring(idx + 1, r.Length - idx - 1);
+                string tnfq = $"{ns}.{tn}";
+                type_base.Namespace = ns;
+                type_base.Scope.Name = ns;
+            }
+
 
             Console.ForegroundColor = ConsoleColor.DarkRed;
             log.AppendLine($"    BaseType: {type_base.FullName}");
@@ -455,11 +461,17 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             {
                 return ast_type_nested;
             }
-            int idx1 = r.LastIndexOf('.');
-            int idx2 = r.LastIndexOf('/');
-            type_nested.Namespace = r.Substring(0, idx1);
-			//type_nested.Scope.Name = r.Substring(idx1 + 1, r.Length - idx2 - 1);
-            Console.ResetColor();
+            else
+            {
+                int idx1 = r.LastIndexOf('.');
+                int idx2 = r.LastIndexOf('/');
+                string ns = r.Substring(0, idx1);
+                string tn = r.Substring(idx1 + 1, r.Length - idx1 - 1);
+                string tnfq = $"{ns}.{tn}";
+                //string tnfq = r.Substring(idx1 + 1, r.Length - idx2 - 1);
+                type_nested.Namespace = ns;
+                type_nested.Scope.Name = ns;
+            }
 
             ast_type_nested = new AST.Type()
             {
@@ -557,7 +569,15 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             {
                 return ast_type_return;
             }
-            type_return.Namespace = r;
+            else
+            {
+                int idx = r.LastIndexOf('.');
+                string ns = r.Substring(0, idx);
+                string tn = r.Substring(idx + 1, r.Length - idx - 1);
+                string tnfq = $"{ns}.{tn}";
+                type_return.Namespace = ns;
+                type_return.Scope.Name = ns;
+            }
             Console.ForegroundColor = ConsoleColor.DarkRed;
             log.AppendLine($"{type_return.Name} returns {type_return.FullName}");
             Console.ResetColor();

@@ -96,7 +96,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 		[InlineData(MergedSupportDll, AvailableMigrators.AndroidXMigrator, CecilMigrationResult.Skipped)]
 		public void MigrationDoesNotThrow(string assembly, AvailableMigrators migrator, CecilMigrationResult expectedResult)
 		{
-			var mappedDll = Utils.RunMigration(migrator, assembly, expectedResult);
+			var mappedDll = RunMigration(migrator, assembly, expectedResult);
 
 			Assert.True(File.Exists(mappedDll));
 		}
@@ -106,7 +106,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 		[InlineData(BindingSupportDll, BindingAndroidXDll, AvailableMigrators.AndroidXMigrator, CecilMigrationResult.Skipped)]
 		public void RegisterAttributesOnMethodsAreMappedCorrectly(string supportDll, string androidxDll, AvailableMigrators migrator, CecilMigrationResult expectedResult)
 		{
-			var mappedDll = Utils.RunMigration(migrator, supportDll, expectedResult);
+			var mappedDll = RunMigration(migrator, supportDll, expectedResult);
 
 			using (var support = AssemblyDefinition.ReadAssembly(supportDll))
 			using (var mapped = AssemblyDefinition.ReadAssembly(mappedDll))
@@ -150,7 +150,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 		[InlineData(BindingSupportDll, BindingAndroidXDll, AvailableMigrators.AndroidXMigrator, CecilMigrationResult.Skipped)]
 		public void InstructionsInMethodsAreMappedCorrectly(string supportDll, string androidxDll, AvailableMigrators migrator, CecilMigrationResult expectedResult)
 		{
-			var mappedDll = Utils.RunMigration(migrator, supportDll, expectedResult);
+			var mappedDll = RunMigration(migrator, supportDll, expectedResult);
 
 			using (var support = AssemblyDefinition.ReadAssembly(supportDll))
 			using (var mapped = AssemblyDefinition.ReadAssembly(mappedDll))

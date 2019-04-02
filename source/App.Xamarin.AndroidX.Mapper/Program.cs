@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-
+using System.Reflection;
+using System.Runtime.Versioning;
 using Core;
 
 using Xamarin.AndroidX.Data;
@@ -26,7 +27,23 @@ namespace App.Xamarin.AndroidX.Mapper
                                                             "Xamarin.AndroidX.Mapper"
                                                         )
                             );
-            //Trace.Listeners.Add(new ConsoleTraceListener());
+
+            string framework = System.Reflection.Assembly
+                                                .GetEntryAssembly()?
+                                                .GetCustomAttribute<TargetFrameworkAttribute>()?
+                                                .FrameworkName;
+
+            var stats = new
+            {
+                OsPlatform = System.Runtime.InteropServices.RuntimeInformation.OSDescription,
+                AspDotnetVersion = framework
+            };
+
+            #if NETCOREAPP3_0
+            Trace.Listeners.Add(new ConsoleTraceListener());
+            #else
+            // TODO: move custom ConsoleTraceListener class from HolisticWare.Core
+            #endif
 
             Trace.WriteLine($"Downloading...");
 
