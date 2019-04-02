@@ -18,9 +18,14 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
         {
             string r = null;
 
+            if ( ! typename.StartsWith("Android.Support"))
+            {
+                return r;
+            }
+
             if (!typename.Contains("/"))
             {
-                // type (not nested type)
+                // type (nested type)
             }
             else
             {
@@ -38,7 +43,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 typename = tn;
             }
 
-            int index = map_sorted_as_jni_index.Span.BinarySearch(typename);
+            int index = map_sorted_jni_tnxm_as_index.Span.BinarySearch(typename);
             if (index < 0)
             {
                 string msg = "Android.Support class not found in mappings";
@@ -50,8 +55,15 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             }
             else
             {
-                r = map_sorted_as_jni.Span[index].TypenameFullyQualifiedAndroidSupport;    
+                r = map_sorted_jni_tnxm_as.Span[index].TypenameFullyQualifiedXamarinAndroidX;
+
+                Trace.WriteLine($"Mapping found");
+                Trace.WriteLine($"   typename   = {typename}");
+                Trace.WriteLine($"   to");
+                Trace.WriteLine($"   r          = {r}");
             }
+
+
             return r;
         }
 
