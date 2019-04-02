@@ -108,25 +108,66 @@ namespace Xamarin.AndroidX.Mapper
             as_with_merged_ax = this.MergeJoinAndroidSupportWithAndroidX().ToArray();
             Trace.WriteLine($"   Android.Support with merged AndroidX)");
             Trace.WriteLine($"      n = {as_with_merged_ax.Count()})");
+
             ax_with_merged_as = this.MergeJoinAndroidXWithAndroidSupport().ToArray();
             Trace.WriteLine($"   AndroidX with merged Android.Support)");
             Trace.WriteLine($"      n = {ax_with_merged_as.Count()})");
 
+           
             Trace.WriteLine($"Concat");
-            Trace.WriteLine($"   .OrderBy(tuple => tuple.TypenameFullyQualifiedAndroidSupport)");
-            Trace.WriteLine($"   .ThenBy(tuple => tuple.TypenameFullyQualifiedAndroidX)");
-            Trace.WriteLine($"   .Distinct()");
             mapping_full = as_with_merged_ax
                                 .Concat(ax_with_merged_as)
                                 .OrderBy(tuple => tuple.TypenameFullyQualifiedAndroidSupport)
                                 .ThenBy(tuple => tuple.TypenameFullyQualifiedAndroidX)
                                 .Distinct()
-                                .ToArray()
                                 ;
             Trace.WriteLine($"MappingsForMigration");
             Trace.WriteLine($"  Done");
             MappingsForMigration = mapping_full.ToArray();
             Trace.WriteLine($"  n = {MappingsForMigration.Length}");
+
+            mapping_full = mapping_full
+                                .Where
+                                (
+                                    tuple =>
+                                    {
+                                        // to avoid possible ambigious, but possible mappings
+                                        // as.Classname,ax.Classname,Xamarin.AS.Classname,Xamarin.AX.Classname
+                                        // as.Classname,ax.Classname,Xamarin.AS.Classname,Xamarin.AX.ClassnameInvoker
+                                        // as.Classname,ax.Classname,Xamarin.AS.ClassnameInvoker,Xamarin.AX.Classname
+                                        // as.Classname,ax.Classname,Xamarin.AS.ClassnameInvoker,Xamarin.AX.ClassnameInvoker
+
+                                        string tn_fq_xm_as = tuple.TypenameFullyQualifiedXamarinAndroidSupport;
+                                        string tn_fq_xm_ax = tuple.TypenameFullyQualifiedXamarinAndroidX;
+                                        int idx_as = tn_fq_xm_as.LastIndexOf('.');
+                                        int idx_ax = tn_fq_xm_ax.LastIndexOf('.');
+                                        string tn_xm_as = tn_fq_xm_as.Substring(idx_as + 1);
+                                        string tn_xm_ax = tn_fq_xm_ax.Substring(idx_ax + 1);
+                                        bool mapping_ok = false;
+                                        if (tn_xm_as == tn_xm_ax)
+                                        {
+                                            mapping_ok = true;
+                                        }
+                                        else
+                                        {
+                                            mapping_ok = false;
+                                        }
+
+                                        return mapping_ok;
+                                    }
+                                )
+                                .ToArray()
+                                ;
+            Trace.WriteLine($"MappingsForMigration");
+            Trace.WriteLine($"  Removed ambigious, but possible mappings of the form:");
+            Trace.WriteLine($"      as.Classname,ax.Classname,Xamarin.AS.Classname,Xamarin.AX.Classname");
+            Trace.WriteLine($"      as.Classname,ax.Classname,Xamarin.AS.Classname,Xamarin.AX.ClassnameInvoker");
+            Trace.WriteLine($"      as.Classname,ax.Classname,Xamarin.AS.ClassnameInvoker,Xamarin.AX.Classname");
+            Trace.WriteLine($"      as.Classname,ax.Classname,Xamarin.AS.ClassnameInvoker,Xamarin.AX.ClassnameInvoker");
+            MappingsForMigration = mapping_full.ToArray();
+            Trace.WriteLine($"  n = {MappingsForMigration.Length}");
+
+
             Trace.WriteLine($"  removing AndroidX types without matching in Android.Support");
             mapping_full_ax_unmatched_removed = MappingsForMigration
                                                     .Where
