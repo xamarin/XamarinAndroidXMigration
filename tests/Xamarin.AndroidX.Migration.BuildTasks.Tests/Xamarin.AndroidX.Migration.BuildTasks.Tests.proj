@@ -5,12 +5,14 @@
 
 	<PropertyGroup>
 		<JetifierWrapperPath>..\..\source\Xamarin.AndroidX.Migration.BuildTasks\bin\Release\net47\Tools\JetifierWrapper\JetifierWrapper.jar</JetifierWrapperPath>
-		<TestArtifactsRoot>..\..\externals\test-assets\facebook-sdk\</TestArtifactsRoot>
+		<TestNativeArtifactsRoot>..\..\externals\test-assets\facebook-sdk\</TestNativeArtifactsRoot>
+		<TestXamarinArtifactsRoot>..\..\externals\test-assets\xamarin-facebook-sdk\</TestXamarinArtifactsRoot>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<FilesToJetify Include="$(TestArtifactsRoot)**\*.aar" Exclude="$(TestArtifactsRoot)**\*-jetified.aar" />
-		<FilesToClean Include="$(TestArtifactsRoot)**\*-jetified.aar" />
+		<FilesToJetify Include="$(TestNativeArtifactsRoot)**\*.aar;$(TestXamarinArtifactsRoot)Xamarin.Facebook.*.Android\**\*.dll"
+			       Exclude="$(TestNativeArtifactsRoot)**\*-jetified.aar;$(TestXamarinArtifactsRoot)Xamarin.Facebook.*.Android\**\*-jetified.dll" />
+		<FilesToClean Include="$(TestNativeArtifactsRoot)**\*-jetified.aar;$(TestXamarinArtifactsRoot)Xamarin.Facebook.*.Android\**\*-jetified.dll" />
 	</ItemGroup>
 
 	<Target Name="Build">

@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="Microsoft.Build.Framework" />
-    <Reference Include="Microsoft.Build.Utilities.v4.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Xamarin.AndroidX.Migration\Xamarin.AndroidX.Migration.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Mono.Cecil" Version="0.10.3" />
+    <PackageReference Include="Microsoft.Build.Framework" Version="15.9.20" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="15.9.20" />
+  </ItemGroup>
 </Project>
