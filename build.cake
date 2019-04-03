@@ -4,6 +4,8 @@ var target = Argument("t", Argument("target", "Default"));
 var verbosity = Argument("v", Argument("verbosity", "Normal"));
 var configuration = Argument("c", Argument("configuration", "Release"));
 
+var nugetPath = Context.Tools.Resolve("nuget.exe");
+
 var jetifierVersion = "1.0.0";
 var jetifierBetaVersion = "-beta04";
 var jetifierDownloadUrl = $"https://dl.google.com/dl/android/studio/jetifier-zips/{jetifierVersion}{jetifierBetaVersion}/jetifier-standalone.zip";
@@ -91,20 +93,19 @@ Task("DownloadNativeFacebookSdk")
 Task("DownloadXamarinFacebookSdk")
     .Does(() =>
 {
-    var nugetPath = "./tools/nuget.exe";
     var sdkRoot = "./externals/test-assets/xamarin-facebook-sdk/";
 
     string [] facebookSdks = { "AppLinks", "Common", "Core", "Login", "Marketing", "Places", "Share" };
     var facebookFilename = "Xamarin.Facebook.{0}.Android";
     var facebookVersion = "4.40.0";
-    var facebookNugets = facebookSdks.Select (sdk => string.Format (facebookFilename, sdk));
+    var facebookNugets = facebookSdks.Select(sdk => string.Format(facebookFilename, sdk));
 
     EnsureDirectoryExists(sdkRoot);
-    
+
     NuGetInstall(facebookNugets, new NuGetInstallSettings {
         ToolPath = nugetPath,
         Version = facebookVersion,
-        ExcludeVersion  = true,
+        ExcludeVersion = true,
         OutputDirectory = sdkRoot
     });
 });
@@ -132,6 +133,7 @@ Task("NativeAssets")
     .IsDependentOn("JavaProjects")
     .IsDependentOn("JetifierWrapper")
     .IsDependentOn("DownloadNativeFacebookSdk")
+    .IsDependentOn("DownloadXamarinFacebookSdk")
     .IsDependentOn("DownloadAndroidXAssets");
 
 Task("Libraries")
@@ -167,6 +169,7 @@ Task("Tests")
             TestAdapterPath = ".",
             Logger = "xunit",
             WorkingDirectory = proj.GetDirectory(),
+            ResultsDirectory = "./output/test-results",
         });
     }
 });

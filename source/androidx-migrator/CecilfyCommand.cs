@@ -18,7 +18,7 @@ namespace AndroidXMigrator
 
 		protected override OptionSet OnCreateOptions() => new OptionSet
 		{
-			{ "a|assembly=", "One or more assemblies to merge", v => AddAssembly(v) },
+			{ "a|assembly=", "One or more assemblies to cecilfy", v => AddAssembly(v) },
 		};
 
 		protected override bool OnValidateArguments()
