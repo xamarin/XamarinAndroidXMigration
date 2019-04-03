@@ -774,42 +774,68 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
 
 
-        protected string ReplaceJniSignatureRedth(string jniSignature)
+        public string ReplaceJniSignatureRedth(string jniSignature)
         {
+            if
+                (
+                    string.IsNullOrEmpty(jniSignature)
+                    ||
+                    jniSignature.Equals("()V") // speeding up - no need to parse it
+                )
+            {
+                return jniSignature;
+            }
+
             // TODO: replace this PoC code
             int index_bracket_left = jniSignature.IndexOf('(');
             int index_bracket_right = jniSignature.IndexOf(')');
 
-            if (index_bracket_right < 0 && index_bracket_right < 0 )
-            {
-                string tn_java = jniSignature.Replace("/", ".");
-                string r = FindReplacingTypeFromMappingsManaged(tn_java);
-
-                r = r?.Replace(".", "/");
-
-                return r;
-            }
 
             string jni_signature_new = jniSignature;
 
-            string parameters = jniSignature.Substring(index_bracket_left + 2, index_bracket_right - 1);
+            string parameters = null;
+
+            if ( index_bracket_left >= 0 && index_bracket_right >= 0)
+            {
+                parameters = jniSignature.Substring(index_bracket_left + 1, index_bracket_right - 1);
+            }
+
             if (! string.IsNullOrEmpty(parameters))
             {
                 string[] parameter_list = parameters
-                                                .Replace(")", "")
-                                                .Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+                                                .Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries)
+                                                ;
 
                 for(int i = 0; i < parameter_list.Length; i++)
                 {
                     string parameter_old = parameter_list[i].Replace('/', '.');
+
+                    bool has_prefix = false;
+
+                    if (parameter_old[0] == 'L')
+                    {
+                        has_prefix = true;
+                        parameter_old = parameter_old.Replace("L", "");
+                    }
+
                     string parameter_new = FindReplacingTypeFromMappingsJava(parameter_old);
 
                     if (!string.IsNullOrEmpty(parameter_new))
                     {
                         parameter_new = parameter_new.Replace('.', '/');
+                        if (has_prefix)
+                        {
+                            parameter_new = $"L{parameter_new}";
+                        }
                         jni_signature_new = jni_signature_new.Replace(parameter_list[i], parameter_new);
                     }
                 }
+            }
+
+            if(index_bracket_right == -1)
+            {
+                // no parameters - no brackets ()
+                index_bracket_right = -2;
             }
 
             string return_type = jniSignature

@@ -48,7 +48,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
         private static Memory<string> map_sorted_tn_java_as_index;
         //-------------------------------------------------------------------------------------------
 
-        protected string FindReplacingTypeFromMappingsManaged(string typename)
+        public string FindReplacingTypeFromMappingsManaged(string typename)
         {
             string r = null;
 
@@ -100,28 +100,49 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             return r;
         }
 
-        protected string FindReplacingTypeFromMappingsJava(string typename)
+        public string FindReplacingTypeFromMappingsJava(string typename)
         {
             string r = null;
 
-            int index = map_sorted_tn_java_as_index.Span.BinarySearch(typename);
+            int index_type_nested = typename.IndexOf('$');
+            string tn = null;
+
+            if (index_type_nested < 0)
+            {
+                tn = typename;
+            }
+            else
+            {
+                tn = typename.Substring(0, index_type_nested);
+            }
+            int index = map_sorted_tn_java_as_index.Span.BinarySearch(tn);
             if (index < 0)
             {
                 string msg = "Android.Support java class not found in mappings";
 
                 //throw new InvalidOperationException(msg);
 
-                AndroidSupportNotFoundInGoogle.Add(typename);
-                Problems.Add($"FindReplacingTypeFromMappingsJava Android.Support class not found in mappings: {typename}");
+                AndroidSupportNotFoundInGoogle.Add(tn);
+                Problems.Add($"FindReplacingTypeFromMappingsJava Android.Support class not found in mappings: {typename}, {tn}");
             }
             else
             {
-                r = map_sorted_tn_xm_as.Span[index].TypenameFullyQualifiedAndroidX;
+                r = map_sorted_tn_java_as.Span[index].TypenameFullyQualifiedAndroidX;
 
                 Trace.WriteLine($"Mapping found");
                 Trace.WriteLine($"   typename   = {typename}");
                 Trace.WriteLine($"   to");
                 Trace.WriteLine($"   r          = {r}");
+                Trace.WriteLine($"   tn         = {tn}");
+            }
+
+            if (r != null)
+            {
+                r = typename.Replace(tn, r);
+            }
+            else
+            {
+                r = typename;
             }
 
             return r;
