@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <UsingTask TaskName="Xamarin.AndroidX.Migration.BuildTasks.CecifyFiles"
+               AssemblyFile="..\..\source\Xamarin.AndroidX.Migration.BuildTasks\bin\Debug\net47\Xamarin.AndroidX.Migration.BuildTasks.dll" />
+
+    <PropertyGroup>
+        <_ShouldRunAndroidXTools Condition="'$(_ShouldRunAndroidXTools)' == '' and '$(AndroidApplication)' == 'true' and '$(IsUsingAndroidXLibraries)' == 'true'">true</_ShouldRunAndroidXTools>
+    </PropertyGroup>
+
+    <!-- we want to ignore everything for the Android Support Java bits -->
+    <ItemDefinitionGroup Condition="'$(_ShouldRunAndroidXTools)' == 'true'">
+        <_AndroidXSupportAssembliesToSkip>
+            <AndroidSkipResourceExtraction>true</AndroidSkipResourceExtraction>
+            <AndroidSkipJavaStubGeneration>true</AndroidSkipJavaStubGeneration>
+            <!-- <AndroidSkipAddToPackage>true</AndroidSkipAddToPackage> -->
+            <AndroidXSkipAndroidXMigration>true</AndroidXSkipAndroidXMigration>
+        </_AndroidXSupportAssembliesToSkip>
+        <_AndroidXAssembliesToSkip>
+            <AndroidXSkipAndroidXMigration>true</AndroidXSkipAndroidXMigration>
+        </_AndroidXAssembliesToSkip>
+    </ItemDefinitionGroup>
+
+    <!-- add all the Android Support libraries to the items to ignore -->
+    <ItemGroup Condition="'$(_ShouldRunAndroidXTools)' == 'true'">
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Arch.Core.Common" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Arch.Core.Runtime" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Arch.Lifecycle.Common" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Arch.Lifecycle.Extensions" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Arch.Lifecycle.LiveData" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Arch.Lifecycle.LiveData.Core" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Arch.Lifecycle.Runtime" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Arch.Lifecycle.ViewModel" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Arch.Persistence.Db" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Arch.Persistence.Db.Framework" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Arch.Persistence.Room.Common" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Arch.Persistence.Room.Runtime" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Arch.Work.Runtime" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Animated.Vector.Drawable" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Annotations" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.AsyncLayoutInflater" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Collections" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Compat" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Constraint.Layout" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Constraint.Layout.Solver" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.CoordinaterLayout" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Core.UI" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Core.Utils" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.CursorAdapter" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.CustomTabs" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.CustomView" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Design" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.DocumentFile" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.DrawerLayout" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Dynamic.Animation" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Emoji" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Emoji.AppCompat" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Emoji.Bundled" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Exif" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Fragment" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.HeifWriter" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Interpolator" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Loader" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.LocalBroadcastManager" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Media.Compat" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Percent" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Print" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Recommendation" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.RecyclerView.Selection" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Slices.Builders" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Slices.Core" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Slices.View" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.SlidingPaneLayout" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.SwipeRefreshLayout" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.TV.Provider" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Transition" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Vector.Drawable" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.VersionedParcelable" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.ViewPager" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.Wear" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.WebKit" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.v13" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.v17.Leanback" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.v17.Preference.Leanback" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.v7.AppCompat" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.v7.CardView" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.v7.GridLayout" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.v7.MediaRouter" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.v7.Palette" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.v7.Preference" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.v7.RecyclerView" />
+    </ItemGroup>
+
+    <!-- add all the AndroidX libraries to the items to ignore -->
+    <ItemGroup Condition="'$(_ShouldRunAndroidXTools)' == 'true'">
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Annotation" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.AppCompat" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Arch.Core.Common" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Arch.Core.Runtime" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.AsyncLayoutInflater" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Browser" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.CardView" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Collection" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.ConstraintLayout" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.ConstraintLayout.Solver" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.CoordinatorLayout" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Core" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.CursorAdapter" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.CustomView" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.DocumentFile" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.DrawerLayout" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.DynamicAnimation" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Emoji" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Emoji.AppCompat" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Emoji.Bundled" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.ExifInterface" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Fragment" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.GridLayout" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.HeifWriter" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Interpolator" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Leanback" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Leanback.Preference" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Legacy.Support.Core.UI" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Legacy.Support.Core.Utils" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Legacy.Support.V13" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Lifecycle.Common" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Lifecycle.Extensions" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Lifecycle.LiveData" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Lifecycle.LiveData.Core" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Lifecycle.Process" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Lifecycle.Runtime" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Lifecycle.Service" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Lifecycle.ViewModel" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Loader" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.LocalBroadcastManager" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Media" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.MediaRouter" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Palette" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.PercentLayout" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Preference" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Print" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Recommendation" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.RecyclerView" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.RecyclerView.Selection" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Room.Common" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Room.Runtime" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Slice.Builders" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Slice.Core" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Slice.View" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.SlidingPaneLayout" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Sqlite" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Sqlite.Framework" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.SwipeRefreshLayout" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Transition" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.TvProvider" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.VectorDrawable" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.VectorDrawable.Animated" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.VersionedParcelable" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.ViewPager" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Wear" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.WebKit" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.AndroidX.Work.Runtime" />
+        <_AndroidXAssembliesToSkip Include="Xamarin.Google.Android.Material" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(_ShouldRunAndroidXTools)' == 'true'">
+        <!-- let the build system append all the metadata to the assemblies -->
+        <AndroidCustomMetaDataForReferences Include="@(_AndroidXSupportAssembliesToSkip)" />
+        <AndroidCustomMetaDataForReferences Include="@(_AndroidXAssembliesToSkip)" />
+    </ItemGroup>
+
+    <Target Name="_DoAndroidXThings" BeforeTargets="_GenerateJavaStubs"
+            Condition="'$(_ShouldRunAndroidXTools)' == 'true'">
+
+        <!-- select all the assemblies that are not excluded from processing -->
+        <ItemGroup>
+            <_FileToCecify Include="@(_ResolvedUserMonoAndroidAssemblies)"
+                           Condition="'%(_ResolvedUserMonoAndroidAssemblies.AndroidXSkipAndroidXMigration)' == '' or '%(_ResolvedUserMonoAndroidAssemblies.AndroidXSkipAndroidXMigration)' == 'false'" />
+        </ItemGroup>
+
+        <!-- run the Cecilfy task -->
+        <CecifyFiles Assemblies="@(_FileToCecify->'%(Identity)')" Verbose="true" />
+
+    </Target>
+
+</Project>

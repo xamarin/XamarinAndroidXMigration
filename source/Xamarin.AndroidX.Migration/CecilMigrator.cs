@@ -56,7 +56,7 @@ namespace Xamarin.AndroidX.Migration
 			if (string.IsNullOrWhiteSpace(destination))
 				throw new ArgumentException($"Invalid destination assembly path specified: '{destination}'.", nameof(destination));
 			if (!File.Exists(source))
-				throw new FileNotFoundException($"Source assembly does not exist.", source);
+				throw new FileNotFoundException($"Source assembly does not exist: '{source}'.", source);
 
 			var pdbPath = Path.ChangeExtension(source, "pdb");
 			var destPdbPath = Path.ChangeExtension(destination, "pdb");
@@ -222,7 +222,8 @@ namespace Xamarin.AndroidX.Migration
 
 		private CecilMigrationResult MigrateJniStrings(AssemblyDefinition assembly)
 		{
-			Console.WriteLine($"    *** Assembly contains JNI strings. ***");
+			if (Verbose)
+				Console.WriteLine($"    *** Assembly contains JNI strings. ***");
 
 			return CecilMigrationResult.Skipped;
 		}
