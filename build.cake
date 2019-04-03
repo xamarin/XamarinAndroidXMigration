@@ -150,6 +150,21 @@ Task("Libraries")
             { "AndroidSdkBuildToolsVersion", new [] { "28.0.3" } },
         },
     });
+
+    // copy the androidx-migrator tool
+    EnsureDirectoryExists("./output/androidx-migrator/Tools/");
+    CopyDirectory($"./source/androidx-migrator/bin/{configuration}/net472/Tools/", "./output/androidx-migrator/Tools/");
+    CopyFiles($"./source/androidx-migrator/bin/{configuration}/net472/androidx-migrator.*", "./output/androidx-migrator/");
+    CopyFiles($"./source/androidx-migrator/bin/{configuration}/net472/Mono.*", "./output/androidx-migrator/");
+    CopyFiles($"./source/androidx-migrator/bin/{configuration}/net472/Xamarin.*", "./output/androidx-migrator/");
+    Zip("./output/androidx-migrator/", "./output/androidx-migrator.zip");
+
+    // copy the build tasts
+    EnsureDirectoryExists("./output/Xamarin.AndroidX.Migration.BuildTasks/Tools/");
+    CopyDirectory($"./source/Xamarin.AndroidX.Migration.BuildTasks/bin/{configuration}/net472/Tools/", "./output/Xamarin.AndroidX.Migration.BuildTasks/Tools/");
+    CopyFiles($"./source/Xamarin.AndroidX.Migration.BuildTasks/bin/{configuration}/net472/Mono.*", "./output/Xamarin.AndroidX.Migration.BuildTasks/");
+    CopyFiles($"./source/Xamarin.AndroidX.Migration.BuildTasks/bin/{configuration}/net472/Xamarin.*", "./output/Xamarin.AndroidX.Migration.BuildTasks/");
+    Zip("./output/Xamarin.AndroidX.Migration.BuildTasks/", "./output/Xamarin.AndroidX.Migration.BuildTasks.zip");
 });
 
 Task("Tests")
@@ -163,13 +178,58 @@ Task("Tests")
 
     var testProjects = GetFiles("./tests/*.Tests/*.csproj");
     foreach (var proj in testProjects) {
-        DotNetCoreTest(proj.GetFilename().ToString(), new DotNetCoreTestSettings {
+        try {
+            DotNetCoreTest(proj.GetFilename().ToString(), new DotNetCoreTestSettings {
+                Configuration = configuration,
+                NoBuild = true,
+                TestAdapterPath = ".",
+                Logger = "xunit",
+                WorkingDirectory = proj.GetDirectory(),
+                ResultsDirectory = $"./output/test-results/{proj.GetFilenameWithoutExtension()}",
+            });
+        } catch (Exception ex) {
+            Error("Tests failed with an error.");
+            Error(ex);
+        }
+    }
+});
+
+Task("NuGets")
+    .IsDependentOn("Libraries")
+    .Does(() =>
+{
+    DeleteFiles("./output/nugets/*.nupkg");
+    NuGetPack("./nugets/Xamarin.AndroidX.Migration.nuspec", new NuGetPackSettings {
+        OutputDirectory = "./output/nugets/",
+        RequireLicenseAcceptance = true,
+    });
+});
+
+Task("Samples")
+    .IsDependentOn("Libraries")
+    .Does(() =>
+{
+    // delete old nugets
+    if (DirectoryExists("./externals/packages/Xamarin.AndroidX.Migration"))
+        DeleteDirectory("./externals/packages/Xamarin.AndroidX.Migration", true);
+
+    // build the samples
+    var sampleProjects = GetFiles("./samples/*/*.sln");
+    foreach (var proj in sampleProjects) {
+        MSBuild(proj, new MSBuildSettings {
             Configuration = configuration,
-            NoBuild = true,
-            TestAdapterPath = ".",
-            Logger = "xunit",
-            WorkingDirectory = proj.GetDirectory(),
-            ResultsDirectory = "./output/test-results",
+            Restore = true,
+            MaxCpuCount = 0,
+            Properties = {
+                { "DesignTimeBuild", new [] { "false" } },
+                { "AndroidSdkBuildToolsVersion", new [] { "28.0.3" } },
+
+                // a flag to ensure we use the nugets
+                { "UseMigratorNuGetPackages", new [] { "true" } },
+                // make sure to restore to a temporary location
+                { "RestoreNoCache", new [] { "true" } },
+                { "RestorePackagesPath", new [] { "./externals/packages" } },
+            },
         });
     }
 });
@@ -177,6 +237,8 @@ Task("Tests")
 Task("Default")
     .IsDependentOn("NativeAssets")
     .IsDependentOn("Libraries")
-    .IsDependentOn("Tests");
+    .IsDependentOn("Tests")
+    .IsDependentOn("NuGets")
+    .IsDependentOn("Samples");
 
 RunTarget(target);
