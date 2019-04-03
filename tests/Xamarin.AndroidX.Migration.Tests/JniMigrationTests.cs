@@ -96,6 +96,10 @@ namespace Xamarin.AndroidX.Migration.Tests
 
 				Assert.Equal(androidxJni, mapped);
 			}
+			else
+			{
+				throw new ArgumentOutOfRangeException(nameof(migrator));
+			}
 		}
 
 		[Theory]
