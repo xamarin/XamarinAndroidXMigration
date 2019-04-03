@@ -797,7 +797,8 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
             if ( index_bracket_left >= 0 && index_bracket_right >= 0)
             {
-                parameters = jniSignature.Substring(index_bracket_left + 1, index_bracket_right - 1);
+                int length = index_bracket_right - index_bracket_left - 1;
+                parameters = jniSignature.Substring(index_bracket_left + 1, length);
             }
 
             if (! string.IsNullOrEmpty(parameters))
