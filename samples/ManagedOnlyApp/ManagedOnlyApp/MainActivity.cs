@@ -1,10 +1,10 @@
-﻿using Android.App;
+﻿using System;
+using Android.App;
 using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using ManagedOnlyLibrary;
-using System;
 
 namespace ManagedOnlyApp
 {
@@ -14,7 +14,7 @@ namespace ManagedOnlyApp
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			var actualBase = GetType().BaseType.FullName;
-			Console.WriteLine("\nMainActivity.Base => " + actualBase);
+			Console.WriteLine($"\n*** MainActivity.Base => {actualBase}\n");
 
 			base.OnCreate(savedInstanceState);
 
@@ -50,7 +50,7 @@ namespace ManagedOnlyApp
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			var actualBase = GetType().BaseType.FullName;
-			Console.WriteLine("\nAndroidXActivity.Base => " + actualBase);
+			Console.WriteLine($"\n*** AndroidXActivity.Base => {actualBase}\n");
 
 			base.OnCreate(savedInstanceState);
 
@@ -64,7 +64,7 @@ namespace ManagedOnlyApp
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			var actualBase = GetType().BaseType.FullName;
-			Console.WriteLine("\nCustomActivity.Base => " + actualBase);
+			Console.WriteLine($"\n*** CustomActivity.Base => {actualBase}\n");
 
 			base.OnCreate(savedInstanceState);
 
@@ -78,7 +78,7 @@ namespace ManagedOnlyApp
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			var actualBase = GetType().BaseType.FullName;
-			Console.WriteLine("\nNativeActivity.Base => " + actualBase);
+			Console.WriteLine($"\n*** NativeActivity.Base => {actualBase}\n");
 
 			base.OnCreate(savedInstanceState);
 

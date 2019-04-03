@@ -1,6 +1,6 @@
-﻿using Android.OS;
+﻿using System;
+using Android.OS;
 using Android.Support.V7.App;
-using System;
 
 namespace ManagedOnlyLibrary
 {
@@ -9,7 +9,7 @@ namespace ManagedOnlyLibrary
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			var actualBase = GetType().BaseType.FullName;
-			Console.WriteLine("LibraryActivity.Base => " + actualBase);
+			Console.WriteLine($"\n*** LibraryActivity.Base => {actualBase}\n");
 
 			base.OnCreate(savedInstanceState);
 		}
