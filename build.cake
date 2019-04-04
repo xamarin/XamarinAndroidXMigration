@@ -141,6 +141,9 @@ Task("Libraries")
     .IsDependentOn("NativeAssets")
     .Does(() =>
 {
+    // needed for nuget restore
+    EnsureDirectoryExists("./output/nugets");
+
     MSBuild("Xamarin.AndroidX.Migration.sln", new MSBuildSettings {
         Configuration = configuration,
         Restore = true,
