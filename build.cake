@@ -156,17 +156,17 @@ Task("Libraries")
 
     // copy the androidx-migrator tool
     EnsureDirectoryExists("./output/androidx-migrator/Tools/");
-    CopyDirectory($"./source/androidx-migrator/bin/{configuration}/net472/Tools/", "./output/androidx-migrator/Tools/");
-    CopyFiles($"./source/androidx-migrator/bin/{configuration}/net472/androidx-migrator.*", "./output/androidx-migrator/");
-    CopyFiles($"./source/androidx-migrator/bin/{configuration}/net472/Mono.*", "./output/androidx-migrator/");
-    CopyFiles($"./source/androidx-migrator/bin/{configuration}/net472/Xamarin.*", "./output/androidx-migrator/");
+    CopyDirectory($"./source/androidx-migrator/bin/{configuration}/net47/Tools/", "./output/androidx-migrator/Tools/");
+    CopyFiles($"./source/androidx-migrator/bin/{configuration}/net47/androidx-migrator.*", "./output/androidx-migrator/");
+    CopyFiles($"./source/androidx-migrator/bin/{configuration}/net47/Mono.*", "./output/androidx-migrator/");
+    CopyFiles($"./source/androidx-migrator/bin/{configuration}/net47/Xamarin.*", "./output/androidx-migrator/");
     Zip("./output/androidx-migrator/", "./output/androidx-migrator.zip");
 
     // copy the build tasts
     EnsureDirectoryExists("./output/Xamarin.AndroidX.Migration.BuildTasks/Tools/");
-    CopyDirectory($"./source/Xamarin.AndroidX.Migration.BuildTasks/bin/{configuration}/net472/Tools/", "./output/Xamarin.AndroidX.Migration.BuildTasks/Tools/");
-    CopyFiles($"./source/Xamarin.AndroidX.Migration.BuildTasks/bin/{configuration}/net472/Mono.*", "./output/Xamarin.AndroidX.Migration.BuildTasks/");
-    CopyFiles($"./source/Xamarin.AndroidX.Migration.BuildTasks/bin/{configuration}/net472/Xamarin.*", "./output/Xamarin.AndroidX.Migration.BuildTasks/");
+    CopyDirectory($"./source/Xamarin.AndroidX.Migration.BuildTasks/bin/{configuration}/net47/Tools/", "./output/Xamarin.AndroidX.Migration.BuildTasks/Tools/");
+    CopyFiles($"./source/Xamarin.AndroidX.Migration.BuildTasks/bin/{configuration}/net47/Mono.*", "./output/Xamarin.AndroidX.Migration.BuildTasks/");
+    CopyFiles($"./source/Xamarin.AndroidX.Migration.BuildTasks/bin/{configuration}/net47/Xamarin.*", "./output/Xamarin.AndroidX.Migration.BuildTasks/");
     Zip("./output/Xamarin.AndroidX.Migration.BuildTasks/", "./output/Xamarin.AndroidX.Migration.BuildTasks.zip");
 });
 
