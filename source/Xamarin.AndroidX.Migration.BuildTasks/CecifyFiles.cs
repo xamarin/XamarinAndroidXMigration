@@ -34,7 +34,7 @@ namespace Xamarin.AndroidX.Migration.BuildTasks
 			}
 			catch (Exception ex)
 			{
-				Log.LogErrorFromException(ex);
+				Log.LogErrorFromException(ex, true);
 
 				return false;
 			}

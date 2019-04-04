@@ -21,6 +21,12 @@ jobs:
           testResultsFormat: xUnit
           testResultsFiles: output/test-results/*/TestResults.xml
           testRunTitle: Windows Tests
+      - task: PublishBuildArtifacts@1
+        displayName: Publish the output
+        condition: always()
+        inputs:
+          artifactName: output_windows
+          pathToPublish: output
 
   - job: build_macos
     displayName: Build on macOS
@@ -42,3 +48,9 @@ jobs:
           testResultsFormat: xUnit
           testResultsFiles: output/test-results/*/TestResults.xml
           testRunTitle: macOS Tests
+      - task: PublishBuildArtifacts@1
+        displayName: Publish the output
+        condition: always()
+        inputs:
+          artifactName: output_macos
+          pathToPublish: output

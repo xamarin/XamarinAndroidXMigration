@@ -91,7 +91,7 @@ namespace Xamarin.AndroidX.Migration.BuildTasks {
 			try {
 				jetifier.Jetify (archivesToJetify);
 			} catch (Exception ex) {
-				Log.LogErrorFromException (ex);
+				Log.LogErrorFromException (ex, true);
 				return false;
 			}
 
