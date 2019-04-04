@@ -69,20 +69,20 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             }
 
             var readerParams = new ReaderParameters
-			{
-				ReadSymbols = hasPdb,
-			};
+            {
+                ReadSymbols = hasPdb,
+            };
 
             asm_def = Mono.Cecil.AssemblyDefinition.ReadAssembly
                                                         (
                                                             o,
                                                             new Mono.Cecil.ReaderParameters
-                                                                {
-                                                                    AssemblyResolver = CreateAssemblyResolver(),
-                                                                    ReadWrite = true,
-                                                                    //InMemory = true,
-                                                                    ReadSymbols = hasPdb,
-                                                                }
+                                                            {
+                                                                AssemblyResolver = CreateAssemblyResolver(),
+                                                                ReadWrite = true,
+                                                                //InMemory = true,
+                                                                ReadSymbols = hasPdb,
+                                                            }
                                                         );
 
             Trace.WriteLine($"===================================================================================");
@@ -93,7 +93,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 Name = asm
             };
 
-            foreach(ModuleDefinition module in asm_def.Modules)
+            foreach (ModuleDefinition module in asm_def.Modules)
             {
                 Trace.WriteLine($"--------------------------------------------------------------------------");
                 Trace.WriteLine($"    migrating Module           = {module.Name}");
@@ -101,7 +101,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
                 AST.Module ast_module = ProcessModuleRedth(module);
 
-                if(ast_module != null)
+                if (ast_module != null)
                 {
                     if (ast_assembly == null)
                     {
@@ -184,7 +184,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             {
                 AST.Type ast_type = ProcessTypeRedth(type);
 
-                if(ast_type == null)
+                if (ast_type == null)
                 {
                     continue;
                 }
@@ -193,7 +193,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                     if (ast_module == null)
                     {
                         ast_module = new AST.Module()
-                        { 
+                        {
                             Name = module.Name
                         };
                     }
@@ -222,7 +222,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                         string jni_sig = ctor_name.Value?.ToString();
                         string jni_sig_new = ReplaceJniSignatureRedth(jni_sig);
 
-                        if ( jni_sig_new != null)
+                        if (jni_sig_new != null)
                         {
                             attr.ConstructorArguments[index] = new CustomAttributeArgument(ctor_name.Type, jni_sig_new);
                         }
@@ -277,7 +277,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             }
 
             List<AST.Method> ast_methods = null;
-            foreach(var method in type.Methods)
+            foreach (var method in type.Methods)
             {
                 AST.Method ast_method = ProcessMethodRedth(method);
 
@@ -363,12 +363,12 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             log.AppendLine($"    BaseType: {type.FullName}");
             Console.ResetColor();
 
-           ast_type_base = new AST.Type()
-           {
-               Name = type.Name,
-               NameFullyQualified = type.FullName,
-               NameFullyQualifiedOldMigratred = type_fqn_old
-           };
+            ast_type_base = new AST.Type()
+            {
+                Name = type.Name,
+                NameFullyQualified = type.FullName,
+                NameFullyQualifiedOldMigratred = type_fqn_old
+            };
 
             return ast_type_base;
         }
@@ -429,12 +429,12 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             log.AppendLine($"    BaseType: {type_base.FullName}");
             Console.ResetColor();
 
-           ast_type_base = new AST.Type()
-           {
-               Name = type_base.Name,
-               NameFullyQualified = type_base.FullName,
-               NameFullyQualifiedOldMigratred = type_fqn_old
-           };
+            ast_type_base = new AST.Type()
+            {
+                Name = type_base.Name,
+                NameFullyQualified = type_base.FullName,
+                NameFullyQualifiedOldMigratred = type_fqn_old
+            };
 
             return ast_type_base;
         }
@@ -450,7 +450,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                     (
                             !(type_nested?.FullName).StartsWith("Android.Support.", StringComparison.Ordinal)
                             &&
-                            ! (type_nested?.FullName).StartsWith("Android.Arch.", StringComparison.Ordinal)
+                            !(type_nested?.FullName).StartsWith("Android.Arch.", StringComparison.Ordinal)
                         )
                     ||
                     type_nested.Name.Contains("<>c")  // anonymous methods, lambdas 
@@ -472,7 +472,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                         string jni_sig = ctor_name.Value?.ToString();
                         string jni_sig_new = ReplaceJniSignatureRedth(jni_sig);
 
-                        if ( jni_sig_new != null)
+                        if (jni_sig_new != null)
                         {
                             attr.ConstructorArguments[index] = new CustomAttributeArgument(ctor_name.Type, jni_sig_new);
                         }
@@ -480,7 +480,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                 }
             }
             //------------------------------------------------------------
-            
+
             string type_nested_fqn_old = type_nested.FullName;
             string r = FindReplacingTypeFromMappingsManaged(type_nested.FullName);
             if (string.IsNullOrEmpty(r))
@@ -508,9 +508,9 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
             ast_type_nested = new AST.Type()
             {
-               Name = type_nested.Name,
-               NameFullyQualified = type_nested.FullName,
-               NameFullyQualifiedOldMigratred = type_nested_fqn_old
+                Name = type_nested.Name,
+                NameFullyQualified = type_nested.FullName,
+                NameFullyQualifiedOldMigratred = type_nested_fqn_old
             };
 
             return ast_type_nested;
@@ -544,7 +544,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                         string jni_sig = ctor_name.Value?.ToString();
                         string jni_sig_new = ReplaceJniSignatureRedth(jni_sig);
 
-                        if ( jni_sig_new != null)
+                        if (jni_sig_new != null)
                         {
                             attr.ConstructorArguments[index] = new CustomAttributeArgument(ctor_name.Type, jni_sig_new);
                         }
@@ -560,7 +560,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
                 if (ast_method_parameter != null)
                 {
-                    if(ast_method_parameters == null)
+                    if (ast_method_parameters == null)
                     {
                         ast_method_parameters = new List<AST.Parameter>();
                     }
@@ -608,9 +608,9 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                     type_return == null
                     ||
                     (
-                            ! (type_return?.FullName).StartsWith("Android.Support.", StringComparison.Ordinal)
+                            !(type_return?.FullName).StartsWith("Android.Support.", StringComparison.Ordinal)
                             &&
-                            ! (type_return?.FullName).StartsWith("Android.Arch.", StringComparison.Ordinal)
+                            !(type_return?.FullName).StartsWith("Android.Arch.", StringComparison.Ordinal)
                         )
                 )
             {
@@ -677,7 +677,7 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                         string jni_sig = ctor_name.Value?.ToString();
                         string jni_sig_new = ReplaceJniSignatureRedth(jni_sig);
 
-                        if ( jni_sig_new != null)
+                        if (jni_sig_new != null)
                         {
                             attr.ConstructorArguments[index] = new CustomAttributeArgument(ctor_name.Type, jni_sig_new);
                         }
@@ -773,7 +773,6 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
         }
 
 
-
         public string ReplaceJniSignatureRedth(string jniSignature)
         {
             if
@@ -853,6 +852,11 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                                                             return_type.Replace('.', '/'),
                                                             return_type_new.Replace('.', '/')
                                                         );
+            }
+
+            if ( ! jniSignature.Equals(jni_signature_new) )
+            {
+                MigratedJNI.Add((jniSignature, jni_signature_new));
             }
 
             return jni_signature_new;

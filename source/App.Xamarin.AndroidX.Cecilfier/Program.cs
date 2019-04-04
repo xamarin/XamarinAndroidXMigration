@@ -112,31 +112,31 @@ namespace Xamarin.AndroidX.Cecilfier.App
             {
                 string prfx = "../../../../../";
                 string cfg = "Debug";
+                option_exact_pairs.Add
+                    (
+                        $"{prfx}/externals/test-assets/merged-dlls/AndroidSupport.Merged.dll",
+                        $"{prfx}/externals/test-assets/merged-dlls/AndroidSupport.Merged.ax.dll"
+                    );
                 //option_exact_pairs.Add
                 //    (
-                //        $"{prfx}/externals/test-assets/merged-dlls/AndroidSupport.Merged.dll",
-                //        $"{prfx}/externals/test-assets/merged-dlls/AndroidSupport.Merged.ax.dll"
+                //        $"{prfx}/tests/Aarxercise.Binding.AndroidX/bin/{cfg}/Aarxercise.Binding.AndroidX.dll",
+                //        $"{prfx}/tests/Aarxercise.Binding.AndroidX/bin/{cfg}/Aarxercise.Binding.AndroidX.ax.dll"
                 //    );
-                option_exact_pairs.Add
-                    (
-                        $"{prfx}/tests/Aarxercise.Binding.AndroidX/bin/{cfg}/Aarxercise.Binding.AndroidX.dll",
-                        $"{prfx}/tests/Aarxercise.Binding.AndroidX/bin/{cfg}/Aarxercise.Binding.AndroidX.ax.dll"
-                    );
-                option_exact_pairs.Add
-                    (
-                        $"{prfx}/tests/Aarxercise.Binding.Support/bin/{cfg}/Aarxercise.Binding.Support.dll",
-                        $"{prfx}/tests/Aarxercise.Binding.Support/bin/{cfg}/Aarxercise.Binding.Support.ax.dll"
-                    );
-                option_exact_pairs.Add
-                    (
-                        $"{prfx}/tests/Aarxercise.Managed.AndroidX/bin/{cfg}/Aarxercise.Managed.AndroidX.dll",
-                        $"{prfx}/tests/Aarxercise.Managed.AndroidX/bin/{cfg}/Aarxercise.Managed.AndroidX.ax.dll"
-                    );
-                option_exact_pairs.Add
-                    (
-                        $"{prfx}/tests/Aarxercise.Managed.Support/bin/{cfg}/Aarxercise.Managed.Support.dll",
-                        $"{prfx}/tests/Aarxercise.Managed.Support/bin/{cfg}/Aarxercise.Managed.Support.ax.dll"
-                    );
+                //option_exact_pairs.Add
+                //    (
+                //        $"{prfx}/tests/Aarxercise.Binding.Support/bin/{cfg}/Aarxercise.Binding.Support.dll",
+                //        $"{prfx}/tests/Aarxercise.Binding.Support/bin/{cfg}/Aarxercise.Binding.Support.ax.dll"
+                //    );
+                //option_exact_pairs.Add
+                //    (
+                //        $"{prfx}/tests/Aarxercise.Managed.AndroidX/bin/{cfg}/Aarxercise.Managed.AndroidX.dll",
+                //        $"{prfx}/tests/Aarxercise.Managed.AndroidX/bin/{cfg}/Aarxercise.Managed.AndroidX.ax.dll"
+                //    );
+                //option_exact_pairs.Add
+                //    (
+                //        $"{prfx}/tests/Aarxercise.Managed.Support/bin/{cfg}/Aarxercise.Managed.Support.dll",
+                //        $"{prfx}/tests/Aarxercise.Managed.Support/bin/{cfg}/Aarxercise.Managed.Support.ax.dll"
+                //    );
                 //option_exact_pairs.Add
                 //    (
                 //        $"{prfx}/tests/Aarxercise.Java.AndroidX/bin/Debug/Aarxercise.Java.AndroidX.dll",
@@ -179,6 +179,7 @@ namespace Xamarin.AndroidX.Cecilfier.App
                     string msg = $"{DateTime.Now.ToString("yyyyMMdd-HHmmss")}-androidx-migrated";
                     migrator = new AndroidXMigrator(dll, dll.Replace(".dll", $".{msg}.dll"));
                     migrator.Migrate();
+                    migrator.Dump();
                 }
             }
 

@@ -19,6 +19,8 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
 
         private static Memory<Memory<char>> TypeNamesToSkip;
 
+        static partial void InitializeAnalysis();
+
         static AndroidXMigrator()
         {
             AbstractSyntaxTree = new AST.AbstractSyntaxTree();
@@ -44,6 +46,8 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
                             //    Initialize();
                             //}
                         );
+
+            InitializeAnalysis();
 
             return;
         }
@@ -263,22 +267,42 @@ namespace HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineat
             return;
         }
 
-        public static AST.AbstractSyntaxTree AbstractSyntaxTree
+
+        static string row =
+                    $@"
+	    [InlineData
+            (
+			    ""JNI_AS"",
+			    ""JNI_AX""
+            )
+        ]
+                        ";
+        static string jni_as = null;
+        static string jni_ax = null;
+
+        public void Dump()
         {
-            get;
+            List<string> dump = new List<string>();
+
+            Parallel.Invoke
+                (
+                    () =>
+                    {
+                        foreach (var migrated_jni in MigratedJNI)
+                        {
+                            string r = row;
+                            r = r.Replace("JNI_AS", migrated_jni.AndroidSupportJNI);
+                            r = r.Replace("JNI_AX", migrated_jni.AndroidXJNI);
+
+                            dump.Add(r);
+                        }
+
+                        string text = string.Join(Environment.NewLine, dump);
+                            File.WriteAllText(Path.ChangeExtension($"{PathAssemblyInput}", "MigratedJNI.csv"), text);
+                    }
+                );
+
         }
 
-        public static List
-                            <
-                                (
-                                    string Assembly, 
-                                    string Algorithm, // Matthew's Shortcuts, Redth's Original Patch
-                                    long Duration
-                                ) 
-                            > PerformanceData
-        {
-            get;
-            private set;
-        }
     }
 }
