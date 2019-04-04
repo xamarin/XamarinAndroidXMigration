@@ -18,7 +18,7 @@ namespace AndroidXMigrator
 
 		protected override OptionSet OnCreateOptions() => new OptionSet
 		{
-			{ "a|archive=", "One or more .jar/.aar files to merge", v => AddArchive(v) },
+			{ "a|archive=", "One or more .jar/.aar files to jetify", v => AddArchive(v) },
 		};
 
 		protected override bool OnValidateArguments()

@@ -34,9 +34,3 @@ first - either as part of MSBuild or via a Cake script.
 
  - `Xamarin.AndroidX.Migration.Tests` - this is a test project that makes sure
    everything is working as expected
-
-## To Be Categorized / Merged
-
- - `artifacts`
- - `Tests.XUnit`
- - `XtremelyDummyProjectForReferencingAssemblies`

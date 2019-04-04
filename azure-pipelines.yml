@@ -19,7 +19,7 @@ jobs:
         condition: always()
         inputs:
           testResultsFormat: xUnit
-          testResultsFiles: tests/**/TestResults/TestResults.xml
+          testResultsFiles: output/test-results/*/TestResults.xml
           testRunTitle: Windows Tests
 
   - job: build_macos
@@ -40,5 +40,5 @@ jobs:
         condition: always()
         inputs:
           testResultsFormat: xUnit
-          testResultsFiles: tests/**/TestResults/TestResults.xml
+          testResultsFiles: output/test-results/*/TestResults.xml
           testRunTitle: macOS Tests

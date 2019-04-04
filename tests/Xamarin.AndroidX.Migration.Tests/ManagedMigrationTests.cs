@@ -39,11 +39,9 @@ namespace Xamarin.AndroidX.Migration.Tests
 		}
 
 		[Theory]
-		[InlineData(ManagedSupportDll, ManagedAndroidXDll, AvailableMigrators.CecilMigrator, CecilMigrationResult.ContainedSupport)]
-		[InlineData(BindingSupportDll, BindingAndroidXDll, AvailableMigrators.CecilMigrator, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
-		[InlineData(ManagedSupportDll, ManagedAndroidXDll, AvailableMigrators.AndroidXMigrator, CecilMigrationResult.Skipped)]
-		[InlineData(BindingSupportDll, BindingAndroidXDll, AvailableMigrators.AndroidXMigrator, CecilMigrationResult.Skipped)]
-		public void AssembliesHaveTheSameTypesAfterMigration(string supportDll, string androidXDll, AvailableMigrators migrator, CecilMigrationResult expectedResult)
+		[CecilfyData(ManagedSupportDll, ManagedAndroidXDll, CecilMigrationResult.ContainedSupport)]
+		[CecilfyData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
+		public void AssembliesHaveTheSameTypesAfterMigration(AvailableMigrators migrator, string supportDll, string androidXDll, CecilMigrationResult expectedResult)
 		{
 			var migratedDll = RunMigration(migrator, supportDll, expectedResult);
 
@@ -55,11 +53,9 @@ namespace Xamarin.AndroidX.Migration.Tests
 		}
 
 		[Theory]
-		[InlineData(ManagedSupportDll, ManagedAndroidXDll, AvailableMigrators.CecilMigrator, CecilMigrationResult.ContainedSupport)]
-		[InlineData(BindingSupportDll, BindingAndroidXDll, AvailableMigrators.CecilMigrator, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
-		[InlineData(ManagedSupportDll, ManagedAndroidXDll, AvailableMigrators.AndroidXMigrator, CecilMigrationResult.Skipped)]
-		[InlineData(BindingSupportDll, BindingAndroidXDll, AvailableMigrators.AndroidXMigrator, CecilMigrationResult.Skipped)]
-		public void AssembliesHaveTheSameReferencesAfterMigration(string supportDll, string androidXDll, AvailableMigrators migrator, CecilMigrationResult expectedResult)
+		[CecilfyData(ManagedSupportDll, ManagedAndroidXDll, CecilMigrationResult.ContainedSupport)]
+		[CecilfyData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
+		public void AssembliesHaveTheSameReferencesAfterMigration(AvailableMigrators migrator, string supportDll, string androidXDll, CecilMigrationResult expectedResult)
 		{
 			var migratedDll = RunMigration(migrator, supportDll, expectedResult);
 
@@ -73,11 +69,9 @@ namespace Xamarin.AndroidX.Migration.Tests
 		}
 
 		[Theory]
-		[InlineData(ManagedSupportDll, ManagedAndroidXDll, AvailableMigrators.CecilMigrator, CecilMigrationResult.ContainedSupport)]
-		[InlineData(BindingSupportDll, BindingAndroidXDll, AvailableMigrators.CecilMigrator, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
-		[InlineData(ManagedSupportDll, ManagedAndroidXDll, AvailableMigrators.AndroidXMigrator, CecilMigrationResult.Skipped)]
-		[InlineData(BindingSupportDll, BindingAndroidXDll, AvailableMigrators.AndroidXMigrator, CecilMigrationResult.Skipped)]
-		public void AllTypesHaveTheSameMembers(string supportDll, string androidXDll, AvailableMigrators migrator, CecilMigrationResult expectedResult)
+		[CecilfyData(ManagedSupportDll, ManagedAndroidXDll, CecilMigrationResult.ContainedSupport)]
+		[CecilfyData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
+		public void AllTypesHaveTheSameMembers(AvailableMigrators migrator, string supportDll, string androidXDll, CecilMigrationResult expectedResult)
 		{
 			var migratedDll = RunMigration(migrator, supportDll, expectedResult);
 

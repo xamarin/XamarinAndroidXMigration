@@ -6,6 +6,7 @@
 tools
 !tools/packages.config
 .gradle
+output
 
 # User-specific files
 *.suo

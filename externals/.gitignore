@@ -1,3 +1,7 @@
-test-assets/
-nuget/
+AndroidX-NuGets.zip
+jetifier.zip
+
 jetifier/
+nuget/
+packages/
+test-assets/

@@ -1,8 +1,9 @@
-using Mono.Cecil;
-using Mono.Cecil.Cil;
 using System;
 using System.IO;
 using System.Linq;
+using HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineator;
+using Mono.Cecil;
+using Mono.Cecil.Cil;
 using Xunit;
 
 namespace Xamarin.AndroidX.Migration.Tests
@@ -10,91 +11,102 @@ namespace Xamarin.AndroidX.Migration.Tests
 	public class JniMigrationTests : BaseTests
 	{
 		[Theory]
-		[InlineData("", "")]
-		[InlineData("()V", "()V")]
-		[InlineData(
+		[CecilfyData("", "")]
+		[CecilfyData("()V", "()V")]
+		[CecilfyData(
 			"(Landroid/content/Context;)Landroid/support/v4/app/Fragment;",
 			"(Landroid/content/Context;)Landroidx/fragment/app/Fragment;")]
-		[InlineData(
+		[CecilfyData(
 			"CreateFragment.(Landroid/content/Context;)Landroid/support/v4/app/Fragment;",
 			"CreateFragment.(Landroid/content/Context;)Landroidx/fragment/app/Fragment;")]
-		[InlineData(
+		[CecilfyData(
 			"(Landroid/content/Context;)Lcom/xamarin/aarxercise/SimpleFragment;",
 			"(Landroid/content/Context;)Lcom/xamarin/aarxercise/SimpleFragment;")]
-		[InlineData(
+		[CecilfyData(
 			"CreateSimpleFragment.(Landroid/content/Context;)Lcom/xamarin/aarxercise/SimpleFragment;",
 			"CreateSimpleFragment.(Landroid/content/Context;)Lcom/xamarin/aarxercise/SimpleFragment;")]
-		[InlineData(
+		[CecilfyData(
 			"(Landroid/support/v4/app/Fragment;Ljava/lang/String;)V",
 			"(Landroidx/fragment/app/Fragment;Ljava/lang/String;)V")]
-		[InlineData(
+		[CecilfyData(
 			"UpdateFragment.(Landroid/support/v4/app/Fragment;Ljava/lang/String;)V",
 			"UpdateFragment.(Landroidx/fragment/app/Fragment;Ljava/lang/String;)V")]
-		[InlineData(
+		[CecilfyData(
 			"(Lcom/xamarin/aarxercise/SimpleFragment;Ljava/lang/String;)V",
 			"(Lcom/xamarin/aarxercise/SimpleFragment;Ljava/lang/String;)V")]
-		[InlineData(
+		[CecilfyData(
 			"UpdateSimpleFragment.(Lcom/xamarin/aarxercise/SimpleFragment;Ljava/lang/String;)V",
 			"UpdateSimpleFragment.(Lcom/xamarin/aarxercise/SimpleFragment;Ljava/lang/String;)V")]
-		[InlineData(
+		[CecilfyData(
 			"([Landroid/support/v4/graphics/PathParser;[Landroid/support/v4/graphics/PathParser;)V",
 			"([Landroidx/core/graphics/PathParser;[Landroidx/core/graphics/PathParser;)V")]
-		[InlineData(
+		[CecilfyData(
 			"([Landroid/support/v4/graphics/PathParser$PathDataNode;[Landroid/support/v4/graphics/PathParser$PathDataNode;)V",
 			"([Landroidx/core/graphics/PathParser$PathDataNode;[Landroidx/core/graphics/PathParser$PathDataNode;)V")]
-		[InlineData(
+		[CecilfyData(
 			"([Ljava/lang/Object;[[Ljava/lang/Object;)[Ljava/lang/Object;",
 			"([Ljava/lang/Object;[[Ljava/lang/Object;)[Ljava/lang/Object;")]
-		[InlineData(
+		[CecilfyData(
 			"([Ljava/lang/Object;[[Landroid/support/v4/graphics/PathParser;)[Ljava/lang/Object;",
 			"([Ljava/lang/Object;[[Landroidx/core/graphics/PathParser;)[Ljava/lang/Object;")]
-		[InlineData(
+		[CecilfyData(
 			"java/lang/Object",
 			"java/lang/Object")]
-		[InlineData(
+		[CecilfyData(
 			"android/support/v4/app/Fragment",
 			"androidx/fragment/app/Fragment")]
-		[InlineData(
+		[CecilfyData(
 			"android/support/v7/app/ActionBar$Tab",
 			"androidx/appcompat/app/ActionBar$Tab")]
-		[InlineData(
+		[CecilfyData(
 			"android/support/v7/app/ActionBarDrawerToggle$Delegate",
 			"androidx/appcompat/app/ActionBarDrawerToggle$Delegate")]
-		[InlineData(
+		[CecilfyData(
 			"android/support/v7/app/ActionBar$Tab$ThisDoesNotExist",
 			"androidx/appcompat/app/ActionBar$Tab$ThisDoesNotExist")]
-		[InlineData(
+		[CecilfyData(
 			"android/support/v7/app/ActionBarDrawerToggle$ThisDoesNotExist",
 			"androidx/appcompat/app/ActionBarDrawerToggle$ThisDoesNotExist")]
-		[InlineData(
+		[CecilfyData(
 			"android/support/v7/app/ActionBarDrawerToggle$ThisDoesNotExist$AndNeitherDoesThis",
 			"androidx/appcompat/app/ActionBarDrawerToggle$ThisDoesNotExist$AndNeitherDoesThis")]
-		[InlineData(
+		[CecilfyData(
 			"(I)Landroid/support/v7/app/AlertDialog$Builder;",
 			"(I)Landroidx/appcompat/app/AlertDialog$Builder;")]
-		[InlineData(
+		[CecilfyData(
 			"(L;L;L;)Landroid/support/v7/app/AlertDialog$Builder;",
 			"(L;L;L;)Landroidx/appcompat/app/AlertDialog$Builder;")]
-		public void JniStringAreCorrectlyMapped(string supportJni, string androidxJni)
+		public void JniStringAreCorrectlyMapped(AvailableMigrators migrator, string supportJni, string androidxJni)
 		{
-			var migrator = new CecilMigrator();
-			var wasChanged = migrator.MigrateJniString(supportJni, out var mappedJni);
+			if (migrator == AvailableMigrators.CecilMigrator)
+			{
+				var cecilMigrator = new CecilMigrator();
+				var wasChanged = cecilMigrator.MigrateJniString(supportJni, out var mappedJni);
 
-			Assert.Equal(supportJni != androidxJni, wasChanged);
-			if (wasChanged)
-				Assert.Equal(androidxJni, mappedJni);
+				Assert.Equal(supportJni != androidxJni, wasChanged);
+				if (wasChanged)
+					Assert.Equal(androidxJni, mappedJni);
+				else
+					Assert.Null(mappedJni);
+			}
+			else if (migrator == AvailableMigrators.AndroidXMigrator)
+			{
+				var androidXMigrator = new AndroidXMigrator(null, null);
+				var mapped = androidXMigrator.ReplaceJniSignatureRedth(supportJni);
+
+				Assert.Equal(androidxJni, mapped);
+			}
 			else
-				Assert.Null(mappedJni);
+			{
+				throw new ArgumentOutOfRangeException(nameof(migrator));
+			}
 		}
 
 		[Theory]
-		[InlineData(ManagedSupportDll, AvailableMigrators.CecilMigrator, CecilMigrationResult.ContainedSupport)]
-		[InlineData(BindingSupportDll, AvailableMigrators.CecilMigrator, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
-		[InlineData(MergedSupportDll, AvailableMigrators.CecilMigrator, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
-		[InlineData(ManagedSupportDll, AvailableMigrators.AndroidXMigrator, CecilMigrationResult.Skipped)]
-		[InlineData(BindingSupportDll, AvailableMigrators.AndroidXMigrator, CecilMigrationResult.Skipped)]
-		[InlineData(MergedSupportDll, AvailableMigrators.AndroidXMigrator, CecilMigrationResult.Skipped)]
-		public void MigrationDoesNotThrow(string assembly, AvailableMigrators migrator, CecilMigrationResult expectedResult)
+		[CecilfyData(ManagedSupportDll, CecilMigrationResult.ContainedSupport)]
+		[CecilfyData(BindingSupportDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
+		[CecilfyData(MergedSupportDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
+		public void MigrationDoesNotThrow(AvailableMigrators migrator, string assembly, CecilMigrationResult expectedResult)
 		{
 			var mappedDll = RunMigration(migrator, assembly, expectedResult);
 
@@ -102,9 +114,8 @@ namespace Xamarin.AndroidX.Migration.Tests
 		}
 
 		[Theory]
-		[InlineData(BindingSupportDll, BindingAndroidXDll, AvailableMigrators.CecilMigrator, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
-		[InlineData(BindingSupportDll, BindingAndroidXDll, AvailableMigrators.AndroidXMigrator, CecilMigrationResult.Skipped)]
-		public void RegisterAttributesOnMethodsAreMappedCorrectly(string supportDll, string androidxDll, AvailableMigrators migrator, CecilMigrationResult expectedResult)
+		[CecilfyData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
+		public void RegisterAttributesOnMethodsAreMappedCorrectly(AvailableMigrators migrator, string supportDll, string androidxDll, CecilMigrationResult expectedResult)
 		{
 			var mappedDll = RunMigration(migrator, supportDll, expectedResult);
 
@@ -146,9 +157,8 @@ namespace Xamarin.AndroidX.Migration.Tests
 		}
 
 		[Theory]
-		[InlineData(BindingSupportDll, BindingAndroidXDll, AvailableMigrators.CecilMigrator, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
-		[InlineData(BindingSupportDll, BindingAndroidXDll, AvailableMigrators.AndroidXMigrator, CecilMigrationResult.Skipped)]
-		public void InstructionsInMethodsAreMappedCorrectly(string supportDll, string androidxDll, AvailableMigrators migrator, CecilMigrationResult expectedResult)
+		[CecilfyData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
+		public void InstructionsInMethodsAreMappedCorrectly(AvailableMigrators migrator, string supportDll, string androidxDll, CecilMigrationResult expectedResult)
 		{
 			var mappedDll = RunMigration(migrator, supportDll, expectedResult);
 
