@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\output\Xamarin.AndroidX.Migration.BuildTasks\Xamarin.AndroidX.Migration.props" Condition="'$(UseMigratorNuGetPackages)' != 'true'" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -41,6 +42,7 @@
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidLinkMode>Full</AndroidLinkMode>
+    <EnableProguard>true</EnableProguard>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -63,6 +65,8 @@
     <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0" />
     <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0" />
     <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.0.0" />
+    <!-- AndroidX Migration -->
+    <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.0" Condition="'$(UseMigratorNuGetPackages)' == 'true'" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -109,4 +113,5 @@
     <ProguardConfiguration Include="proguard.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <Import Project="..\..\..\output\Xamarin.AndroidX.Migration.BuildTasks\Xamarin.AndroidX.Migration.targets" Condition="'$(UseMigratorNuGetPackages)' != 'true'" />
 </Project>

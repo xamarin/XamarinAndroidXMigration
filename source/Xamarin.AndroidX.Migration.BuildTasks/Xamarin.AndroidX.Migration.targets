@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+    <!--
+        TODO:
+         * _DoAndroidXResourceThings really needs to run AFTER convert cases and BEFORE compile resources
+         * The proguard config files need to be copied to an intermediate file and then jetifier needs to run on it
+         * Jetifier only believes files are proguard files if they are named "proguard.txt" exactly
+    -->
+
     <UsingTask TaskName="Xamarin.AndroidX.Migration.BuildTasks.CecifyFiles"
+               AssemblyFile="$(MSBuildThisFileDirectory)Xamarin.AndroidX.Migration.BuildTasks.dll" />
+    <UsingTask TaskName="Xamarin.AndroidX.Migration.BuildTasks.JetifyFiles"
                AssemblyFile="$(MSBuildThisFileDirectory)Xamarin.AndroidX.Migration.BuildTasks.dll" />
 
     <PropertyGroup>
@@ -82,6 +91,7 @@
         <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.v13" />
         <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.v17.Leanback" />
         <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.v17.Preference.Leanback" />
+        <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.v4" />
         <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.v7.AppCompat" />
         <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.v7.CardView" />
         <_AndroidXSupportAssembliesToSkip Include="Xamarin.Android.Support.v7.GridLayout" />
@@ -169,17 +179,43 @@
         <AndroidCustomMetaDataForReferences Include="@(_AndroidXAssembliesToSkip)" />
     </ItemGroup>
 
-    <Target Name="_DoAndroidXThings" BeforeTargets="_GenerateJavaStubs"
+    <Target Name="_DoAndroidXCecilThings" BeforeTargets="_LinkAssembliesShrink;_LinkAssembliesNoShrink"
             Condition="'$(_ShouldRunAndroidXTools)' == 'true'">
 
+        <Message Importance="High" Text="Running Android X Cecilfy..." />
+
         <!-- select all the assemblies that are not excluded from processing -->
-        <ItemGroup>
-            <_FileToCecify Include="@(_ResolvedUserMonoAndroidAssemblies)"
-                           Condition="'%(_ResolvedUserMonoAndroidAssemblies.AndroidXSkipAndroidXMigration)' == '' or '%(_ResolvedUserMonoAndroidAssemblies.AndroidXSkipAndroidXMigration)' == 'false'" />
+        <ItemGroup Condition="'$(AndroidLinkMode)' == 'None'">
+            <_FileToCecify Include="@(ResolvedUserAssemblies)"
+                           Condition="'%(ResolvedUserAssemblies.AndroidXSkipAndroidXMigration)' == '' or '%(ResolvedUserAssemblies.AndroidXSkipAndroidXMigration)' == 'false'" />
+        </ItemGroup>
+        <ItemGroup Condition="'$(AndroidLinkMode)' != 'None'">
+            <_FileToCecify Include="@(ResolvedUserAssemblies->'$(MonoAndroidLinkerInputDir)%(Filename)%(Extension)')"
+                           Condition="'%(ResolvedUserAssemblies.AndroidXSkipAndroidXMigration)' == '' or '%(ResolvedUserAssemblies.AndroidXSkipAndroidXMigration)' == 'false'" />
         </ItemGroup>
 
-        <!-- run the Cecilfy task -->
+        <Message Text="Cecilfying: @(_FileToCecify)" />
         <CecifyFiles Assemblies="@(_FileToCecify->'%(Identity)')" Verbose="true" />
+
+        <Message Importance="High" Text="Android X Cecilfy complete." />
+
+    </Target>
+
+    <Target Name="_DoAndroidXResourceThings" BeforeTargets="_CompileResources"
+            Condition="'$(_ShouldRunAndroidXTools)' == 'true'">
+
+        <Message Importance="High" Text="Running Android X Jetify..." />
+
+        <ItemGroup>
+            <!-- select all the app resources -->
+            <_FilesToJetify Include="@(_AndroidResourceDest)"
+                            Condition="'%(_AndroidResourceDest.Extension)' == '.xml'" />
+        </ItemGroup>
+
+        <Message Text="Jetifying: @(_FilesToJetify)" />
+        <JetifyFiles Files="@(_FilesToJetify->'%(Identity)')" Verbosity="true" />
+
+        <Message Importance="High" Text="Android X Jetify complete." />
 
     </Target>
 
