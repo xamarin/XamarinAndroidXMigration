@@ -242,6 +242,7 @@ Task("Default")
     .IsDependentOn("Libraries")
     .IsDependentOn("Tests")
     .IsDependentOn("NuGets")
-    .IsDependentOn("Samples");
+    // .IsDependentOn("Samples")
+    ;
 
 RunTarget(target);
