@@ -22,10 +22,12 @@
         <_AndroidXSupportAssembliesToSkip>
             <AndroidSkipResourceExtraction>true</AndroidSkipResourceExtraction>
             <AndroidSkipJavaStubGeneration>true</AndroidSkipJavaStubGeneration>
-            <!-- <AndroidSkipAddToPackage>true</AndroidSkipAddToPackage> -->
+            <AndroidSkipAddToPackage>true</AndroidSkipAddToPackage>
+            <AndroidSkipResourceProcessing>true</AndroidSkipResourceProcessing>
             <AndroidXSkipAndroidXMigration>true</AndroidXSkipAndroidXMigration>
         </_AndroidXSupportAssembliesToSkip>
         <_AndroidXAssembliesToSkip>
+            <AndroidSkipResourceProcessing>true</AndroidSkipResourceProcessing>
             <AndroidXSkipAndroidXMigration>true</AndroidXSkipAndroidXMigration>
         </_AndroidXAssembliesToSkip>
     </ItemDefinitionGroup>
@@ -183,7 +185,7 @@
     <Target Name="_DoAndroidXCecilThingsShrink" BeforeTargets="_LinkAssembliesShrink"
             Condition="'$(_ShouldRunAndroidXTools)' == 'true' and '$(AndroidLinkMode)' != 'None'">
 
-        <Message Importance="High" Text="Running Android X Cecilfy..." />
+        <Message Text="Running Android X Cecilfy..." />
 
         <ItemGroup>
             <!-- select all the assemblies that are not excluded from processing -->
@@ -191,17 +193,16 @@
                            Condition="'%(ResolvedUserAssemblies.AndroidXSkipAndroidXMigration)' == '' or '%(ResolvedUserAssemblies.AndroidXSkipAndroidXMigration)' == 'false'" />
         </ItemGroup>
 
-        <Message Text="Cecilfying: @(_FileToCecify)" />
         <CecifyFiles Assemblies="@(_FileToCecify)" Verbose="true" />
 
-        <Message Importance="High" Text="Android X Cecilfy complete." />
+        <Message Text="Android X Cecilfy complete." />
 
     </Target>
 
     <Target Name="_DoAndroidXCecilThingsNoShrink" BeforeTargets="_GenerateJavaStubs"
             Condition="'$(_ShouldRunAndroidXTools)' == 'true' and '$(AndroidLinkMode)' == 'None'">
 
-        <Message Importance="High" Text="Running Android X Cecilfy..." />
+        <Message Text="Running Android X Cecilfy..." />
 
         <ItemGroup>
             <!-- select all the assemblies that are not excluded from processing -->
@@ -209,17 +210,16 @@
                            Condition="'%(_ResolvedUserMonoAndroidAssemblies.AndroidXSkipAndroidXMigration)' == '' or '%(_ResolvedUserMonoAndroidAssemblies.AndroidXSkipAndroidXMigration)' == 'false'" />
         </ItemGroup>
 
-        <Message Text="Cecilfying: @(_FileToCecify)" />
         <CecifyFiles Assemblies="@(_FileToCecify)" Verbose="true" />
 
-        <Message Importance="High" Text="Android X Cecilfy complete." />
+        <Message Text="Android X Cecilfy complete." />
 
     </Target>
 
     <Target Name="_DoAndroidXResourceThings" BeforeTargets="_CompileResources"
             Condition="'$(_ShouldRunAndroidXTools)' == 'true'">
 
-        <Message Importance="High" Text="Running Android X Jetify..." />
+        <Message Text="Running Android X Jetify..." />
 
         <ItemGroup>
             <!-- select all the app resources -->
@@ -230,7 +230,7 @@
         <Message Text="Jetifying: @(_FilesToJetify)" />
         <JetifyFiles Files="@(_FilesToJetify->'%(Identity)')" Verbosity="true" />
 
-        <Message Importance="High" Text="Android X Jetify complete." />
+        <Message Text="Android X Jetify complete." />
 
     </Target>
 
