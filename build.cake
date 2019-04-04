@@ -10,7 +10,7 @@ var jetifierVersion = "1.0.0";
 var jetifierBetaVersion = "-beta04";
 var jetifierDownloadUrl = $"https://dl.google.com/dl/android/studio/jetifier-zips/{jetifierVersion}{jetifierBetaVersion}/jetifier-standalone.zip";
 
-var azureBuildNumber = "670";
+var azureBuildNumber = "950";
 var azureBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1b47c07a8/_apis/build/builds/{azureBuildNumber}/artifacts?artifactName=nuget&%24format=zip&api-version=5.0";
 
 Task("JetifierWrapper")
