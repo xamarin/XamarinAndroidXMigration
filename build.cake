@@ -58,6 +58,7 @@ Task("JavaProjects")
     var nativeProjects = new [] {
         "tests/Aarxersise.Java.AndroidX",
         "tests/Aarxersise.Java.Support",
+        "samples/com.xamarin.CoolLibrary",
     };
 
     foreach (var native in nativeProjects) {
