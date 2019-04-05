@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineator;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Xunit;
@@ -13,7 +12,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 		[Theory]
 		[CecilfyData(ManagedSupportDll, CecilMigrationResult.ContainedSupport)]
 		[CecilfyData(BindingSupportDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
-		[CecilfyData(MergedSupportDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
+		[CecilfyData(MergedSupportDll, CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
 		public void MigrationDoesNotThrow(AvailableMigrators migrator, string assembly, CecilMigrationResult expectedResult)
 		{
 			var mappedDll = RunMigration(migrator, assembly, expectedResult);

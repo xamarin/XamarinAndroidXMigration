@@ -55,8 +55,6 @@
     <Compile Include="ManagedSimpleFragment.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CodingPerversions\StringExtensions.cs" />
-    <Compile Include="CodingPerversions\FragmentExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -66,7 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
-    <Folder Include="CodingPerversions\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\managedsimplefragment.xml" />

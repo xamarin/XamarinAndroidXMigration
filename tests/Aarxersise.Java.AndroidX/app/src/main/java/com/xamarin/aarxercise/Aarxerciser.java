@@ -2,7 +2,6 @@ package com.xamarin.aarxercise;
 
 import android.content.Context;
 import android.widget.TextView;
-
 import androidx.fragment.app.Fragment;
 
 public class Aarxerciser {

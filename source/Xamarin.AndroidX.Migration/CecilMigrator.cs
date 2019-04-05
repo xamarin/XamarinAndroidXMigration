@@ -376,7 +376,7 @@ namespace Xamarin.AndroidX.Migration
 			if (Mapping.TryGetAndroidXClass(javaClass, out var newClass))
 			{
 				newJavaClass = newClass.JavaFullName;
-				return true;
+				return javaClass != newJavaClass;
 			}
 
 			// work backwards, removing each nested class
@@ -389,7 +389,7 @@ namespace Xamarin.AndroidX.Migration
 				if (Mapping.TryGetAndroidXClass(javaClass, out newClass))
 				{
 					newJavaClass = newClass.JavaFullName + nested;
-					return true;
+					return javaClass != newJavaClass;
 				}
 			}
 

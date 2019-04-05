@@ -7,6 +7,23 @@ namespace Xamarin.AndroidX.Migration.Tests
 	public class ManagedMigrationTests : BaseTests
 	{
 		[Theory]
+		[InlineData(ManagedSupportDll, true)]
+		[InlineData(BindingSupportDll, true)]
+		[InlineData(MergedSupportDll, false)]
+		public void AssembliesHaveSupportReferences(string assembly, bool hasSupportReference)
+		{
+			using (var support = AssemblyDefinition.ReadAssembly(assembly))
+			{
+				var types = support.MainModule.GetTypeReferences();
+				var supportReferences = types.Where(t => t.FullName.StartsWith("Android.Support.") || t.FullName.StartsWith("Android.Arch."));
+				if (hasSupportReference)
+					Assert.NotEmpty(supportReferences);
+				else
+					Assert.Empty(supportReferences);
+			}
+		}
+
+		[Theory]
 		[InlineData(ManagedSupportDll, ManagedAndroidXDll)]
 		[InlineData(BindingSupportDll, BindingAndroidXDll)]
 		public void AssembliesHaveTheSameNumberOfReferences(string supportDll, string androidXDll)
