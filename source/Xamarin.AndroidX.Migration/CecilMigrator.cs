@@ -155,6 +155,51 @@ namespace Xamarin.AndroidX.Migration
 
 		public bool MigrateJniString(string jniString, out string newJniString)
 		{
+			if (string.IsNullOrEmpty(jniString))
+			{
+				newJniString = null;
+				return false;
+			}
+
+			// process a straight type
+			if (TryMapJavaClass(jniString, out var registration))
+			{
+				newJniString = registration;
+				return true;
+			}
+
+			// process a method signature
+			var method = ParseMethodSignature(jniString, out var name);
+			if (method != null)
+			{
+				var changed = false;
+				var newjni = new StringBuilder();
+
+				newjni.Append("(");
+				foreach (var param in method.Parameters)
+				{
+					changed |= GetNewJniPart(param, out var newParam);
+					newjni.Append(newParam ?? param);
+				}
+				newjni.Append(")");
+
+				changed |= GetNewJniPart(method.ReturnTypeSignature, out var newReturn);
+				newjni.Append(newReturn ?? method.ReturnTypeSignature);
+
+				if (changed)
+				{
+					newJniString = newjni.ToString();
+					if (!string.IsNullOrEmpty(name))
+						newJniString = $"{name}.{newJniString}";
+				}
+				else
+				{
+					newJniString = null;
+				}
+
+				return changed;
+			}
+
 			newJniString = null;
 			return false;
 		}
@@ -222,10 +267,204 @@ namespace Xamarin.AndroidX.Migration
 
 		private CecilMigrationResult MigrateJniStrings(AssemblyDefinition assembly)
 		{
-			if (Verbose)
-				Console.WriteLine($"    *** Assembly contains JNI strings. ***");
+			var result = CecilMigrationResult.Skipped;
 
-			return CecilMigrationResult.Skipped;
+			foreach (var type in assembly.MainModule.GetTypes())
+			{
+				// no [Register] attribute means that this type cannot have any JNI
+				var registerAttribute = GetRegisterAttribute(type.CustomAttributes);
+				if (registerAttribute == null)
+					continue;
+
+				if (Verbose)
+					Console.WriteLine($"  Processing type '{type.FullName}'...");
+
+				if (MigrateRegisterAttribute(registerAttribute))
+					result |= CecilMigrationResult.ContainedJni;
+
+				// migrate the [Register] attributes on the properties
+				foreach (var property in type.Properties)
+				{
+					var propertyRegister = GetRegisterAttribute(property.CustomAttributes);
+					if (propertyRegister == null)
+						continue;
+
+					if (Verbose)
+						Console.WriteLine($"    Processing property '{property.Name}'...");
+
+					if (MigrateRegisterAttribute(propertyRegister))
+						result |= CecilMigrationResult.ContainedJni;
+				}
+
+				// migrate the [Register] attributes on the methods and the JNI in the bodies
+				foreach (var method in type.Methods)
+				{
+					var methodRegister = GetRegisterAttribute(method.CustomAttributes);
+
+					if (Verbose)
+						Console.WriteLine($"    Processing method '{method.Name}'...");
+
+					if (methodRegister != null && MigrateRegisterAttribute(methodRegister))
+						result |= CecilMigrationResult.ContainedJni;
+
+					if (MigrateMethodBody(method))
+						result |= CecilMigrationResult.ContainedJni;
+				}
+			}
+
+			return result;
+		}
+
+		private bool MigrateRegisterAttribute(CustomAttribute registerAttribute)
+		{
+			if (!registerAttribute.HasConstructorArguments)
+				return false;
+
+			var changed = false;
+
+			var args = registerAttribute.ConstructorArguments;
+			for (int i = 0; i < args.Count; i++)
+			{
+				if (args[i] is CustomAttributeArgument caa &&
+					caa.Type.FullName == StringFullName &&
+					MigrateJniString(caa.Value as string, out var newValue))
+				{
+					args[i] = new CustomAttributeArgument(caa.Type, newValue);
+					changed = true;
+				}
+			}
+
+			return changed;
+		}
+
+		private bool MigrateMethodBody(MethodDefinition method)
+		{
+			if (!method.HasBody)
+				return false;
+
+			var hasChanges = false;
+
+			foreach (var instruction in method.Body.Instructions)
+			{
+				if (instruction.OpCode != OpCodes.Ldstr ||
+					!(instruction.Operand is string operand) ||
+					string.IsNullOrWhiteSpace(operand))
+					continue;
+
+				if (MigrateJniString(operand, out var migratedJni))
+				{
+					instruction.Operand = migratedJni;
+					hasChanges = true;
+				}
+			}
+
+			return hasChanges;
+		}
+
+		private CustomAttribute GetRegisterAttribute(IList<CustomAttribute> attributes) =>
+			attributes.FirstOrDefault(attr => attr.AttributeType.FullName == RegisterAttributeFullName);
+
+		private bool TryMapJavaClass(string javaClass, out string newJavaClass)
+		{
+			if (string.IsNullOrEmpty(javaClass))
+			{
+				newJavaClass = null;
+				return false;
+			}
+
+			// try it straight
+			if (Mapping.TryGetAndroidXClass(javaClass, out var newClass))
+			{
+				newJavaClass = newClass.JavaFullName;
+				return true;
+			}
+
+			// work backwards, removing each nested class
+			string nested = "";
+			while (javaClass.Contains("$"))
+			{
+				nested = javaClass.Substring(javaClass.LastIndexOf("$")) + nested;
+				javaClass = javaClass.Substring(0, javaClass.LastIndexOf("$"));
+
+				if (Mapping.TryGetAndroidXClass(javaClass, out newClass))
+				{
+					newJavaClass = newClass.JavaFullName + nested;
+					return true;
+				}
+			}
+
+			newJavaClass = null;
+			return false;
+		}
+
+		private bool GetNewJniPart(string javaFullName, out string newJavaFullName)
+		{
+			newJavaFullName = null;
+
+			if (string.IsNullOrEmpty(javaFullName))
+				return false;
+
+			var semicolonIndex = javaFullName.IndexOf(';');
+			if (semicolonIndex != javaFullName.Length - 1)
+				return false;
+
+			var start = 0;
+			while (start < javaFullName.Length && (javaFullName[start] == '[' || javaFullName[start] == 'L'))
+				start++;
+
+			if (start <= 0 || start >= semicolonIndex)
+				return false;
+
+			var javaClass = javaFullName.Substring(start, semicolonIndex - start);
+			if (!TryMapJavaClass(javaClass, out var newFullName))
+				return false;
+
+			newJavaFullName = $"{javaFullName.Substring(0, start)}{newFullName};";
+			return true;
+		}
+
+		private MethodTypeSignature ParseMethodSignature(string support, out string name)
+		{
+			name = null;
+
+			// must have an open parenthesis
+			var openIndex = support.IndexOf('(');
+			if (openIndex < 0 || openIndex >= support.Length)
+				return null;
+
+			// must have a close parenthesis after the open
+			var closeIndex = support.IndexOf(')');
+			if (closeIndex <= openIndex || closeIndex >= support.Length)
+				return null;
+
+			// try the "(ABC)D"
+			if (openIndex == 0)
+			{
+				name = null;
+				return TryCreate(support);
+			}
+
+			// try the "name.(ABC)D"
+			var dotIndex = support.IndexOf('.');
+			if (dotIndex > 0 && dotIndex == openIndex - 1)
+			{
+				name = support.Substring(0, dotIndex);
+				return TryCreate(support.Substring(dotIndex + 1));
+			}
+
+			return null;
+
+			MethodTypeSignature TryCreate(string jni)
+			{
+				try
+				{
+					return new MethodTypeSignature(jni);
+				}
+				catch
+				{
+					return null;
+				}
+			}
 		}
 	}
 }

@@ -86,11 +86,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 			var migrator = new CecilMigrator();
 			var result = migrator.Migrate(supportDll, migratedDll);
 
-			// TODO: implement the JNI migration
-			if (false)
-			{
-				Assert.Equal(expectedResult, result);
-			}
+			Assert.Equal(expectedResult, result);
 
 			return migratedDll;
 		}
