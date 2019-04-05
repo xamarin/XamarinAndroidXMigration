@@ -36,7 +36,7 @@ namespace BindingsApp
 
 			fragment = native.CreateSimpleFragment(this);
 
-			base.SupportFragmentManager.BeginTransaction()
+			SupportFragmentManager.BeginTransaction()
 				.Replace(Resource.Id.frame, fragment)
 				.Commit();
 		}

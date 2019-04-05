@@ -16,7 +16,7 @@
 	</ItemGroup>
 
 	<Target Name="Build">
-		<JetifyFiles JetifierWrapperPath="$(JetifierWrapperPath)" Files="@(FilesToJetify)" Verbosity="true">
+		<JetifyFiles JetifierWrapperPath="$(JetifierWrapperPath)" Files="@(FilesToJetify)" Verbose="true">
 			<Output TaskParameter="JetifiedFiles" ItemName="JetifiedFiles" />
 		</JetifyFiles>
 		<Message Text="The jetified file path is %(JetifiedFiles.Identity)" />

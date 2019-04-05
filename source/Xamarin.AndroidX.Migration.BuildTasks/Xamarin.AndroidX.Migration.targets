@@ -225,10 +225,12 @@
             <!-- select all the app resources -->
             <_FilesToJetify Include="@(_AndroidResourceDest)"
                             Condition="'%(_AndroidResourceDest.Extension)' == '.xml'" />
+            <!-- add the .jar files -->
+            <_FilesToJetify Include="@(ExtractedJarImports)" />
         </ItemGroup>
 
         <Message Text="Jetifying: @(_FilesToJetify)" />
-        <JetifyFiles Files="@(_FilesToJetify->'%(Identity)')" Verbosity="true" />
+        <JetifyFiles Files="@(_FilesToJetify->'%(Identity)')" Verbose="true" />
 
         <Message Text="Android X Jetify complete." />
 

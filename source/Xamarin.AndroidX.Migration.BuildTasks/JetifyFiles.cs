@@ -27,7 +27,7 @@ namespace Xamarin.AndroidX.Migration.BuildTasks {
 		public ITaskItem [] JetifiedFiles { get; set; }
 		public string JetifierWrapperPath { get; set; }
 		public string ConfigurationPath { get; set; }
-		public bool Verbosity { get; set; }
+		public bool Verbose { get; set; }
 		public bool Dejetify { get; set; }
 		public bool IsStrict { get; set; }
 		public bool ShouldRebuildTopOfTree { get; set; }
@@ -79,7 +79,7 @@ namespace Xamarin.AndroidX.Migration.BuildTasks {
 
 			var jetifier = new Jetifier {
 				ConfigurationPath = ConfigurationPath,
-				Verbose = Verbosity,
+				Verbose = Verbose,
 				Dejetify = Dejetify,
 				IsStrict = IsStrict,
 				ShouldRebuildTopOfTree = ShouldRebuildTopOfTree,
