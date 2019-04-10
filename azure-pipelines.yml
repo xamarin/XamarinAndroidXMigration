@@ -7,6 +7,7 @@ jobs:
 
   - job: build_windows
     displayName: Build on Windows
+    timeoutInMinutes: 360
     pool:
       vmImage: vs2017-win2016
     steps:
@@ -30,6 +31,7 @@ jobs:
 
   - job: build_macos
     displayName: Build on macOS
+    timeoutInMinutes: 360
     pool:
       vmImage: macos-10.13
     steps:
