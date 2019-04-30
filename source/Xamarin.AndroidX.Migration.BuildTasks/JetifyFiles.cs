@@ -100,7 +100,7 @@ namespace Xamarin.AndroidX.Migration.BuildTasks {
 		public IEnumerable<MigrationPair> CreateMigrationPairs (ITaskItem [] files, ITaskItem [] jetifiedFiles)
 		{
 			var archivesToJetify = new List<MigrationPair> ();
-			var filesLength = files.Length;
+			var filesLength = files?.Length ?? 0;
 
 			for (int i = 0; i < filesLength; i++) {
 				var inputFile = files [i].ItemSpec;
