@@ -35,20 +35,35 @@ namespace Xamarin.AndroidX.Migration
 		#region Public Functionality
 
 		public bool Jetify (MigrationPair archives) =>
-			Jetify (new [] { archives });
+			Jetify (new [] { archives }, null);
+
+		public bool Jetify (MigrationPair archives, MigrationPair proGuards) =>
+			Jetify (new [] { archives }, new [] { proGuards });
 
 		public bool Jetify (string source, string destination) =>
-			Jetify (new [] { new MigrationPair (source, destination) });
+			Jetify (new [] { new MigrationPair (source, destination) }, null);
 
-		public bool Jetify (IEnumerable<MigrationPair> archives)
+		public bool Jetify (string archiveSource, string archiveDestination, string proGuardSource, string proGuardDestination) =>
+			Jetify (new [] { new MigrationPair (archiveSource, archiveDestination) }, new [] { new MigrationPair (proGuardSource, proGuardDestination) });
+
+		public bool Jetify (IEnumerable<MigrationPair> archives) =>
+			Jetify (archives, null);
+
+		public bool Jetify (IEnumerable<MigrationPair> archives, IEnumerable<MigrationPair> proGuards)
 		{
+			if (archives == null && proGuards == null) {
+				var message = $"There's nothing to jetify. Please, give \"{nameof (archives)}\" and/or \"{nameof (proGuards)}\" files to jetify.";
+				throw new ArgumentNullException (nameof (archives), message);
+			}
+
 			var assembly = typeof (Jetifier).Assembly;
 			var jetifierWrapperRoot = Path.Combine (Path.GetDirectoryName (assembly.Location), JetifierWrapperPath);
 			var jetifierWrapperJar = Path.Combine (jetifierWrapperRoot, JetifierWrapperJarName);
 			var jars = Directory.GetFiles (jetifierWrapperRoot, "*.jar");
 
 			var classPath = string.Join (Path.PathSeparator.ToString (), jars);
-			var archiveArgs = archives.Select (pair => $"-i \"{pair.Source}\" -o \"{pair.Destination}\"");
+			var archiveArgs = archives?.Select (pair => $"-i \"{pair.Source}\" -o \"{pair.Destination}\"") ?? new List<string> ();
+			var proGuardArgs = proGuards?.Select (pair => $"-pi \"{pair.Source}\" -po \"{pair.Destination}\"") ?? new List<string> ();
 			var c = !string.IsNullOrWhiteSpace (ConfigurationPath) ? $" -c \"{ConfigurationPath}\"" : "";
 			var l = Verbose ? $" -l verbose" : "";
 			var r = Dejetify ? " -r" : "";
@@ -59,7 +74,7 @@ namespace Xamarin.AndroidX.Migration
 			var h = PrintHelp ? " -h" : "";
 
 			var proc = Process.Start (new ProcessStartInfo (JavaPath) {
-				Arguments = $"-classpath \"{classPath}\" \"{JetifierWrapperMain}\" {string.Join (" ", archiveArgs)}{c}{l}{r}{s}{rebuildTopOfTree}{stripSignatures}{h}",
+				Arguments = $"-classpath \"{classPath}\" \"{JetifierWrapperMain}\" {string.Join (" ", archiveArgs)}{string.Join (" ", proGuardArgs)}{c}{l}{r}{s}{rebuildTopOfTree}{stripSignatures}{noParallel}{h}",
 				RedirectStandardOutput = true,
 				UseShellExecute = false
 			});
