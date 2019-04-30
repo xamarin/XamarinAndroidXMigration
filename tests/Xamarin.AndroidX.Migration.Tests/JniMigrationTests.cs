@@ -10,21 +10,21 @@ namespace Xamarin.AndroidX.Migration.Tests
 	public class JniMigrationTests : BaseTests
 	{
 		[Theory]
-		[CecilfyData(ManagedSupportDll, CecilMigrationResult.ContainedSupport)]
-		[CecilfyData(BindingSupportDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
-		[CecilfyData(MergedSupportDll, CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
-		public void MigrationDoesNotThrow(AvailableMigrators migrator, string assembly, CecilMigrationResult expectedResult)
+		[InlineData(ManagedSupportDll, CecilMigrationResult.ContainedSupport)]
+		[InlineData(BindingSupportDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
+		[InlineData(MergedSupportDll, CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
+		public void MigrationDoesNotThrow(string assembly, CecilMigrationResult expectedResult)
 		{
-			var mappedDll = RunMigration(migrator, assembly, expectedResult);
+			var mappedDll = RunMigration(assembly, expectedResult);
 
 			Assert.True(File.Exists(mappedDll));
 		}
 
 		[Theory]
-		[CecilfyData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
-		public void RegisterAttributesOnMethodsAreMappedCorrectly(AvailableMigrators migrator, string supportDll, string androidxDll, CecilMigrationResult expectedResult)
+		[InlineData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
+		public void RegisterAttributesOnMethodsAreMappedCorrectly(string supportDll, string androidxDll, CecilMigrationResult expectedResult)
 		{
-			var mappedDll = RunMigration(migrator, supportDll, expectedResult);
+			var mappedDll = RunMigration(supportDll, expectedResult);
 
 			using (var support = AssemblyDefinition.ReadAssembly(supportDll))
 			using (var mapped = AssemblyDefinition.ReadAssembly(mappedDll))
@@ -64,10 +64,10 @@ namespace Xamarin.AndroidX.Migration.Tests
 		}
 
 		[Theory]
-		[CecilfyData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
-		public void InstructionsInMethodsAreMappedCorrectly(AvailableMigrators migrator, string supportDll, string androidxDll, CecilMigrationResult expectedResult)
+		[InlineData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
+		public void InstructionsInMethodsAreMappedCorrectly(string supportDll, string androidxDll, CecilMigrationResult expectedResult)
 		{
-			var mappedDll = RunMigration(migrator, supportDll, expectedResult);
+			var mappedDll = RunMigration(supportDll, expectedResult);
 
 			using (var support = AssemblyDefinition.ReadAssembly(supportDll))
 			using (var mapped = AssemblyDefinition.ReadAssembly(mappedDll))

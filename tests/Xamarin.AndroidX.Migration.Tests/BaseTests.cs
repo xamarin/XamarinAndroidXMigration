@@ -69,14 +69,9 @@ namespace Xamarin.AndroidX.Migration.Tests
 			return destFile;
 		}
 
-		public static string RunMigration(AvailableMigrators migrator, string supportDll, CecilMigrationResult expectedResult)
+		public static string RunMigration(string supportDll, CecilMigrationResult expectedResult)
 		{
-			if (migrator == AvailableMigrators.CecilMigrator)
-				return RunCecilMigratorMigration(supportDll, expectedResult);
-			if (migrator == AvailableMigrators.AndroidXMigrator)
-				return RunAndroidXMigratorMigration(supportDll);
-
-			throw new ArgumentOutOfRangeException(nameof(migrator));
+			return RunCecilMigratorMigration(supportDll, expectedResult);
 		}
 
 		public static string RunCecilMigratorMigration(string supportDll, CecilMigrationResult expectedResult)

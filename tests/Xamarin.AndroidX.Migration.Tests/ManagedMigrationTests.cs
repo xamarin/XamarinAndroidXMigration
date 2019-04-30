@@ -1,4 +1,4 @@
-using Mono.Cecil;
+﻿using Mono.Cecil;
 using System.Linq;
 using Xunit;
 
@@ -56,11 +56,11 @@ namespace Xamarin.AndroidX.Migration.Tests
 		}
 
 		[Theory]
-		[CecilfyData(ManagedSupportDll, ManagedAndroidXDll, CecilMigrationResult.ContainedSupport)]
-		[CecilfyData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
-		public void AssembliesHaveTheSameTypesAfterMigration(AvailableMigrators migrator, string supportDll, string androidXDll, CecilMigrationResult expectedResult)
+		[InlineData(ManagedSupportDll, ManagedAndroidXDll, CecilMigrationResult.ContainedSupport)]
+		[InlineData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
+		public void AssembliesHaveTheSameTypesAfterMigration(string supportDll, string androidXDll, CecilMigrationResult expectedResult)
 		{
-			var migratedDll = RunMigration(migrator, supportDll, expectedResult);
+			var migratedDll = RunMigration(supportDll, expectedResult);
 
 			using (var migrated = AssemblyDefinition.ReadAssembly(migratedDll))
 			using (var androidx = AssemblyDefinition.ReadAssembly(androidXDll))
@@ -70,11 +70,11 @@ namespace Xamarin.AndroidX.Migration.Tests
 		}
 
 		[Theory]
-		[CecilfyData(ManagedSupportDll, ManagedAndroidXDll, CecilMigrationResult.ContainedSupport)]
-		[CecilfyData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
-		public void AssembliesHaveTheSameReferencesAfterMigration(AvailableMigrators migrator, string supportDll, string androidXDll, CecilMigrationResult expectedResult)
+		[InlineData(ManagedSupportDll, ManagedAndroidXDll, CecilMigrationResult.ContainedSupport)]
+		[InlineData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
+		public void AssembliesHaveTheSameReferencesAfterMigration(string supportDll, string androidXDll, CecilMigrationResult expectedResult)
 		{
-			var migratedDll = RunMigration(migrator, supportDll, expectedResult);
+			var migratedDll = RunMigration(supportDll, expectedResult);
 
 			using (var migrated = AssemblyDefinition.ReadAssembly(migratedDll))
 			using (var androidx = AssemblyDefinition.ReadAssembly(androidXDll))
@@ -86,11 +86,11 @@ namespace Xamarin.AndroidX.Migration.Tests
 		}
 
 		[Theory]
-		[CecilfyData(ManagedSupportDll, ManagedAndroidXDll, CecilMigrationResult.ContainedSupport)]
-		[CecilfyData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
-		public void AllTypesHaveTheSameMembers(AvailableMigrators migrator, string supportDll, string androidXDll, CecilMigrationResult expectedResult)
+		[InlineData(ManagedSupportDll, ManagedAndroidXDll, CecilMigrationResult.ContainedSupport)]
+		[InlineData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
+		public void AllTypesHaveTheSameMembers(string supportDll, string androidXDll, CecilMigrationResult expectedResult)
 		{
-			var migratedDll = RunMigration(migrator, supportDll, expectedResult);
+			var migratedDll = RunMigration(supportDll, expectedResult);
 
 			using (var migrated = AssemblyDefinition.ReadAssembly(migratedDll))
 			using (var androidx = AssemblyDefinition.ReadAssembly(androidXDll))
