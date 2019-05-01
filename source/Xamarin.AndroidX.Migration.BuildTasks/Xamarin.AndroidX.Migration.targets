@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-    <!--
-        TODO:
-         * _DoAndroidXResourceThings really needs to run AFTER convert cases and BEFORE compile resources
-         * The proguard config files need to be copied to an intermediate file and then jetifier needs to run on it
-         * Jetifier only believes files are proguard files if they are named "proguard.txt" exactly
-    -->
-
     <UsingTask TaskName="Xamarin.AndroidX.Migration.BuildTasks.CecifyFiles"
                AssemblyFile="$(MSBuildThisFileDirectory)Xamarin.AndroidX.Migration.BuildTasks.dll" />
     <UsingTask TaskName="Xamarin.AndroidX.Migration.BuildTasks.JetifyFiles"
@@ -15,8 +8,8 @@
 
     <PropertyGroup>
         <_ShouldRunAndroidXTools Condition="'$(_ShouldRunAndroidXTools)' == '' and '$(AndroidApplication)' == 'true' and '$(IsUsingAndroidXLibraries)' == 'true'">true</_ShouldRunAndroidXTools>
-        <_AndroidXIntermediateOutputPath>$(IntermediateOutputPath)androidx</_AndroidXIntermediateOutputPath>
-        <_AndroidXProguardIntermediateOutputPath>$(_AndroidXIntermediateOutputPath)proguard</_AndroidXProguardIntermediateOutputPath>
+        <_AndroidXIntermediateOutputPath>$(IntermediateOutputPath)androidx\</_AndroidXIntermediateOutputPath>
+        <_AndroidXProguardIntermediateOutputPath>$(_AndroidXIntermediateOutputPath)proguard\</_AndroidXProguardIntermediateOutputPath>
     </PropertyGroup>
 
     <!-- we want to ignore everything for the Android Support Java bits -->
@@ -195,7 +188,8 @@
                            Condition="'%(ResolvedUserAssemblies.AndroidXSkipAndroidXMigration)' == '' or '%(ResolvedUserAssemblies.AndroidXSkipAndroidXMigration)' == 'false'" />
         </ItemGroup>
 
-        <CecifyFiles Assemblies="@(_FileToCecify)" Verbose="true" />
+        <CecifyFiles Assemblies="@(_FileToCecify)"
+                     Verbose="true" />
 
         <Message Text="Android X Cecilfy complete." />
 
@@ -212,7 +206,8 @@
                            Condition="'%(_ResolvedUserMonoAndroidAssemblies.AndroidXSkipAndroidXMigration)' == '' or '%(_ResolvedUserMonoAndroidAssemblies.AndroidXSkipAndroidXMigration)' == 'false'" />
         </ItemGroup>
 
-        <CecifyFiles Assemblies="@(_FileToCecify)" Verbose="true" />
+        <CecifyFiles Assemblies="@(_FileToCecify)"
+                     Verbose="true" />
 
         <Message Text="Android X Cecilfy complete." />
 
@@ -228,7 +223,8 @@
         </ItemGroup>
 
         <Message Text="Jetifying: @(_FilesToJetify)" />
-        <JetifyFiles Files="@(_FileToJetify)" Verbose="true" />
+        <JetifyFiles Files="@(_FileToJetify)"
+                     Verbose="true" />
 
         <Message Text="Android X Jetify on AndroidManifest.xml complete." />
 
@@ -254,7 +250,7 @@
 
     </Target>
 
-    <!-- <Target Name="_DoAndroidXProguardThings" BeforeTargets="_CompileToDalvikWithD8;_CompileToDalvikWithDx"
+    <Target Name="_DoAndroidXProguardThings" BeforeTargets="_CompileToDalvikWithD8;_CompileToDalvikWithDx"
             Condition="'$(_ShouldRunAndroidXTools)' == 'true'">
 
         <Message Text="Running Android X Jetify on ProGuard files..." />
@@ -264,12 +260,20 @@
         </ItemGroup>
 
         <Message Text="Jetifying: @(_ProguardsToJetify)" />
-        <JetifyFiles ProGuardFiles="@(_ProguardsToJetify->'%(Identity)')" Verbose="true">
-            <Output TaskParameter="JetifiedProGuardFiles" PropertyName="_ProguardsJetified" />
-        </JetifyFiles>
+        <RemoveDir Directories="$(_AndroidXProguardIntermediateOutputPath)" />
+        <JetifyFiles Files="@(_ProguardsToJetify)"
+                     JetifiedDirectory="$(_AndroidXProguardIntermediateOutputPath)"
+                     IsProGuard="true"
+                     Verbose="true" />
+
+        <ItemGroup>
+            <ProguardConfiguration Remove="@(ProguardConfiguration)" />
+            <ProguardConfiguration Include="$(_AndroidXProguardIntermediateOutputPath)*" />
+            <FileWrites Include="@(ProguardConfiguration)" />
+        </ItemGroup>
 
         <Message Text="Android X Jetify on ProGuard files complete." />
 
-    </Target> -->
+    </Target>
 
 </Project>

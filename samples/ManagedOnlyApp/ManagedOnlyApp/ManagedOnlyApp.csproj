@@ -101,6 +101,9 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProguardConfiguration Include="proguard.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\..\output\Xamarin.AndroidX.Migration.BuildTasks\Xamarin.AndroidX.Migration.targets" Condition="'$(UseMigratorNuGetPackages)' != 'true'" />
 </Project>
