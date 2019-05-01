@@ -21,21 +21,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.AndroidX.Migration"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "androidx-migrator", "source\androidx-migrator\androidx-migrator.csproj", "{C110FCE9-90B5-4CD8-93F3-20F1E3F9D1A9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.AndroidX.Cecilfier", "source\Xamarin.AndroidX.Cecilfier\Xamarin.AndroidX.Cecilfier.csproj", "{E08BF419-069D-4177-9035-CFB25889F5B9}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "externals", "externals", "{F422DC0C-A441-47E9-ABAE-24D7ED879C85}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Android.Tools.Bytecode", "externals\Java.Interop\src\Xamarin.Android.Tools.Bytecode\Xamarin.Android.Tools.Bytecode.csproj", "{B17475BC-45A2-47A3-B8FC-62F3A0959EE0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.AndroidX.Migration.BuildTasks", "source\Xamarin.AndroidX.Migration.BuildTasks\Xamarin.AndroidX.Migration.BuildTasks.csproj", "{C6EBD819-D99B-4F21-8D8D-EA0C26B0E67E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Xamarin.AndroidX.Cecilfier", "source\App.Xamarin.AndroidX.Cecilfier\App.Xamarin.AndroidX.Cecilfier.csproj", "{943F2B19-12CD-4344-8B0A-84B0EF61BDEE}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Xamarin.AndroidX.Mapper", "source\App.Xamarin.AndroidX.Mapper\App.Xamarin.AndroidX.Mapper.csproj", "{2CCCF8C5-498B-4105-B270-3822954E46DC}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.AndroidX.Data", "source\Xamarin.AndroidX.Data\Xamarin.AndroidX.Data.csproj", "{798CA1B3-11D6-4F21-B9F1-2D981DDB8D3F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.AndroidX.Mapper", "source\Xamarin.AndroidX.Mapper\Xamarin.AndroidX.Mapper.csproj", "{E3AFD520-57D9-4313-AF03-634B0D434470}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,10 +61,6 @@ Global
 		{C110FCE9-90B5-4CD8-93F3-20F1E3F9D1A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C110FCE9-90B5-4CD8-93F3-20F1E3F9D1A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C110FCE9-90B5-4CD8-93F3-20F1E3F9D1A9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E08BF419-069D-4177-9035-CFB25889F5B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E08BF419-069D-4177-9035-CFB25889F5B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E08BF419-069D-4177-9035-CFB25889F5B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E08BF419-069D-4177-9035-CFB25889F5B9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B17475BC-45A2-47A3-B8FC-62F3A0959EE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B17475BC-45A2-47A3-B8FC-62F3A0959EE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B17475BC-45A2-47A3-B8FC-62F3A0959EE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -83,22 +69,6 @@ Global
 		{C6EBD819-D99B-4F21-8D8D-EA0C26B0E67E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6EBD819-D99B-4F21-8D8D-EA0C26B0E67E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6EBD819-D99B-4F21-8D8D-EA0C26B0E67E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{943F2B19-12CD-4344-8B0A-84B0EF61BDEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{943F2B19-12CD-4344-8B0A-84B0EF61BDEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{943F2B19-12CD-4344-8B0A-84B0EF61BDEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{943F2B19-12CD-4344-8B0A-84B0EF61BDEE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2CCCF8C5-498B-4105-B270-3822954E46DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2CCCF8C5-498B-4105-B270-3822954E46DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2CCCF8C5-498B-4105-B270-3822954E46DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2CCCF8C5-498B-4105-B270-3822954E46DC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{798CA1B3-11D6-4F21-B9F1-2D981DDB8D3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{798CA1B3-11D6-4F21-B9F1-2D981DDB8D3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{798CA1B3-11D6-4F21-B9F1-2D981DDB8D3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{798CA1B3-11D6-4F21-B9F1-2D981DDB8D3F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E3AFD520-57D9-4313-AF03-634B0D434470}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E3AFD520-57D9-4313-AF03-634B0D434470}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E3AFD520-57D9-4313-AF03-634B0D434470}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E3AFD520-57D9-4313-AF03-634B0D434470}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,13 +81,8 @@ Global
 		{10832A33-2961-4B0D-8977-7BE49B391F16} = {6E6A8AA4-CAD6-47F4-B4AD-767E62854548}
 		{F22FB2D5-8920-4C8F-9807-0D1E13A16742} = {AB12F426-C62D-40D7-958C-F39E9915BCDB}
 		{C110FCE9-90B5-4CD8-93F3-20F1E3F9D1A9} = {AB12F426-C62D-40D7-958C-F39E9915BCDB}
-		{E08BF419-069D-4177-9035-CFB25889F5B9} = {AB12F426-C62D-40D7-958C-F39E9915BCDB}
 		{B17475BC-45A2-47A3-B8FC-62F3A0959EE0} = {F422DC0C-A441-47E9-ABAE-24D7ED879C85}
 		{C6EBD819-D99B-4F21-8D8D-EA0C26B0E67E} = {AB12F426-C62D-40D7-958C-F39E9915BCDB}
-		{943F2B19-12CD-4344-8B0A-84B0EF61BDEE} = {AB12F426-C62D-40D7-958C-F39E9915BCDB}
-		{2CCCF8C5-498B-4105-B270-3822954E46DC} = {AB12F426-C62D-40D7-958C-F39E9915BCDB}
-		{798CA1B3-11D6-4F21-B9F1-2D981DDB8D3F} = {AB12F426-C62D-40D7-958C-F39E9915BCDB}
-		{E3AFD520-57D9-4313-AF03-634B0D434470} = {AB12F426-C62D-40D7-958C-F39E9915BCDB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8C146F1E-AE90-4D07-9920-5956E1C57719}
