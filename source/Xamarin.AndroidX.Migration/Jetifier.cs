@@ -23,6 +23,7 @@ namespace Xamarin.AndroidX.Migration
 		public bool IsStrict { get; set; }
 		public bool ShouldRebuildTopOfTree { get; set; }
 		public bool ShouldStripSignatures { get; set; }
+		public bool IsProGuard { get; set; }
 		public bool NoParallel { get; set; }
 		public bool PrintHelp { get; set; }
 
@@ -35,24 +36,15 @@ namespace Xamarin.AndroidX.Migration
 		#region Public Functionality
 
 		public bool Jetify (MigrationPair archives) =>
-			Jetify (new [] { archives }, null);
-
-		public bool Jetify (MigrationPair archives, MigrationPair proGuards) =>
-			Jetify (new [] { archives }, new [] { proGuards });
+			Jetify (new [] { archives });
 
 		public bool Jetify (string source, string destination) =>
-			Jetify (new [] { new MigrationPair (source, destination) }, null);
+			Jetify (new [] { new MigrationPair (source, destination) });
 
-		public bool Jetify (string archiveSource, string archiveDestination, string proGuardSource, string proGuardDestination) =>
-			Jetify (new [] { new MigrationPair (archiveSource, archiveDestination) }, new [] { new MigrationPair (proGuardSource, proGuardDestination) });
-
-		public bool Jetify (IEnumerable<MigrationPair> archives) =>
-			Jetify (archives, null);
-
-		public bool Jetify (IEnumerable<MigrationPair> archives, IEnumerable<MigrationPair> proGuards)
+		public bool Jetify (IEnumerable<MigrationPair> archives)
 		{
-			if (archives == null && proGuards == null) {
-				var message = $"There's nothing to jetify. Please, give \"{nameof (archives)}\" and/or \"{nameof (proGuards)}\" files to jetify.";
+			if (archives == null) {
+				var message = $"There's nothing to jetify. Please, give \"{nameof (archives)}\" files to jetify.";
 				throw new ArgumentNullException (nameof (archives), message);
 			}
 
@@ -63,18 +55,18 @@ namespace Xamarin.AndroidX.Migration
 
 			var classPath = string.Join (Path.PathSeparator.ToString (), jars);
 			var archiveArgs = archives?.Select (pair => $"-i \"{pair.Source}\" -o \"{pair.Destination}\"") ?? new List<string> ();
-			var proGuardArgs = proGuards?.Select (pair => $"-pi \"{pair.Source}\" -po \"{pair.Destination}\"") ?? new List<string> ();
 			var c = !string.IsNullOrWhiteSpace (ConfigurationPath) ? $" -c \"{ConfigurationPath}\"" : "";
 			var l = Verbose ? $" -l verbose" : "";
 			var r = Dejetify ? " -r" : "";
 			var s = IsStrict ? " -s" : "";
 			var rebuildTopOfTree = ShouldRebuildTopOfTree ? " -rebuildTopOfTree" : "";
 			var stripSignatures = ShouldStripSignatures ? " -stripSignatures" : "";
+			var isProGuard = IsProGuard ? " -isProGuard" : "";
 			var noParallel = NoParallel ? " -noParallel" : "";
 			var h = PrintHelp ? " -h" : "";
 
 			var proc = Process.Start (new ProcessStartInfo (JavaPath) {
-				Arguments = $"-classpath \"{classPath}\" \"{JetifierWrapperMain}\" {string.Join (" ", archiveArgs)}{string.Join (" ", proGuardArgs)}{c}{l}{r}{s}{rebuildTopOfTree}{stripSignatures}{noParallel}{h}",
+				Arguments = $"-classpath \"{classPath}\" \"{JetifierWrapperMain}\" {string.Join (" ", archiveArgs)}{c}{l}{r}{s}{rebuildTopOfTree}{stripSignatures}{isProGuard}{noParallel}{h}",
 				RedirectStandardOutput = true,
 				UseShellExecute = false
 			});
