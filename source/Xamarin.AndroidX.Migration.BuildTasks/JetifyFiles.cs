@@ -26,10 +26,6 @@ namespace Xamarin.AndroidX.Migration.BuildTasks {
 		[Output]
 		public ITaskItem [] JetifiedFiles { get; set; }
 
-		public ITaskItem [] ProGuardFiles { get; set; }
-		[Output]
-		public ITaskItem [] JetifiedProGuardFiles { get; set; }
-
 		public string JetifierWrapperPath { get; set; }
 		public string ConfigurationPath { get; set; }
 		public bool Verbose { get; set; }
@@ -37,6 +33,7 @@ namespace Xamarin.AndroidX.Migration.BuildTasks {
 		public bool IsStrict { get; set; }
 		public bool ShouldRebuildTopOfTree { get; set; }
 		public bool ShouldStripSignatures { get; set; }
+		public bool IsProGuard { get; set; }
 		public bool NoParallel { get; set; }
 		public bool PrintHelp { get; set; }
 		public bool NoOverrideFiles { get; set; }
@@ -46,27 +43,20 @@ namespace Xamarin.AndroidX.Migration.BuildTasks {
 		public override bool Execute ()
 		{
 			string message;
-			if (Files == null && ProGuardFiles == null) {
-				message = $"There's nothing to jetify. Please, set the \"{nameof (Files)}\" and/or the \"{nameof (ProGuardFiles)}\" attributes.";
-				Log.LogErrorFromException (new ArgumentNullException (nameof (Files), message));
+			if (Files == null || Files.Length == 0) {
+				message = $"There's nothing to jetify. Please, set the \"{nameof (Files)}\" attribute.";
+				var exception = new ArgumentNullException (nameof (Files), message);
+				Log.LogErrorFromException (exception);
+				throw exception;
+			}
+
+			if (NoOverrideFiles && Files.Length != JetifiedFiles?.Length) {
+				message = $"The length of {nameof (Files)} and {nameof (JetifiedFiles)} must be the same.";
+				Log.LogError (message);
 				return false;
 			}
 
-			if (NoOverrideFiles) {
-				message = "The length of {0} and {1} must be the same.";
-				if (Files?.Length != JetifiedFiles?.Length) {
-					Log.LogError (string.Format (message, nameof (Files), nameof (JetifiedFiles)));
-					return false;
-				}
-
-				if (ProGuardFiles?.Length != JetifiedProGuardFiles?.Length) {
-					Log.LogError (string.Format (message, nameof (ProGuardFiles), nameof (JetifiedProGuardFiles)));
-					return false;
-				}
-			}
-
 			var archivesToJetify = CreateMigrationPairs (Files, JetifiedFiles);
-			var proGuardsToJetify = CreateMigrationPairs (ProGuardFiles, JetifiedProGuardFiles);
 
 			var jetifier = new Jetifier {
 				ConfigurationPath = ConfigurationPath,
@@ -75,12 +65,13 @@ namespace Xamarin.AndroidX.Migration.BuildTasks {
 				IsStrict = IsStrict,
 				ShouldRebuildTopOfTree = ShouldRebuildTopOfTree,
 				ShouldStripSignatures = ShouldStripSignatures,
+				IsProGuard = IsProGuard,
 				NoParallel = NoParallel,
 				PrintHelp = PrintHelp
 			};
 
 			try {
-				jetifier.Jetify (archivesToJetify, proGuardsToJetify);
+				jetifier.Jetify (archivesToJetify);
 			} catch (Exception ex) {
 				Log.LogErrorFromException (ex, true);
 				return false;
@@ -88,9 +79,6 @@ namespace Xamarin.AndroidX.Migration.BuildTasks {
 
 			if (JetifiedFiles == null)
 				JetifiedFiles = archivesToJetify.Select (a => new TaskItem (a.Destination)).ToArray ();
-
-			if (JetifiedProGuardFiles == null)
-				JetifiedProGuardFiles = proGuardsToJetify.Select (p => new TaskItem (p.Destination)).ToArray ();
 
 			return true;
 		}
