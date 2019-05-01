@@ -12,7 +12,6 @@ import com.android.tools.build.jetifier.processor.transform.proguard.ProGuardTra
 import org.apache.commons.cli.*;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;
@@ -27,14 +26,13 @@ public class Main {
     private static final Options OPTIONS;
     private static Option INPUT_OPTION;
     private static Option OUTPUT_OPTION;
-    private static Option PRO_GUARD_INPUT_OPTION;
-    private static Option PRO_GUARD_OUTPUT_OPTION;
     private static Option CONFIG_OPTION;
     private static Option LOG_LEVEL_OPTION;
     private static Option REVERSED_OPTION;
     private static Option STRICT_OPTION;
     private static Option REBUILD_TOP_OF_TREE_OPTION;
     private static Option STRIP_SIGNATURES_OPTION;
+    private static Option PRO_GUARD_OPTION;
     private static Option PARALLEL_OPTION;
     private static Option NO_PARALLEL_OPTION;
     private static Option HELP_OPTION;
@@ -43,13 +41,13 @@ public class Main {
     private static boolean IS_STRICT;
     private static boolean SHOULD_REBUILD_TOP_OF_TREE;
     private static boolean SHOULD_STRIP_SIGNATURES;
+    private static boolean IS_PRO_GUARD;
+    private static boolean SHOULD_RUN_IN_SERIAL;
 
     private static CommandLine COMMAND_LINE;
 
     private static String[] INPUT_VALUES;
     private static String[] OUTPUT_VALUES;
-    private static String[] PRO_GUARD_INPUT_VALUES;
-    private static String[] PRO_GUARD_OUTPUT_VALUES;
 
     private static Config JETIFIER_CONFIG;
     private static Processor JETIFIER_PROCESSOR;
@@ -94,36 +92,11 @@ public class Main {
             return;
         }
 
-        inputsLength = 0;
-        outputsLength = 0;
-
-        if (COMMAND_LINE.hasOption(PRO_GUARD_INPUT_OPTION.getOpt())) {
-            PRO_GUARD_INPUT_VALUES = COMMAND_LINE.getOptionValues(PRO_GUARD_INPUT_OPTION.getOpt());
-            inputsLength = PRO_GUARD_INPUT_VALUES.length;
-        }
-
-        if (COMMAND_LINE.hasOption(PRO_GUARD_OUTPUT_OPTION.getOpt())) {
-            PRO_GUARD_OUTPUT_VALUES = COMMAND_LINE.getOptionValues(PRO_GUARD_OUTPUT_OPTION.getOpt());
-            outputsLength = PRO_GUARD_OUTPUT_VALUES.length;
-        }
-
-        if (inputsLength != outputsLength) {
-            Log.INSTANCE.e("Main", "The length of proguards inputs and outputs must be the same.");
-            printHelp();
-            System.exit(1);
-            return;
-        }
-
-        String[] arguments = getArgumentsForJetifier();
         JETIFIER_CONFIG = ConfigParser.INSTANCE.loadDefaultConfig();
-        JETIFIER_PROCESSOR = Processor.Companion.createProcessor3(JETIFIER_CONFIG, IS_REVERSED, SHOULD_REBUILD_TOP_OF_TREE, !IS_STRICT, false, SHOULD_STRIP_SIGNATURES, null);
-        PRO_GUARD_TRANSFORMER = createProGuardTransformer();
+        String[] arguments = getArgumentsForJetifier();
 
         try {
-            if (COMMAND_LINE.hasOption(NO_PARALLEL_OPTION.getOpt()))
                 executeJetifier(arguments);
-            else
-                executeJetifierInParallel(arguments);
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
@@ -156,8 +129,7 @@ public class Main {
             OPTIONS.addOption(createOption(option.getOpt(), option.getLongOpt(), description, hasArguments, option.isRequired()));
         }
 
-        OPTIONS.addOption(createOption("pi", "proGuardInput", "Input proGuard file path. Can be used multiple times", true, false));
-        OPTIONS.addOption(createOption("po", "proGuardOutput", "Output proGuard file path. Can be used multiple times", true, false));
+        OPTIONS.addOption(createOption("isProGuard", "isProGuard", "Files should be processed as ProGuard files.", false, false));
         OPTIONS.addOption(createOption("p", "parallel", "Jetifiy the aar/zip files in parallel. This is by default. Cannot be used with noParallel", false, false));
         OPTIONS.addOption(createOption("noParallel", "noParallel", "Jetifiy the aar/zip files in sequential. Cannot be used with p|parallel", false, false));
         OPTIONS.addOption(createOption("h", "help", "Show this message", false, false));
@@ -172,14 +144,13 @@ public class Main {
     private static void assignOptions() {
         INPUT_OPTION = OPTIONS.getOption("i");
         OUTPUT_OPTION = OPTIONS.getOption("o");
-        PRO_GUARD_INPUT_OPTION = OPTIONS.getOption("pi");
-        PRO_GUARD_OUTPUT_OPTION = OPTIONS.getOption("po");
         CONFIG_OPTION = OPTIONS.getOption("c");
         LOG_LEVEL_OPTION = OPTIONS.getOption("l");
         REVERSED_OPTION = OPTIONS.getOption("r");
         STRICT_OPTION = OPTIONS.getOption("s");
         REBUILD_TOP_OF_TREE_OPTION = OPTIONS.getOption("rebuildTopOfTree");
         STRIP_SIGNATURES_OPTION = OPTIONS.getOption("stripSignatures");
+        PRO_GUARD_OPTION = OPTIONS.getOption("isProGuard");
         PARALLEL_OPTION = OPTIONS.getOption("p");
         NO_PARALLEL_OPTION = OPTIONS.getOption("noParallel");
         HELP_OPTION = OPTIONS.getOption("h");
@@ -206,98 +177,43 @@ public class Main {
     }
 
     private static void executeJetifier(String[] arguments) throws IOException {
-        Log.INSTANCE.i("Main", "Executing jetifier tool in sequential way.");
-
         int argumentsLength = arguments.length;
         int inputsLength = INPUT_VALUES.length;
+        int numberOfThreads = SHOULD_RUN_IN_SERIAL ? 1 : inputsLength > MAX_THREADS ? MAX_THREADS : inputsLength;
+        String way = SHOULD_RUN_IN_SERIAL ? "serial" : "parallel";
 
-        for (int i = 0, j = argumentsLength - 3; i < inputsLength; i++) {
-            String inputFile = INPUT_VALUES[i];
-            String outputFile = OUTPUT_VALUES[i];
+        Log.INSTANCE.i("Main", "Executing jetifier tool in " + way + "way.");
 
-            Log.INSTANCE.v("Main", "Jetifiying " + inputFile + " file into " + outputFile + " file.");
-
-            if (inputFile.toLowerCase().endsWith(".aar") || inputFile.toLowerCase().endsWith(".zip") || inputFile.toLowerCase().endsWith(".jar")) {
-                String[] iterationArguments = Arrays.copyOf(arguments, argumentsLength);
-                iterationArguments[j] = inputFile;
-                iterationArguments[j + 2] = outputFile;
-
-                Companion.main(iterationArguments);
-            } else {
-                ArchiveFile archiveFile = getArchiveFile(inputFile);
-                JETIFIER_PROCESSOR.visit(archiveFile);
-                save(archiveFile, outputFile);
-            }
-
-            Log.INSTANCE.v("Main", "File " + inputFile + " jetified into " + outputFile + " file.");
-        }
-
-        if (PRO_GUARD_INPUT_VALUES == null)
-            return;
-
-        inputsLength = PRO_GUARD_INPUT_VALUES.length;
-
-        for (int i = 0; i < inputsLength; i++) {
-            String inputFile = PRO_GUARD_INPUT_VALUES[i];
-            String outputFile = PRO_GUARD_OUTPUT_VALUES[i];
-
-            Log.INSTANCE.v("Main", "Jetifiying " + inputFile + " file into " + outputFile + " file.");
-            ArchiveFile archiveFile = getArchiveFile(inputFile);
-            PRO_GUARD_TRANSFORMER.runTransform(archiveFile);
-            save(archiveFile, outputFile);
-
-            Log.INSTANCE.v("Main", "File " + inputFile + " jetified into " + outputFile + " file.");
-        }
-    }
-
-    private static void executeJetifierInParallel(String[] arguments) throws IOException {
-        Log.INSTANCE.i("Main", "Executing jetifier tool in parallel way.");
-
-        int argumentsLength = arguments.length;
-        int inputsLength = INPUT_VALUES.length;
-
-        int numberOfThreads = inputsLength > MAX_THREADS ? MAX_THREADS : inputsLength;
         ExecutorService executor = Executors.newFixedThreadPool(numberOfThreads);
         List<Future<JetifierData>> jetifierWorks = new ArrayList<>();
 
+        if (!IS_PRO_GUARD) {
+            JETIFIER_PROCESSOR = Processor.Companion.createProcessor3(JETIFIER_CONFIG, IS_REVERSED, SHOULD_REBUILD_TOP_OF_TREE, !IS_STRICT, false, SHOULD_STRIP_SIGNATURES, null);
+        } else
+            PRO_GUARD_TRANSFORMER = createProGuardTransformer();
+
         for (int i = 0, j = argumentsLength - 3; i < inputsLength; i++) {
             String inputFile = INPUT_VALUES[i];
             String outputFile = OUTPUT_VALUES[i];
 
-            FileMapping fileMapping = new FileMapping(new File (inputFile), new File (outputFile));
+            FileMapping fileMapping = new FileMapping(new File(inputFile), new File(outputFile));
             String[] iterationArguments = null;
             ArchiveItem archiveItem = null;
             JetifierData jetifierData = null;
 
-            if (inputFile.toLowerCase().endsWith(".aar") || inputFile.toLowerCase().endsWith(".zip") || inputFile.toLowerCase().endsWith(".jar")) {
+            if (!IS_PRO_GUARD && (inputFile.toLowerCase().endsWith(".aar") || inputFile.toLowerCase().endsWith(".zip") || inputFile.toLowerCase().endsWith(".jar"))) {
                 iterationArguments = Arrays.copyOf(arguments, argumentsLength);
                 iterationArguments[j] = inputFile;
                 iterationArguments[j + 2] = outputFile;
-            } else {
+            } else
                 archiveItem = getArchiveFile(inputFile);
-            }
 
             if (archiveItem == null)
                 jetifierData = new JetifierData(fileMapping, iterationArguments);
-            else
+            else if (!IS_PRO_GUARD)
                 jetifierData = new JetifierData(fileMapping, archiveItem, JETIFIER_PROCESSOR);
-
-            Log.INSTANCE.v("Main", "Jetifiying " + inputFile + " file into " + outputFile + " file.");
-
-            Callable<JetifierData> jetifier = new JetifierCallable(jetifierData);
-            Future<JetifierData> jetifierWork = executor.submit(jetifier);
-            jetifierWorks.add(jetifierWork);
-        }
-
-        inputsLength = PRO_GUARD_INPUT_VALUES != null ? PRO_GUARD_INPUT_VALUES.length : 0;
-
-        for (int i = 0; i < inputsLength; i++) {
-            String inputFile = PRO_GUARD_INPUT_VALUES[i];
-            String outputFile = PRO_GUARD_OUTPUT_VALUES[i];
-
-            FileMapping fileMapping = new FileMapping(new File(inputFile), new File(outputFile));
-            ArchiveItem archiveItem = getArchiveFile(inputFile);
-            JetifierData jetifierData = new JetifierData(fileMapping, archiveItem, PRO_GUARD_TRANSFORMER);
+            else
+                jetifierData = new JetifierData(fileMapping, archiveItem, PRO_GUARD_TRANSFORMER);
 
             Log.INSTANCE.v("Main", "Jetifiying " + inputFile + " file into " + outputFile + " file.");
 
@@ -351,6 +267,9 @@ public class Main {
         if (SHOULD_STRIP_SIGNATURES)
             argumentsList.add("-" + STRIP_SIGNATURES_OPTION.getOpt());
 
+        IS_PRO_GUARD = COMMAND_LINE.hasOption(PRO_GUARD_OPTION.getOpt());
+        SHOULD_RUN_IN_SERIAL = COMMAND_LINE.hasOption(NO_PARALLEL_OPTION.getOpt());
+
         argumentsList.add("-i");
         argumentsList.add("");
         argumentsList.add("-o");
@@ -364,11 +283,6 @@ public class Main {
         Path path = Paths.get(inputFilename);
         byte[] fileContent = Files.readAllBytes(path);
         return new ArchiveFile(path, fileContent);
-    }
-
-    private static void save(ArchiveItem archiveItem, String outputFilename) throws IOException {
-        FileOutputStream outputStream = new FileOutputStream(outputFilename);
-        archiveItem.writeSelfTo(outputStream);
     }
 
     static {
