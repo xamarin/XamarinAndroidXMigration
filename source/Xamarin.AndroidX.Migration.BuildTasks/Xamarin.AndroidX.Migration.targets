@@ -15,6 +15,8 @@
 
     <PropertyGroup>
         <_ShouldRunAndroidXTools Condition="'$(_ShouldRunAndroidXTools)' == '' and '$(AndroidApplication)' == 'true' and '$(IsUsingAndroidXLibraries)' == 'true'">true</_ShouldRunAndroidXTools>
+        <_AndroidXIntermediateOutputPath>$(IntermediateOutputPath)androidx</_AndroidXIntermediateOutputPath>
+        <_AndroidXProguardIntermediateOutputPath>$(_AndroidXIntermediateOutputPath)proguard</_AndroidXProguardIntermediateOutputPath>
     </PropertyGroup>
 
     <!-- we want to ignore everything for the Android Support Java bits -->
@@ -182,7 +184,7 @@
         <AndroidCustomMetaDataForReferences Include="@(_AndroidXAssembliesToSkip)" />
     </ItemGroup>
 
-    <Target Name="_DoAndroidXCecilThingsShrink" BeforeTargets="_LinkAssembliesShrink"
+    <Target Name="_DoAndroidXCecilShrinkThings" BeforeTargets="_LinkAssembliesShrink"
             Condition="'$(_ShouldRunAndroidXTools)' == 'true' and '$(AndroidLinkMode)' != 'None'">
 
         <Message Text="Running Android X Cecilfy..." />
@@ -199,7 +201,7 @@
 
     </Target>
 
-    <Target Name="_DoAndroidXCecilThingsNoShrink" BeforeTargets="_GenerateJavaStubs"
+    <Target Name="_DoAndroidXCecilNoShrinkThings" BeforeTargets="_GenerateJavaStubs"
             Condition="'$(_ShouldRunAndroidXTools)' == 'true' and '$(AndroidLinkMode)' == 'None'">
 
         <Message Text="Running Android X Cecilfy..." />
@@ -213,6 +215,22 @@
         <CecifyFiles Assemblies="@(_FileToCecify)" Verbose="true" />
 
         <Message Text="Android X Cecilfy complete." />
+
+    </Target>
+
+    <Target Name="_DoAndroidXManifestThings" AfterTargets="_GenerateJavaStubs"
+            Condition="'$(_ShouldRunAndroidXTools)' == 'true'">
+
+        <Message Text="Running Android X Jetify on AndroidManifest.xml..." />
+
+        <ItemGroup>
+            <_FileToJetify Include="$(IntermediateOutputPath)android\AndroidManifest.xml" />
+        </ItemGroup>
+
+        <Message Text="Jetifying: @(_FilesToJetify)" />
+        <JetifyFiles Files="@(_FileToJetify)" Verbose="true" />
+
+        <Message Text="Android X Jetify on AndroidManifest.xml complete." />
 
     </Target>
 
@@ -230,10 +248,28 @@
         </ItemGroup>
 
         <Message Text="Jetifying: @(_FilesToJetify)" />
-        <JetifyFiles Files="@(_FilesToJetify->'%(Identity)')" Verbose="true" />
+        <JetifyFiles Files="@(_FilesToJetify)" Verbose="true" />
 
         <Message Text="Android X Jetify complete." />
 
     </Target>
+
+    <!-- <Target Name="_DoAndroidXProguardThings" BeforeTargets="_CompileToDalvikWithD8;_CompileToDalvikWithDx"
+            Condition="'$(_ShouldRunAndroidXTools)' == 'true'">
+
+        <Message Text="Running Android X Jetify on ProGuard files..." />
+
+        <ItemGroup>
+            <_ProguardsToJetify Include="@(ProguardConfiguration)" />
+        </ItemGroup>
+
+        <Message Text="Jetifying: @(_ProguardsToJetify)" />
+        <JetifyFiles ProGuardFiles="@(_ProguardsToJetify->'%(Identity)')" Verbose="true">
+            <Output TaskParameter="JetifiedProGuardFiles" PropertyName="_ProguardsJetified" />
+        </JetifyFiles>
+
+        <Message Text="Android X Jetify on ProGuard files complete." />
+
+    </Target> -->
 
 </Project>
