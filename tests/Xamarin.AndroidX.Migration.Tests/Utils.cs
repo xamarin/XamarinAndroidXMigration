@@ -6,8 +6,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Xunit;
-using HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineator;
 
 namespace Xamarin.AndroidX.Migration.Tests
 {

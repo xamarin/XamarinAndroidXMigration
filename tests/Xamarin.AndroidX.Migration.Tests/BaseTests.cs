@@ -1,9 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using Xunit;
-using HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineator;
 
 namespace Xamarin.AndroidX.Migration.Tests
 {
@@ -85,21 +83,5 @@ namespace Xamarin.AndroidX.Migration.Tests
 
 			return migratedDll;
 		}
-
-		public static string RunAndroidXMigratorMigration(string supportDll)
-		{
-			var migratedDll = Utils.GetTempFilename();
-
-			var migrator = new AndroidXMigrator(supportDll, migratedDll);
-			migrator.Migrate();
-
-			return $"{migratedDll}.redth.dll";
-		}
-	}
-
-	public enum AvailableMigrators
-	{
-		CecilMigrator,
-		AndroidXMigrator,
 	}
 }

@@ -1,5 +1,3 @@
-using System;
-using HolisticWare.Xamarin.Tools.Bindings.XamarinAndroid.AndroidX.Migraineator;
 using Xunit;
 
 namespace Xamarin.AndroidX.Migration.Tests
