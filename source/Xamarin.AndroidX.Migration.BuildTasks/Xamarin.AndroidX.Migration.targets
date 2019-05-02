@@ -230,7 +230,7 @@
 
     </Target>
 
-    <Target Name="_DoAndroidXResourceThings" BeforeTargets="_CompileResources"
+    <Target Name="_DoAndroidXResourceThings" AfterTargets="_GenerateAndroidResourceDir"
             Condition="'$(_ShouldRunAndroidXTools)' == 'true'">
 
         <Message Text="Running Android X Jetify..." />
