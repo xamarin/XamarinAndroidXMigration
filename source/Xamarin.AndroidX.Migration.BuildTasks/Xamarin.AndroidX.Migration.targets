@@ -12,31 +12,6 @@
         <_AndroidXProguardIntermediateOutputPath>$(_AndroidXIntermediateOutputPath)proguard\</_AndroidXProguardIntermediateOutputPath>
     </PropertyGroup>
 
-<!--
-    <PropertyGroup>
-        <_BeforeLinkAssembliesShrink>
-            $(_BeforeLinkAssembliesShrink);
-            _DoAndroidXCecilShrinkThings;
-        </_BeforeLinkAssembliesShrink>
-        <_BeforeLinkAssemblies>
-            $(_BeforeLinkAssemblies);
-            _DoAndroidXCecilNoShrinkThings;
-        </_BeforeLinkAssemblies>
-        <AfterGenerateAndroidManifest>
-            $(AfterGenerateAndroidManifest);
-            _DoAndroidXManifestThings;
-        </AfterGenerateAndroidManifest>
-        <_AfterGenerateAndroidResourceDir>
-            $(_AfterGenerateAndroidResourceDir);
-            _DoAndroidXResourceThings;
-        </_AfterGenerateAndroidResourceDir>
-        <_BeforeCompileDex>
-            $(_BeforeCompileDex);
-            _DoAndroidXProguardThings;
-        </_BeforeCompileDex>
-    </PropertyGroup>
--->
-
     <!-- we want to ignore everything for the Android Support Java bits -->
     <ItemDefinitionGroup Condition="'$(_ShouldRunAndroidXTools)' == 'true'">
         <_AndroidXSupportAssembliesToSkip>
@@ -244,11 +219,11 @@
         <Message Text="Running Android X Jetify on AndroidManifest.xml..." />
 
         <ItemGroup>
-            <_ManifestsToJetify Include="$(IntermediateOutputPath)android\AndroidManifest.xml" />
+            <_FileToJetify Include="$(IntermediateOutputPath)android\AndroidManifest.xml" />
         </ItemGroup>
 
-        <Message Text="Jetifying: @(_ManifestsToJetify)" />
-        <JetifyFiles Files="@(_ManifestsToJetify)"
+        <Message Text="Jetifying: @(_FilesToJetify)" />
+        <JetifyFiles Files="@(_FileToJetify)"
                      Verbose="true" />
 
         <Message Text="Android X Jetify on AndroidManifest.xml complete." />
@@ -262,14 +237,14 @@
 
         <ItemGroup>
             <!-- select all the app resources -->
-            <_ResourcesToJetify Include="@(_AndroidResourceDest)"
-                                Condition="'%(_AndroidResourceDest.Extension)' == '.xml'" />
+            <_FilesToJetify Include="@(_AndroidResourceDest)"
+                            Condition="'%(_AndroidResourceDest.Extension)' == '.xml'" />
             <!-- add the .jar files -->
-            <_ResourcesToJetify Include="@(ExtractedJarImports)" />
+            <_FilesToJetify Include="@(ExtractedJarImports)" />
         </ItemGroup>
 
-        <Message Text="Jetifying: @(_ResourcesToJetify)" />
-        <JetifyFiles Files="@(_ResourcesToJetify)" Verbose="true" />
+        <Message Text="Jetifying: @(_FilesToJetify)" />
+        <JetifyFiles Files="@(_FilesToJetify)" Verbose="true" />
 
         <Message Text="Android X Jetify complete." />
 
