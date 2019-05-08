@@ -5,7 +5,7 @@ using Microsoft.Build.Utilities;
 
 namespace Xamarin.AndroidX.Migration.BuildTasks
 {
-	public class CecifyFiles : Task
+	public class CecilfyFiles : Task
 	{
 		[Required]
 		public ITaskItem[] Assemblies { get; set; }
