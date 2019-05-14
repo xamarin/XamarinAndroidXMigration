@@ -5,4 +5,27 @@
         <IsUsingAndroidXLibraries>true</IsUsingAndroidXLibraries>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <_BeforeLinkAssemblies>
+            $(_BeforeLinkAssemblies);
+            _AndroidXCecilfyShrink;
+        </_BeforeLinkAssemblies>
+        <BeforeGenerateAndroidManifest>
+            $(BeforeGenerateAndroidManifest);
+            _AndroidXCecilfyNoShrink;
+        </BeforeGenerateAndroidManifest>
+        <AfterGenerateAndroidManifest>
+            $(AfterGenerateAndroidManifest);
+            _AndroidXJetifyManifest;
+        </AfterGenerateAndroidManifest>
+        <_AfterGenerateAndroidResourceDir>
+            $(_AfterGenerateAndroidResourceDir);
+            _AndroidXJetifyResources;
+        </_AfterGenerateAndroidResourceDir>
+        <_BeforeCompileDex>
+            $(_BeforeCompileDex);
+            _AndroidXJetifyProguardRules;
+        </_BeforeCompileDex>
+    </PropertyGroup>
+
 </Project>

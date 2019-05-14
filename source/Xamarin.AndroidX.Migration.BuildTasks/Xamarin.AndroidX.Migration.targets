@@ -10,22 +10,6 @@
         <_ShouldRunAndroidXTools Condition="'$(_ShouldRunAndroidXTools)' == '' and '$(AndroidApplication)' == 'true' and '$(IsUsingAndroidXLibraries)' == 'true'">true</_ShouldRunAndroidXTools>
         <_AndroidXIntermediateOutputPath>$(IntermediateOutputPath)androidx\</_AndroidXIntermediateOutputPath>
         <_AndroidXProguardIntermediateOutputPath>$(_AndroidXIntermediateOutputPath)proguard\</_AndroidXProguardIntermediateOutputPath>
-        <_BeforeLinkAssemblies>
-            $(_BeforeLinkAssemblies);
-            _AndroidXCecilfy;
-        </_BeforeLinkAssemblies>
-        <AfterGenerateAndroidManifest>
-            $(AfterGenerateAndroidManifest);
-            _AndroidXJetifyManifest;
-        </AfterGenerateAndroidManifest>
-        <_AfterGenerateAndroidResourceDir>
-            $(_AfterGenerateAndroidResourceDir);
-            _AndroidXJetifyResources;
-        </_AfterGenerateAndroidResourceDir>
-        <_BeforeCompileDex>
-            $(_BeforeCompileDex);
-            _AndroidXJetifyProguardRules;
-        </_BeforeCompileDex>
     </PropertyGroup>
 
     <!-- we want to ignore everything for the Android Support Java bits -->
@@ -193,51 +177,75 @@
         <AndroidCustomMetaDataForReferences Include="@(_AndroidXAssembliesToSkip)" />
     </ItemGroup>
 
-    <Target Name="_FindCecilFiles"
-        Condition="'$(_ShouldRunAndroidXTools)' == 'true'">
+    <Target Name="_AndroidXCecilfyShrinkFindFiles"
+            Condition="'$(AndroidLinkMode)' != 'none'">
         <ItemGroup>
             <_FileToCecilfy Include="@(ResolvedUserAssemblies->'$(MonoAndroidLinkerInputDir)%(Filename)%(Extension)')"
-                           Condition="'$(AndroidLinkMode)'=='None' and '%(ResolvedUserAssemblies.AndroidXSkipAndroidXMigration)' != 'true'" />
-            <_FileToCecilfy Include="@(_ResolvedUserMonoAndroidAssemblies)"
-                           Condition="'$(AndroidLinkMode)'!='None' and '%(ResolvedUserAssemblies.AndroidXSkipAndroidXMigration)' != 'true'" />
+                            Condition="'%(ResolvedUserAssemblies.AndroidXSkipAndroidXMigration)' != 'true'" />
         </ItemGroup>
     </Target>
 
+    <Target Name="_AndroidXCecilfyNoShrinkFindFiles"
+            Condition="'$(AndroidLinkMode)' == 'none'">
+        <ItemGroup>
+            <_FileToCecilfy Include="@(ResolvedUserAssemblies->'$(MonoAndroidIntermediateAssetsDir)%(Filename)%(Extension)')" 
+                            Condition="('%(ResolvedUserAssemblies.TargetFrameworkIdentifier)' == 'MonoAndroid' or '%(ResolvedUserAssemblies.HasMonoAndroidReference)' == 'true') and ('%(ResolvedUserAssemblies.AndroidXSkipAndroidXMigration)' != 'true')" />
+        </ItemGroup>
+    </Target>
+
+    <Target Name="_AndroidXCecilfyNoShrink"
+            DependsOnTargets="_AndroidXCecilfy"
+            Condition="'$(AndroidLinkMode)' == 'none'">
+    </Target>
+
+    <Target Name="_AndroidXCecilfyShrink"
+            DependsOnTargets="_AndroidXCecilfy"
+            Condition="'$(AndroidLinkMode)' != 'none'">
+    </Target>
+
     <Target Name="_AndroidXCecilfy"
-            DependsOnTargets="_FindCecilFiles"
-            Inputs="@(_FileToCecilfy)"
-            Outputs="$(_AndroidStampDirectory)_CopyIntermediateAssemblies.stamp"
+            DependsOnTargets="_AndroidXCecilfyShrinkFindFiles;_AndroidXCecilfyNoShrinkFindFiles"
+            Inputs="@(_FileToCecilfy);$(_AndroidStampDirectory)_CopyIntermediateAssemblies.stamp"
+            Outputs="$(_AndroidStampDirectory)_AndroidXCecilfy.stamp"
             Condition="'$(_ShouldRunAndroidXTools)' == 'true'">
 
         <Message Text="Running Android X Cecilfy..." />
 
         <CecilfyFiles Assemblies="@(_FileToCecilfy)"
-                     Verbose="true" />
+                      Verbose="true" />
 
-        <Touch Files="$(_AndroidStampDirectory)_CopyIntermediateAssemblies.stamp" AlwaysCreate="True" />
+        <Touch Files="$(_AndroidStampDirectory)_CopyIntermediateAssemblies.stamp;$(_AndroidStampDirectory)_AndroidXCecilfy.stamp" AlwaysCreate="True" />
+
+        <ItemGroup>
+            <FileWrites Include="$(_AndroidStampDirectory)_AndroidXCecilfy.stamp" />
+        </ItemGroup>
 
         <Message Text="Android X Cecilfy complete." />
 
     </Target>
 
     <Target Name="_AndroidXJetifyManifest"
-            Inputs="$(IntermediateOutputPath)android\AndroidManifest.xml"
-            Outputs="$(_AndroidStampDirectory)_GenerateJavaStubs.stamp"
+            Inputs="$(IntermediateOutputPath)android\AndroidManifest.xml;$(_AndroidStampDirectory)_GenerateJavaStubs.stamp"
+            Outputs="$(_AndroidStampDirectory)_AndroidXJetifyManifest.stamp"
             Condition="'$(_ShouldRunAndroidXTools)' == 'true'">
 
         <Message Text="Jetifying: $(IntermediateOutputPath)android\AndroidManifest.xml" />
 
         <JetifyFiles Files="$(IntermediateOutputPath)android\AndroidManifest.xml"
                      Verbose="true" />
-        
-        <Touch Files="$(_AndroidStampDirectory)_GenerateJavaStubs.stamp" AlwaysCreate="True" />
+
+        <Touch Files="$(_AndroidStampDirectory)_GenerateJavaStubs.stamp;$(_AndroidStampDirectory)_AndroidXJetifyManifest.stamp" AlwaysCreate="True" />
+
+        <ItemGroup>
+            <FileWrites Include="$(_AndroidStampDirectory)_AndroidXJetifyManifest.stamp" />
+        </ItemGroup>
 
         <Message Text="Android X Jetify on AndroidManifest.xml complete." />
 
     </Target>
 
     <Target Name="_FindJetifyFiles"
-        Condition="'$(_ShouldRunAndroidXTools)' == 'true'">
+            Condition="'$(_ShouldRunAndroidXTools)' == 'true'">
         <ItemGroup>
             <!-- select all the app resources -->
             <_FilesToJetify Include="@(_AndroidResourceDest)"
@@ -250,14 +258,18 @@
     <Target Name="_AndroidXJetifyResources"
             Condition="'$(_ShouldRunAndroidXTools)' == 'true'"
             DependsOnTargets="_FindJetifyFiles"
-            Inputs="@(_FilesToJetify)"
-            Outputs="$(_AndroidResFlagFile);$(_AndroidStampDirectory)_ResolveLibraryProjectImports.stamp">
+            Inputs="@(_FilesToJetify);$(_AndroidResFlagFile);$(_AndroidStampDirectory)_ResolveLibraryProjectImports.stamp"
+            Outputs="$(_AndroidStampDirectory)_AndroidXJetifyResources.stamp">
 
         <Message Text="Running Android X Jetify..." />
 
         <Message Text="Jetifying: @(_FilesToJetify)" />
         <JetifyFiles Files="@(_FilesToJetify)" Verbose="true" />
-        <Touch Files="$(_AndroidResFlagFile);$(_AndroidStampDirectory)_ResolveLibraryProjectImports.stamp" AlwaysCreate="True" />
+        <Touch Files="$(_AndroidResFlagFile);$(_AndroidStampDirectory)_ResolveLibraryProjectImports.stamp;$(_AndroidStampDirectory)_AndroidXJetifyResources.stamp" AlwaysCreate="True" />
+
+        <ItemGroup>
+            <FileWrites Include="$(_AndroidStampDirectory)_AndroidXJetifyResources.stamp" />
+        </ItemGroup>
 
         <Message Text="Android X Jetify complete." />
 
