@@ -28,6 +28,12 @@ jobs:
         inputs:
           artifactName: output_windows
           pathToPublish: output
+      - task: PublishBuildArtifacts@1
+        displayName: Publish the NuGets
+        condition: always()
+        inputs:
+          artifactName: nuget
+          pathToPublish: output/nugets
 
   - job: build_macos
     displayName: Build on macOS
