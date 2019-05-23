@@ -3542,6 +3542,7 @@ namespace ManagedOnlyLibrary
 		public partial class Styleable
 		{
 			
+			// aapt resource value: { 0x7F020031,0x7F020032,0x7F020033,0x7F020056,0x7F020057,0x7F020058,0x7F020059,0x7F02005A,0x7F02005B,0x7F02005D,0x7F020061,0x7F020062,0x7F02006D,0x7F02007B,0x7F02007C,0x7F02007D,0x7F02007E,0x7F02007F,0x7F020084,0x7F020087,0x7F020094,0x7F02009B,0x7F0200A6,0x7F0200A9,0x7F0200AA,0x7F0200C4,0x7F0200C7,0x7F0200E2,0x7F0200EB }
 			public static int[] ActionBar = new int[] {
 					2130837553,
 					2130837554,
@@ -3573,14 +3574,15 @@ namespace ManagedOnlyLibrary
 					2130837730,
 					2130837739};
 			
+			// aapt resource value: { 0x10100B3 }
 			public static int[] ActionBarLayout = new int[] {
 					16842931};
 			
-			// aapt resource value: 0x7F010033
-			public static int ActionBarLayout_android_layout_gravity = 2130772019;
+			// aapt resource value: 0x0
+			public static int ActionBarLayout_android_layout_gravity = 0;
 			
-			// aapt resource value: 0x7F010003
-			public static int ActionBar_background = 2130771971;
+			// aapt resource value: 0x0
+			public static int ActionBar_background = 0;
 			
 			// aapt resource value: 0x1
 			public static int ActionBar_backgroundSplit = 1;
@@ -3666,15 +3668,18 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x28
 			public static int ActionBar_titleTextStyle = 40;
 			
+			// aapt resource value: { 0x101013F }
 			public static int[] ActionMenuItemView = new int[] {
 					16843071};
 			
-			// aapt resource value: 0x7F010035
-			public static int ActionMenuItemView_android_minWidth = 2130772021;
+			// aapt resource value: 0x0
+			public static int ActionMenuItemView_android_minWidth = 0;
 			
+			// aapt resource value: { 0xFFFFFFFF }
 			public static int[] ActionMenuView = new int[] {
-					0};
+					-1};
 			
+			// aapt resource value: { 0x7F020031,0x7F020032,0x7F020046,0x7F02007B,0x7F0200C7,0x7F0200EB }
 			public static int[] ActionMode = new int[] {
 					2130837553,
 					2130837554,
@@ -3683,8 +3688,8 @@ namespace ManagedOnlyLibrary
 					2130837703,
 					2130837739};
 			
-			// aapt resource value: 0x7F010038
-			public static int ActionMode_background = 2130772024;
+			// aapt resource value: 0x0
+			public static int ActionMode_background = 0;
 			
 			// aapt resource value: 0x1
 			public static int ActionMode_backgroundSplit = 1;
@@ -3701,16 +3706,18 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x5
 			public static int ActionMode_titleTextStyle = 5;
 			
+			// aapt resource value: { 0x7F02006E,0x7F020085 }
 			public static int[] ActivityChooserView = new int[] {
 					2130837614,
 					2130837637};
 			
-			// aapt resource value: 0x7F010045
-			public static int ActivityChooserView_expandActivityOverflowButtonDrawable = 2130772037;
+			// aapt resource value: 0x0
+			public static int ActivityChooserView_expandActivityOverflowButtonDrawable = 0;
 			
 			// aapt resource value: 0x1
 			public static int ActivityChooserView_initialActivityCount = 1;
 			
+			// aapt resource value: { 0x10100F2,0x7F02003E,0x7F02008B,0x7F02008C,0x7F020098,0x7F0200BA,0x7F0200BB }
 			public static int[] AlertDialog = new int[] {
 					16842994,
 					2130837566,
@@ -3720,8 +3727,8 @@ namespace ManagedOnlyLibrary
 					2130837690,
 					2130837691};
 			
-			// aapt resource value: 0x7F010048
-			public static int AlertDialog_android_layout = 2130772040;
+			// aapt resource value: 0x0
+			public static int AlertDialog_android_layout = 0;
 			
 			// aapt resource value: 0x1
 			public static int AlertDialog_buttonPanelSideLayout = 1;
@@ -3741,14 +3748,15 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x6
 			public static int AlertDialog_singleChoiceItemLayout = 6;
 			
+			// aapt resource value: { 0x1010119,0x7F0200C0,0x7F0200E0,0x7F0200E1 }
 			public static int[] AppCompatImageView = new int[] {
 					16843033,
 					2130837696,
 					2130837728,
 					2130837729};
 			
-			// aapt resource value: 0x7F010056
-			public static int AppCompatImageView_android_src = 2130772054;
+			// aapt resource value: 0x0
+			public static int AppCompatImageView_android_src = 0;
 			
 			// aapt resource value: 0x1
 			public static int AppCompatImageView_srcCompat = 1;
@@ -3759,14 +3767,15 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x3
 			public static int AppCompatImageView_tintMode = 3;
 			
+			// aapt resource value: { 0x1010142,0x7F0200DD,0x7F0200DE,0x7F0200DF }
 			public static int[] AppCompatSeekBar = new int[] {
 					16843074,
 					2130837725,
 					2130837726,
 					2130837727};
 			
-			// aapt resource value: 0x7F010061
-			public static int AppCompatSeekBar_android_thumb = 2130772065;
+			// aapt resource value: 0x0
+			public static int AppCompatSeekBar_android_thumb = 0;
 			
 			// aapt resource value: 0x1
 			public static int AppCompatSeekBar_tickMark = 1;
@@ -3777,6 +3786,7 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x3
 			public static int AppCompatSeekBar_tickMarkTintMode = 3;
 			
+			// aapt resource value: { 0x1010034,0x101016D,0x101016E,0x101016F,0x1010170,0x1010392,0x1010393 }
 			public static int[] AppCompatTextHelper = new int[] {
 					16842804,
 					16843117,
@@ -3804,9 +3814,10 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x1
 			public static int AppCompatTextHelper_android_drawableTop = 1;
 			
-			// aapt resource value: 0x7F010066
-			public static int AppCompatTextHelper_android_textAppearance = 2130772070;
+			// aapt resource value: 0x0
+			public static int AppCompatTextHelper_android_textAppearance = 0;
 			
+			// aapt resource value: { 0x1010034,0x7F02002C,0x7F02002D,0x7F02002E,0x7F02002F,0x7F020030,0x7F020070,0x7F0200CD }
 			public static int[] AppCompatTextView = new int[] {
 					16842804,
 					2130837548,
@@ -3817,8 +3828,8 @@ namespace ManagedOnlyLibrary
 					2130837616,
 					2130837709};
 			
-			// aapt resource value: 0x7F010074
-			public static int AppCompatTextView_android_textAppearance = 2130772084;
+			// aapt resource value: 0x0
+			public static int AppCompatTextView_android_textAppearance = 0;
 			
 			// aapt resource value: 0x1
 			public static int AppCompatTextView_autoSizeMaxTextSize = 1;
@@ -3841,6 +3852,7 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x7
 			public static int AppCompatTextView_textAllCaps = 7;
 			
+			// aapt resource value: { 0x1010057,0x10100AE,0x7F020000,0x7F020001,0x7F020002,0x7F020003,0x7F020004,0x7F020005,0x7F020006,0x7F020007,0x7F020008,0x7F020009,0x7F02000A,0x7F02000B,0x7F02000C,0x7F02000E,0x7F02000F,0x7F020010,0x7F020011,0x7F020012,0x7F020013,0x7F020014,0x7F020015,0x7F020016,0x7F020017,0x7F020018,0x7F020019,0x7F02001A,0x7F02001B,0x7F02001C,0x7F02001D,0x7F02001E,0x7F020021,0x7F020022,0x7F020023,0x7F020024,0x7F020025,0x7F02002B,0x7F020037,0x7F020038,0x7F020039,0x7F02003A,0x7F02003B,0x7F02003C,0x7F02003F,0x7F020040,0x7F020043,0x7F020044,0x7F02004A,0x7F02004B,0x7F02004C,0x7F02004D,0x7F02004E,0x7F02004F,0x7F020050,0x7F020051,0x7F020052,0x7F020053,0x7F02005C,0x7F02005F,0x7F020060,0x7F020063,0x7F020065,0x7F020068,0x7F020069,0x7F02006A,0x7F02006B,0x7F02006C,0x7F02007D,0x7F020083,0x7F020089,0x7F02008A,0x7F02008D,0x7F02008E,0x7F02008F,0x7F020090,0x7F020091,0x7F020092,0x7F020093,0x7F0200A2,0x7F0200A3,0x7F0200A4,0x7F0200A5,0x7F0200A7,0x7F0200AD,0x7F0200AE,0x7F0200AF,0x7F0200B0,0x7F0200B3,0x7F0200B4,0x7F0200B5,0x7F0200B6,0x7F0200BD,0x7F0200BE,0x7F0200CB,0x7F0200CE,0x7F0200CF,0x7F0200D0,0x7F0200D1,0x7F0200D2,0x7F0200D3,0x7F0200D4,0x7F0200D5,0x7F0200D6,0x7F0200D7,0x7F0200EC,0x7F0200ED,0x7F0200EE,0x7F0200EF,0x7F0200F5,0x7F0200F6,0x7F0200F7,0x7F0200F8,0x7F0200F9,0x7F0200FA,0x7F0200FB,0x7F0200FC,0x7F0200FD,0x7F0200FE }
 			public static int[] AppCompatTheme = new int[] {
 					16842839,
 					16842926,
@@ -4070,8 +4082,8 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x1
 			public static int AppCompatTheme_android_windowAnimationStyle = 1;
 			
-			// aapt resource value: 0x7F010083
-			public static int AppCompatTheme_android_windowIsFloating = 2130772099;
+			// aapt resource value: 0x0
+			public static int AppCompatTheme_android_windowIsFloating = 0;
 			
 			// aapt resource value: 0x37
 			public static int AppCompatTheme_autoCompleteTextViewStyle = 55;
@@ -4319,12 +4331,14 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x118
 			public static int AppCompatTheme_windowNoTitle = 280;
 			
+			// aapt resource value: { 0x7F020026 }
 			public static int[] ButtonBarLayout = new int[] {
 					2130837542};
 			
-			// aapt resource value: 0x7F010203
-			public static int ButtonBarLayout_allowStacking = 2130772483;
+			// aapt resource value: 0x0
+			public static int ButtonBarLayout_allowStacking = 0;
 			
+			// aapt resource value: { 0x10101A5,0x101031F,0x7F020027 }
 			public static int[] ColorStateListItem = new int[] {
 					16843173,
 					16843551,
@@ -4336,16 +4350,17 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x1
 			public static int ColorStateListItem_android_alpha = 1;
 			
-			// aapt resource value: 0x7F010205
-			public static int ColorStateListItem_android_color = 2130772485;
+			// aapt resource value: 0x0
+			public static int ColorStateListItem_android_color = 0;
 			
+			// aapt resource value: { 0x1010107,0x7F020041,0x7F020042 }
 			public static int[] CompoundButton = new int[] {
 					16843015,
 					2130837569,
 					2130837570};
 			
-			// aapt resource value: 0x7F010209
-			public static int CompoundButton_android_button = 2130772489;
+			// aapt resource value: 0x0
+			public static int CompoundButton_android_button = 0;
 			
 			// aapt resource value: 0x1
 			public static int CompoundButton_buttonTint = 1;
@@ -4353,6 +4368,7 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x2
 			public static int CompoundButton_buttonTintMode = 2;
 			
+			// aapt resource value: { 0x7F020029,0x7F02002A,0x7F020036,0x7F020049,0x7F020066,0x7F020079,0x7F0200BC,0x7F0200D9 }
 			public static int[] DrawerArrowToggle = new int[] {
 					2130837545,
 					2130837546,
@@ -4363,8 +4379,8 @@ namespace ManagedOnlyLibrary
 					2130837692,
 					2130837721};
 			
-			// aapt resource value: 0x7F010213
-			public static int DrawerArrowToggle_arrowHeadLength = 2130772499;
+			// aapt resource value: 0x0
+			public static int DrawerArrowToggle_arrowHeadLength = 0;
 			
 			// aapt resource value: 0x1
 			public static int DrawerArrowToggle_arrowShaftLength = 1;
@@ -4387,6 +4403,7 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x7
 			public static int DrawerArrowToggle_thickness = 7;
 			
+			// aapt resource value: { 0x7F020071,0x7F020072,0x7F020073,0x7F020074,0x7F020075,0x7F020076 }
 			public static int[] FontFamily = new int[] {
 					2130837617,
 					2130837618,
@@ -4395,6 +4412,7 @@ namespace ManagedOnlyLibrary
 					2130837621,
 					2130837622};
 			
+			// aapt resource value: { 0x1010532,0x1010533,0x101053F,0x7F02006F,0x7F020077,0x7F020078 }
 			public static int[] FontFamilyFont = new int[] {
 					16844082,
 					16844083,
@@ -4403,8 +4421,8 @@ namespace ManagedOnlyLibrary
 					2130837623,
 					2130837624};
 			
-			// aapt resource value: 0x7F010229
-			public static int FontFamilyFont_android_font = 2130772521;
+			// aapt resource value: 0x0
+			public static int FontFamilyFont_android_font = 0;
 			
 			// aapt resource value: 0x2
 			public static int FontFamilyFont_android_fontStyle = 2;
@@ -4421,8 +4439,8 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x5
 			public static int FontFamilyFont_fontWeight = 5;
 			
-			// aapt resource value: 0x7F010222
-			public static int FontFamily_fontProviderAuthority = 2130772514;
+			// aapt resource value: 0x0
+			public static int FontFamily_fontProviderAuthority = 0;
 			
 			// aapt resource value: 0x1
 			public static int FontFamily_fontProviderCerts = 1;
@@ -4439,6 +4457,7 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x5
 			public static int FontFamily_fontProviderQuery = 5;
 			
+			// aapt resource value: { 0x10100AF,0x10100C4,0x1010126,0x1010127,0x1010128,0x7F020062,0x7F020064,0x7F020097,0x7F0200B8 }
 			public static int[] LinearLayoutCompat = new int[] {
 					16842927,
 					16842948,
@@ -4456,8 +4475,8 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x3
 			public static int LinearLayoutCompat_android_baselineAlignedChildIndex = 3;
 			
-			// aapt resource value: 0x7F010236
-			public static int LinearLayoutCompat_android_gravity = 2130772534;
+			// aapt resource value: 0x0
+			public static int LinearLayoutCompat_android_gravity = 0;
 			
 			// aapt resource value: 0x1
 			public static int LinearLayoutCompat_android_orientation = 1;
@@ -4471,14 +4490,15 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x6
 			public static int LinearLayoutCompat_dividerPadding = 6;
 			
+			// aapt resource value: { 0x10100B3,0x10100F4,0x10100F5,0x1010181 }
 			public static int[] LinearLayoutCompat_Layout = new int[] {
 					16842931,
 					16842996,
 					16842997,
 					16843137};
 			
-			// aapt resource value: 0x7F010246
-			public static int LinearLayoutCompat_Layout_android_layout_gravity = 2130772550;
+			// aapt resource value: 0x0
+			public static int LinearLayoutCompat_Layout_android_layout_gravity = 0;
 			
 			// aapt resource value: 0x2
 			public static int LinearLayoutCompat_Layout_android_layout_height = 2;
@@ -4495,16 +4515,18 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x8
 			public static int LinearLayoutCompat_showDividers = 8;
 			
+			// aapt resource value: { 0x10102AC,0x10102AD }
 			public static int[] ListPopupWindow = new int[] {
 					16843436,
 					16843437};
 			
-			// aapt resource value: 0x7F010251
-			public static int ListPopupWindow_android_dropDownHorizontalOffset = 2130772561;
+			// aapt resource value: 0x0
+			public static int ListPopupWindow_android_dropDownHorizontalOffset = 0;
 			
 			// aapt resource value: 0x1
 			public static int ListPopupWindow_android_dropDownVerticalOffset = 1;
 			
+			// aapt resource value: { 0x101000E,0x10100D0,0x1010194,0x10101DE,0x10101DF,0x10101E0 }
 			public static int[] MenuGroup = new int[] {
 					16842766,
 					16842960,
@@ -4516,8 +4538,8 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x5
 			public static int MenuGroup_android_checkableBehavior = 5;
 			
-			// aapt resource value: 0x7F010254
-			public static int MenuGroup_android_enabled = 2130772564;
+			// aapt resource value: 0x0
+			public static int MenuGroup_android_enabled = 0;
 			
 			// aapt resource value: 0x1
 			public static int MenuGroup_android_id = 1;
@@ -4531,6 +4553,7 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x2
 			public static int MenuGroup_android_visible = 2;
 			
+			// aapt resource value: { 0x1010002,0x101000E,0x10100D0,0x1010106,0x1010194,0x10101DE,0x10101DF,0x10101E1,0x10101E2,0x10101E3,0x10101E4,0x10101E5,0x101026F,0x7F02000D,0x7F02001F,0x7F020020,0x7F020028,0x7F020055,0x7F020080,0x7F020081,0x7F02009C,0x7F0200B7,0x7F0200F0 }
 			public static int[] MenuItem = new int[] {
 					16842754,
 					16842766,
@@ -4580,8 +4603,8 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x1
 			public static int MenuItem_android_enabled = 1;
 			
-			// aapt resource value: 0x7F010261
-			public static int MenuItem_android_icon = 2130772577;
+			// aapt resource value: 0x0
+			public static int MenuItem_android_icon = 0;
 			
 			// aapt resource value: 0x2
 			public static int MenuItem_android_id = 2;
@@ -4625,6 +4648,7 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x22
 			public static int MenuItem_tooltipText = 34;
 			
+			// aapt resource value: { 0x10100AE,0x101012C,0x101012D,0x101012E,0x101012F,0x1010130,0x1010131,0x7F0200A8,0x7F0200C2 }
 			public static int[] MenuView = new int[] {
 					16842926,
 					16843052,
@@ -4654,8 +4678,8 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x3
 			public static int MenuView_android_verticalDivider = 3;
 			
-			// aapt resource value: 0x7F010285
-			public static int MenuView_android_windowAnimationStyle = 2130772613;
+			// aapt resource value: 0x0
+			public static int MenuView_android_windowAnimationStyle = 0;
 			
 			// aapt resource value: 0x7
 			public static int MenuView_preserveIconSpacing = 7;
@@ -4663,36 +4687,40 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x8
 			public static int MenuView_subMenuArrow = 8;
 			
+			// aapt resource value: { 0x1010176,0x10102C9,0x7F02009D }
 			public static int[] PopupWindow = new int[] {
 					16843126,
 					16843465,
 					2130837661};
 			
+			// aapt resource value: { 0x7F0200C1 }
 			public static int[] PopupWindowBackgroundState = new int[] {
 					2130837697};
 			
-			// aapt resource value: 0x7F010299
-			public static int PopupWindowBackgroundState_state_above_anchor = 2130772633;
+			// aapt resource value: 0x0
+			public static int PopupWindowBackgroundState_state_above_anchor = 0;
 			
 			// aapt resource value: 0x1
 			public static int PopupWindow_android_popupAnimationStyle = 1;
 			
-			// aapt resource value: 0x7F010295
-			public static int PopupWindow_android_popupBackground = 2130772629;
+			// aapt resource value: 0x0
+			public static int PopupWindow_android_popupBackground = 0;
 			
 			// aapt resource value: 0x2
 			public static int PopupWindow_overlapAnchor = 2;
 			
+			// aapt resource value: { 0x7F02009E,0x7F0200A1 }
 			public static int[] RecycleListView = new int[] {
 					2130837662,
 					2130837665};
 			
-			// aapt resource value: 0x7F010301
-			public static int RecycleListView_paddingBottomNoButtons = 2130772737;
+			// aapt resource value: 0x0
+			public static int RecycleListView_paddingBottomNoButtons = 0;
 			
 			// aapt resource value: 0x1
 			public static int RecycleListView_paddingTopNoTitle = 1;
 			
+			// aapt resource value: { 0x10100DA,0x101011F,0x1010220,0x1010264,0x7F020045,0x7F020054,0x7F02005E,0x7F02007A,0x7F020082,0x7F020088,0x7F0200AB,0x7F0200AC,0x7F0200B1,0x7F0200B2,0x7F0200C3,0x7F0200C8,0x7F0200F4 }
 			public static int[] SearchView = new int[] {
 					16842970,
 					16843039,
@@ -4712,8 +4740,8 @@ namespace ManagedOnlyLibrary
 					2130837704,
 					2130837748};
 			
-			// aapt resource value: 0x7F010304
-			public static int SearchView_android_focusable = 2130772740;
+			// aapt resource value: 0x0
+			public static int SearchView_android_focusable = 0;
 			
 			// aapt resource value: 0x3
 			public static int SearchView_android_imeOptions = 3;
@@ -4763,6 +4791,7 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x16
 			public static int SearchView_voiceIcon = 22;
 			
+			// aapt resource value: { 0x10100B2,0x1010176,0x101017B,0x1010262,0x7F0200A6 }
 			public static int[] Spinner = new int[] {
 					16842930,
 					16843126,
@@ -4773,8 +4802,8 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x3
 			public static int Spinner_android_dropDownWidth = 3;
 			
-			// aapt resource value: 0x7F010322
-			public static int Spinner_android_entries = 2130772770;
+			// aapt resource value: 0x0
+			public static int Spinner_android_entries = 0;
 			
 			// aapt resource value: 0x1
 			public static int Spinner_android_popupBackground = 1;
@@ -4785,6 +4814,7 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x4
 			public static int Spinner_popupTheme = 4;
 			
+			// aapt resource value: { 0x1010124,0x1010125,0x1010142,0x7F0200B9,0x7F0200BF,0x7F0200C9,0x7F0200CA,0x7F0200CC,0x7F0200DA,0x7F0200DB,0x7F0200DC,0x7F0200F1,0x7F0200F2,0x7F0200F3 }
 			public static int[] SwitchCompat = new int[] {
 					16843044,
 					16843045,
@@ -4804,8 +4834,8 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x1
 			public static int SwitchCompat_android_textOff = 1;
 			
-			// aapt resource value: 0x7F010328
-			public static int SwitchCompat_android_textOn = 2130772776;
+			// aapt resource value: 0x0
+			public static int SwitchCompat_android_textOn = 0;
 			
 			// aapt resource value: 0x2
 			public static int SwitchCompat_android_thumb = 2;
@@ -4843,6 +4873,7 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x13
 			public static int SwitchCompat_trackTintMode = 19;
 			
+			// aapt resource value: { 0x1010095,0x1010096,0x1010097,0x1010098,0x101009A,0x101009B,0x1010161,0x1010162,0x1010163,0x1010164,0x10103AC,0x7F020070,0x7F0200CD }
 			public static int[] TextAppearance = new int[] {
 					16842901,
 					16842902,
@@ -4882,8 +4913,8 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x5
 			public static int TextAppearance_android_textColorLink = 5;
 			
-			// aapt resource value: 0x7F010343
-			public static int TextAppearance_android_textSize = 2130772803;
+			// aapt resource value: 0x0
+			public static int TextAppearance_android_textSize = 0;
 			
 			// aapt resource value: 0x2
 			public static int TextAppearance_android_textStyle = 2;
@@ -4897,6 +4928,7 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x12
 			public static int TextAppearance_textAllCaps = 18;
 			
+			// aapt resource value: { 0x10100AF,0x1010140,0x7F02003D,0x7F020047,0x7F020048,0x7F020056,0x7F020057,0x7F020058,0x7F020059,0x7F02005A,0x7F02005B,0x7F020094,0x7F020095,0x7F020096,0x7F020099,0x7F02009A,0x7F0200A6,0x7F0200C4,0x7F0200C5,0x7F0200C6,0x7F0200E2,0x7F0200E3,0x7F0200E4,0x7F0200E5,0x7F0200E6,0x7F0200E7,0x7F0200E8,0x7F0200E9,0x7F0200EA }
 			public static int[] Toolbar = new int[] {
 					16842927,
 					16843072,
@@ -4928,8 +4960,8 @@ namespace ManagedOnlyLibrary
 					2130837737,
 					2130837738};
 			
-			// aapt resource value: 0x7F010357
-			public static int Toolbar_android_gravity = 2130772823;
+			// aapt resource value: 0x0
+			public static int Toolbar_android_gravity = 0;
 			
 			// aapt resource value: 0x1
 			public static int Toolbar_android_minHeight = 1;
@@ -5015,6 +5047,7 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x28
 			public static int Toolbar_titleTextColor = 40;
 			
+			// aapt resource value: { 0x1010000,0x10100DA,0x7F02009F,0x7F0200A0,0x7F0200D8 }
 			public static int[] View = new int[] {
 					16842752,
 					16842970,
@@ -5022,13 +5055,14 @@ namespace ManagedOnlyLibrary
 					2130837664,
 					2130837720};
 			
+			// aapt resource value: { 0x10100D4,0x7F020034,0x7F020035 }
 			public static int[] ViewBackgroundHelper = new int[] {
 					16842964,
 					2130837556,
 					2130837557};
 			
-			// aapt resource value: 0x7F010393
-			public static int ViewBackgroundHelper_android_background = 2130772883;
+			// aapt resource value: 0x0
+			public static int ViewBackgroundHelper_android_background = 0;
 			
 			// aapt resource value: 0x1
 			public static int ViewBackgroundHelper_backgroundTint = 1;
@@ -5036,13 +5070,14 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x2
 			public static int ViewBackgroundHelper_backgroundTintMode = 2;
 			
+			// aapt resource value: { 0x10100D0,0x10100F2,0x10100F3 }
 			public static int[] ViewStubCompat = new int[] {
 					16842960,
 					16842994,
 					16842995};
 			
-			// aapt resource value: 0x7F010397
-			public static int ViewStubCompat_android_id = 2130772887;
+			// aapt resource value: 0x0
+			public static int ViewStubCompat_android_id = 0;
 			
 			// aapt resource value: 0x2
 			public static int ViewStubCompat_android_inflatedId = 2;
@@ -5053,8 +5088,8 @@ namespace ManagedOnlyLibrary
 			// aapt resource value: 0x1
 			public static int View_android_focusable = 1;
 			
-			// aapt resource value: 0x7F010387
-			public static int View_android_theme = 2130772871;
+			// aapt resource value: 0x0
+			public static int View_android_theme = 0;
 			
 			// aapt resource value: 0x2
 			public static int View_paddingEnd = 2;

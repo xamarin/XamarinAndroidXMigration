@@ -7,19 +7,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-  <Button
+  <android.support.design.button.MaterialButton
       android:text="Button 1"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:id="@+id/button1" />
 
-  <Button
+  <android.support.design.button.MaterialButton
       android:text="Button 2"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:id="@+id/button2" />
 
-  <Button
+  <android.support.design.button.MaterialButton
       android:text="Button 3"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

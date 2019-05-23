@@ -1,6 +1,7 @@
 ﻿using System;
 using Android.App;
 using Android.OS;
+using Android.Support.Design.Button;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
@@ -20,15 +21,15 @@ namespace ManagedOnlyApp
 
 			SetContentView(Resource.Layout.activity_main);
 
-			var button1 = FindViewById<Button>(Resource.Id.button1);
+			var button1 = FindViewById<MaterialButton>(Resource.Id.button1);
 			button1.Text = "Go to AndroidX";
 			button1.Click += (_, __) => StartActivity(typeof(AndroidXActivity));
 
-			var button2 = FindViewById<Button>(Resource.Id.button2);
+			var button2 = FindViewById<MaterialButton>(Resource.Id.button2);
 			button2.Text = "Go to Custom";
 			button2.Click += (_, __) => StartActivity(typeof(CustomActivity));
 
-			var button3 = FindViewById<Button>(Resource.Id.button3);
+			var button3 = FindViewById<MaterialButton>(Resource.Id.button3);
 			button3.Text = "Go to Native";
 			button3.Click += (_, __) => StartActivity(typeof(NativeActivity));
 

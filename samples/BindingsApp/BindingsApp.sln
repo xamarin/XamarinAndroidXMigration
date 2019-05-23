@@ -1,6 +1,7 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28921.73
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BindingsApp", "BindingsApp\BindingsApp.csproj", "{9834BB2B-9190-4B5C-B3C5-9FB9F2441624}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CoolLibrary", "..\Xamarin.CoolLibrary\Xamarin.CoolLibrary\Xamarin.CoolLibrary.csproj", "{E89D22FE-F794-46B0-A8EB-BC2B75EC9E2D}"
@@ -13,11 +14,19 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9834BB2B-9190-4B5C-B3C5-9FB9F2441624}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9834BB2B-9190-4B5C-B3C5-9FB9F2441624}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9834BB2B-9190-4B5C-B3C5-9FB9F2441624}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{9834BB2B-9190-4B5C-B3C5-9FB9F2441624}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9834BB2B-9190-4B5C-B3C5-9FB9F2441624}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9834BB2B-9190-4B5C-B3C5-9FB9F2441624}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{E89D22FE-F794-46B0-A8EB-BC2B75EC9E2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E89D22FE-F794-46B0-A8EB-BC2B75EC9E2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E89D22FE-F794-46B0-A8EB-BC2B75EC9E2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E89D22FE-F794-46B0-A8EB-BC2B75EC9E2D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BBFAC877-5DD7-46BD-89A0-813CF90356C6}
 	EndGlobalSection
 EndGlobal
