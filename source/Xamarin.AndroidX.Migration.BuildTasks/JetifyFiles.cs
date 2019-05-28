@@ -2,12 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-
+using System.Linq;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
-
 using Mono.Cecil;
-using System.Linq;
 
 namespace Xamarin.AndroidX.Migration.BuildTasks {
 	public class JetifyFiles : Task {
@@ -52,8 +50,12 @@ namespace Xamarin.AndroidX.Migration.BuildTasks {
 			try {
 				var filesToJetify = CreateMigrationPairs ().ToList ();
 
-				foreach (var file in filesToJetify)
-					Log.LogMessage ($"Queuing jetification for {file.Source} to {file.Destination}.");
+				foreach (var file in filesToJetify) {
+					if (file.Source.Equals (file.Destination, StringComparison.OrdinalIgnoreCase))
+						Log.LogMessage ($"Queuing jetification for {file.Source}.");
+					else
+						Log.LogMessage ($"Queuing jetification for {file.Source} to {file.Destination}.");
+				}
 
 				var jetifier = new Jetifier {
 					ConfigurationPath = ConfigurationPath,
