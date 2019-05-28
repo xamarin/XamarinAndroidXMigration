@@ -4,6 +4,8 @@
     <!--
       TODO:
         * process the resources inside the .aar files after they have been extracted
+        * detect when android support is not used and skip migration
+        * determine which android x dll and which android x nuget relates to a particular support dll and make sure it is added
     -->
 
     <UsingTask TaskName="Xamarin.AndroidX.Migration.BuildTasks.CecilfyFiles"
