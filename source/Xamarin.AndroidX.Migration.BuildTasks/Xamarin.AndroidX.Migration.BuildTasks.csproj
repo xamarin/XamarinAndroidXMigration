@@ -19,6 +19,7 @@
     <None Remove="Xamarin.AndroidX.Migration.targets" />
     <Content Include="Xamarin.AndroidX.Migration.props" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Xamarin.AndroidX.Migration.targets" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\mappings\androidx-assemblies.csv" Link="Tools\Mappings\androidx-assemblies.csv" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

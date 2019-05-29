@@ -16,21 +16,21 @@ namespace Xamarin.AndroidX.Migration
 		private const string StringFullName = "System.String";
 
 		public CecilMigrator()
-			: this(CsvMapping.Instance)
+			: this(new AndroidXTypesCsvMapping())
 		{
 		}
 
 		public CecilMigrator(Stream stream)
-			: this(new CsvMapping(stream))
+			: this(new AndroidXTypesCsvMapping(stream))
 		{
 		}
 
-		public CecilMigrator(CsvMapping mapping)
+		public CecilMigrator(AndroidXTypesCsvMapping mapping)
 		{
 			Mapping = mapping;
 		}
 
-		public CsvMapping Mapping { get; }
+		public AndroidXTypesCsvMapping Mapping { get; }
 
 		public bool Verbose { get; set; }
 

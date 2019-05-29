@@ -5,7 +5,6 @@
       TODO:
         * process the resources inside the .aar files after they have been extracted
         * detect when android support is not used and skip migration
-        * determine which android x dll and which android x nuget relates to a particular support dll and make sure it is added
     -->
 
     <UsingTask TaskName="Xamarin.AndroidX.Migration.BuildTasks.CecilfyFiles"
@@ -14,41 +13,60 @@
                AssemblyFile="$(MSBuildThisFileDirectory)Xamarin.AndroidX.Migration.BuildTasks.dll" />
     <UsingTask TaskName="Xamarin.AndroidX.Migration.BuildTasks.RemoveSkippedEmbeddedFiles"
                AssemblyFile="$(MSBuildThisFileDirectory)Xamarin.AndroidX.Migration.BuildTasks.dll" />
+    <UsingTask TaskName="Xamarin.AndroidX.Migration.BuildTasks.ValidateAndroidXPackages"
+               AssemblyFile="$(MSBuildThisFileDirectory)Xamarin.AndroidX.Migration.BuildTasks.dll" />
 
     <PropertyGroup>
         <_AndroidXShouldRunMigration Condition="'$(_AndroidXShouldRunMigration)' == '' and '$(AndroidApplication)' == 'true' and '$(AndroidXIsUsingAndroidXLibraries)' == 'true'">true</_AndroidXShouldRunMigration>
         <_AndroidXIntermediateOutputPath>$(IntermediateOutputPath)androidx\</_AndroidXIntermediateOutputPath>
         <_AndroidXProguardIntermediateOutputPath>$(_AndroidXIntermediateOutputPath)proguard\</_AndroidXProguardIntermediateOutputPath>
         <_AndroidXJavaLibraryIntermediateOutputPath>$(_AndroidXIntermediateOutputPath)jl\</_AndroidXJavaLibraryIntermediateOutputPath>
+        <_AndroidXUseVerboseToolOutput Condition="'$(_AndroidXUseVerboseToolOutput)' == ''">true</_AndroidXUseVerboseToolOutput>
     </PropertyGroup>
 
     <!-- we want to ignore everything for the Android Support Java bits -->
     <ItemDefinitionGroup Condition="'$(_AndroidXShouldRunMigration)' == 'true'">
-        <_AndroidXSupportAssembliesToSkip>
+        <_AndroidXSupportAssemblyToSkip>
             <AndroidSkipResourceExtraction>true</AndroidSkipResourceExtraction>
             <AndroidSkipJavaStubGeneration>true</AndroidSkipJavaStubGeneration>
             <AndroidSkipAddToPackage>true</AndroidSkipAddToPackage>
             <AndroidSkipResourceProcessing>true</AndroidSkipResourceProcessing>
             <AndroidXSkipAndroidXMigration>true</AndroidXSkipAndroidXMigration>
-        </_AndroidXSupportAssembliesToSkip>
-        <_AndroidXAssembliesToSkip>
+        </_AndroidXSupportAssemblyToSkip>
+        <_AndroidXAssemblyToSkip>
             <AndroidSkipResourceProcessing>true</AndroidSkipResourceProcessing>
             <AndroidXSkipAndroidXMigration>true</AndroidXSkipAndroidXMigration>
-        </_AndroidXAssembliesToSkip>
+        </_AndroidXAssemblyToSkip>
     </ItemDefinitionGroup>
 
     <!-- add all the items to ignore -->
     <ItemGroup Condition="'$(_AndroidXShouldRunMigration)' == 'true'">
-        <_AndroidXSupportAssembliesToSkip Include="@(_AndroidXSupportAssembly)" />
-        <_AndroidXAssembliesToSkip Include="@(_AndroidXAssembly)" />
+        <_AndroidXSupportAssemblyToSkip Include="@(_AndroidXSupportAssembly)" />
+        <_AndroidXAssemblyToSkip Include="@(_AndroidXAssembly)" />
         <_AndroidXMavenArtifactToSkip Include="@(_AndroidXMavenArtifact)" />
     </ItemGroup>
 
     <!-- let the build system append all the metadata to the assemblies -->
     <ItemGroup Condition="'$(_AndroidXShouldRunMigration)' == 'true'">
-        <AndroidCustomMetaDataForReferences Include="@(_AndroidXSupportAssembliesToSkip)" />
-        <AndroidCustomMetaDataForReferences Include="@(_AndroidXAssembliesToSkip)" />
+        <AndroidCustomMetaDataForReferences Include="@(_AndroidXSupportAssemblyToSkip)" />
+        <AndroidCustomMetaDataForReferences Include="@(_AndroidXAssemblyToSkip)" />
     </ItemGroup>
+
+    <!--
+    ***************************************************************************
+    * VALIDATE INSTALLED PACKAGES
+    * This target will make sure that all the correct Android X pacakges are
+    * installed into the project.
+    ***************************************************************************
+    -->
+    <Target Name="_AndroidXValidateInstalledPackages"
+            AfterTargets="ResolveAssemblyReferences"
+            Condition="'$(_AndroidXShouldRunMigration)' == 'true' and '$(AndroidXSkipValidateInstalledPackages)' != 'true'">
+
+        <ValidateAndroidXPackages ResolvedAssemblies="@(ReferencePath)"
+                                  Verbose="$(_AndroidXUseVerboseToolOutput)" />
+
+    </Target>
 
     <!--
     ***************************************************************************
@@ -90,7 +108,7 @@
             Condition="'$(_AndroidXShouldRunMigration)' == 'true'">
 
         <CecilfyFiles Assemblies="@(_AndroidXFileToCecilfy)"
-                      Verbose="true" />
+                      Verbose="$(_AndroidXUseVerboseToolOutput)" />
 
         <Touch Files="$(_AndroidStampDirectory)_CopyIntermediateAssemblies.stamp;$(_AndroidStampDirectory)_AndroidXCecilfy.stamp" AlwaysCreate="True" />
 
@@ -112,7 +130,7 @@
             Condition="'$(_AndroidXShouldRunMigration)' == 'true'">
 
         <JetifyFiles Files="$(IntermediateOutputPath)android\AndroidManifest.xml"
-                     Verbose="true" />
+                     Verbose="$(_AndroidXUseVerboseToolOutput)" />
 
         <Touch Files="$(_AndroidStampDirectory)_GenerateJavaStubs.stamp;$(_AndroidStampDirectory)_AndroidXJetifyManifest.stamp" AlwaysCreate="True" />
 
@@ -143,8 +161,8 @@
         <RemoveSkippedEmbeddedFiles Files="@(_AndroidXEmbeddedFileToJetifyTemp)"
                                     OutputImportDirectory="$(_AndroidLibrayProjectIntermediatePath)"
                                     AssemblyIdentityMapFile="$(_AndroidLibrayProjectAssemblyMapFile)"
-                                    ContainersToSkip="@(_AndroidXSupportAssembliesToSkip);@(_AndroidXAssembliesToSkip);@(_AndroidXMavenArtifactToSkip)"
-                                    Verbose="true">
+                                    ContainersToSkip="@(_AndroidXSupportAssemblyToSkip);@(_AndroidXAssemblyToSkip);@(_AndroidXMavenArtifactToSkip)"
+                                    Verbose="$(_AndroidXUseVerboseToolOutput)">
             <Output TaskParameter="OutputFiles" ItemName="_AndroidXEmbeddedFileToJetify" />
         </RemoveSkippedEmbeddedFiles>
 
@@ -157,7 +175,7 @@
             Outputs="$(_AndroidStampDirectory)_AndroidXJetifyEmbeddedFiles.stamp">
 
         <JetifyFiles Files="@(_AndroidXEmbeddedFileToJetify)"
-                     Verbose="true" />
+                     Verbose="$(_AndroidXUseVerboseToolOutput)" />
         <Touch Files="$(_AndroidResFlagFile);$(_AndroidStampDirectory)_ResolveLibraryProjectImports.stamp;$(_AndroidStampDirectory)_AndroidXJetifyEmbeddedFiles.stamp" AlwaysCreate="True" />
 
         <ItemGroup>
@@ -191,7 +209,7 @@
         <JetifyFiles Files="@(_AndroidXProguardToJetify)"
                      JetifiedDirectory="$(_AndroidXProguardIntermediateOutputPath)"
                      IsProGuard="true"
-                     Verbose="true" />
+                     Verbose="$(_AndroidXUseVerboseToolOutput)" />
         <Touch Files="$(_AndroidStampDirectory)_AndroidXJetifyProguardRules.stamp" AlwaysCreate="True" />
 
         <ItemGroup>
@@ -230,7 +248,7 @@
         <RemoveDir Directories="$(_AndroidXJavaLibraryIntermediateOutputPath)" />
         <JetifyFiles Files="@(_AndroidXJavaLibraryToJetify)"
                      JetifiedDirectory="$(_AndroidXJavaLibraryIntermediateOutputPath)"
-                     Verbose="true" />
+                     Verbose="$(_AndroidXUseVerboseToolOutput)" />
         <Touch Files="$(_AndroidStampDirectory)_AndroidXJetifyJavaLibraryRules.stamp" AlwaysCreate="True" />
 
         <ItemGroup>
