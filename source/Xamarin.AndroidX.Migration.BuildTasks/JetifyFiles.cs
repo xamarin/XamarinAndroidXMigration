@@ -97,7 +97,7 @@ namespace Xamarin.AndroidX.Migration.BuildTasks {
 				return JetifiedFiles [index].ItemSpec;
 
 			if (!string.IsNullOrEmpty (JetifiedDirectory)) {
-				var extension = Path.GetExtension (Files [index]);
+				var extension = Path.GetExtension (Files [index].ItemSpec);
 				return Path.Combine (JetifiedDirectory, Guid.NewGuid ().ToString () + extension);
 			}
 
