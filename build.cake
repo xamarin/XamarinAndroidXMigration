@@ -13,6 +13,11 @@ var jetifierDownloadUrl = $"https://dl.google.com/dl/android/studio/jetifier-zip
 var azureBuildNumber = "2373";
 var azureBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1b47c07a8/_apis/build/builds/{azureBuildNumber}/artifacts?artifactName=nuget&%24format=zip&api-version=5.0";
 
+var BUILD_NUMBER = EnvironmentVariable("BUILD_NUMBER") ?? "";
+if (string.IsNullOrEmpty(BUILD_NUMBER)) {
+    BUILD_NUMBER = "0";
+}
+
 Task("JetifierWrapper")
     .Does(() =>
 {
@@ -202,6 +207,11 @@ Task("NuGets")
     NuGetPack("./nugets/Xamarin.AndroidX.Migration.nuspec", new NuGetPackSettings {
         OutputDirectory = "./output/nugets/",
         RequireLicenseAcceptance = true,
+    });
+    NuGetPack("./nugets/Xamarin.AndroidX.Migration.nuspec", new NuGetPackSettings {
+        OutputDirectory = "./output/nugets/",
+        RequireLicenseAcceptance = true,
+        VersionSuffix = "-preview-" + BUILD_NUMBER
     });
 });
 
