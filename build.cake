@@ -234,11 +234,13 @@ Task("NuGets")
     });
 
     DotNetCorePack(tool, new DotNetCorePackSettings {
+        NoBuild = true,
         Configuration = configuration,
         OutputDirectory = "./output/nugets/",
         ArgumentCustomization = args => args.Append("/p:PackAsTool=True"),
     });
     DotNetCorePack(tool, new DotNetCorePackSettings {
+        NoBuild = true,
         Configuration = configuration,
         OutputDirectory = "./output/nugets/",
         ArgumentCustomization = args => args.Append("/p:PackAsTool=True"),
