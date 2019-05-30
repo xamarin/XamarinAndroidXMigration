@@ -163,15 +163,13 @@ Task("Libraries")
     });
 
     // copy the androidx-migrator tools
-    {
-        var root = $"./source/Xamarin.AndroidX.Migration.Tool/bin/{configuration}";
-        var outRoot = $"./output/androidx-migrator";
-        EnsureDirectoryExists($"{outRoot}/");
-        CopyDirectory($"{root}/", $"{outRoot}/");
-        DeleteDirectories(GetDirectories($"{outRoot}/*/publish/"), new DeleteDirectorySettings {
-            Recursive = true,
-            Force = true
-        });
+    foreach (var tf in new [] { "net47", "netcoreapp2.2" }) {
+        var root = $"./source/Xamarin.AndroidX.Migration.Tool/bin/{configuration}/{tf}";
+        var outRoot = $"./output/androidx-migrator/{tf}";
+        EnsureDirectoryExists($"{outRoot}/Tools/");
+        CopyDirectory($"{root}/Tools/", $"{outRoot}/Tools/");
+        CopyFiles($"{root}/Mono.*", $"{outRoot}/");
+        CopyFiles($"{root}/Xamarin.*", $"{outRoot}/");
         Zip($"{outRoot}/", $"./output/androidx-migrator.zip");
     }
 
