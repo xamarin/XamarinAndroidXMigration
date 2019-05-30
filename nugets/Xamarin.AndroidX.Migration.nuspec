@@ -12,12 +12,12 @@ This package provides a set of tools and MSBuild tasks to aid in the migration f
     <summary>
 This package provides a set of tools and MSBuild tasks to aid in the migration from Android Support to Android X.
     </summary>
-    <projectUrl>https://go.microsoft.com/fwlink/?linkid=865352</projectUrl>
-    <!-- <iconUrl>https://go.microsoft.com/fwlink/?linkid=868516</iconUrl> -->
-    <!-- <tags>xamarin graphics ios android linux windows uwp tvos watchos macos tizen cross-platform skiasharp</tags> -->
+    <projectUrl>https://github.com/xamarin/XamarinAndroidXMigration</projectUrl>
+    <!-- <iconUrl></iconUrl> -->
+    <!-- <tags>xamarin android support androidx migration</tags> -->
 
     <!-- legal -->
-    <licenseUrl>https://go.microsoft.com/fwlink/?linkid=865381</licenseUrl>
+    <licenseUrl>https://github.com/xamarin/XamarinAndroidXMigration/blob/master/LICENSE</licenseUrl>
     <authors>Microsoft</authors>
     <owners>Microsoft</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
