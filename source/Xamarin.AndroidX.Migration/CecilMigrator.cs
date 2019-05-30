@@ -15,6 +15,9 @@ namespace Xamarin.AndroidX.Migration
 		private const string RegisterAttributeFullName = "Android.Runtime.RegisterAttribute";
 		private const string StringFullName = "System.String";
 
+		private const string EmbeddedAarName = "__AndroidLibraryProjects__.zip";
+		private const string EmbeddedJarExtension = ".jar";
+
 		public CecilMigrator()
 			: this(new AndroidXTypesCsvMapping())
 		{
@@ -33,6 +36,8 @@ namespace Xamarin.AndroidX.Migration
 		public AndroidXTypesCsvMapping Mapping { get; }
 
 		public bool Verbose { get; set; }
+
+		public bool SkipEmbeddedResources { get; set; }
 
 		public CecilMigrationResult Migrate(IEnumerable<MigrationPair> assemblies)
 		{
@@ -213,7 +218,64 @@ namespace Xamarin.AndroidX.Migration
 				result |= MigrateJniStrings(assembly);
 			}
 
+			if (!SkipEmbeddedResources)
+			{
+				result |= MigrateEmbeddedResources(assembly);
+			}
+
 			return result;
+		}
+
+		private CecilMigrationResult MigrateEmbeddedResources(AssemblyDefinition assembly)
+		{
+			if (!assembly.MainModule.HasResources)
+				return CecilMigrationResult.Skipped;
+
+			var embeddedResources = assembly.MainModule.Resources
+				.Where(ShouldJetifyResource)
+				.OfType<EmbeddedResource>()
+				.ToList();
+
+			if (embeddedResources.Count == 0)
+				return CecilMigrationResult.Skipped;
+
+			var tempRoot = Path.Combine(Path.GetTempPath(), GetType().FullName, Guid.NewGuid().ToString());
+			if (!Directory.Exists(tempRoot))
+				Directory.CreateDirectory(tempRoot);
+
+			if (Verbose)
+				Console.WriteLine($"  Migrating embedded resources...");
+
+			var jetifier = new Jetifier();
+			jetifier.Verbose = Verbose;
+
+			foreach (var embedded in embeddedResources)
+			{
+				var tempFile = Path.Combine(tempRoot, Guid.NewGuid().ToString() + Path.GetExtension(embedded.Name));
+
+				Console.WriteLine($"    Migrating embedded resource '{embedded.Name}'...");
+
+				using (var fileStream = File.OpenWrite(tempFile))
+				using (var resourceStream = embedded.GetResourceStream())
+				{
+					resourceStream.CopyTo(fileStream);
+				}
+
+				jetifier.Jetify(tempFile, tempFile);
+
+				assembly.MainModule.Resources.Remove(embedded);
+
+				var data = File.ReadAllBytes(tempFile);
+				File.Delete(tempFile);
+
+				assembly.MainModule.Resources.Add(new EmbeddedResource(embedded.Name, embedded.Attributes, data));
+			}
+
+			return CecilMigrationResult.Skipped;
+
+			bool ShouldJetifyResource(Resource resource) =>
+				resource.Name.Equals(EmbeddedAarName, StringComparison.OrdinalIgnoreCase) ||
+				Path.GetExtension(resource.Name).Equals(EmbeddedJarExtension, StringComparison.OrdinalIgnoreCase);
 		}
 
 		private CecilMigrationResult MigrateNetTypes(AssemblyDefinition assembly)
