@@ -211,7 +211,7 @@ Task("NuGets")
     NuGetPack("./nugets/Xamarin.AndroidX.Migration.nuspec", new NuGetPackSettings {
         OutputDirectory = "./output/nugets/",
         RequireLicenseAcceptance = true,
-        Suffix = "-preview-" + BUILD_NUMBER,
+        Suffix = "preview-" + BUILD_NUMBER,
     });
 });
 
