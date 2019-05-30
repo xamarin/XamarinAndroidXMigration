@@ -1,4 +1,5 @@
 #tool "nuget:https://www.nuget.org/api/v2?package=xunit.runner.console&version=2.4.1"
+#addin "nuget:?package=Cake.FileHelpers&version=3.2.0"
 
 var target = Argument("t", Argument("target", "Default"));
 var verbosity = Argument("v", Argument("verbosity", "Normal"));
@@ -203,16 +204,30 @@ Task("NuGets")
     .IsDependentOn("Libraries")
     .Does(() =>
 {
+    var nuspec = "./nugets/Xamarin.AndroidX.Migration.nuspec";
+    var tempNuspec = "./nugets/Xamarin.AndroidX.Migration.mac.nuspec";
+
+    if (!IsRunningOnWindows()) {
+        CopyFile(nuspec, tempNuspec);
+        nuspec = tempNuspec;
+
+        ReplaceTextInFiles(tempNuspec, "\\", "/");
+    }
+
     DeleteFiles("./output/nugets/*.nupkg");
-    NuGetPack("./nugets/Xamarin.AndroidX.Migration.nuspec", new NuGetPackSettings {
+    NuGetPack(nuspec, new NuGetPackSettings {
         OutputDirectory = "./output/nugets/",
         RequireLicenseAcceptance = true,
     });
-    NuGetPack("./nugets/Xamarin.AndroidX.Migration.nuspec", new NuGetPackSettings {
+    NuGetPack(nuspec, new NuGetPackSettings {
         OutputDirectory = "./output/nugets/",
         RequireLicenseAcceptance = true,
         Suffix = "preview-" + BUILD_NUMBER,
     });
+
+    if (FileExists(tempNuspec)) {
+        DeleteFile(tempNuspec);
+    }
 });
 
 Task("Samples")
