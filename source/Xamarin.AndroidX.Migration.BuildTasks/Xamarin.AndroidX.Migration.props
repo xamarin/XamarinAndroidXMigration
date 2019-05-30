@@ -220,6 +220,7 @@
         <_AndroidXMavenArtifact Include="androidx.localbroadcastmanager.localbroadcastmanager" />
         <_AndroidXMavenArtifact Include="androidx.media.media" />
         <_AndroidXMavenArtifact Include="androidx.mediarouter.mediarouter" />
+        <_AndroidXMavenArtifact Include="androidx.multidex.multidex" />
         <_AndroidXMavenArtifact Include="androidx.palette.palette" />
         <_AndroidXMavenArtifact Include="androidx.percentlayout.percentlayout" />
         <_AndroidXMavenArtifact Include="androidx.preference.preference" />

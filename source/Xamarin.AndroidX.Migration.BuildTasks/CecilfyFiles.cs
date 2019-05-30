@@ -10,6 +10,8 @@ namespace Xamarin.AndroidX.Migration.BuildTasks
 		[Required]
 		public ITaskItem[] Assemblies { get; set; }
 
+		public bool SkipEmbeddedResources { get; set; }
+
 		public bool Verbose { get; set; }
 
 		public override bool Execute()
@@ -23,6 +25,7 @@ namespace Xamarin.AndroidX.Migration.BuildTasks
 
 			var cecilfier = new CecilMigrator
 			{
+				SkipEmbeddedResources = SkipEmbeddedResources,
 				Verbose = Verbose
 			};
 

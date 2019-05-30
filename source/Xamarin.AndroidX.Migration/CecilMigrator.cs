@@ -271,6 +271,17 @@ namespace Xamarin.AndroidX.Migration
 				assembly.MainModule.Resources.Add(new EmbeddedResource(embedded.Name, embedded.Attributes, data));
 			}
 
+			if (Directory.Exists(tempRoot))
+			{
+				try
+				{
+					Directory.Delete(tempRoot, true);
+				}
+				catch
+				{
+				}
+			}
+
 			return CecilMigrationResult.Skipped;
 
 			bool ShouldJetifyResource(Resource resource) =>

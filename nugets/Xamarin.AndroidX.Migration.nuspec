@@ -26,7 +26,9 @@ This package provides a set of tools and MSBuild tasks to aid in the migration f
   </metadata>
   <files>
 
-    <file src="..\output\Xamarin.AndroidX.Migration.BuildTasks\**\*" target="build\monoandroid10" />
+    <file src="..\output\Xamarin.AndroidX.Migration.BuildTasks\build\**\*" target="build\monoandroid10" />
+
+    <file src="..\output\Xamarin.AndroidX.Migration.BuildTasks\aar\*" target="aar\androidx.multidex.multidex.aar" />
 
     <file src="..\output\androidx-migrator\net47\**\*" target="tools\net47" />
 

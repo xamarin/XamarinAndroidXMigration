@@ -14,6 +14,9 @@ var jetifierDownloadUrl = $"https://dl.google.com/dl/android/studio/jetifier-zip
 var azureBuildNumber = "2373";
 var azureBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1b47c07a8/_apis/build/builds/{azureBuildNumber}/artifacts?artifactName=nuget&%24format=zip&api-version=5.0";
 
+var multidexPackageVersion = "2.0.1";
+var multidexPackageUrl = $"https://maven.google.com/androidx/multidex/multidex/{multidexPackageVersion}/multidex-{multidexPackageVersion}.aar";
+
 var BUILD_NUMBER = EnvironmentVariable("BUILD_NUMBER") ?? "";
 if (string.IsNullOrEmpty(BUILD_NUMBER)) {
     BUILD_NUMBER = "0";
@@ -135,6 +138,11 @@ Task("DownloadAndroidXAssets")
         CopyFileToDirectory($"{externalsRoot}nuget/AndroidX.Merged.dll", dllsRoot);
         CopyFileToDirectory($"{externalsRoot}nuget/androidx-mapping.csv", "mappings");
     }
+
+    var multidexAar = $"{externalsRoot}androidx.multidex.multidex.aar";
+    if (!FileExists(multidexAar)) {
+        DownloadFile(multidexPackageUrl, multidexAar);
+    }
 });
 
 Task("NativeAssets")
@@ -177,10 +185,12 @@ Task("Libraries")
     {
         var root = $"./source/Xamarin.AndroidX.Migration.BuildTasks/bin/{configuration}/net47";
         var outRoot = $"./output/Xamarin.AndroidX.Migration.BuildTasks";
-        EnsureDirectoryExists($"{outRoot}/Tools/");
-        CopyDirectory($"{root}/Tools/", $"{outRoot}/Tools/");
-        CopyFiles($"{root}/Mono.*", $"{outRoot}/");
-        CopyFiles($"{root}/Xamarin.*", $"{outRoot}/");
+        EnsureDirectoryExists($"{outRoot}/build/Tools/");
+        CopyDirectory($"{root}/Tools/", $"{outRoot}/build/Tools/");
+        CopyFiles($"{root}/Mono.*", $"{outRoot}/build/");
+        CopyFiles($"{root}/Xamarin.*", $"{outRoot}/build/");
+        EnsureDirectoryExists($"{outRoot}/aar/");
+        CopyFileToDirectory($"externals/androidx.multidex.multidex.aar", $"{outRoot}/aar/");
         Zip($"{outRoot}/", $"./output/Xamarin.AndroidX.Migration.BuildTasks.zip");
     }
 });
@@ -284,8 +294,8 @@ Task("Samples")
 Task("Default")
     .IsDependentOn("NativeAssets")
     .IsDependentOn("Libraries")
-    .IsDependentOn("Tests")
     .IsDependentOn("NuGets")
+    .IsDependentOn("Tests")
     // .IsDependentOn("Samples")
     ;
 

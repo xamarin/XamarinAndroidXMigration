@@ -54,6 +54,27 @@
 
     <!--
     ***************************************************************************
+    * MULTIDEX
+    * This target removes the bundled multidex library and replaces it with
+    * the Android X version.
+    ***************************************************************************
+    -->
+    <Target Name="_AndroidXRemoveBundledMultidexArtifacts"
+            AfterTargets="_AddMultiDexDependencyJars"
+            Condition="'$(_AndroidXShouldRunMigration)' == 'true'">
+
+        <ItemGroup>
+            <AndroidJavaLibrary Remove="$(MonoAndroidToolsDirectory)\android-support-multidex.jar" />
+            <AndroidAarLibrary Include="$(MSBuildThisFileDirectory)..\aar\androidx.multidex.multidex.aar"
+                               Condition="'$(AndroidEnableMultiDex)' == 'true'">
+                <AndroidXSkipAndroidXMigration>true</AndroidXSkipAndroidXMigration>
+            </AndroidAarLibrary>
+        </ItemGroup>
+
+    </Target>
+
+    <!--
+    ***************************************************************************
     * VALIDATE INSTALLED PACKAGES
     * This target will make sure that all the correct Android X pacakges are
     * installed into the project.
@@ -108,6 +129,7 @@
             Condition="'$(_AndroidXShouldRunMigration)' == 'true'">
 
         <CecilfyFiles Assemblies="@(_AndroidXFileToCecilfy)"
+                      SkipEmbeddedResources="true"
                       Verbose="$(_AndroidXUseVerboseToolOutput)" />
 
         <Touch Files="$(_AndroidStampDirectory)_CopyIntermediateAssemblies.stamp;$(_AndroidStampDirectory)_AndroidXCecilfy.stamp" AlwaysCreate="True" />
