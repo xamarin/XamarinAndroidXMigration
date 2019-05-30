@@ -162,20 +162,29 @@ Task("Libraries")
         },
     });
 
-    // copy the androidx-migrator tool
-    EnsureDirectoryExists("./output/androidx-migrator/Tools/");
-    CopyDirectory($"./source/androidx-migrator/bin/{configuration}/net47/Tools/", "./output/androidx-migrator/Tools/");
-    CopyFiles($"./source/androidx-migrator/bin/{configuration}/net47/androidx-migrator.*", "./output/androidx-migrator/");
-    CopyFiles($"./source/androidx-migrator/bin/{configuration}/net47/Mono.*", "./output/androidx-migrator/");
-    CopyFiles($"./source/androidx-migrator/bin/{configuration}/net47/Xamarin.*", "./output/androidx-migrator/");
-    Zip("./output/androidx-migrator/", "./output/androidx-migrator.zip");
+    // copy the androidx-migrator tools
+    {
+        var root = $"./source/Xamarin.AndroidX.Migration.Tool/bin/{configuration}";
+        var outRoot = $"./output/androidx-migrator";
+        EnsureDirectoryExists($"{outRoot}/");
+        CopyDirectory($"{root}/", $"{outRoot}/");
+        DeleteDirectories(GetDirectories($"{outRoot}/*/publish/"), new DeleteDirectorySettings {
+            Recursive = true,
+            Force = true
+        });
+        Zip($"{outRoot}/", $"./output/androidx-migrator.zip");
+    }
 
-    // copy the build tasts
-    EnsureDirectoryExists("./output/Xamarin.AndroidX.Migration.BuildTasks/Tools/");
-    CopyDirectory($"./source/Xamarin.AndroidX.Migration.BuildTasks/bin/{configuration}/net47/Tools/", "./output/Xamarin.AndroidX.Migration.BuildTasks/Tools/");
-    CopyFiles($"./source/Xamarin.AndroidX.Migration.BuildTasks/bin/{configuration}/net47/Mono.*", "./output/Xamarin.AndroidX.Migration.BuildTasks/");
-    CopyFiles($"./source/Xamarin.AndroidX.Migration.BuildTasks/bin/{configuration}/net47/Xamarin.*", "./output/Xamarin.AndroidX.Migration.BuildTasks/");
-    Zip("./output/Xamarin.AndroidX.Migration.BuildTasks/", "./output/Xamarin.AndroidX.Migration.BuildTasks.zip");
+    // copy the build tasks
+    {
+        var root = $"./source/Xamarin.AndroidX.Migration.BuildTasks/bin/{configuration}/net47";
+        var outRoot = $"./output/Xamarin.AndroidX.Migration.BuildTasks";
+        EnsureDirectoryExists($"{outRoot}/Tools/");
+        CopyDirectory($"{root}/Tools/", $"{outRoot}/Tools/");
+        CopyFiles($"{root}/Mono.*", $"{outRoot}/");
+        CopyFiles($"{root}/Xamarin.*", $"{outRoot}/");
+        Zip($"{outRoot}/", $"./output/Xamarin.AndroidX.Migration.BuildTasks.zip");
+    }
 });
 
 Task("Tests")
@@ -206,6 +215,7 @@ Task("NuGets")
 {
     var nuspec = "./nugets/Xamarin.AndroidX.Migration.nuspec";
     var tempNuspec = "./nugets/Xamarin.AndroidX.Migration.mac.nuspec";
+    var tool = "./source/Xamarin.AndroidX.Migration.Tool/Xamarin.AndroidX.Migration.Tool.csproj";
 
     if (!IsRunningOnWindows()) {
         CopyFile(nuspec, tempNuspec);
@@ -223,6 +233,18 @@ Task("NuGets")
         OutputDirectory = "./output/nugets/",
         RequireLicenseAcceptance = true,
         Suffix = "preview-" + BUILD_NUMBER,
+    });
+
+    DotNetCorePack(tool, new DotNetCorePackSettings {
+        Configuration = configuration,
+        OutputDirectory = "./output/nugets/",
+        ArgumentCustomization = args => args.Append("/p:PackAsTool=True"),
+    });
+    DotNetCorePack(tool, new DotNetCorePackSettings {
+        Configuration = configuration,
+        OutputDirectory = "./output/nugets/",
+        ArgumentCustomization = args => args.Append("/p:PackAsTool=True"),
+        VersionSuffix = "preview-" + BUILD_NUMBER,
     });
 
     if (FileExists(tempNuspec)) {
