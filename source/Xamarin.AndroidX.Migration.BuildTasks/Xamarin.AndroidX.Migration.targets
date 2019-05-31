@@ -64,11 +64,12 @@
             <AndroidXSkipAndroidXMigration>true</AndroidXSkipAndroidXMigration>
         </AndroidAarLibrary>
     </ItemGroup>
+
     <PropertyGroup Condition="'$(_AndroidXShouldRunMigration)' == 'true' and '$(AndroidEnableMultiDex)' == 'true'">
         <AndroidApplicationJavaClass Condition="'$(AndroidApplicationJavaClass)' == ''">androidx.multidex.MultiDexApplication</AndroidApplicationJavaClass>
     </PropertyGroup>
+
     <Target Name="_AndroidXRemoveBundledMultidexArtifacts"
-            AfterTargets="_AddMultiDexDependencyJars"
             Condition="'$(_AndroidXShouldRunMigration)' == 'true' and '$(AndroidEnableMultiDex)' == 'true'">
 
         <ItemGroup>
@@ -196,7 +197,7 @@
 
     <Target Name="_AndroidXJetifyEmbeddedFiles"
             Condition="'$(_AndroidXShouldRunMigration)' == 'true'"
-            DependsOnTargets="_AndroidXFindJetifyEmbeddedFiles"
+            DependsOnTargets="_AndroidXFindJetifyEmbeddedFiles;_AndroidXRemoveBundledMultidexArtifacts"
             Inputs="@(_AndroidXEmbeddedFileToJetify);$(_AndroidResFlagFile);$(_AndroidStampDirectory)_ResolveLibraryProjectImports.stamp"
             Outputs="$(_AndroidStampDirectory)_AndroidXJetifyEmbeddedFiles.stamp">
 
