@@ -59,16 +59,20 @@
     * the Android X version.
     ***************************************************************************
     -->
+    <ItemGroup Condition="'$(_AndroidXShouldRunMigration)' == 'true' and '$(AndroidEnableMultiDex)' == 'true'">
+        <AndroidAarLibrary Include="$(MSBuildThisFileDirectory)..\aar\androidx.multidex.multidex.aar">
+            <AndroidXSkipAndroidXMigration>true</AndroidXSkipAndroidXMigration>
+        </AndroidAarLibrary>
+    </ItemGroup>
+    <PropertyGroup Condition="'$(_AndroidXShouldRunMigration)' == 'true' and '$(AndroidEnableMultiDex)' == 'true'">
+        <AndroidApplicationJavaClass Condition="'$(AndroidApplicationJavaClass)' == ''">androidx.multidex.MultiDexApplication</AndroidApplicationJavaClass>
+    </PropertyGroup>
     <Target Name="_AndroidXRemoveBundledMultidexArtifacts"
             AfterTargets="_AddMultiDexDependencyJars"
-            Condition="'$(_AndroidXShouldRunMigration)' == 'true'">
+            Condition="'$(_AndroidXShouldRunMigration)' == 'true' and '$(AndroidEnableMultiDex)' == 'true'">
 
         <ItemGroup>
             <AndroidJavaLibrary Remove="$(MonoAndroidToolsDirectory)\android-support-multidex.jar" />
-            <AndroidAarLibrary Include="$(MSBuildThisFileDirectory)..\aar\androidx.multidex.multidex.aar"
-                               Condition="'$(AndroidEnableMultiDex)' == 'true'">
-                <AndroidXSkipAndroidXMigration>true</AndroidXSkipAndroidXMigration>
-            </AndroidAarLibrary>
         </ItemGroup>
 
     </Target>
