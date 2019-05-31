@@ -1893,17 +1893,17 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0a0043
 			public static int action_bar_title = 2131361859;
 			
-			// aapt resource value: 0x7f0a0078
-			public static int action_container = 2131361912;
+			// aapt resource value: 0x7f0a0079
+			public static int action_container = 2131361913;
 			
 			// aapt resource value: 0x7f0a0068
 			public static int action_context_bar = 2131361896;
 			
-			// aapt resource value: 0x7f0a0083
-			public static int action_divider = 2131361923;
+			// aapt resource value: 0x7f0a0084
+			public static int action_divider = 2131361924;
 			
-			// aapt resource value: 0x7f0a0079
-			public static int action_image = 2131361913;
+			// aapt resource value: 0x7f0a007a
+			public static int action_image = 2131361914;
 			
 			// aapt resource value: 0x7f0a0002
 			public static int action_menu_divider = 2131361794;
@@ -1920,11 +1920,11 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0a0045
 			public static int action_mode_close_button = 2131361861;
 			
-			// aapt resource value: 0x7f0a007a
-			public static int action_text = 2131361914;
+			// aapt resource value: 0x7f0a007b
+			public static int action_text = 2131361915;
 			
-			// aapt resource value: 0x7f0a0084
-			public static int actions = 2131361924;
+			// aapt resource value: 0x7f0a0085
+			public static int actions = 2131361925;
 			
 			// aapt resource value: 0x7f0a0046
 			public static int activity_chooser_view_content = 2131361862;
@@ -1940,6 +1940,9 @@ namespace ManagedAarxercise
 			
 			// aapt resource value: 0x7f0a002c
 			public static int always = 2131361836;
+			
+			// aapt resource value: 0x7f0a0078
+			public static int appcompatButton = 2131361912;
 			
 			// aapt resource value: 0x7f0a003f
 			public static int async = 2131361855;
@@ -1968,8 +1971,8 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0a0060
 			public static int checkbox = 2131361888;
 			
-			// aapt resource value: 0x7f0a0082
-			public static int chronometer = 2131361922;
+			// aapt resource value: 0x7f0a0083
+			public static int chronometer = 2131361923;
 			
 			// aapt resource value: 0x7f0a0036
 			public static int clip_horizontal = 2131361846;
@@ -2037,8 +2040,8 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0a004b
 			public static int icon = 2131361867;
 			
-			// aapt resource value: 0x7f0a0085
-			public static int icon_group = 2131361925;
+			// aapt resource value: 0x7f0a0086
+			public static int icon_group = 2131361926;
 			
 			// aapt resource value: 0x7f0a002e
 			public static int ifRoom = 2131361838;
@@ -2046,8 +2049,8 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0a0048
 			public static int image = 2131361864;
 			
-			// aapt resource value: 0x7f0a007e
-			public static int info = 2131361918;
+			// aapt resource value: 0x7f0a007f
+			public static int info = 2131361919;
 			
 			// aapt resource value: 0x7f0a0042
 			public static int italic = 2131361858;
@@ -2088,14 +2091,14 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0a0012
 			public static int normal = 2131361810;
 			
-			// aapt resource value: 0x7f0a0080
-			public static int notification_background = 2131361920;
+			// aapt resource value: 0x7f0a0081
+			public static int notification_background = 2131361921;
+			
+			// aapt resource value: 0x7f0a007d
+			public static int notification_main_column = 2131361917;
 			
 			// aapt resource value: 0x7f0a007c
-			public static int notification_main_column = 2131361916;
-			
-			// aapt resource value: 0x7f0a007b
-			public static int notification_main_column_container = 2131361915;
+			public static int notification_main_column_container = 2131361916;
 			
 			// aapt resource value: 0x7f0a004e
 			public static int parentPanel = 2131361870;
@@ -2112,11 +2115,11 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0a003c
 			public static int right = 2131361852;
 			
-			// aapt resource value: 0x7f0a007f
-			public static int right_icon = 2131361919;
+			// aapt resource value: 0x7f0a0080
+			public static int right_icon = 2131361920;
 			
-			// aapt resource value: 0x7f0a007d
-			public static int right_side = 2131361917;
+			// aapt resource value: 0x7f0a007e
+			public static int right_side = 2131361918;
 			
 			// aapt resource value: 0x7f0a001d
 			public static int screen = 2131361821;
@@ -2223,8 +2226,8 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0a0052
 			public static int textSpacerNoTitle = 2131361874;
 			
-			// aapt resource value: 0x7f0a0081
-			public static int time = 2131361921;
+			// aapt resource value: 0x7f0a0082
+			public static int time = 2131361922;
 			
 			// aapt resource value: 0x7f0a0010
 			public static int title = 2131361808;
@@ -2385,34 +2388,37 @@ namespace ManagedAarxercise
 			public static int managedsimplefragment = 2130903068;
 			
 			// aapt resource value: 0x7f03001d
-			public static int notification_action = 2130903069;
+			public static int managedsupportlayout = 2130903069;
 			
 			// aapt resource value: 0x7f03001e
-			public static int notification_action_tombstone = 2130903070;
+			public static int notification_action = 2130903070;
 			
 			// aapt resource value: 0x7f03001f
-			public static int notification_template_custom_big = 2130903071;
+			public static int notification_action_tombstone = 2130903071;
 			
 			// aapt resource value: 0x7f030020
-			public static int notification_template_icon_group = 2130903072;
+			public static int notification_template_custom_big = 2130903072;
 			
 			// aapt resource value: 0x7f030021
-			public static int notification_template_part_chronometer = 2130903073;
+			public static int notification_template_icon_group = 2130903073;
 			
 			// aapt resource value: 0x7f030022
-			public static int notification_template_part_time = 2130903074;
+			public static int notification_template_part_chronometer = 2130903074;
 			
 			// aapt resource value: 0x7f030023
-			public static int select_dialog_item_material = 2130903075;
+			public static int notification_template_part_time = 2130903075;
 			
 			// aapt resource value: 0x7f030024
-			public static int select_dialog_multichoice_material = 2130903076;
+			public static int select_dialog_item_material = 2130903076;
 			
 			// aapt resource value: 0x7f030025
-			public static int select_dialog_singlechoice_material = 2130903077;
+			public static int select_dialog_multichoice_material = 2130903077;
 			
 			// aapt resource value: 0x7f030026
-			public static int support_simple_spinner_dropdown_item = 2130903078;
+			public static int select_dialog_singlechoice_material = 2130903078;
+			
+			// aapt resource value: 0x7f030027
+			public static int support_simple_spinner_dropdown_item = 2130903079;
 			
 			static Layout()
 			{

@@ -1,5 +1,6 @@
 ﻿using Mono.Cecil;
 using System.Linq;
+using System.Xml.Linq;
 using Xunit;
 
 namespace Xamarin.AndroidX.Migration.Tests
@@ -56,8 +57,8 @@ namespace Xamarin.AndroidX.Migration.Tests
 		}
 
 		[Theory]
-		[InlineData(ManagedSupportDll, ManagedAndroidXDll, CecilMigrationResult.ContainedSupport)]
-		[InlineData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
+		[InlineData(ManagedSupportDll, ManagedAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
+		[InlineData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
 		public void AssembliesHaveTheSameTypesAfterMigration(string supportDll, string androidXDll, CecilMigrationResult expectedResult)
 		{
 			var migratedDll = RunMigration(supportDll, expectedResult);
@@ -70,8 +71,8 @@ namespace Xamarin.AndroidX.Migration.Tests
 		}
 
 		[Theory]
-		[InlineData(ManagedSupportDll, ManagedAndroidXDll, CecilMigrationResult.ContainedSupport)]
-		[InlineData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
+		[InlineData(ManagedSupportDll, ManagedAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
+		[InlineData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
 		public void AssembliesHaveTheSameReferencesAfterMigration(string supportDll, string androidXDll, CecilMigrationResult expectedResult)
 		{
 			var migratedDll = RunMigration(supportDll, expectedResult);
@@ -86,8 +87,8 @@ namespace Xamarin.AndroidX.Migration.Tests
 		}
 
 		[Theory]
-		[InlineData(ManagedSupportDll, ManagedAndroidXDll, CecilMigrationResult.ContainedSupport)]
-		[InlineData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
+		[InlineData(ManagedSupportDll, ManagedAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
+		[InlineData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
 		public void AllTypesHaveTheSameMembers(string supportDll, string androidXDll, CecilMigrationResult expectedResult)
 		{
 			var migratedDll = RunMigration(supportDll, expectedResult);
@@ -101,6 +102,27 @@ namespace Xamarin.AndroidX.Migration.Tests
 				for (var i = 0; i < xTypes.Length; i++)
 				{
 					CecilAssert.Equal(xTypes[i], mTypes[i]);
+				}
+			}
+		}
+
+		[Theory]
+		[InlineData(ManagedSupportDll, "library_project_imports/res/layout/managedsupportlayout.xml", CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
+		[InlineData(BindingSupportDll, "library_project_imports/res/layout/supportlayout.xml", CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
+		public void EmbeddedJavaArtifactsAreMigrated(string supportDll, string layoutFile, CecilMigrationResult expectedResult)
+		{
+			var migratedDll = RunMigration(supportDll, expectedResult);
+
+			using (var migrated = AssemblyDefinition.ReadAssembly(migratedDll))
+			{
+				var aarResource = migrated.MainModule.Resources.FirstOrDefault(r => r.Name == "__AndroidLibraryProjects__.zip") as EmbeddedResource;
+				using (var aarStream = aarResource.GetResourceStream())
+				{
+					var migratedLayout = ReadAarEntry(aarStream, layoutFile);
+
+					Assert.Equal(
+						"androidx.appcompat.widget.AppCompatButton",
+						XDocument.Load(migratedLayout).Root.Elements().FirstOrDefault().Name.LocalName);
 				}
 			}
 		}

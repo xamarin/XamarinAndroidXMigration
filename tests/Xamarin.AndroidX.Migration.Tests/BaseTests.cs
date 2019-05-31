@@ -14,6 +14,8 @@ namespace Xamarin.AndroidX.Migration.Tests
 		public const string ManagedAndroidXDll = "Aarxercise.Managed.AndroidX.dll";
 		public const string BindingSupportDll = "Aarxercise.Binding.Support.dll";
 		public const string BindingAndroidXDll = "Aarxercise.Binding.AndroidX.dll";
+		public const string ReferenceSupportDll = "Aarxercise.Reference.Support.dll";
+		public const string ReferenceAndroidXDll = "Aarxercise.Reference.AndroidX.dll";
 
 		public const string SupportAar = "aarxersise.java.support.aar";
 		public const string AndroidXAar = "aarxersise.java.androidx.aar";
@@ -22,10 +24,18 @@ namespace Xamarin.AndroidX.Migration.Tests
 
 		public static Stream ReadAarEntry(string aarFilename, string entryFilename)
 		{
+			using (var file = File.OpenRead(aarFilename))
+			{
+				return ReadAarEntry(file, entryFilename);
+			}
+		}
+
+		public static Stream ReadAarEntry(Stream aar, string entryFilename)
+		{
 			// convert to aar slashes
 			entryFilename = entryFilename.Replace("\\", "/");
 
-			using (var archive = new ZipArchive(File.OpenRead(aarFilename), ZipArchiveMode.Read, false))
+			using (var archive = new ZipArchive(aar, ZipArchiveMode.Read, true))
 			{
 				var entry = archive.Entries.FirstOrDefault(e => e.FullName == entryFilename);
 
@@ -47,10 +57,18 @@ namespace Xamarin.AndroidX.Migration.Tests
 
 		public static string ExtractAarEntry(string aarFilename, string entryFilename)
 		{
+			using (var file = File.OpenRead(aarFilename))
+			{
+				return ExtractAarEntry(aarFilename, entryFilename);
+			}
+		}
+
+		public static string ExtractAarEntry(Stream aar, string entryFilename)
+		{
 			var destFile = Utils.GetTempFilename(entryFilename);
 
 			using (var file = File.OpenWrite(destFile))
-			using (var stream = ReadAarEntry(aarFilename, entryFilename))
+			using (var stream = ReadAarEntry(aar, entryFilename))
 			{
 				stream.CopyTo(file);
 			}
@@ -68,11 +86,6 @@ namespace Xamarin.AndroidX.Migration.Tests
 		}
 
 		public static string RunMigration(string supportDll, CecilMigrationResult expectedResult)
-		{
-			return RunCecilMigratorMigration(supportDll, expectedResult);
-		}
-
-		public static string RunCecilMigratorMigration(string supportDll, CecilMigrationResult expectedResult)
 		{
 			var migratedDll = Utils.GetTempFilename();
 

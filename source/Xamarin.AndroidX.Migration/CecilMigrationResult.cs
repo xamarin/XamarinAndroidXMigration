@@ -10,5 +10,7 @@ namespace Xamarin.AndroidX.Migration
 		ContainedSupport = 1 << 0,
 		PotentialJni = 1 << 1,
 		ContainedJni = 1 << 2,
+		PotentialJavaArtifacts = 1 << 3,
+		ContainedJavaArtifacts = 1 << 4,
 	}
 }

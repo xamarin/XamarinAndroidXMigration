@@ -218,18 +218,20 @@ namespace Xamarin.AndroidX.Migration
 				result |= MigrateJniStrings(assembly);
 			}
 
-			if (!SkipEmbeddedResources)
-			{
-				result |= MigrateEmbeddedResources(assembly);
-			}
+			result |= MigrateEmbeddedResources(assembly);
 
 			return result;
 		}
 
 		private CecilMigrationResult MigrateEmbeddedResources(AssemblyDefinition assembly)
 		{
-			if (!assembly.MainModule.HasResources)
-				return CecilMigrationResult.Skipped;
+			var result = CecilMigrationResult.Skipped;
+
+			if (assembly.MainModule.HasResources)
+				result |= CecilMigrationResult.PotentialJavaArtifacts;
+
+			if (SkipEmbeddedResources || !assembly.MainModule.HasResources)
+				return result;
 
 			var embeddedResources = assembly.MainModule.Resources
 				.Where(ShouldJetifyResource)
@@ -237,7 +239,7 @@ namespace Xamarin.AndroidX.Migration
 				.ToList();
 
 			if (embeddedResources.Count == 0)
-				return CecilMigrationResult.Skipped;
+				return result;
 
 			var tempRoot = Path.Combine(Path.GetTempPath(), GetType().FullName, Guid.NewGuid().ToString());
 			if (!Directory.Exists(tempRoot))
@@ -269,6 +271,8 @@ namespace Xamarin.AndroidX.Migration
 				File.Delete(tempFile);
 
 				assembly.MainModule.Resources.Add(new EmbeddedResource(embedded.Name, embedded.Attributes, data));
+
+				result |= CecilMigrationResult.ContainedJavaArtifacts;
 			}
 
 			if (Directory.Exists(tempRoot))
@@ -282,7 +286,7 @@ namespace Xamarin.AndroidX.Migration
 				}
 			}
 
-			return CecilMigrationResult.Skipped;
+			return result;
 
 			bool ShouldJetifyResource(Resource resource) =>
 				resource.Name.Equals(EmbeddedAarName, StringComparison.OrdinalIgnoreCase) ||

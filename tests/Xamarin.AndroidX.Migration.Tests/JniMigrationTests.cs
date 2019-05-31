@@ -10,9 +10,10 @@ namespace Xamarin.AndroidX.Migration.Tests
 	public class JniMigrationTests : BaseTests
 	{
 		[Theory]
-		[InlineData(ManagedSupportDll, CecilMigrationResult.ContainedSupport)]
-		[InlineData(BindingSupportDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
-		[InlineData(MergedSupportDll, CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
+		[InlineData(ManagedSupportDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
+		[InlineData(BindingSupportDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
+		[InlineData(ReferenceSupportDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
+		[InlineData(MergedSupportDll, CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
 		public void MigrationDoesNotThrow(string assembly, CecilMigrationResult expectedResult)
 		{
 			var mappedDll = RunMigration(assembly, expectedResult);
@@ -21,7 +22,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 		}
 
 		[Theory]
-		[InlineData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
+		[InlineData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
 		public void RegisterAttributesOnMethodsAreMappedCorrectly(string supportDll, string androidxDll, CecilMigrationResult expectedResult)
 		{
 			var mappedDll = RunMigration(supportDll, expectedResult);
@@ -64,7 +65,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 		}
 
 		[Theory]
-		[InlineData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
+		[InlineData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
 		public void InstructionsInMethodsAreMappedCorrectly(string supportDll, string androidxDll, CecilMigrationResult expectedResult)
 		{
 			var mappedDll = RunMigration(supportDll, expectedResult);
