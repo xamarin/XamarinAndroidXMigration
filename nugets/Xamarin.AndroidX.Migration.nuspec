@@ -23,10 +23,16 @@ This package provides a set of tools and MSBuild tasks to aid in the migration f
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <copyright>© Microsoft Corporation. All rights reserved.</copyright>
 
+    <dependencies>
+      <group targetFramework="MonoAndroid9.0">
+        <dependency id="Xamarin.AndroidX.MultiDex" version="2.0.1-preview-9" include="All" />
+      </group>
+    </dependencies>
+
   </metadata>
   <files>
 
-    <file src="..\output\Xamarin.AndroidX.Migration.BuildTasks\build\**\*" target="build\monoandroid10" />
+    <file src="..\output\Xamarin.AndroidX.Migration.BuildTasks\build\**\*" target="build" />
 
     <file src="..\output\Xamarin.AndroidX.Migration.BuildTasks\aar\*" target="aar" />
 

@@ -145,6 +145,7 @@
         <_AndroidXAssembly Include="Xamarin.AndroidX.LocalBroadcastManager" />
         <_AndroidXAssembly Include="Xamarin.AndroidX.Media" />
         <_AndroidXAssembly Include="Xamarin.AndroidX.MediaRouter" />
+        <_AndroidXAssembly Include="Xamarin.AndroidX.MultiDex" />
         <_AndroidXAssembly Include="Xamarin.AndroidX.Palette" />
         <_AndroidXAssembly Include="Xamarin.AndroidX.PercentLayout" />
         <_AndroidXAssembly Include="Xamarin.AndroidX.Preference" />
