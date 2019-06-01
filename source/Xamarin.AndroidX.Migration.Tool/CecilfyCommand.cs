@@ -22,7 +22,7 @@ namespace AndroidXMigrator
 		protected override OptionSet OnCreateOptions() => new OptionSet
 		{
 			{ "a|assembly=", "One or more assemblies to cecilfy", v => AddAssembly(v) },
-			{ "skipEmbedded", "Do not Jetify the embedded resources", v => skipEmbeddedResources = true },
+			{ "skip-embedded", "Do not Jetify the embedded resources", v => skipEmbeddedResources = true },
 			{ "renameTypes", "Rename the types inside the assembly (INTERNAL)", v => renameTypes = true },
 		};
 

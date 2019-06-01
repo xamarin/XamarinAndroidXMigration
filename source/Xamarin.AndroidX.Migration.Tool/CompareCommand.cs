@@ -17,6 +17,7 @@ namespace AndroidXMigrator
 		private string xmlDiff;
 		private bool alwaysResolve;
 		private bool excludeNonbreaking;
+		private bool excludeParameterNames;
 		private bool outputApi;
 
 		public CompareCommand()
@@ -34,8 +35,9 @@ namespace AndroidXMigrator
 			{ "md=", "The output file for the Markdown diff", v => mdDiff = v },
 			{ "xml=", "The output file for the XML diff", v => xmlDiff = v },
 			{ "d|directory=", "The directories to search for assemblies", v => AddDirectory(v) },
-			{ "alwaysResolve", "Always resolve assemblies", v => alwaysResolve = true },
-			{ "excludeNonbreaking", "Exclude non-breaking changes from the diff", v => excludeNonbreaking = true },
+			{ "always-resolve", "Always resolve assemblies", v => alwaysResolve = true },
+			{ "exclude-nonbreaking", "Exclude non-breaking changes from the diff", v => excludeNonbreaking = true },
+			{ "exclude-params", "Exclude parameter name changes from the diff", v => excludeParameterNames = true },
 			{ "outputApi", "Output the API info for each assembly", v => outputApi = true },
 		};
 
@@ -131,6 +133,7 @@ namespace AndroidXMigrator
 					Colorize = true,
 					Formatter = ApiDiffFormatter.Html,
 					IgnoreNonbreaking = excludeNonbreaking,
+					IgnoreParameterNameChanges = excludeParameterNames,
 				};
 				ApiDiffFormatted.Generate(infoStreams[0], infoStreams[1], writer, config);
 			});
@@ -145,6 +148,7 @@ namespace AndroidXMigrator
 				{
 					Formatter = ApiDiffFormatter.Markdown,
 					IgnoreNonbreaking = excludeNonbreaking,
+					IgnoreParameterNameChanges = excludeParameterNames,
 				};
 				ApiDiffFormatted.Generate(infoStreams[0], infoStreams[1], writer, config);
 			});
