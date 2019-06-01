@@ -39,6 +39,8 @@ namespace Xamarin.AndroidX.Migration
 
 		public bool SkipEmbeddedResources { get; set; }
 
+		public bool RenameTypes { get; set; }
+
 		public CecilMigrationResult Migrate(IEnumerable<MigrationPair> assemblies)
 		{
 			var result = CecilMigrationResult.Skipped;
@@ -91,7 +93,8 @@ namespace Xamarin.AndroidX.Migration
 
 					requiresSave =
 						result.HasFlag(CecilMigrationResult.ContainedSupport) ||
-						result.HasFlag(CecilMigrationResult.ContainedJni);
+						result.HasFlag(CecilMigrationResult.ContainedJni) ||
+						result.HasFlag(CecilMigrationResult.ContainedJavaArtifacts);
 
 					var dir = Path.GetDirectoryName(destination);
 					if (!Directory.Exists(dir))
@@ -220,6 +223,28 @@ namespace Xamarin.AndroidX.Migration
 
 			result |= MigrateEmbeddedResources(assembly);
 
+			if (RenameTypes)
+			{
+				result |= MigrateActualTypes(assembly);
+			}
+
+			return result;
+		}
+
+		private CecilMigrationResult MigrateActualTypes(AssemblyDefinition assembly)
+		{
+			var result = CecilMigrationResult.Skipped;
+
+			Console.WriteLine($"*** WARNING: Renaming types! This will result in an invalid assembly! ***");
+
+			foreach (var type in assembly.MainModule.GetTypes())
+			{
+				if (Mapping.TryGetAndroidXType(type.FullName, out var androidx) && type.FullName != androidx.FullName)
+				{
+					type.Namespace = androidx.Namespace;
+				}
+			}
+
 			return result;
 		}
 
@@ -255,7 +280,8 @@ namespace Xamarin.AndroidX.Migration
 			{
 				var tempFile = Path.Combine(tempRoot, Guid.NewGuid().ToString() + Path.GetExtension(embedded.Name));
 
-				Console.WriteLine($"    Migrating embedded resource '{embedded.Name}'...");
+				if (Verbose)
+					Console.WriteLine($"    Migrating embedded resource '{embedded.Name}'...");
 
 				using (var fileStream = File.OpenWrite(tempFile))
 				using (var resourceStream = embedded.GetResourceStream())

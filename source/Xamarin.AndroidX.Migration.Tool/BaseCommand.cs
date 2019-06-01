@@ -7,16 +7,27 @@ namespace AndroidXMigrator
 	public abstract class BaseCommand : Command
 	{
 		protected BaseCommand(string name, string help)
+			: this(name, null, help)
+		{
+		}
+
+		protected BaseCommand(string name, string extras, string help)
 			: base(name, help)
 		{
 			var actualOptions = OnCreateOptions();
 
+			if (string.IsNullOrWhiteSpace(extras))
+				extras = "[OPTIONS]";
+			else
+				extras += " [OPTIONS]";
+
 			Options = new OptionSet
 			{
-				$"usage: {Program.Name} {Name} [OPTIONS]",
+				$"usage: {Program.Name} {Name} {extras}",
 				"",
 				Help,
 				"",
+				"Options:",
 			};
 
 			foreach (var o in actualOptions)
@@ -39,7 +50,7 @@ namespace AndroidXMigrator
 					return 0;
 				}
 
-				if (!OnValidateArguments())
+				if (!OnValidateArguments(extras))
 				{
 					Console.Error.WriteLine($"{Program.Name}: Use `{Program.Name} help {Name}` for details.");
 					return 1;
@@ -60,7 +71,7 @@ namespace AndroidXMigrator
 
 		protected abstract OptionSet OnCreateOptions();
 
-		protected virtual bool OnValidateArguments() => true;
+		protected virtual bool OnValidateArguments(IEnumerable<string> extras) => true;
 
 		protected abstract void OnInvoke(IEnumerable<string> extras);
 	}

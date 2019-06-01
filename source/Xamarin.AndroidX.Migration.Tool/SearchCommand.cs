@@ -25,7 +25,7 @@ namespace AndroidXMigrator
 
 		public List<string> JavaClasses { get; } = new List<string>();
 
-		protected override bool OnValidateArguments()
+		protected override bool OnValidateArguments(IEnumerable<string> extras)
 		{
 			if (Directories.Count == 0)
 				Directories.Add(Directory.GetCurrentDirectory());

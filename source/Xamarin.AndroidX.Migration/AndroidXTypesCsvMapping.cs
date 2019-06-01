@@ -38,33 +38,34 @@ namespace Xamarin.AndroidX.Migration
 			var supportType = record[(int)Column.SupportNetType];
 			var xNamespace = record[(int)Column.AndroidXNetNamespace];
 			var xType = record[(int)Column.AndroidXNetType];
-
 			var xAssembly = record[(int)Column.AndroidXNetAssembly];
+
+			if (!string.IsNullOrWhiteSpace(supportNamespace) &&
+				!string.IsNullOrWhiteSpace(supportType) &&
+				!string.IsNullOrWhiteSpace(xNamespace) &&
+				!string.IsNullOrWhiteSpace(xType) &&
+				!string.IsNullOrWhiteSpace(xAssembly))
+			{
+				var support = new FullType(supportNamespace, supportType);
+				var androidX = new FullType(xAssembly, xNamespace, xType);
+				mapping[support.FullName] = androidX;
+				reverseMapping[androidX.FullName] = support;
+			}
 
 			var supportPackage = record[(int)Column.SupportJavaPackage];
 			var supportClass = record[(int)Column.SupportJavaClass];
 			var xPackage = record[(int)Column.AndroidXJavaPackage];
 			var xClass = record[(int)Column.AndroidXJavaClass];
 
-			if (string.IsNullOrWhiteSpace(supportNamespace) ||
-				string.IsNullOrWhiteSpace(supportType) ||
-				string.IsNullOrWhiteSpace(xNamespace) ||
-				string.IsNullOrWhiteSpace(xType) ||
-				string.IsNullOrWhiteSpace(xAssembly) ||
-				string.IsNullOrWhiteSpace(supportPackage) ||
-				string.IsNullOrWhiteSpace(supportClass) ||
-				string.IsNullOrWhiteSpace(xPackage) ||
-				string.IsNullOrWhiteSpace(xClass))
-				return;
-
-			var support = new FullType(supportNamespace, supportType);
-			var androidX = new FullType(xAssembly, xNamespace, xType);
-			var supportJava = new FullType(supportPackage, supportClass);
-			var androidXJava = new FullType(xPackage, xClass);
-
-			mapping[support.FullName] = androidX;
-			reverseMapping[androidX.FullName] = support;
-			javaMapping[supportJava.JavaFullName] = androidXJava;
+			if (!string.IsNullOrWhiteSpace(supportPackage) &&
+				!string.IsNullOrWhiteSpace(supportClass) &&
+				!string.IsNullOrWhiteSpace(xPackage) &&
+				!string.IsNullOrWhiteSpace(xClass))
+			{
+				var supportJava = new FullType(supportPackage, supportClass);
+				var androidXJava = new FullType(xPackage, xClass);
+				javaMapping[supportJava.JavaFullName] = androidXJava;
+			}
 		}
 
 		public bool TryGetAndroidXType(string supportFullName, out FullType androidxType) =>

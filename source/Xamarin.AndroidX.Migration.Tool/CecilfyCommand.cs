@@ -10,6 +10,7 @@ namespace AndroidXMigrator
 	public class CecilfyCommand : BaseCommand
 	{
 		private bool skipEmbeddedResources;
+		private bool renameTypes;
 
 		public CecilfyCommand()
 			: base("cecilfy", "Migrates a .NET assembly to AndroidX.")
@@ -22,9 +23,10 @@ namespace AndroidXMigrator
 		{
 			{ "a|assembly=", "One or more assemblies to cecilfy", v => AddAssembly(v) },
 			{ "skipEmbedded", "Do not Jetify the embedded resources", v => skipEmbeddedResources = true },
+			{ "renameTypes", "Rename the types inside the assembly (INTERNAL)", v => renameTypes = true },
 		};
 
-		protected override bool OnValidateArguments()
+		protected override bool OnValidateArguments(IEnumerable<string> extras)
 		{
 			var hasError = false;
 
@@ -52,6 +54,7 @@ namespace AndroidXMigrator
 			var migrator = new CecilMigrator();
 			migrator.Verbose = Program.Verbose;
 			migrator.SkipEmbeddedResources = skipEmbeddedResources;
+			migrator.RenameTypes = renameTypes;
 			migrator.Migrate(assemblyPairs);
 		}
 

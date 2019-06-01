@@ -21,7 +21,7 @@ namespace AndroidXMigrator
 			{ "a|archive=", "One or more .jar/.aar files to jetify", v => AddArchive(v) },
 		};
 
-		protected override bool OnValidateArguments()
+		protected override bool OnValidateArguments(IEnumerable<string> extras)
 		{
 			var hasError = false;
 
