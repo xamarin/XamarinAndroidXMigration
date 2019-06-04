@@ -64,9 +64,17 @@ namespace Xamarin.AndroidX.Migration
 			var isProGuard = IsProGuard ? " -isProGuard" : "";
 			var noParallel = NoParallel ? " -noParallel" : "";
 			var h = PrintHelp ? " -h" : "";
+			var arguments = $"-classpath \"{classPath}\" \"{JetifierWrapperMain}\" {string.Join (" ", archiveArgs)}{c}{l}{r}{s}{rebuildTopOfTree}{stripSignatures}{isProGuard}{noParallel}{h}";
+
+			if (Verbose)
+			{
+				Console.WriteLine($"Running jetifier:");
+				Console.WriteLine($"  JavaPath: {JavaPath}");
+				Console.WriteLine($"  Arguments: {arguments}");
+			}
 
 			var proc = Process.Start (new ProcessStartInfo (JavaPath) {
-				Arguments = $"-classpath \"{classPath}\" \"{JetifierWrapperMain}\" {string.Join (" ", archiveArgs)}{c}{l}{r}{s}{rebuildTopOfTree}{stripSignatures}{isProGuard}{noParallel}{h}",
+				Arguments = arguments,
 				RedirectStandardOutput = true,
 				UseShellExecute = false
 			});
