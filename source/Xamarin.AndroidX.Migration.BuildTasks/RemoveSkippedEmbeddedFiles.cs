@@ -29,7 +29,7 @@ namespace Xamarin.AndroidX.Migration.BuildTasks
 			if (Files == null || Files.Length == 0)
 			{
 				if (Verbose)
-					Log.LogMessage($"There were no files to ckeck.");
+					Log.LogMessage($"There were no files to check.");
 
 				return true;
 			}
@@ -38,7 +38,7 @@ namespace Xamarin.AndroidX.Migration.BuildTasks
 			if (ContainersToSkip == null || ContainersToSkip.Length == 0)
 			{
 				if (Verbose)
-					Log.LogMessage($"There were no containers to ckeck.");
+					Log.LogMessage($"There were no containers to check.");
 
 				OutputFiles = Files;
 				return true;

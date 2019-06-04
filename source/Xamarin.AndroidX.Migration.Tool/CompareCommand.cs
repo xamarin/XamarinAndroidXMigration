@@ -38,7 +38,7 @@ namespace AndroidXMigrator
 			{ "always-resolve", "Always resolve assemblies", v => alwaysResolve = true },
 			{ "exclude-nonbreaking", "Exclude non-breaking changes from the diff", v => excludeNonbreaking = true },
 			{ "exclude-params", "Exclude parameter name changes from the diff", v => excludeParameterNames = true },
-			{ "outputApi", "Output the API info for each assembly", v => outputApi = true },
+			{ "output-api", "Output the API info for each assembly", v => outputApi = true },
 		};
 
 		protected override bool OnValidateArguments(IEnumerable<string> extras)
