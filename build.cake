@@ -240,7 +240,7 @@ Task("NuGets")
     NuGetPack(nuspec, new NuGetPackSettings {
         OutputDirectory = "./output/nugets/",
         RequireLicenseAcceptance = true,
-        Suffix = "preview-" + BUILD_NUMBER,
+        Suffix = "preview." + BUILD_NUMBER,
     });
 
     DotNetCorePack(tool, new DotNetCorePackSettings {
@@ -254,7 +254,7 @@ Task("NuGets")
         Configuration = configuration,
         OutputDirectory = "./output/nugets/",
         ArgumentCustomization = args => args.Append("/p:PackAsTool=True"),
-        VersionSuffix = "preview-" + BUILD_NUMBER,
+        VersionSuffix = "preview." + BUILD_NUMBER,
     });
 
     if (FileExists(tempNuspec)) {
