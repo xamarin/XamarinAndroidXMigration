@@ -266,7 +266,7 @@ namespace Xamarin.AndroidX.Migration
 			if (embeddedResources.Count == 0)
 				return result;
 
-			var tempRoot = Path.Combine(Path.GetTempPath(), GetType().FullName, Guid.NewGuid().ToString());
+			var tempRoot = Path.Combine(Path.GetTempPath(), "Xamarin.AndroidX.Migration", "Cecilfier", Guid.NewGuid().ToString());
 			if (!Directory.Exists(tempRoot))
 				Directory.CreateDirectory(tempRoot);
 

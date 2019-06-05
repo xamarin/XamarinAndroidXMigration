@@ -13,9 +13,12 @@ import org.apache.commons.cli.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Scanner;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -33,8 +36,8 @@ public class Main {
     private static Option REBUILD_TOP_OF_TREE_OPTION;
     private static Option STRIP_SIGNATURES_OPTION;
     private static Option PRO_GUARD_OPTION;
+    private static Option INTERMEDIATE_OPTION;
     private static Option PARALLEL_OPTION;
-    private static Option NO_PARALLEL_OPTION;
     private static Option HELP_OPTION;
 
     private static boolean IS_REVERSED;
@@ -42,12 +45,17 @@ public class Main {
     private static boolean SHOULD_REBUILD_TOP_OF_TREE;
     private static boolean SHOULD_STRIP_SIGNATURES;
     private static boolean IS_PRO_GUARD;
-    private static boolean SHOULD_RUN_IN_SERIAL;
+    private static boolean HAS_INTERMEDIATE;
+    private static boolean HAS_LOG_LEVEL;
+    private static boolean HAS_CONFIG;
+    private static boolean IS_PARALLEL;
+    private static boolean HAS_INPUTS;
+    private static boolean HAS_OUTPUTS;
 
     private static CommandLine COMMAND_LINE;
 
-    private static String[] INPUT_VALUES;
-    private static String[] OUTPUT_VALUES;
+    private static List<String> INPUT_VALUES;
+    private static List<String> OUTPUT_VALUES;
 
     private static Config JETIFIER_CONFIG;
     private static Processor JETIFIER_PROCESSOR;
@@ -57,12 +65,27 @@ public class Main {
     private static long END_TIME;
 
     public static void main(String[] args) {
+        // create options
         createOptionsFromJetifier();
-        assignOptions();
+        INPUT_OPTION = OPTIONS.getOption("i");
+        OUTPUT_OPTION = OPTIONS.getOption("o");
+        CONFIG_OPTION = OPTIONS.getOption("c");
+        LOG_LEVEL_OPTION = OPTIONS.getOption("l");
+        REVERSED_OPTION = OPTIONS.getOption("r");
+        STRICT_OPTION = OPTIONS.getOption("s");
+        REBUILD_TOP_OF_TREE_OPTION = OPTIONS.getOption("rebuildTopOfTree");
+        STRIP_SIGNATURES_OPTION = OPTIONS.getOption("stripSignatures");
+        PRO_GUARD_OPTION = OPTIONS.getOption("isProGuard");
+        INTERMEDIATE_OPTION = OPTIONS.getOption("intermediate");
+        PARALLEL_OPTION = OPTIONS.getOption("p");
+        HELP_OPTION = OPTIONS.getOption("h");
 
-        COMMAND_LINE = parseArguments(args);
-
-        if (COMMAND_LINE == null) {
+        // parse options
+        try {
+            COMMAND_LINE = new DefaultParser().parse(OPTIONS, args);
+        } catch (ParseException e) {
+            Log.INSTANCE.e("Main", e.getMessage());
+            printHelp();
             System.exit(1);
             return;
         }
@@ -73,30 +96,50 @@ public class Main {
             return;
         }
 
-        if (COMMAND_LINE.hasOption(PARALLEL_OPTION.getOpt()) && COMMAND_LINE.hasOption(NO_PARALLEL_OPTION.getOpt())) {
-            Log.INSTANCE.e("Main", "The option noParallel cannot be used with p|parallel.");
-            printHelp();
-            System.exit(1);
+        HAS_CONFIG = COMMAND_LINE.hasOption(CONFIG_OPTION.getOpt());
+        HAS_LOG_LEVEL = COMMAND_LINE.hasOption(LOG_LEVEL_OPTION.getOpt());
+        IS_REVERSED = COMMAND_LINE.hasOption(REVERSED_OPTION.getOpt());
+        IS_STRICT = COMMAND_LINE.hasOption(STRICT_OPTION.getOpt());
+        SHOULD_REBUILD_TOP_OF_TREE = COMMAND_LINE.hasOption(REBUILD_TOP_OF_TREE_OPTION.getOpt());
+        SHOULD_STRIP_SIGNATURES = COMMAND_LINE.hasOption(STRIP_SIGNATURES_OPTION.getOpt());
+        IS_PRO_GUARD = COMMAND_LINE.hasOption(PRO_GUARD_OPTION.getOpt());
+        HAS_INTERMEDIATE = COMMAND_LINE.hasOption(INTERMEDIATE_OPTION.getOpt());
+        IS_PARALLEL = COMMAND_LINE.hasOption(PARALLEL_OPTION.getOpt());
+        HAS_INPUTS = COMMAND_LINE.hasOption(INPUT_OPTION.getOpt());
+        HAS_OUTPUTS = COMMAND_LINE.hasOption(OUTPUT_OPTION.getOpt());
+
+        INPUT_VALUES = new ArrayList<>();
+        OUTPUT_VALUES = new ArrayList<>();
+
+        if (HAS_INPUTS || HAS_OUTPUTS) {
+            String[] inputs = COMMAND_LINE.getOptionValues(INPUT_OPTION.getOpt());
+            String[] outputs = COMMAND_LINE.getOptionValues(OUTPUT_OPTION.getOpt());
+    
+            if (HAS_INPUTS != HAS_OUTPUTS || inputs.length != outputs.length) {
+                Log.INSTANCE.e("Main", "The length of inputs and outputs must be the same.");
+                printHelp();
+                System.exit(1);
+                return;
+            }
+
+            Collections.addAll(INPUT_VALUES, inputs);
+            Collections.addAll(OUTPUT_VALUES, outputs);
         }
 
-        INPUT_VALUES = COMMAND_LINE.getOptionValues(INPUT_OPTION.getOpt());
-        OUTPUT_VALUES = COMMAND_LINE.getOptionValues(OUTPUT_OPTION.getOpt());
-
-        int inputsLength = INPUT_VALUES.length;
-        int outputsLength = OUTPUT_VALUES.length;
-
-        if (inputsLength != outputsLength) {
-            Log.INSTANCE.e("Main", "The length of inputs and outputs must be the same.");
-            printHelp();
-            System.exit(1);
-            return;
+        if (HAS_INTERMEDIATE) {
+            String intermediatePath = COMMAND_LINE.getOptionValue(INTERMEDIATE_OPTION.getOpt());
+            try {
+                loadIntermediateFile(intermediatePath, INPUT_VALUES, OUTPUT_VALUES);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
         }
 
         JETIFIER_CONFIG = ConfigParser.INSTANCE.loadDefaultConfig();
-        String[] arguments = getArgumentsForJetifier();
 
         try {
-                executeJetifier(arguments);
+            executeJetifier();
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
@@ -108,16 +151,34 @@ public class Main {
         Log.INSTANCE.i("Main","The jetifier process took: " + duration + " seconds");
     }
 
+    private static void loadIntermediateFile(String intermediatePath, List<String> inputs, List<String> outputs) throws FileNotFoundException {
+        Scanner sc = new Scanner(new File(intermediatePath));
+        List<String> lines = new ArrayList<String>();
+        while (sc.hasNextLine()) {
+            String line = sc.nextLine();
+            if (line.isEmpty())
+                continue;
+            String[] parts = line.split(";");
+            inputs.add(parts[0]);
+            if (parts.length > 0)
+                outputs.add(parts[1]);
+            else
+                outputs.add(parts[0]);
+        }
+    }
+
     private static void createOptionsFromJetifier() {
         for (Option option : Companion.getOPTIONS().getOptions()) {
             String description = option.getDescription();
             boolean hasArguments = option.hasArgs();
+            boolean isRequired = option.isRequired();
 
             switch (option.getOpt()) {
                 case "i":
                 case "o":
                     description += ". Can be used multiple times";
                     hasArguments = true;
+                    isRequired = false;
                     break;
                 case "c":
                 case "l":
@@ -126,44 +187,19 @@ public class Main {
                     break;
             }
 
-            OPTIONS.addOption(createOption(option.getOpt(), option.getLongOpt(), description, hasArguments, option.isRequired()));
+            OPTIONS.addOption(createOption(option.getOpt(), option.getLongOpt(), description, hasArguments, isRequired));
         }
 
         OPTIONS.addOption(createOption("isProGuard", "isProGuard", "Files should be processed as ProGuard files.", false, false));
-        OPTIONS.addOption(createOption("p", "parallel", "Jetifiy the aar/zip files in parallel. This is by default. Cannot be used with noParallel", false, false));
-        OPTIONS.addOption(createOption("noParallel", "noParallel", "Jetifiy the aar/zip files in sequential. Cannot be used with p|parallel", false, false));
-        OPTIONS.addOption(createOption("h", "help", "Show this message", false, false));
+        OPTIONS.addOption(createOption("intermediate", "intermediate", "Files should be read from the intermediate file.", true, false));
+        OPTIONS.addOption(createOption("p", "parallel", "Jetifiy the aar/zip files in parallel.", false, false));
+        OPTIONS.addOption(createOption("h", "help", "Show this message.", false, false));
     }
 
     private static final Option createOption(final String argumentName, final String argumentNameLong, final String description, final boolean hasArguments, final boolean isRequired) {
         final Option op = new Option(argumentName, argumentNameLong, hasArguments, description);
         op.setRequired(isRequired);
         return op;
-    }
-
-    private static void assignOptions() {
-        INPUT_OPTION = OPTIONS.getOption("i");
-        OUTPUT_OPTION = OPTIONS.getOption("o");
-        CONFIG_OPTION = OPTIONS.getOption("c");
-        LOG_LEVEL_OPTION = OPTIONS.getOption("l");
-        REVERSED_OPTION = OPTIONS.getOption("r");
-        STRICT_OPTION = OPTIONS.getOption("s");
-        REBUILD_TOP_OF_TREE_OPTION = OPTIONS.getOption("rebuildTopOfTree");
-        STRIP_SIGNATURES_OPTION = OPTIONS.getOption("stripSignatures");
-        PRO_GUARD_OPTION = OPTIONS.getOption("isProGuard");
-        PARALLEL_OPTION = OPTIONS.getOption("p");
-        NO_PARALLEL_OPTION = OPTIONS.getOption("noParallel");
-        HELP_OPTION = OPTIONS.getOption("h");
-    }
-
-    private static CommandLine parseArguments(String[] args) {
-        try {
-            return new DefaultParser().parse(OPTIONS, args);
-        } catch (ParseException e) {
-            Log.INSTANCE.e("Main", e.getMessage());
-            printHelp();
-            return null;
-        }
     }
 
     private static void printHelp() {
@@ -176,44 +212,41 @@ public class Main {
         return new ProGuardTransformer (transformationContext);
     }
 
-    private static void executeJetifier(String[] arguments) throws IOException {
-        int argumentsLength = arguments.length;
-        int inputsLength = INPUT_VALUES.length;
-        int numberOfThreads = SHOULD_RUN_IN_SERIAL ? 1 : inputsLength > MAX_THREADS ? MAX_THREADS : inputsLength;
-        String way = SHOULD_RUN_IN_SERIAL ? "serial" : "parallel";
+    private static void executeJetifier() throws IOException {
+        int inputsLength = INPUT_VALUES.size();
+        int threads = (inputsLength > MAX_THREADS) ? MAX_THREADS : inputsLength;
+        int numberOfThreads = IS_PARALLEL ? threads : 1;
 
-        Log.INSTANCE.i("Main", "Executing jetifier tool in " + way + "way.");
+        Log.INSTANCE.i("Main", "Executing jetifier tool in " + (IS_PARALLEL ? "parallel" : "serial") + "way.");
 
         ExecutorService executor = Executors.newFixedThreadPool(numberOfThreads);
         List<Future<JetifierData>> jetifierWorks = new ArrayList<>();
 
-        if (!IS_PRO_GUARD) {
-            JETIFIER_PROCESSOR = Processor.Companion.createProcessor3(JETIFIER_CONFIG, IS_REVERSED, SHOULD_REBUILD_TOP_OF_TREE, !IS_STRICT, false, SHOULD_STRIP_SIGNATURES, null);
-        } else
+        if (IS_PRO_GUARD) {
             PRO_GUARD_TRANSFORMER = createProGuardTransformer();
+        } else {
+            JETIFIER_PROCESSOR = Processor.Companion.createProcessor3(JETIFIER_CONFIG, IS_REVERSED, SHOULD_REBUILD_TOP_OF_TREE, !IS_STRICT, false, SHOULD_STRIP_SIGNATURES, null);
+        }
 
-        for (int i = 0, j = argumentsLength - 3; i < inputsLength; i++) {
-            String inputFile = INPUT_VALUES[i];
-            String outputFile = OUTPUT_VALUES[i];
-
+        for (int i = 0; i < inputsLength; i++) {
+            String inputFile = INPUT_VALUES.get(i);
+            String outputFile = OUTPUT_VALUES.get(i);
             FileMapping fileMapping = new FileMapping(new File(inputFile), new File(outputFile));
-            String[] iterationArguments = null;
-            ArchiveItem archiveItem = null;
+
             JetifierData jetifierData = null;
-
-            if (!IS_PRO_GUARD && (inputFile.toLowerCase().endsWith(".aar") || inputFile.toLowerCase().endsWith(".zip") || inputFile.toLowerCase().endsWith(".jar"))) {
-                iterationArguments = Arrays.copyOf(arguments, argumentsLength);
-                iterationArguments[j] = inputFile;
-                iterationArguments[j + 2] = outputFile;
-            } else
-                archiveItem = getArchiveFile(inputFile);
-
-            if (archiveItem == null)
-                jetifierData = new JetifierData(fileMapping, iterationArguments);
-            else if (!IS_PRO_GUARD)
-                jetifierData = new JetifierData(fileMapping, archiveItem, JETIFIER_PROCESSOR);
-            else
+            if (IS_PRO_GUARD) {
+                ArchiveItem archiveItem = getArchiveFile(inputFile);
                 jetifierData = new JetifierData(fileMapping, archiveItem, PRO_GUARD_TRANSFORMER);
+            } else {
+                String from = inputFile.toLowerCase();
+                if (from.endsWith(".aar") || from.endsWith(".zip") || from.endsWith(".jar")) {
+                    String[] arguments = getArgumentsForJetifier(inputFile, outputFile);
+                    jetifierData = new JetifierData(fileMapping, arguments);
+                } else {
+                    ArchiveItem archiveItem = getArchiveFile(inputFile);
+                    jetifierData = new JetifierData(fileMapping, archiveItem, JETIFIER_PROCESSOR);
+                }
+            }
 
             Log.INSTANCE.v("Main", "Jetifiying " + inputFile + " file into " + outputFile + " file.");
 
@@ -236,44 +269,38 @@ public class Main {
         executor.shutdown();
     }
 
-    private static String[] getArgumentsForJetifier() {
+    private static String[] getArgumentsForJetifier(String inputFile, String outputFile) {
         ArrayList<String> argumentsList = new ArrayList<>();
 
-        if (COMMAND_LINE.hasOption(CONFIG_OPTION.getOpt())) {
+        if (HAS_CONFIG) {
             argumentsList.add("-" + CONFIG_OPTION.getOpt());
             argumentsList.add(COMMAND_LINE.getOptionValue(CONFIG_OPTION.getOpt()));
         }
 
-        if (COMMAND_LINE.hasOption(LOG_LEVEL_OPTION.getOpt())) {
+        if (HAS_LOG_LEVEL) {
             String logLevel = COMMAND_LINE.getOptionValue(LOG_LEVEL_OPTION.getOpt());
             Log.INSTANCE.setLevel(logLevel);
             argumentsList.add("-" + LOG_LEVEL_OPTION.getOpt());
             argumentsList.add(logLevel);
         }
 
-        IS_REVERSED = COMMAND_LINE.hasOption(REVERSED_OPTION.getOpt());
         if (IS_REVERSED)
             argumentsList.add("-" + REVERSED_OPTION.getOpt());
 
-        IS_STRICT = COMMAND_LINE.hasOption(STRICT_OPTION.getOpt());
         if (IS_STRICT)
             argumentsList.add("-" + STRICT_OPTION.getOpt());
 
-        SHOULD_REBUILD_TOP_OF_TREE = COMMAND_LINE.hasOption(REBUILD_TOP_OF_TREE_OPTION.getOpt());
         if (SHOULD_REBUILD_TOP_OF_TREE)
             argumentsList.add("-" + REBUILD_TOP_OF_TREE_OPTION.getOpt());
 
-        SHOULD_STRIP_SIGNATURES = COMMAND_LINE.hasOption(STRIP_SIGNATURES_OPTION.getOpt());
         if (SHOULD_STRIP_SIGNATURES)
             argumentsList.add("-" + STRIP_SIGNATURES_OPTION.getOpt());
 
-        IS_PRO_GUARD = COMMAND_LINE.hasOption(PRO_GUARD_OPTION.getOpt());
-        SHOULD_RUN_IN_SERIAL = COMMAND_LINE.hasOption(NO_PARALLEL_OPTION.getOpt());
-
         argumentsList.add("-i");
-        argumentsList.add("");
+        argumentsList.add(inputFile);
+
         argumentsList.add("-o");
-        argumentsList.add("");
+        argumentsList.add(outputFile);
 
         String[] arguments = new String[argumentsList.size()];
         return argumentsList.toArray(arguments);
@@ -289,5 +316,4 @@ public class Main {
         START_TIME = System.currentTimeMillis();
         OPTIONS = new Options();
     }
-
 }

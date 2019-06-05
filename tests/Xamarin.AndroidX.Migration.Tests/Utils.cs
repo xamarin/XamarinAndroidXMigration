@@ -18,6 +18,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 		{
 			var newPath = Path.Combine(
 				Path.GetTempPath(),
+				"Xamarin.AndroidX.Migration.Tests",
 				Guid.NewGuid().ToString(),
 				filename ?? Guid.NewGuid().ToString());
 

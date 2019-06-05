@@ -205,6 +205,32 @@ namespace Xamarin.AndroidX.Migration.Tests
 		}
 
 		[Fact]
+		public void JavaTypesAreMigratedAfterJetifierWithIntermediate()
+		{
+			var migratedAar = Utils.GetTempFilename();
+
+			var jetifier = new Jetifier();
+			jetifier.UseIntermediateFile = true;
+			var result = jetifier.Jetify(SupportAar, migratedAar);
+
+			Assert.True(result);
+
+			var jar = ReadAarEntry(migratedAar, "classes.jar");
+
+			var classPath = new ClassPath();
+			classPath.Load(jar);
+			var packages = classPath.GetPackages();
+
+			Assert.True(packages.Count > 0);
+			Assert.Equal("com.xamarin.aarxercise", packages.Keys.FirstOrDefault());
+
+			var classes = packages["com.xamarin.aarxercise"];
+			var simpleFragment = classes.FirstOrDefault(c => c.ThisClass.Name.Value == "com/xamarin/aarxercise/SimpleFragment");
+
+			Assert.Equal("androidx/fragment/app/Fragment", simpleFragment.SuperClass.Name.Value);
+		}
+
+		[Fact]
 		public async Task JetifierWrapperMigratesFacebookAar()
 		{
 			var facebookFilename = "facebook-android-sdk";

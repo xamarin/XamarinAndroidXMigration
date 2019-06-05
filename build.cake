@@ -153,6 +153,7 @@ Task("NativeAssets")
     .IsDependentOn("DownloadAndroidXAssets");
 
 Task("Libraries")
+    .IsDependentOn("JetifierWrapper")
     .IsDependentOn("DownloadAndroidXAssets")
     .IsDependentOn("NativeAssets")
     .Does(() =>

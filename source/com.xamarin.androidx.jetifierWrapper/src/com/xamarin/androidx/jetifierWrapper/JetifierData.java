@@ -18,21 +18,21 @@ class JetifierData {
     public JetifierData (FileMapping fileMapping, String[] arguments) {
         this.fileMapping = fileMapping;
         this.arguments = arguments;
-        isLibrary = true;
+        this.isLibrary = true;
     }
 
     public JetifierData (FileMapping fileMapping, ArchiveItem archiveItem, Processor processor) {
         this.fileMapping = fileMapping;
         this.archiveItem = archiveItem;
         this.processor = processor;
-        isResource = true;
+        this.isResource = true;
     }
 
     public JetifierData (FileMapping fileMapping, ArchiveItem archiveItem, ProGuardTransformer proGuardTransformer) {
         this.fileMapping = fileMapping;
         this.archiveItem = archiveItem;
         this.proGuardTransformer = proGuardTransformer;
-        isProGuard = true;
+        this.isProGuard = true;
     }
 
     public FileMapping getFileMapping() {
@@ -51,11 +51,19 @@ class JetifierData {
         return processor;
     }
 
-    public ProGuardTransformer getProGuardTransformer() { return proGuardTransformer; }
+    public ProGuardTransformer getProGuardTransformer() {
+        return proGuardTransformer;
+    }
 
-    public boolean isLibrary() { return isLibrary; }
+    public boolean isLibrary() {
+        return isLibrary;
+    }
 
-    public boolean isResource() { return isResource; }
+    public boolean isResource() {
+        return isResource;
+    }
 
-    public boolean isProGuard() { return isProGuard; }
+    public boolean isProGuard() {
+        return isProGuard;
+    }
 }

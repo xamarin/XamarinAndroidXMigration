@@ -132,12 +132,15 @@
             Condition="'$(_AndroidXShouldRunMigration)' == 'true'">
 
         <JetifyFiles Files="$(IntermediateOutputPath)android\AndroidManifest.xml"
+                     IntermediateFilePath="$(IntermediateOutputPath)androidx\_AndroidXJetifyManifest.jetify"
+                     UseIntermediateFile="true"
+                     Parallel="true"
                      Verbose="$(_AndroidXUseVerboseToolOutput)" />
 
         <Touch Files="$(_AndroidStampDirectory)_GenerateJavaStubs.stamp;$(_AndroidStampDirectory)_AndroidXJetifyManifest.stamp" AlwaysCreate="True" />
 
         <ItemGroup>
-            <FileWrites Include="$(_AndroidStampDirectory)_AndroidXJetifyManifest.stamp" />
+            <FileWrites Include="$(_AndroidStampDirectory)_AndroidXJetifyManifest.stamp;$(IntermediateOutputPath)androidx\_AndroidXJetifyManifest.jetify" />
         </ItemGroup>
 
     </Target>
@@ -185,11 +188,14 @@
             Outputs="$(_AndroidStampDirectory)_AndroidXJetifyEmbeddedFiles.stamp">
 
         <JetifyFiles Files="@(_AndroidXEmbeddedFileToJetify)"
+                     IntermediateFilePath="$(IntermediateOutputPath)androidx\_AndroidXJetifyEmbeddedFiles.jetify"
+                     UseIntermediateFile="true"
+                     Parallel="true"
                      Verbose="$(_AndroidXUseVerboseToolOutput)" />
         <Touch Files="$(_AndroidResFlagFile);$(_AndroidStampDirectory)_ResolveLibraryProjectImports.stamp;$(_AndroidStampDirectory)_AndroidXJetifyEmbeddedFiles.stamp" AlwaysCreate="True" />
 
         <ItemGroup>
-            <FileWrites Include="$(_AndroidStampDirectory)_AndroidXJetifyEmbeddedFiles.stamp" />
+            <FileWrites Include="$(_AndroidStampDirectory)_AndroidXJetifyEmbeddedFiles.stamp;$(IntermediateOutputPath)androidx\_AndroidXJetifyEmbeddedFiles.jetify" />
         </ItemGroup>
 
     </Target>
@@ -219,6 +225,9 @@
         <JetifyFiles Files="@(_AndroidXProguardToJetify)"
                      JetifiedDirectory="$(_AndroidXProguardIntermediateOutputPath)"
                      IsProGuard="true"
+                     IntermediateFilePath="$(IntermediateOutputPath)androidx\_AndroidXJetifyProguardRules.jetify"
+                     UseIntermediateFile="true"
+                     Parallel="true"
                      Verbose="$(_AndroidXUseVerboseToolOutput)" />
         <Touch Files="$(_AndroidStampDirectory)_AndroidXJetifyProguardRules.stamp" AlwaysCreate="True" />
 
@@ -229,7 +238,7 @@
         <ItemGroup>
             <ProguardConfiguration Remove="@(_AndroidXProguardToJetify)" />
             <ProguardConfiguration Include="@(_AndroidXProguardJetified)" />
-            <FileWrites Include="@(_AndroidXProguardJetified);$(_AndroidStampDirectory)_AndroidXJetifyProguardRules.stamp" />
+            <FileWrites Include="@(_AndroidXProguardJetified);$(_AndroidStampDirectory)_AndroidXJetifyProguardRules.stamp;$(IntermediateOutputPath)androidx\_AndroidXJetifyProguardRules.jetify" />
         </ItemGroup>
 
     </Target>
@@ -258,8 +267,11 @@
         <RemoveDir Directories="$(_AndroidXJavaLibraryIntermediateOutputPath)" />
         <JetifyFiles Files="@(_AndroidXJavaLibraryToJetify)"
                      JetifiedDirectory="$(_AndroidXJavaLibraryIntermediateOutputPath)"
+                     IntermediateFilePath="$(IntermediateOutputPath)androidx\_AndroidXJetifyJavaLibraryRules.jetify"
+                     UseIntermediateFile="true"
+                     Parallel="true"
                      Verbose="$(_AndroidXUseVerboseToolOutput)" />
-        <Touch Files="$(_AndroidStampDirectory)_AndroidXJetifyJavaLibraryRules.stamp" AlwaysCreate="True" />
+        <Touch Files="$(_AndroidStampDirectory)_AndroidXJetifyJavaLibraryRules.stamp;$(IntermediateOutputPath)androidx\_AndroidXJetifyJavaLibraryRules.jetify" AlwaysCreate="True" />
 
         <ItemGroup>
             <_AndroidXJavaLibraryJetified Include="$(_AndroidXJavaLibraryIntermediateOutputPath)*" />

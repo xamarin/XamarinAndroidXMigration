@@ -1,19 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
-using Mono.Cecil;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
-namespace Xamarin.AndroidX.Migration.BuildTasks {
-	public class JetifyFiles : Task {
+namespace Xamarin.AndroidX.Migration.BuildTasks
+{
+	public class JetifyFiles : Task
+	{
 
 		// file inputs
 
-		public ITaskItem [] Files { get; set; }
-		public ITaskItem [] JetifiedFiles { get; set; }
+		public ITaskItem[] Files { get; set; }
+		public ITaskItem[] JetifiedFiles { get; set; }
 		public string JetifiedDirectory { get; set; }
 
 		// configuration inputs
@@ -25,39 +25,61 @@ namespace Xamarin.AndroidX.Migration.BuildTasks {
 		public bool ShouldRebuildTopOfTree { get; set; }
 		public bool ShouldStripSignatures { get; set; }
 		public bool IsProGuard { get; set; }
-		public bool NoParallel { get; set; }
+		public bool Parallel { get; set; }
+		public bool UseIntermediateFile { get; set; }
+		public string IntermediateFilePath { get; set; }
 
-		public override bool Execute ()
+		public override bool Execute()
 		{
 			// make sure there is input
-			if (Files == null || Files.Length == 0) {
-				Log.LogError ($"Nothing to jetify. No files were provided via the \"{nameof (Files)}\" attribute.");
+			if (Files == null || Files.Length == 0)
+			{
+				Log.LogError($"Nothing to jetify. No files were provided via the \"{nameof(Files)}\" attribute.");
 				return false;
 			}
 
 			// make sure the output files are valid
-			if (JetifiedFiles?.Length > 0) {
-				if (Files.Length != JetifiedFiles?.Length){
-					Log.LogError ($"The length of {nameof (Files)} and {nameof (JetifiedFiles)} must be the same.");
+			if (JetifiedFiles?.Length > 0)
+			{
+				if (Files.Length != JetifiedFiles?.Length)
+				{
+					Log.LogError($"The length of {nameof(Files)} and {nameof(JetifiedFiles)} must be the same.");
 					return false;
 				}
-				if (!string.IsNullOrEmpty(JetifiedDirectory)) {
-					Log.LogError ($"The {nameof (JetifiedDirectory)} and {nameof (JetifiedFiles)} cannot both be set.");
+				if (!string.IsNullOrEmpty(JetifiedDirectory))
+				{
+					Log.LogError($"The {nameof(JetifiedDirectory)} and {nameof(JetifiedFiles)} cannot both be set.");
 					return false;
 				}
 			}
 
-			try {
-				var filesToJetify = CreateMigrationPairs ().ToList ();
+			// make sure the intermediate file is valid
+			if (UseIntermediateFile)
+			{
+				if (string.IsNullOrEmpty(IntermediateFilePath))
+				{
+					Log.LogError($"Invalid intermediate path \"{IntermediateFilePath}\".");
+					return false;
+				}
+			}
 
-				foreach (var file in filesToJetify) {
-					if (file.Source.Equals (file.Destination, StringComparison.OrdinalIgnoreCase))
-						Log.LogMessage ($"Queuing jetification for {file.Source}.");
-					else
-						Log.LogMessage ($"Queuing jetification for {file.Source} to {file.Destination}.");
+			try
+			{
+				var filesToJetify = CreateMigrationPairs().ToList();
+
+				if (Verbose)
+				{
+					foreach (var file in filesToJetify)
+					{
+						if (file.Source.Equals(file.Destination, StringComparison.OrdinalIgnoreCase))
+							Log.LogMessage($"Queuing jetification for {file.Source}.");
+						else
+							Log.LogMessage($"Queuing jetification for {file.Source} to {file.Destination}.");
+					}
 				}
 
-				var jetifier = new Jetifier {
+				var jetifier = new Jetifier
+				{
 					ConfigurationPath = ConfigurationPath,
 					Verbose = Verbose,
 					Dejetify = Dejetify,
@@ -65,40 +87,49 @@ namespace Xamarin.AndroidX.Migration.BuildTasks {
 					ShouldRebuildTopOfTree = ShouldRebuildTopOfTree,
 					ShouldStripSignatures = ShouldStripSignatures,
 					IsProGuard = IsProGuard,
-					NoParallel = NoParallel,
+					Parallel = Parallel,
+					UseIntermediateFile = UseIntermediateFile,
+					IntermediateFilePath = IntermediateFilePath,
 				};
 
-				if (!string.IsNullOrEmpty(JetifiedDirectory) && !Directory.Exists (JetifiedDirectory))
-					Directory.CreateDirectory (JetifiedDirectory);
+				if (!string.IsNullOrEmpty(JetifiedDirectory) && !Directory.Exists(JetifiedDirectory))
+					Directory.CreateDirectory(JetifiedDirectory);
 
-				jetifier.Jetify (filesToJetify);
-			} catch (Exception ex) {
-				Log.LogErrorFromException (ex, true);
+				jetifier.Jetify(filesToJetify);
+
+				if (Verbose)
+					Log.LogMessage(jetifier.LastOutput);
+			}
+			catch (Exception ex)
+			{
+				Log.LogErrorFromException(ex, true);
 				return false;
 			}
 
 			return true;
 		}
 
-		private IEnumerable<MigrationPair> CreateMigrationPairs ()
+		private IEnumerable<MigrationPair> CreateMigrationPairs()
 		{
 			var filesLength = Files?.Length ?? 0;
-			for (int i = 0; i < filesLength; i++) {
-				var inputFile = Files [i].ItemSpec;
-				var outputFile = GetOutputFile (i) ?? inputFile;
+			for (int i = 0; i < filesLength; i++)
+			{
+				var inputFile = Files[i].ItemSpec;
+				var outputFile = GetOutputFile(i) ?? inputFile;
 
-				yield return (inputFile, outputFile);
+				yield return (Path.GetFullPath(inputFile), Path.GetFullPath(outputFile));
 			}
 		}
 
-		private string GetOutputFile (int index)
+		private string GetOutputFile(int index)
 		{
 			if (JetifiedFiles?.Length > index)
-				return JetifiedFiles [index].ItemSpec;
+				return JetifiedFiles[index].ItemSpec;
 
-			if (!string.IsNullOrEmpty (JetifiedDirectory)) {
-				var extension = Path.GetExtension (Files [index].ItemSpec);
-				return Path.Combine (JetifiedDirectory, Guid.NewGuid ().ToString () + extension);
+			if (!string.IsNullOrEmpty(JetifiedDirectory))
+			{
+				var extension = Path.GetExtension(Files[index].ItemSpec);
+				return Path.Combine(JetifiedDirectory, Guid.NewGuid().ToString() + extension);
 			}
 
 			return null;
