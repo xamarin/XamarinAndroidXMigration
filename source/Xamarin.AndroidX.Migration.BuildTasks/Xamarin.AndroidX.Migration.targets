@@ -22,7 +22,7 @@
         <_AndroidXIntermediateOutputPath>$(IntermediateOutputPath)androidx\</_AndroidXIntermediateOutputPath>
         <_AndroidXProguardIntermediateOutputPath>$(_AndroidXIntermediateOutputPath)proguard\</_AndroidXProguardIntermediateOutputPath>
         <_AndroidXJavaLibraryIntermediateOutputPath>$(_AndroidXIntermediateOutputPath)jl\</_AndroidXJavaLibraryIntermediateOutputPath>
-        <_AndroidXUseVerboseToolOutput Condition="'$(_AndroidXUseVerboseToolOutput)' == ''">true</_AndroidXUseVerboseToolOutput>
+        <_AndroidXUseVerboseToolOutput Condition="'$(_AndroidXUseVerboseToolOutput)' == ''">false</_AndroidXUseVerboseToolOutput>
     </PropertyGroup>
 
     <!-- we want to ignore everything for the Android Support Java bits -->
@@ -162,13 +162,19 @@
         <ItemGroup>
             <!-- any .jar files -->
             <_AndroidXEmbeddedFileToJetifyTemp Include="@(ExtractedJarImports)"
-                                               Condition="'%(ExtractedJarImports.AndroidXSkipAndroidXMigration)' != 'true'" />
+                                               Condition="'%(ExtractedJarImports.AndroidXSkipAndroidXMigration)' != 'true'">
+                <InputItemSpec>%(ExtractedJarImports.Identity)</InputItemSpec>
+            </_AndroidXEmbeddedFileToJetifyTemp>
             <!-- any .xml resources -->
             <_AndroidXEmbeddedFileToJetifyTemp Include="@(_AndroidResourceDest)"
-                                               Condition="'%(_AndroidResourceDest.Extension)' == '.xml' and '%(_AndroidResourceDest.AndroidXSkipAndroidXMigration)' != 'true'" />
+                                               Condition="'%(_AndroidResourceDest.Extension)' == '.xml' and '%(_AndroidResourceDest.AndroidXSkipAndroidXMigration)' != 'true'">
+                <InputItemSpec>%(_AndroidResourceDest.OriginalItemSpec)</InputItemSpec>
+            </_AndroidXEmbeddedFileToJetifyTemp>
             <!-- any .xml resources that were embedded in .aar files -->
             <_AndroidXEmbeddedFileToJetifyTemp Include="@(_AndroidXLibraryResourceDirectoriesTemp)"
-                                               Condition="'%(_AndroidXLibraryResourceDirectoriesTemp.Extension)' == '.xml' and '%(_AndroidXLibraryResourceDirectoriesTemp.AndroidXSkipAndroidXMigration)' != 'true'" />
+                                               Condition="'%(_AndroidXLibraryResourceDirectoriesTemp.Extension)' == '.xml' and '%(_AndroidXLibraryResourceDirectoriesTemp.AndroidXSkipAndroidXMigration)' != 'true'">
+                <InputItemSpec>%(_AndroidXLibraryResourceDirectoriesTemp.Identity)</InputItemSpec>
+            </_AndroidXEmbeddedFileToJetifyTemp>
         </ItemGroup>
 
         <RemoveSkippedEmbeddedFiles Files="@(_AndroidXEmbeddedFileToJetifyTemp)"
@@ -184,7 +190,7 @@
     <Target Name="_AndroidXJetifyEmbeddedFiles"
             Condition="'$(_AndroidXShouldRunMigration)' == 'true'"
             DependsOnTargets="_AndroidXFindJetifyEmbeddedFiles"
-            Inputs="@(_AndroidXEmbeddedFileToJetify);$(_AndroidResFlagFile);$(_AndroidStampDirectory)_ResolveLibraryProjectImports.stamp"
+            Inputs="@(_AndroidXEmbeddedFileToJetify->'%(InputItemSpec)');$(_AndroidResFlagFile);$(_AndroidStampDirectory)_ResolveLibraryProjectImports.stamp"
             Outputs="$(_AndroidStampDirectory)_AndroidXJetifyEmbeddedFiles.stamp">
 
         <JetifyFiles Files="@(_AndroidXEmbeddedFileToJetify)"
