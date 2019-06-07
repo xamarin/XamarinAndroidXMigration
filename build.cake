@@ -17,6 +17,7 @@ var azureBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1
 var multidexPackageVersion = "2.0.1";
 var multidexPackageUrl = $"https://maven.google.com/androidx/multidex/multidex/{multidexPackageVersion}/multidex-{multidexPackageVersion}.aar";
 
+var PREVIEW_LABEL = EnvironmentVariable("PREVIEW_LABEL") ?? "preview";
 var BUILD_NUMBER = EnvironmentVariable("BUILD_NUMBER") ?? "";
 if (string.IsNullOrEmpty(BUILD_NUMBER)) {
     BUILD_NUMBER = "0";
@@ -241,7 +242,7 @@ Task("NuGets")
     NuGetPack(nuspec, new NuGetPackSettings {
         OutputDirectory = "./output/nugets/",
         RequireLicenseAcceptance = true,
-        Suffix = "preview." + BUILD_NUMBER,
+        Suffix = PREVIEW_LABEL + "." + BUILD_NUMBER,
     });
 
     DotNetCorePack(tool, new DotNetCorePackSettings {
@@ -255,7 +256,7 @@ Task("NuGets")
         Configuration = configuration,
         OutputDirectory = "./output/nugets/",
         ArgumentCustomization = args => args.Append("/p:PackAsTool=True"),
-        VersionSuffix = "preview." + BUILD_NUMBER,
+        VersionSuffix = PREVIEW_LABEL + "." + BUILD_NUMBER,
     });
 
     if (FileExists(tempNuspec)) {
