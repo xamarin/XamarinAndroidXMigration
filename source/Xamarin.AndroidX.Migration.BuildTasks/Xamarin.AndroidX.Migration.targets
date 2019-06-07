@@ -10,12 +10,16 @@
                AssemblyFile="$(MSBuildThisFileDirectory)Xamarin.AndroidX.Migration.BuildTasks.dll" />
     <UsingTask TaskName="Xamarin.AndroidX.Migration.BuildTasks.JetifyFiles"
                AssemblyFile="$(MSBuildThisFileDirectory)Xamarin.AndroidX.Migration.BuildTasks.dll" />
-    <UsingTask TaskName="Xamarin.AndroidX.Migration.BuildTasks.RemoveSkippedEmbeddedFiles"
-               AssemblyFile="$(MSBuildThisFileDirectory)Xamarin.AndroidX.Migration.BuildTasks.dll" />
     <UsingTask TaskName="Xamarin.AndroidX.Migration.BuildTasks.ValidateAndroidXPackages"
+               AssemblyFile="$(MSBuildThisFileDirectory)Xamarin.AndroidX.Migration.BuildTasks.dll" />
+    <UsingTask TaskName="Xamarin.AndroidX.Migration.BuildTasks.ResolveEmbeddedFiles"
+               AssemblyFile="$(MSBuildThisFileDirectory)Xamarin.AndroidX.Migration.BuildTasks.dll" />
+    <!--
+    <UsingTask TaskName="Xamarin.AndroidX.Migration.BuildTasks.RemoveSkippedEmbeddedFiles"
                AssemblyFile="$(MSBuildThisFileDirectory)Xamarin.AndroidX.Migration.BuildTasks.dll" />
     <UsingTask TaskName="Xamarin.AndroidX.Migration.BuildTasks.CollectAllFiles"
                AssemblyFile="$(MSBuildThisFileDirectory)Xamarin.AndroidX.Migration.BuildTasks.dll" />
+    -->
 
     <PropertyGroup>
         <_AndroidXShouldRunMigration Condition="'$(_AndroidXShouldRunMigration)' == '' and '$(AndroidApplication)' == 'true' and '$(AndroidXIsUsingAndroidXLibraries)' == 'true'">true</_AndroidXShouldRunMigration>
@@ -155,35 +159,15 @@
     <Target Name="_AndroidXFindJetifyEmbeddedFiles"
             Condition="'$(_AndroidXShouldRunMigration)' == 'true'">
 
-        <CollectAllFiles Directories="@(LibraryResourceDirectories)">
-            <Output TaskParameter="OutputFiles" ItemName="_AndroidXLibraryResourceDirectoriesTemp" />
-        </CollectAllFiles>
-
-        <ItemGroup>
-            <!-- any .jar files -->
-            <_AndroidXEmbeddedFileToJetifyTemp Include="@(ExtractedJarImports)"
-                                               Condition="'%(ExtractedJarImports.AndroidXSkipAndroidXMigration)' != 'true'">
-                <InputItemSpec>%(ExtractedJarImports.Identity)</InputItemSpec>
-            </_AndroidXEmbeddedFileToJetifyTemp>
-            <!-- any .xml resources -->
-            <_AndroidXEmbeddedFileToJetifyTemp Include="@(_AndroidResourceDest)"
-                                               Condition="'%(_AndroidResourceDest.Extension)' == '.xml' and '%(_AndroidResourceDest.AndroidXSkipAndroidXMigration)' != 'true'">
-                <InputItemSpec>%(_AndroidResourceDest.OriginalItemSpec)</InputItemSpec>
-            </_AndroidXEmbeddedFileToJetifyTemp>
-            <!-- any .xml resources that were embedded in .aar files -->
-            <_AndroidXEmbeddedFileToJetifyTemp Include="@(_AndroidXLibraryResourceDirectoriesTemp)"
-                                               Condition="'%(_AndroidXLibraryResourceDirectoriesTemp.Extension)' == '.xml' and '%(_AndroidXLibraryResourceDirectoriesTemp.AndroidXSkipAndroidXMigration)' != 'true'">
-                <InputItemSpec>%(_AndroidXLibraryResourceDirectoriesTemp.Identity)</InputItemSpec>
-            </_AndroidXEmbeddedFileToJetifyTemp>
-        </ItemGroup>
-
-        <RemoveSkippedEmbeddedFiles Files="@(_AndroidXEmbeddedFileToJetifyTemp)"
-                                    OutputImportDirectory="$(_AndroidLibrayProjectIntermediatePath)"
-                                    AssemblyIdentityMapFile="$(_AndroidLibrayProjectAssemblyMapFile)"
-                                    ContainersToSkip="@(_AndroidXSupportAssemblyToSkip);@(_AndroidXAssemblyToSkip);@(_AndroidXMavenArtifactToSkip)"
-                                    Verbose="$(_AndroidXUseVerboseToolOutput)">
+        <ResolveEmbeddedFiles ResourceDirectories="@(LibraryResourceDirectories)"
+                              JavaLibraries="@(ExtractedJarImports)"
+                              Resources="@(_AndroidResourceDest)"
+                              OutputImportDirectory="$(_AndroidLibrayProjectIntermediatePath)"
+                              AssemblyIdentityMapFile="$(_AndroidLibrayProjectAssemblyMapFile)"
+                              ContainersToSkip="@(_AndroidXSupportAssemblyToSkip);@(_AndroidXAssemblyToSkip);@(_AndroidXMavenArtifactToSkip)"
+                              Verbose="$(_AndroidXUseVerboseToolOutput)">
             <Output TaskParameter="OutputFiles" ItemName="_AndroidXEmbeddedFileToJetify" />
-        </RemoveSkippedEmbeddedFiles>
+        </ResolveEmbeddedFiles>
 
     </Target>
 
