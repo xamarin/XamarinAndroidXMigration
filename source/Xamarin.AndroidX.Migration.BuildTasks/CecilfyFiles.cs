@@ -1,11 +1,10 @@
+using Microsoft.Build.Framework;
 using System;
 using System.Collections.Generic;
-using Microsoft.Build.Framework;
-using Microsoft.Build.Utilities;
 
 namespace Xamarin.AndroidX.Migration.BuildTasks
 {
-	public class CecilfyFiles : Task
+	public class CecilfyFiles : MigrationToolTask
 	{
 		[Required]
 		public ITaskItem[] Assemblies { get; set; }
@@ -29,6 +28,8 @@ namespace Xamarin.AndroidX.Migration.BuildTasks
 				Verbose = Verbose
 			};
 
+			cecilfier.MessageLogged += (sender, e) => LogToolMessage(e);
+
 			try
 			{
 				var result = cecilfier.Migrate(pairs);
@@ -42,7 +43,7 @@ namespace Xamarin.AndroidX.Migration.BuildTasks
 				return false;
 			}
 
-			return true;
+			return !cecilfier.HasLoggedErrors;
 		}
 	}
 }

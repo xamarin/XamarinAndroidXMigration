@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Mono.Options;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Mono.Options;
 using Xamarin.AndroidX.Migration;
 
 namespace AndroidXMigrator
@@ -16,9 +16,18 @@ namespace AndroidXMigrator
 
 		public Dictionary<string, string> Archives { get; } = new Dictionary<string, string>();
 
+		public string JavaPath { get; set; }
+
+		public bool Parallel { get; set; }
+
+		public bool UseIntermediateFile { get; set; }
+
 		protected override OptionSet OnCreateOptions() => new OptionSet
 		{
 			{ "a|archive=", "One or more .jar/.aar files to jetify", v => AddArchive(v) },
+			{ "java=", "The path to the Java executable", v => JavaPath = v },
+			{ "parallel", "Execute in parallel", v => Parallel = true },
+			{ "intermediate", "Use an intermediate file (for long paths)", v => UseIntermediateFile = true },
 		};
 
 		protected override bool OnValidateArguments(IEnumerable<string> extras)
@@ -42,13 +51,21 @@ namespace AndroidXMigrator
 			return !hasError;
 		}
 
-		protected override void OnInvoke(IEnumerable<string> extras)
+		protected override bool OnInvoke(IEnumerable<string> extras)
 		{
 			var archivePairs = Archives.Select(a => new MigrationPair(a.Key, a.Value)).ToArray();
 
-			var jetifier = new Jetifier();
-			jetifier.Verbose = Program.Verbose;
-			jetifier.Jetify(archivePairs);
+			var jetifier = new Jetifier
+			{
+				Verbose = Program.Verbose,
+				JavaPath = JavaPath,
+				Parallel = Parallel,
+				UseIntermediateFile = UseIntermediateFile,
+			};
+
+			jetifier.MessageLogged += (sender, e) => LogToolMessage(e);
+
+			return jetifier.Jetify(archivePairs);
 		}
 
 		private void AddArchive(string archive)

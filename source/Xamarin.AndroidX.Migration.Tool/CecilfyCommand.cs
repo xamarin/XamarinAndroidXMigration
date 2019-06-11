@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Mono.Options;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Mono.Options;
 using Xamarin.AndroidX.Migration;
 
 namespace AndroidXMigrator
@@ -19,11 +19,14 @@ namespace AndroidXMigrator
 
 		public Dictionary<string, string> Assemblies { get; } = new Dictionary<string, string>();
 
+		public string JavaPath { get; set; } = "java";
+
 		protected override OptionSet OnCreateOptions() => new OptionSet
 		{
 			{ "a|assembly=", "One or more assemblies to cecilfy", v => AddAssembly(v) },
 			{ "skip-embedded", "Do not Jetify the embedded resources", v => skipEmbeddedResources = true },
 			{ "renameTypes", "Rename the types inside the assembly (INTERNAL)", v => renameTypes = true },
+			{ "java=", "The path to the Java executable", v => JavaPath = v },
 		};
 
 		protected override bool OnValidateArguments(IEnumerable<string> extras)
@@ -47,15 +50,23 @@ namespace AndroidXMigrator
 			return !hasError;
 		}
 
-		protected override void OnInvoke(IEnumerable<string> extras)
+		protected override bool OnInvoke(IEnumerable<string> extras)
 		{
 			var assemblyPairs = Assemblies.Select(a => new MigrationPair(a.Key, a.Value)).ToArray();
 
-			var migrator = new CecilMigrator();
-			migrator.Verbose = Program.Verbose;
-			migrator.SkipEmbeddedResources = skipEmbeddedResources;
-			migrator.RenameTypes = renameTypes;
+			var migrator = new CecilMigrator
+			{
+				Verbose = Program.Verbose,
+				SkipEmbeddedResources = skipEmbeddedResources,
+				RenameTypes = renameTypes,
+				JavaPath = JavaPath,
+			};
+
+			migrator.MessageLogged += (sender, e) => LogToolMessage(e);
+
 			migrator.Migrate(assemblyPairs);
+
+			return true;
 		}
 
 		private void AddAssembly(string assembly)

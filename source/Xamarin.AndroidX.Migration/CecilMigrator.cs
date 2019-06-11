@@ -10,7 +10,7 @@ using Xamarin.Android.Tools.Bytecode;
 
 namespace Xamarin.AndroidX.Migration
 {
-	public class CecilMigrator
+	public class CecilMigrator : MigrationTool
 	{
 		private const string RegisterAttributeFullName = "Android.Runtime.RegisterAttribute";
 		private const string StringFullName = "System.String";
@@ -40,6 +40,8 @@ namespace Xamarin.AndroidX.Migration
 		public bool SkipEmbeddedResources { get; set; }
 
 		public bool RenameTypes { get; set; }
+
+		public string JavaPath { get; set; } = "java";
 
 		public CecilMigrationResult Migrate(IEnumerable<MigrationPair> assemblies)
 		{
@@ -86,8 +88,7 @@ namespace Xamarin.AndroidX.Migration
 
 				using (var assembly = AssemblyDefinition.ReadAssembly(source, readerParams))
 				{
-					if (Verbose)
-						Console.WriteLine($"Processing assembly '{source}'...");
+					LogVerboseMessage($"Processing assembly '{source}'...");
 
 					result = MigrateAssembly(assembly);
 
@@ -97,7 +98,7 @@ namespace Xamarin.AndroidX.Migration
 						result.HasFlag(CecilMigrationResult.ContainedJavaArtifacts);
 
 					var dir = Path.GetDirectoryName(destination);
-					if (!Directory.Exists(dir))
+					if (!string.IsNullOrWhiteSpace(dir) && !Directory.Exists(dir))
 						Directory.CreateDirectory(dir);
 
 					if (requiresSave)
@@ -124,17 +125,15 @@ namespace Xamarin.AndroidX.Migration
 							symbolStream?.Dispose();
 						}
 
-						Console.WriteLine($"Migrated assembly to '{destination}'.");
+						LogMessage($"Migrated assembly to '{destination}'.");
 					}
 					else
 					{
-						if (Verbose)
-							Console.WriteLine($"Skipped assembly '{source}' due to lack of support types.");
+						LogVerboseMessage($"Skipped assembly '{source}' due to lack of support types.");
 
 						if (!source.Equals(destination, StringComparison.OrdinalIgnoreCase))
 						{
-							if (Verbose)
-								Console.WriteLine($"Copying source assembly '{source}' to '{destination}'.");
+							LogVerboseMessage($"Copying source assembly '{source}' to '{destination}'.");
 
 							File.Copy(source, destination, true);
 							if (hasPdb)
@@ -235,7 +234,7 @@ namespace Xamarin.AndroidX.Migration
 		{
 			var result = CecilMigrationResult.Skipped;
 
-			Console.WriteLine($"*** WARNING: Renaming types! This will result in an invalid assembly! ***");
+			LogMessage($"*** WARNING: Renaming types! This will result in an invalid assembly! ***");
 
 			foreach (var type in assembly.MainModule.GetTypes())
 			{
@@ -267,21 +266,24 @@ namespace Xamarin.AndroidX.Migration
 				return result;
 
 			var tempRoot = Path.Combine(Path.GetTempPath(), "Xamarin.AndroidX.Migration", "Cecilfier", Guid.NewGuid().ToString());
-			if (!Directory.Exists(tempRoot))
+			if (!string.IsNullOrWhiteSpace(tempRoot) && !Directory.Exists(tempRoot))
 				Directory.CreateDirectory(tempRoot);
 
-			if (Verbose)
-				Console.WriteLine($"  Migrating embedded resources...");
-
-			var jetifier = new Jetifier();
-			jetifier.Verbose = Verbose;
+			LogVerboseMessage($"  Migrating embedded resources...");
 
 			foreach (var embedded in embeddedResources)
 			{
+				var jetifier = new Jetifier
+				{
+					Verbose = Verbose,
+					JavaPath = JavaPath,
+				};
+
+				jetifier.MessageLogged += (sender, e) => Log(e);
+
 				var tempFile = Path.Combine(tempRoot, Guid.NewGuid().ToString() + Path.GetExtension(embedded.Name));
 
-				if (Verbose)
-					Console.WriteLine($"    Migrating embedded resource '{embedded.Name}'...");
+				LogVerboseMessage($"    Migrating embedded resource '{embedded.Name}'...");
 
 				using (var fileStream = File.OpenWrite(tempFile))
 				using (var resourceStream = embedded.GetResourceStream())
@@ -289,7 +291,8 @@ namespace Xamarin.AndroidX.Migration
 					resourceStream.CopyTo(fileStream);
 				}
 
-				jetifier.Jetify(tempFile, tempFile);
+				if (!jetifier.Jetify(tempFile, tempFile))
+					throw new Exception("Errors occured during the migration of embedded assets.");
 
 				assembly.MainModule.Resources.Remove(embedded);
 
@@ -336,30 +339,26 @@ namespace Xamarin.AndroidX.Migration
 					continue;
 				}
 
-				if (Verbose)
-					Console.WriteLine($"  Processing type reference '{support.FullName}'...");
+				LogVerboseMessage($"  Processing type reference '{support.FullName}'...");
 
 				var old = support.FullName;
 				support.Namespace = androidx.Namespace;
 
-				if (Verbose)
-					Console.WriteLine($"    Mapped type '{old}' to '{support.FullName}'.");
+				LogVerboseMessage($"    Mapped type '{old}' to '{support.FullName}'.");
 
 				if (!string.IsNullOrWhiteSpace(androidx.Assembly) && support.Scope.Name != androidx.Assembly)
 				{
-					if (Verbose)
-						Console.WriteLine($"    Mapped assembly '{support.Scope.Name}' to '{androidx.Assembly}'.");
+					LogVerboseMessage($"    Mapped assembly '{support.Scope.Name}' to '{androidx.Assembly}'.");
 
 					support.Scope.Name = androidx.Assembly;
 				}
 				else if (support.Scope.Name == androidx.Assembly)
 				{
-					if (Verbose)
-						Console.WriteLine($"    Already mapped assembly '{support.Scope.Name}'.");
+					LogVerboseMessage($"    Already mapped assembly '{support.Scope.Name}'.");
 				}
 				else
 				{
-					Console.WriteLine($"    *** Potential error for assembly {support.Scope.Name}' to '{androidx.Assembly}'. ***");
+					LogMessage($"    *** Potential error for assembly {support.Scope.Name}' to '{androidx.Assembly}'. ***");
 				}
 
 				result |= CecilMigrationResult.ContainedSupport;
@@ -379,8 +378,7 @@ namespace Xamarin.AndroidX.Migration
 				if (registerAttribute == null)
 					continue;
 
-				if (Verbose)
-					Console.WriteLine($"  Processing type '{type.FullName}'...");
+				LogVerboseMessage($"  Processing type '{type.FullName}'...");
 
 				if (MigrateRegisterAttribute(registerAttribute))
 					result |= CecilMigrationResult.ContainedJni;
@@ -392,8 +390,7 @@ namespace Xamarin.AndroidX.Migration
 					if (propertyRegister == null)
 						continue;
 
-					if (Verbose)
-						Console.WriteLine($"    Processing property '{property.Name}'...");
+					LogVerboseMessage($"    Processing property '{property.Name}'...");
 
 					if (MigrateRegisterAttribute(propertyRegister))
 						result |= CecilMigrationResult.ContainedJni;
@@ -404,8 +401,7 @@ namespace Xamarin.AndroidX.Migration
 				{
 					var methodRegister = GetRegisterAttribute(method.CustomAttributes);
 
-					if (Verbose)
-						Console.WriteLine($"    Processing method '{method.Name}'...");
+					LogVerboseMessage($"    Processing method '{method.Name}'...");
 
 					if (methodRegister != null && MigrateRegisterAttribute(methodRegister))
 						result |= CecilMigrationResult.ContainedJni;

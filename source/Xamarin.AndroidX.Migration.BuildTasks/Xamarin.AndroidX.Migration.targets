@@ -27,6 +27,7 @@
         <_AndroidXProguardIntermediateOutputPath>$(_AndroidXIntermediateOutputPath)proguard\</_AndroidXProguardIntermediateOutputPath>
         <_AndroidXJavaLibraryIntermediateOutputPath>$(_AndroidXIntermediateOutputPath)jl\</_AndroidXJavaLibraryIntermediateOutputPath>
         <_AndroidXUseVerboseToolOutput Condition="'$(_AndroidXUseVerboseToolOutput)' == ''">false</_AndroidXUseVerboseToolOutput>
+        <_AndroidXParallelJetifier Condition="'$(_AndroidXParallelJetifier)' == ''">true</_AndroidXParallelJetifier>
     </PropertyGroup>
 
     <!-- we want to ignore everything for the Android Support Java bits -->
@@ -56,6 +57,22 @@
         <AndroidCustomMetaDataForReferences Include="@(_AndroidXSupportAssemblyToSkip)" />
         <AndroidCustomMetaDataForReferences Include="@(_AndroidXAssemblyToSkip)" />
     </ItemGroup>
+
+    <!--
+    ***************************************************************************
+    * RESOLVE JAVA PATH
+    * This target will make sure that the path to java.exe has been resolved.
+    ***************************************************************************
+    -->
+    <Target Name="_AndroidXResolveJavaPath"
+            Condition="'$(_AndroidXShouldRunMigration)' == 'true'">
+
+        <PropertyGroup>
+            <_AndroidXJavaPath Condition="'$(_AndroidXJavaPath)' == '' and '$(OS)' == 'Unix'">$(JavaSdkDirectory)\bin\java</_AndroidXJavaPath>
+            <_AndroidXJavaPath Condition="'$(_AndroidXJavaPath)' == '' and '$(OS)' != 'Unix'">$(JavaSdkDirectory)\bin\java.exe</_AndroidXJavaPath>
+        </PropertyGroup>
+
+    </Target>
 
     <!--
     ***************************************************************************
@@ -133,12 +150,14 @@
     <Target Name="_AndroidXJetifyManifest"
             Inputs="$(IntermediateOutputPath)android\AndroidManifest.xml;$(_AndroidStampDirectory)_GenerateJavaStubs.stamp"
             Outputs="$(_AndroidStampDirectory)_AndroidXJetifyManifest.stamp"
+            DependsOnTargets="_AndroidXResolveJavaPath"
             Condition="'$(_AndroidXShouldRunMigration)' == 'true'">
 
         <JetifyFiles Files="$(IntermediateOutputPath)android\AndroidManifest.xml"
                      IntermediateFilePath="$(IntermediateOutputPath)androidx\_AndroidXJetifyManifest.jetify"
                      UseIntermediateFile="true"
-                     Parallel="true"
+                     Parallel="$(_AndroidXParallelJetifier)"
+                     JavaPath="$(_AndroidXJavaPath)"
                      Verbose="$(_AndroidXUseVerboseToolOutput)" />
 
         <Touch Files="$(_AndroidStampDirectory)_GenerateJavaStubs.stamp;$(_AndroidStampDirectory)_AndroidXJetifyManifest.stamp" AlwaysCreate="True" />
@@ -173,14 +192,15 @@
 
     <Target Name="_AndroidXJetifyEmbeddedFiles"
             Condition="'$(_AndroidXShouldRunMigration)' == 'true'"
-            DependsOnTargets="_AndroidXFindJetifyEmbeddedFiles"
+            DependsOnTargets="_AndroidXResolveJavaPath;_AndroidXFindJetifyEmbeddedFiles"
             Inputs="@(_AndroidXEmbeddedFileToJetify->'%(InputItemSpec)');$(_AndroidResFlagFile);$(_AndroidStampDirectory)_ResolveLibraryProjectImports.stamp"
             Outputs="$(_AndroidStampDirectory)_AndroidXJetifyEmbeddedFiles.stamp">
 
         <JetifyFiles Files="@(_AndroidXEmbeddedFileToJetify)"
                      IntermediateFilePath="$(IntermediateOutputPath)androidx\_AndroidXJetifyEmbeddedFiles.jetify"
                      UseIntermediateFile="true"
-                     Parallel="true"
+                     Parallel="$(_AndroidXParallelJetifier)"
+                     JavaPath="$(_AndroidXJavaPath)"
                      Verbose="$(_AndroidXUseVerboseToolOutput)" />
         <Touch Files="$(_AndroidResFlagFile);$(_AndroidStampDirectory)_ResolveLibraryProjectImports.stamp;$(_AndroidStampDirectory)_AndroidXJetifyEmbeddedFiles.stamp" AlwaysCreate="True" />
 
@@ -218,7 +238,7 @@
 
     <Target Name="_AndroidXJetifyProguardRules"
             Condition="'$(_AndroidXShouldRunMigration)' == 'true'"
-            DependsOnTargets="_AndroidXFindJetifyProguardFiles"
+            DependsOnTargets="_AndroidXResolveJavaPath;_AndroidXFindJetifyProguardFiles"
             Inputs="@(_AndroidXProguardToJetify)"
             Outputs="$(_AndroidStampDirectory)_AndroidXJetifyProguardRules.stamp">
 
@@ -228,7 +248,8 @@
                      IsProGuard="true"
                      IntermediateFilePath="$(IntermediateOutputPath)androidx\_AndroidXJetifyProguardRules.jetify"
                      UseIntermediateFile="true"
-                     Parallel="true"
+                     Parallel="$(_AndroidXParallelJetifier)"
+                     JavaPath="$(_AndroidXJavaPath)"
                      Verbose="$(_AndroidXUseVerboseToolOutput)" />
         <Touch Files="$(_AndroidStampDirectory)_AndroidXJetifyProguardRules.stamp" AlwaysCreate="True" />
 
@@ -261,7 +282,7 @@
 
     <Target Name="_AndroidXJetifyJavaLibraryRules"
             Condition="'$(_AndroidXShouldRunMigration)' == 'true'"
-            DependsOnTargets="_AndroidXFindJetifyJavaLibraryFiles"
+            DependsOnTargets="_AndroidXResolveJavaPath;_AndroidXFindJetifyJavaLibraryFiles"
             Inputs="@(_AndroidXJavaLibraryToJetify)"
             Outputs="$(_AndroidStampDirectory)_AndroidXJetifyJavaLibraryRules.stamp">
 
@@ -270,7 +291,8 @@
                      JetifiedDirectory="$(_AndroidXJavaLibraryIntermediateOutputPath)"
                      IntermediateFilePath="$(IntermediateOutputPath)androidx\_AndroidXJetifyJavaLibraryRules.jetify"
                      UseIntermediateFile="true"
-                     Parallel="true"
+                     Parallel="$(_AndroidXParallelJetifier)"
+                     JavaPath="$(_AndroidXJavaPath)"
                      Verbose="$(_AndroidXUseVerboseToolOutput)" />
         <Touch Files="$(_AndroidStampDirectory)_AndroidXJetifyJavaLibraryRules.stamp;$(IntermediateOutputPath)androidx\_AndroidXJetifyJavaLibraryRules.jetify" AlwaysCreate="True" />
 

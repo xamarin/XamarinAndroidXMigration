@@ -1,6 +1,7 @@
 ﻿using Mono.Options;
 using System;
 using System.Collections.Generic;
+using Xamarin.AndroidX.Migration;
 
 namespace AndroidXMigrator
 {
@@ -56,9 +57,7 @@ namespace AndroidXMigrator
 					return 1;
 				}
 
-				OnInvoke(extras);
-
-				return 0;
+				return OnInvoke(extras) ? 0 : 1;
 			}
 			catch (Exception ex)
 			{
@@ -73,6 +72,18 @@ namespace AndroidXMigrator
 
 		protected virtual bool OnValidateArguments(IEnumerable<string> extras) => true;
 
-		protected abstract void OnInvoke(IEnumerable<string> extras);
+		protected abstract bool OnInvoke(IEnumerable<string> extras);
+
+		protected void LogToolMessage(MessageLoggedEventArgs e)
+		{
+			if (e.Exception != null)
+				Console.Error.WriteLine(e.Exception);
+			else if (e.IsError)
+				Console.Error.WriteLine(e.Message);
+			else if (e.IsVerbose && Program.Verbose)
+				Console.WriteLine(e.Message);
+			else if (!e.IsVerbose)
+				Console.WriteLine(e.Message);
+		}
 	}
 }

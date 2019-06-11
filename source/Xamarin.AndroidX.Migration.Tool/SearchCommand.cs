@@ -56,7 +56,7 @@ namespace AndroidXMigrator
 			return !hasError;
 		}
 
-		protected override void OnInvoke(IEnumerable<string> extras)
+		protected override bool OnInvoke(IEnumerable<string> extras)
 		{
 			if (Program.Verbose)
 			{
@@ -107,6 +107,8 @@ namespace AndroidXMigrator
 					}
 				}
 			}
+
+			return true;
 		}
 
 		private void DoSearch(string artifact, ClassPath classPath, string javaClass)

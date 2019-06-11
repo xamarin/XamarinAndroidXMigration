@@ -1,33 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 
 namespace Xamarin.AndroidX.Migration
 {
-	public class Jetifier
+	public class Jetifier : MigrationTool
 	{
 		private const string JetifierWrapperJarName = "JetifierWrapper.jar";
 		private const string JetifierWrapperMain = "com.xamarin.androidx.jetifierWrapper.Main";
 
-		public string ConfigurationPath { get; set; }
 		public bool Verbose { get; set; }
+
+		public string ConfigurationPath { get; set; }
+
 		public bool Dejetify { get; set; }
+
 		public bool IsStrict { get; set; }
+
 		public bool ShouldRebuildTopOfTree { get; set; }
+
 		public bool ShouldStripSignatures { get; set; }
+
 		public bool IsProGuard { get; set; }
+
 		public bool Parallel { get; set; }
+
 		public bool UseIntermediateFile { get; set; }
+
 		public string IntermediateFilePath { get; set; }
 
 		public string JavaPath { get; set; } = "java";
 
 		public string JetifierWrapperPath { get; set; } = "Tools/JetifierWrapper/";
-
-		public string LastOutput { get; private set; }
-
-		public string LastError { get; private set; }
 
 		public bool Jetify(MigrationPair archives) =>
 			Jetify(new[] { archives });
@@ -55,7 +59,7 @@ namespace Xamarin.AndroidX.Migration
 				}
 
 				var dir = Path.GetDirectoryName(IntermediateFilePath);
-				if (!Directory.Exists(dir))
+				if (!string.IsNullOrWhiteSpace(dir) && !Directory.Exists(dir))
 					Directory.CreateDirectory(dir);
 
 				using (var intermediate = File.CreateText(IntermediateFilePath))
@@ -88,32 +92,7 @@ namespace Xamarin.AndroidX.Migration
 			var options = $"{c}{l}{r}{s}{rebuildTopOfTree}{stripSignatures}{isProGuard}{parallel}";
 			var arguments = $"-classpath \"{classPath}\" \"{JetifierWrapperMain}\" {inputs} {options}";
 
-			if (Verbose)
-			{
-				Console.WriteLine($"Running jetifier:");
-				Console.WriteLine($"  JavaPath: {JavaPath}");
-				Console.WriteLine($"  Arguments {arguments.Length}: {arguments}");
-			}
-
-			var proc = Process.Start(new ProcessStartInfo(JavaPath)
-			{
-				Arguments = arguments,
-				RedirectStandardOutput = true,
-				RedirectStandardError = true,
-				UseShellExecute = false
-			});
-
-			LastOutput = proc.StandardOutput.ReadToEnd();
-			LastError = proc.StandardError.ReadToEnd();
-
-			proc.WaitForExit();
-
-			var result = proc.ExitCode == 0;
-
-			if (!result)
-				throw new Exception($"Java exited with error code: {proc.ExitCode}\nError: {LastError}\nOutput: {LastOutput}");
-
-			return result;
+			return ExecuteExternalProcess(JavaPath, arguments);
 		}
 	}
 }

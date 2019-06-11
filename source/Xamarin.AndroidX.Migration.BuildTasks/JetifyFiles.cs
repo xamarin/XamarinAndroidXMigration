@@ -1,5 +1,4 @@
 using Microsoft.Build.Framework;
-using Microsoft.Build.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,9 +6,8 @@ using System.Linq;
 
 namespace Xamarin.AndroidX.Migration.BuildTasks
 {
-	public class JetifyFiles : Task
+	public class JetifyFiles : MigrationToolTask
 	{
-
 		// file inputs
 
 		public ITaskItem[] Files { get; set; }
@@ -18,6 +16,7 @@ namespace Xamarin.AndroidX.Migration.BuildTasks
 
 		// configuration inputs
 
+		public string JavaPath { get; set; }
 		public string ConfigurationPath { get; set; }
 		public bool Verbose { get; set; }
 		public bool Dejetify { get; set; }
@@ -90,23 +89,21 @@ namespace Xamarin.AndroidX.Migration.BuildTasks
 					Parallel = Parallel,
 					UseIntermediateFile = UseIntermediateFile,
 					IntermediateFilePath = IntermediateFilePath,
+					JavaPath = JavaPath,
 				};
+
+				jetifier.MessageLogged += (sender, e) => LogToolMessage(e);
 
 				if (!string.IsNullOrEmpty(JetifiedDirectory) && !Directory.Exists(JetifiedDirectory))
 					Directory.CreateDirectory(JetifiedDirectory);
 
-				jetifier.Jetify(filesToJetify);
-
-				if (Verbose)
-					Log.LogMessage(jetifier.LastOutput);
+				return jetifier.Jetify(filesToJetify);
 			}
 			catch (Exception ex)
 			{
 				Log.LogErrorFromException(ex, true);
 				return false;
 			}
-
-			return true;
 		}
 
 		private IEnumerable<MigrationPair> CreateMigrationPairs()

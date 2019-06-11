@@ -64,7 +64,7 @@ namespace AndroidXMigrator
 			return !hasError;
 		}
 
-		protected override void OnInvoke(IEnumerable<string> extras)
+		protected override bool OnInvoke(IEnumerable<string> extras)
 		{
 			if (Program.Verbose)
 			{
@@ -152,6 +152,8 @@ namespace AndroidXMigrator
 				};
 				ApiDiffFormatted.Generate(infoStreams[0], infoStreams[1], writer, config);
 			});
+
+			return true;
 		}
 
 		private static XDocument GetApiInfoDocument(string assembly, ApiInfoConfig config, out bool wasXml)
@@ -192,7 +194,7 @@ namespace AndroidXMigrator
 				return;
 
 			var dir = Path.GetDirectoryName(path);
-			if (!Directory.Exists(dir))
+			if (!string.IsNullOrWhiteSpace(dir) && !Directory.Exists(dir))
 				Directory.CreateDirectory(dir);
 
 			using (var file = File.Create(path))
