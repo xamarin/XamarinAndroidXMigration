@@ -190,6 +190,17 @@
 
     </Target>
 
+    <!-- HACK START -->
+    <!-- This is to get around the fact that the resources are modfied in the compile step -->
+    <Target Name="_AndroidXJetifyEmbeddedFilesFixup"
+            Condition="'$(_AndroidXShouldRunMigration)' == 'true'"
+            AfterTargets="_UpdateAndroidResgen">
+
+        <Touch Files="$(_AndroidStampDirectory)_AndroidXJetifyEmbeddedFiles.stamp" />
+
+    </Target>
+    <!-- HACK END -->
+
     <!--
     ***************************************************************************
     * JETIFY PROGUARD FILES
