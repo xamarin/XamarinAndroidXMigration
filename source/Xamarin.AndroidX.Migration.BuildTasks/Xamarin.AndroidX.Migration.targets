@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-    <!--
-      TODO:
-        * detect when android support is not used and skip migration
-    -->
-
     <UsingTask TaskName="Xamarin.AndroidX.Migration.BuildTasks.CecilfyFiles"
                AssemblyFile="$(MSBuildThisFileDirectory)Xamarin.AndroidX.Migration.BuildTasks.dll" />
     <UsingTask TaskName="Xamarin.AndroidX.Migration.BuildTasks.JetifyFiles"
@@ -86,7 +81,13 @@
             Condition="'$(_AndroidXShouldRunMigration)' == 'true' and '$(AndroidXSkipValidateInstalledPackages)' != 'true'">
 
         <ValidateAndroidXPackages ResolvedAssemblies="@(ReferencePath)"
-                                  Verbose="$(_AndroidXUseVerboseToolOutput)" />
+                                  Verbose="$(_AndroidXUseVerboseToolOutput)">
+            <Output TaskParameter="ContainsSupportAssemblies" PropertyName="_AndroidXContainsSupportAssemblies" />
+        </ValidateAndroidXPackages>
+
+        <PropertyGroup>
+            <_AndroidXShouldRunMigration Condition="'$(_AndroidXContainsSupportAssemblies)' == 'false'">false</_AndroidXShouldRunMigration>
+        </PropertyGroup>
 
     </Target>
 
@@ -98,7 +99,7 @@
     ***************************************************************************
     -->
     <Target Name="_AndroidXCecilfyShrinkFindFiles"
-            Condition="'$(AndroidLinkMode)' != 'none'">
+            Condition="'$(_AndroidXShouldRunMigration)' == 'true' and '$(AndroidLinkMode)' != 'none'">
         <ItemGroup>
             <_AndroidXFileToCecilfy Include="@(ResolvedUserAssemblies->'$(MonoAndroidLinkerInputDir)%(Filename)%(Extension)')"
                                     Condition="'%(ResolvedUserAssemblies.AndroidXSkipAndroidXMigration)' != 'true'" />
@@ -106,7 +107,7 @@
     </Target>
 
     <Target Name="_AndroidXCecilfyNoShrinkFindFiles"
-            Condition="'$(AndroidLinkMode)' == 'none'">
+            Condition="'$(_AndroidXShouldRunMigration)' == 'true' and '$(AndroidLinkMode)' == 'none'">
         <ItemGroup>
             <_AndroidXFileToCecilfy Include="@(ResolvedUserAssemblies->'$(MonoAndroidIntermediateAssetsDir)%(Filename)%(Extension)')" 
                                     Condition="('%(ResolvedUserAssemblies.TargetFrameworkIdentifier)' == 'MonoAndroid' or '%(ResolvedUserAssemblies.HasMonoAndroidReference)' == 'true') and ('%(ResolvedUserAssemblies.AndroidXSkipAndroidXMigration)' != 'true')" />
@@ -115,12 +116,12 @@
 
     <Target Name="_AndroidXCecilfyNoShrink"
             DependsOnTargets="_AndroidXCecilfy"
-            Condition="'$(AndroidLinkMode)' == 'none'">
+            Condition="'$(_AndroidXShouldRunMigration)' == 'true' and '$(AndroidLinkMode)' == 'none'">
     </Target>
 
     <Target Name="_AndroidXCecilfyShrink"
             DependsOnTargets="_AndroidXCecilfy"
-            Condition="'$(AndroidLinkMode)' != 'none'">
+            Condition="'$(_AndroidXShouldRunMigration)' == 'true' and '$(AndroidLinkMode)' != 'none'">
     </Target>
 
     <Target Name="_AndroidXCecilfy"

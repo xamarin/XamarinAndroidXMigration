@@ -68,7 +68,9 @@
     <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0" />
     <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.0.0" />
     <!-- AndroidX Migration -->
-    <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.0" Condition="'$(UseMigratorNuGetPackages)' == 'true'" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(UseMigratorNuGetPackages)' == 'true'">
+    <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />

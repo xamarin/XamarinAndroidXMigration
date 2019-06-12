@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Microsoft.Build.Framework;
+using Microsoft.Build.Utilities;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Microsoft.Build.Framework;
-using Microsoft.Build.Utilities;
 
 namespace Xamarin.AndroidX.Migration.BuildTasks
 {
@@ -14,12 +13,15 @@ namespace Xamarin.AndroidX.Migration.BuildTasks
 
 		public bool Verbose { get; set; }
 
+		[Output]
+		public bool ContainsSupportAssemblies { get; set; }
+
 		public override bool Execute()
 		{
 			// if there are no assemblies, then we are done
 			if (ResolvedAssemblies == null || ResolvedAssemblies.Length == 0)
 			{
-				Log.LogMessage($"There were no assembies to ckeck.");
+				Log.LogMessage($"There were no assemblies to check.");
 				return true;
 			}
 
@@ -36,14 +38,14 @@ namespace Xamarin.AndroidX.Migration.BuildTasks
 				if (!mapping.TryGetAndroidXAssembly(assembly, out var xAssembly))
 					continue;
 
-				if (Verbose)
-					Log.LogMessage($"Making sure that the Android Support assembly '{assembly}' has a replacement Android X assembly...");
+				ContainsSupportAssemblies = true;
+
+				Log.LogMessage(MessageImportance.Low, $"Making sure that the Android Support assembly '{assembly}' has a replacement Android X assembly...");
 
 				// make sure the mapped assembly is referenced
 				if (orderedNames.Contains(xAssembly))
 				{
-					if (Verbose)
-						Log.LogMessage($"Correctly replacing the Android Support assembly '{assembly}' with Android X '{xAssembly}'.");
+					Log.LogMessage(MessageImportance.Low, $"Correctly replacing the Android Support assembly '{assembly}' with Android X '{xAssembly}'.");
 
 					continue;
 				}

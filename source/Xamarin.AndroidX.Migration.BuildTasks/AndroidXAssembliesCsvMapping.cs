@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Xamarin.AndroidX.Migration.BuildTasks
@@ -7,8 +8,8 @@ namespace Xamarin.AndroidX.Migration.BuildTasks
 	{
 		private const string MappingResourcePath = "Tools/Mappings/androidx-assemblies.csv";
 
-		private readonly SortedDictionary<string, string> assemblyMapping = new SortedDictionary<string, string>();
-		private readonly SortedDictionary<string, string> packageMapping = new SortedDictionary<string, string>();
+		private readonly SortedDictionary<string, string> assemblyMapping = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+		private readonly SortedDictionary<string, string> packageMapping = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
 		public AndroidXAssembliesCsvMapping()
 		{

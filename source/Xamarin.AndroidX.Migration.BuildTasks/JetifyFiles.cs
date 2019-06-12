@@ -66,15 +66,12 @@ namespace Xamarin.AndroidX.Migration.BuildTasks
 			{
 				var filesToJetify = CreateMigrationPairs().ToList();
 
-				if (Verbose)
+				foreach (var file in filesToJetify)
 				{
-					foreach (var file in filesToJetify)
-					{
-						if (file.Source.Equals(file.Destination, StringComparison.OrdinalIgnoreCase))
-							Log.LogMessage($"Queuing jetification for {file.Source}.");
-						else
-							Log.LogMessage($"Queuing jetification for {file.Source} to {file.Destination}.");
-					}
+					if (file.Source.Equals(file.Destination, StringComparison.OrdinalIgnoreCase))
+						Log.LogMessage(MessageImportance.Low, $"Queuing jetification for {file.Source}.");
+					else
+						Log.LogMessage(MessageImportance.Low, $"Queuing jetification for {file.Source} to {file.Destination}.");
 				}
 
 				var jetifier = new Jetifier

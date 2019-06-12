@@ -28,8 +28,7 @@ namespace Xamarin.AndroidX.Migration.BuildTasks
 			// if there are no files, then we are done
 			if (Files == null || Files.Length == 0)
 			{
-				if (Verbose)
-					Log.LogMessage($"There were no files to check.");
+				Log.LogMessage(MessageImportance.Low, $"There were no files to check.");
 
 				return true;
 			}
@@ -37,8 +36,7 @@ namespace Xamarin.AndroidX.Migration.BuildTasks
 			// if there is nothing to skip, then we are done
 			if (ContainersToSkip == null || ContainersToSkip.Length == 0)
 			{
-				if (Verbose)
-					Log.LogMessage($"There were no containers to check.");
+				Log.LogMessage(MessageImportance.Low, $"There were no containers to check.");
 
 				OutputFiles = Files;
 				return true;
@@ -79,8 +77,7 @@ namespace Xamarin.AndroidX.Migration.BuildTasks
 				}
 				else
 				{
-					if (Verbose)
-						Log.LogMessage($"The file '{file}' did not match any skippable containers.");
+					Log.LogMessage(MessageImportance.Low, $"The file '{file}' did not match any skippable containers.");
 
 					yield return file;
 				}

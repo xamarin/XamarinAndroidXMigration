@@ -66,7 +66,9 @@
     <PackageReference Include="Xamarin.AndroidX.Legacy.Support.Core.Utils" Version="1.0.0" />
     <PackageReference Include="Xamarin.AndroidX.Browser" Version="1.0.0" />
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
-    <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.0" Condition="'$(UseMigratorNuGetPackages)' == 'true'" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(UseMigratorNuGetPackages)' == 'true'">
+    <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
