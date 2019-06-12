@@ -17,6 +17,7 @@ var azureBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1
 var multidexPackageVersion = "2.0.1";
 var multidexPackageUrl = $"https://maven.google.com/androidx/multidex/multidex/{multidexPackageVersion}/multidex-{multidexPackageVersion}.aar";
 
+var PACKAGE_VERSION = EnvironmentVariable("PACKAGE_VERSION") ?? "1.0.0";
 var PREVIEW_LABEL = EnvironmentVariable("PREVIEW_LABEL") ?? "preview";
 var BUILD_NUMBER = EnvironmentVariable("BUILD_NUMBER") ?? "";
 if (string.IsNullOrEmpty(BUILD_NUMBER)) {
@@ -223,45 +224,53 @@ Task("NuGets")
     .IsDependentOn("Libraries")
     .Does(() =>
 {
-    var nuspec = "./nugets/Xamarin.AndroidX.Migration.nuspec";
-    var tempNuspec = "./nugets/Xamarin.AndroidX.Migration.mac.nuspec";
-    var tool = "./source/Xamarin.AndroidX.Migration.Tool/Xamarin.AndroidX.Migration.Tool.csproj";
-
-    if (!IsRunningOnWindows()) {
-        CopyFile(nuspec, tempNuspec);
-        nuspec = tempNuspec;
-
-        ReplaceTextInFiles(tempNuspec, "\\", "/");
-    }
-
     DeleteFiles("./output/nugets/*.nupkg");
-    NuGetPack(nuspec, new NuGetPackSettings {
-        OutputDirectory = "./output/nugets/",
-        RequireLicenseAcceptance = true,
-    });
-    NuGetPack(nuspec, new NuGetPackSettings {
-        OutputDirectory = "./output/nugets/",
-        RequireLicenseAcceptance = true,
-        Suffix = PREVIEW_LABEL + "." + BUILD_NUMBER,
-    });
 
-    DotNetCorePack(tool, new DotNetCorePackSettings {
-        NoBuild = true,
-        Configuration = configuration,
-        OutputDirectory = "./output/nugets/",
-        ArgumentCustomization = args => args.Append("/p:PackAsTool=True"),
-    });
-    DotNetCorePack(tool, new DotNetCorePackSettings {
-        NoBuild = true,
-        Configuration = configuration,
-        OutputDirectory = "./output/nugets/",
-        ArgumentCustomization = args => args.Append("/p:PackAsTool=True"),
-        VersionSuffix = PREVIEW_LABEL + "." + BUILD_NUMBER,
-    });
+    var stableVersion = $"{PACKAGE_VERSION}";
+    var previewVersion = $"{PACKAGE_VERSION}-{PREVIEW_LABEL}.{BUILD_NUMBER}";
 
-    if (FileExists(tempNuspec)) {
-        DeleteFile(tempNuspec);
+    foreach (var ns in GetFiles("./nugets/*.nuspec")) {
+        var nuspec = ns;
+        var tempNuspec = ns + ".mac.nuspec";
+        if (!IsRunningOnWindows()) {
+            CopyFile(ns, tempNuspec);
+            ReplaceTextInFiles(tempNuspec, "\\", "/");
+            nuspec = tempNuspec;
+        }
+
+        NuGetPack(nuspec, new NuGetPackSettings {
+            OutputDirectory = "./output/nugets/",
+            RequireLicenseAcceptance = true,
+            Version = stableVersion,
+        });
+        NuGetPack(nuspec, new NuGetPackSettings {
+            OutputDirectory = "./output/nugets/",
+            RequireLicenseAcceptance = true,
+            Version = previewVersion,
+        });
+
+        if (FileExists(tempNuspec)) {
+            DeleteFile(tempNuspec);
+        }
     }
+
+    var tool = "./source/Xamarin.AndroidX.Migration.Tool/Xamarin.AndroidX.Migration.Tool.csproj";
+    DotNetCorePack(tool, new DotNetCorePackSettings {
+        NoBuild = true,
+        Configuration = configuration,
+        OutputDirectory = "./output/nugets/",
+        ArgumentCustomization = args => args
+            .Append("/p:PackAsTool=True")
+            .Append($"/p:PackageVersion={stableVersion}"),
+    });
+    DotNetCorePack(tool, new DotNetCorePackSettings {
+        NoBuild = true,
+        Configuration = configuration,
+        OutputDirectory = "./output/nugets/",
+        ArgumentCustomization = args => args
+            .Append("/p:PackAsTool=True")
+            .Append($"/p:PackageVersion={previewVersion}"),
+    });
 });
 
 Task("Samples")
