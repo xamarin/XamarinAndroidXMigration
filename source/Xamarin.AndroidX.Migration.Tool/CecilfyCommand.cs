@@ -25,7 +25,7 @@ namespace AndroidXMigrator
 		{
 			{ "a|assembly=", "One or more assemblies to cecilfy", v => AddAssembly(v) },
 			{ "skip-embedded", "Do not Jetify the embedded resources", v => skipEmbeddedResources = true },
-			{ "renameTypes", "Rename the types inside the assembly (INTERNAL)", v => renameTypes = true },
+			{ "rename-types", "Rename the types inside the assembly (INTERNAL)", v => renameTypes = true },
 			{ "java=", "The path to the Java executable", v => JavaPath = v },
 		};
 
