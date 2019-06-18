@@ -8,6 +8,8 @@ namespace Xamarin.AndroidX.Migration
 	{
 		public bool HasLoggedErrors { get; private set; }
 
+		public bool Verbose { get; set; }
+
 		public event EventHandler<MessageLoggedEventArgs> MessageLogged;
 
 		protected virtual void LogMessage(string message) =>

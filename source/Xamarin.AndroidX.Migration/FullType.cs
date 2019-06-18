@@ -1,6 +1,6 @@
 ﻿namespace Xamarin.AndroidX.Migration
 {
-	public struct FullType
+	public readonly struct FullType
 	{
 		public static FullType Empty = new FullType(string.Empty, string.Empty, string.Empty);
 
@@ -39,6 +39,12 @@
 
 		public override string ToString() =>
 			FullName;
+
+		public FullType WithName(string name) =>
+			new FullType(Assembly, Namespace, name);
+
+		public FullType WithNamespace(string ns) =>
+			new FullType(Assembly, ns, Name);
 
 		public void Deconstruct(out string c, out string ns, out string n)
 		{

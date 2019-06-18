@@ -35,8 +35,6 @@ namespace Xamarin.AndroidX.Migration
 
 		public AndroidXTypesCsvMapping Mapping { get; }
 
-		public bool Verbose { get; set; }
-
 		public bool SkipEmbeddedResources { get; set; }
 
 		public bool RenameTypes { get; set; }
@@ -241,6 +239,7 @@ namespace Xamarin.AndroidX.Migration
 				if (Mapping.TryGetAndroidXType(type.FullName, out var androidx) && type.FullName != androidx.FullName)
 				{
 					type.Namespace = androidx.Namespace;
+					type.Name = androidx.Name;
 				}
 			}
 

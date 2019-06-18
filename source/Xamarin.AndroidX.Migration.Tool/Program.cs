@@ -22,7 +22,9 @@ namespace AndroidXMigrator
 				"Available commands:",
 				new CecilfyCommand(),
 				new CompareCommand(),
+				new GenerateCommand(),
 				new JetifyCommand(),
+				new MergeCommand(),
 				new SearchCommand(),
 			};
 			return commands.Run(args);

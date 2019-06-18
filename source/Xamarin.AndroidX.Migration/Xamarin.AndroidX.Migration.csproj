@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ILRepack.Lib" Version="2.0.16" NoWarn="NU1701" />
     <PackageReference Include="Mono.Cecil" Version="0.10.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\..\mappings\androidx-mapping.csv" Link="Tools\Mappings\androidx-mapping.csv" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="..\..\mappings\androidx-assemblies.csv" Link="Tools\Mappings\androidx-assemblies.csv" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\mappings\*.csv" Link="Tools\Mappings\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="..\..\output\JetifierWrapper\*" Link="Tools\JetifierWrapper\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 

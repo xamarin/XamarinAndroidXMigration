@@ -6,11 +6,6 @@ namespace Xamarin.AndroidX.Migration
 {
 	public class Jetifier : MigrationTool
 	{
-		private const string JetifierWrapperJarName = "JetifierWrapper.jar";
-		private const string JetifierWrapperMain = "com.xamarin.androidx.jetifierWrapper.Main";
-
-		public bool Verbose { get; set; }
-
 		public string ConfigurationPath { get; set; }
 
 		public bool Dejetify { get; set; }
@@ -31,7 +26,7 @@ namespace Xamarin.AndroidX.Migration
 
 		public string JavaPath { get; set; } = "java";
 
-		public string JetifierWrapperPath { get; set; } = "Tools/JetifierWrapper/";
+		public string JetifierWrapperPath { get; set; } = Resources.JetifierWrapperDirectory;
 
 		public bool Jetify(MigrationPair archives) =>
 			Jetify(new[] { archives });
@@ -44,10 +39,7 @@ namespace Xamarin.AndroidX.Migration
 			if (archives == null)
 				throw new ArgumentNullException(nameof(archives), "There's nothing to jetify.");
 
-			var assembly = typeof(Jetifier).Assembly;
-			var jetifierWrapperRoot = Path.Combine(Path.GetDirectoryName(assembly.Location), JetifierWrapperPath);
-			var jetifierWrapperJar = Path.Combine(jetifierWrapperRoot, JetifierWrapperJarName);
-			var jars = Directory.GetFiles(jetifierWrapperRoot, "*.jar");
+			var jars = Directory.GetFiles(Resources.JetifierWrapperDirectory, "*.jar");
 
 			var inputs = string.Empty;
 			if (UseIntermediateFile)
@@ -90,7 +82,7 @@ namespace Xamarin.AndroidX.Migration
 			var isProGuard = IsProGuard ? " -isProGuard" : string.Empty;
 			var parallel = Parallel ? " -parallel" : string.Empty;
 			var options = $"{c}{l}{r}{s}{rebuildTopOfTree}{stripSignatures}{isProGuard}{parallel}";
-			var arguments = $"-classpath \"{classPath}\" \"{JetifierWrapperMain}\" {inputs} {options}";
+			var arguments = $"-classpath \"{classPath}\" \"{Resources.JetifierWrapperMain}\" {inputs} {options}";
 
 			return ExecuteExternalProcess(JavaPath, arguments);
 		}

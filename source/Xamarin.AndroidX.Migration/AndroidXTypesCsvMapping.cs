@@ -6,17 +6,13 @@ namespace Xamarin.AndroidX.Migration
 {
 	public class AndroidXTypesCsvMapping : CsvMapping
 	{
-		private const string MappingResourcePath = "Tools/Mappings/androidx-mapping.csv";
-
 		private readonly SortedDictionary<string, FullType> mapping = new SortedDictionary<string, FullType>();
 		private readonly SortedDictionary<string, FullType> reverseMapping = new SortedDictionary<string, FullType>();
 		private readonly SortedDictionary<string, FullType> javaMapping = new SortedDictionary<string, FullType>();
 
 		public AndroidXTypesCsvMapping()
 		{
-			var assembly = typeof(AndroidXTypesCsvMapping).Assembly;
-			var mappingFile = Path.Combine(Path.GetDirectoryName(assembly.Location), MappingResourcePath);
-			LoadMapping(mappingFile);
+			LoadMapping(Resources.TypesMappingFilePath);
 		}
 
 		public AndroidXTypesCsvMapping(string mappingFile)

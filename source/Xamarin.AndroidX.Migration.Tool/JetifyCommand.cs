@@ -16,7 +16,7 @@ namespace AndroidXMigrator
 
 		public Dictionary<string, string> Archives { get; } = new Dictionary<string, string>();
 
-		public string JavaPath { get; set; }
+		public string JavaPath { get; set; } = "java";
 
 		public bool Parallel { get; set; }
 

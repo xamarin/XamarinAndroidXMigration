@@ -2,20 +2,16 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Xamarin.AndroidX.Migration.BuildTasks
+namespace Xamarin.AndroidX.Migration
 {
 	public class AndroidXAssembliesCsvMapping : CsvMapping
 	{
-		private const string MappingResourcePath = "Tools/Mappings/androidx-assemblies.csv";
-
 		private readonly SortedDictionary<string, string> assemblyMapping = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 		private readonly SortedDictionary<string, string> packageMapping = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
 		public AndroidXAssembliesCsvMapping()
 		{
-			var assembly = typeof(AndroidXTypesCsvMapping).Assembly;
-			var mappingFile = Path.Combine(Path.GetDirectoryName(assembly.Location), MappingResourcePath);
-			LoadMapping(mappingFile);
+			LoadMapping(Resources.AssembliesMappingPath);
 		}
 
 		public AndroidXAssembliesCsvMapping(string mappingFile)
