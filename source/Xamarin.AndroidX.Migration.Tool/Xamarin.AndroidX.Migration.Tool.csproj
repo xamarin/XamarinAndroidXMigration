@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFrameworks>net47;netcoreapp2.2</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
     <RootNamespace>AndroidXMigrator</RootNamespace>
     <AssemblyName>androidx-migrator</AssemblyName>
     <ToolCommandName>androidx-migrator</ToolCommandName>
