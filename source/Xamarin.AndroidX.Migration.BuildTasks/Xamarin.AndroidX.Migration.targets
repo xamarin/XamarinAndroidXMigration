@@ -23,6 +23,9 @@
         <_AndroidXJavaLibraryIntermediateOutputPath>$(_AndroidXIntermediateOutputPath)jl\</_AndroidXJavaLibraryIntermediateOutputPath>
         <_AndroidXUseVerboseToolOutput Condition="'$(_AndroidXUseVerboseToolOutput)' == ''">false</_AndroidXUseVerboseToolOutput>
         <_AndroidXParallelJetifier Condition="'$(_AndroidXParallelJetifier)' == ''">true</_AndroidXParallelJetifier>
+
+        <!-- Skip the Android.Support checks if we aren't using Android Support -->
+        <XamarinAndroidSupportSkipVerifyVersions Condition="'$(XamarinAndroidSupportSkipVerifyVersions)' == '' and '$(_AndroidXShouldRunMigration)' == 'true'">true</XamarinAndroidSupportSkipVerifyVersions>
     </PropertyGroup>
 
     <!-- we want to ignore everything for the Android Support Java bits -->
