@@ -327,7 +327,8 @@ namespace Xamarin.AndroidX.Migration
 
 			foreach (var support in assembly.MainModule.GetTypeReferences())
 			{
-				if (!Mapping.TryGetAndroidXType(support.FullName, out var androidx) || support.FullName == androidx.FullName)
+				if (!Mapping.TryGetAndroidXType(support.FullName, out var androidx) ||
+					(support.FullName == androidx.FullName && support.Scope.Name == androidx.Assembly))
 				{
 					if (!result.HasFlag(CecilMigrationResult.PotentialJni))
 					{

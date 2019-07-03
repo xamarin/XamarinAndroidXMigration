@@ -1,4 +1,5 @@
 ﻿using Android.Content;
+using Android.Support.V4.Media.Session;
 using Android.Widget;
 using AndroidX.Fragment.App;
 
@@ -26,6 +27,11 @@ namespace ManagedAarxercise
 		public void UpdateFragment(Fragment fragment, string text)
 		{
 			((TextView)fragment.View.FindViewById(Resource.Id.managedSimpleFragmentTextView)).Text = text;
+		}
+
+		public MediaSessionCompat GetNullSession()
+		{
+			return null;
 		}
 	}
 }
