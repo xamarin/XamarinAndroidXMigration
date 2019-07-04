@@ -8,14 +8,11 @@ var configuration = Argument("c", Argument("configuration", "Release"));
 var nugetPath = Context.Tools.Resolve("nuget.exe");
 
 var jetifierVersion = "1.0.0";
-var jetifierBetaVersion = "-beta04";
+var jetifierBetaVersion = "-beta05";
 var jetifierDownloadUrl = $"https://dl.google.com/dl/android/studio/jetifier-zips/{jetifierVersion}{jetifierBetaVersion}/jetifier-standalone.zip";
 
-var azureBuildNumber = "3246";
+var azureBuildNumber = "3842";
 var azureBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1b47c07a8/_apis/build/builds/{azureBuildNumber}/artifacts?artifactName=nuget&%24format=zip&api-version=5.0";
-
-var multidexPackageVersion = "2.0.1";
-var multidexPackageUrl = $"https://maven.google.com/androidx/multidex/multidex/{multidexPackageVersion}/multidex-{multidexPackageVersion}.aar";
 
 var PACKAGE_VERSION = EnvironmentVariable("PACKAGE_VERSION") ?? "1.0.0";
 var PREVIEW_LABEL = EnvironmentVariable("PREVIEW_LABEL") ?? "preview";
@@ -140,11 +137,6 @@ Task("DownloadAndroidXAssets")
         CopyFileToDirectory($"{externalsRoot}nuget/AndroidX.Merged.dll", dllsRoot);
         CopyFileToDirectory($"{externalsRoot}nuget/androidx-mapping.csv", "mappings");
     }
-
-    var multidexAar = $"{externalsRoot}androidx.multidex.multidex.aar";
-    if (!FileExists(multidexAar)) {
-        DownloadFile(multidexPackageUrl, multidexAar);
-    }
 });
 
 Task("NativeAssets")
@@ -192,8 +184,6 @@ Task("Libraries")
         CopyDirectory($"{root}/Tools/", $"{outRoot}/build/Tools/");
         CopyFiles($"{root}/Mono.*", $"{outRoot}/build/");
         CopyFiles($"{root}/Xamarin.*", $"{outRoot}/build/");
-        EnsureDirectoryExists($"{outRoot}/aar/");
-        CopyFileToDirectory($"externals/androidx.multidex.multidex.aar", $"{outRoot}/aar/");
         Zip($"{outRoot}/", $"./output/Xamarin.AndroidX.Migration.BuildTasks.zip");
     }
 });

@@ -927,44 +927,44 @@ namespace ManagedAarxercise
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f09003e
-			public static int abc_background_cache_hint_selector_material_dark = 2131296318;
-			
 			// aapt resource value: 0x7f09003f
-			public static int abc_background_cache_hint_selector_material_light = 2131296319;
+			public static int abc_background_cache_hint_selector_material_dark = 2131296319;
 			
 			// aapt resource value: 0x7f090040
-			public static int abc_btn_colored_borderless_text_material = 2131296320;
+			public static int abc_background_cache_hint_selector_material_light = 2131296320;
 			
 			// aapt resource value: 0x7f090041
-			public static int abc_btn_colored_text_material = 2131296321;
+			public static int abc_btn_colored_borderless_text_material = 2131296321;
 			
 			// aapt resource value: 0x7f090042
-			public static int abc_color_highlight_material = 2131296322;
+			public static int abc_btn_colored_text_material = 2131296322;
 			
 			// aapt resource value: 0x7f090043
-			public static int abc_hint_foreground_material_dark = 2131296323;
+			public static int abc_color_highlight_material = 2131296323;
 			
 			// aapt resource value: 0x7f090044
-			public static int abc_hint_foreground_material_light = 2131296324;
+			public static int abc_hint_foreground_material_dark = 2131296324;
+			
+			// aapt resource value: 0x7f090045
+			public static int abc_hint_foreground_material_light = 2131296325;
 			
 			// aapt resource value: 0x7f090000
 			public static int abc_input_method_navigation_guard = 2131296256;
 			
-			// aapt resource value: 0x7f090045
-			public static int abc_primary_text_disable_only_material_dark = 2131296325;
-			
 			// aapt resource value: 0x7f090046
-			public static int abc_primary_text_disable_only_material_light = 2131296326;
+			public static int abc_primary_text_disable_only_material_dark = 2131296326;
 			
 			// aapt resource value: 0x7f090047
-			public static int abc_primary_text_material_dark = 2131296327;
+			public static int abc_primary_text_disable_only_material_light = 2131296327;
 			
 			// aapt resource value: 0x7f090048
-			public static int abc_primary_text_material_light = 2131296328;
+			public static int abc_primary_text_material_dark = 2131296328;
 			
 			// aapt resource value: 0x7f090049
-			public static int abc_search_url_text = 2131296329;
+			public static int abc_primary_text_material_light = 2131296329;
+			
+			// aapt resource value: 0x7f09004a
+			public static int abc_search_url_text = 2131296330;
 			
 			// aapt resource value: 0x7f090001
 			public static int abc_search_url_text_normal = 2131296257;
@@ -975,29 +975,29 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f090003
 			public static int abc_search_url_text_selected = 2131296259;
 			
-			// aapt resource value: 0x7f09004a
-			public static int abc_secondary_text_material_dark = 2131296330;
-			
 			// aapt resource value: 0x7f09004b
-			public static int abc_secondary_text_material_light = 2131296331;
+			public static int abc_secondary_text_material_dark = 2131296331;
 			
 			// aapt resource value: 0x7f09004c
-			public static int abc_tint_btn_checkable = 2131296332;
+			public static int abc_secondary_text_material_light = 2131296332;
 			
 			// aapt resource value: 0x7f09004d
-			public static int abc_tint_default = 2131296333;
+			public static int abc_tint_btn_checkable = 2131296333;
 			
 			// aapt resource value: 0x7f09004e
-			public static int abc_tint_edittext = 2131296334;
+			public static int abc_tint_default = 2131296334;
 			
 			// aapt resource value: 0x7f09004f
-			public static int abc_tint_seek_thumb = 2131296335;
+			public static int abc_tint_edittext = 2131296335;
 			
 			// aapt resource value: 0x7f090050
-			public static int abc_tint_spinner = 2131296336;
+			public static int abc_tint_seek_thumb = 2131296336;
 			
 			// aapt resource value: 0x7f090051
-			public static int abc_tint_switch_track = 2131296337;
+			public static int abc_tint_spinner = 2131296337;
+			
+			// aapt resource value: 0x7f090052
+			public static int abc_tint_switch_track = 2131296338;
 			
 			// aapt resource value: 0x7f090004
 			public static int accent_material_dark = 2131296260;
@@ -1107,11 +1107,14 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f090027
 			public static int material_grey_900 = 2131296295;
 			
-			// aapt resource value: 0x7f09003c
-			public static int notification_action_color_filter = 2131296316;
-			
 			// aapt resource value: 0x7f09003d
-			public static int notification_icon_bg_color = 2131296317;
+			public static int notification_action_color_filter = 2131296317;
+			
+			// aapt resource value: 0x7f09003e
+			public static int notification_icon_bg_color = 2131296318;
+			
+			// aapt resource value: 0x7f09003c
+			public static int notification_material_background_media_default_color = 2131296316;
 			
 			// aapt resource value: 0x7f090028
 			public static int primary_dark_material_dark = 2131296296;
@@ -1161,11 +1164,11 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f090037
 			public static int switch_thumb_disabled_material_light = 2131296311;
 			
-			// aapt resource value: 0x7f090052
-			public static int switch_thumb_material_dark = 2131296338;
-			
 			// aapt resource value: 0x7f090053
-			public static int switch_thumb_material_light = 2131296339;
+			public static int switch_thumb_material_dark = 2131296339;
+			
+			// aapt resource value: 0x7f090054
+			public static int switch_thumb_material_light = 2131296340;
 			
 			// aapt resource value: 0x7f090038
 			public static int switch_thumb_normal_material_dark = 2131296312;
@@ -1417,26 +1420,26 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f060003
 			public static int abc_text_size_title_material_toolbar = 2131099651;
 			
-			// aapt resource value: 0x7f060060
-			public static int compat_button_inset_horizontal_material = 2131099744;
-			
-			// aapt resource value: 0x7f060061
-			public static int compat_button_inset_vertical_material = 2131099745;
-			
-			// aapt resource value: 0x7f060062
-			public static int compat_button_padding_horizontal_material = 2131099746;
-			
-			// aapt resource value: 0x7f060063
-			public static int compat_button_padding_vertical_material = 2131099747;
-			
 			// aapt resource value: 0x7f060064
-			public static int compat_control_corner_material = 2131099748;
+			public static int compat_button_inset_horizontal_material = 2131099748;
 			
 			// aapt resource value: 0x7f060065
-			public static int compat_notification_large_icon_max_height = 2131099749;
+			public static int compat_button_inset_vertical_material = 2131099749;
 			
 			// aapt resource value: 0x7f060066
-			public static int compat_notification_large_icon_max_width = 2131099750;
+			public static int compat_button_padding_horizontal_material = 2131099750;
+			
+			// aapt resource value: 0x7f060067
+			public static int compat_button_padding_vertical_material = 2131099751;
+			
+			// aapt resource value: 0x7f060068
+			public static int compat_control_corner_material = 2131099752;
+			
+			// aapt resource value: 0x7f060069
+			public static int compat_notification_large_icon_max_height = 2131099753;
+			
+			// aapt resource value: 0x7f06006a
+			public static int compat_notification_large_icon_max_width = 2131099754;
 			
 			// aapt resource value: 0x7f06004b
 			public static int disabled_alpha_material_dark = 2131099723;
@@ -1465,50 +1468,62 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f060053
 			public static int hint_pressed_alpha_material_light = 2131099731;
 			
-			// aapt resource value: 0x7f060067
-			public static int notification_action_icon_size = 2131099751;
-			
-			// aapt resource value: 0x7f060068
-			public static int notification_action_text_size = 2131099752;
-			
-			// aapt resource value: 0x7f060069
-			public static int notification_big_circle_margin = 2131099753;
-			
-			// aapt resource value: 0x7f06005d
-			public static int notification_content_margin_start = 2131099741;
-			
-			// aapt resource value: 0x7f06006a
-			public static int notification_large_icon_height = 2131099754;
-			
 			// aapt resource value: 0x7f06006b
-			public static int notification_large_icon_width = 2131099755;
-			
-			// aapt resource value: 0x7f06005e
-			public static int notification_main_column_padding_top = 2131099742;
-			
-			// aapt resource value: 0x7f06005f
-			public static int notification_media_narrow_margin = 2131099743;
+			public static int notification_action_icon_size = 2131099755;
 			
 			// aapt resource value: 0x7f06006c
-			public static int notification_right_icon_size = 2131099756;
-			
-			// aapt resource value: 0x7f06005c
-			public static int notification_right_side_padding_top = 2131099740;
+			public static int notification_action_text_size = 2131099756;
 			
 			// aapt resource value: 0x7f06006d
-			public static int notification_small_icon_background_padding = 2131099757;
+			public static int notification_big_circle_margin = 2131099757;
+			
+			// aapt resource value: 0x7f060061
+			public static int notification_content_margin_start = 2131099745;
 			
 			// aapt resource value: 0x7f06006e
-			public static int notification_small_icon_size_as_large = 2131099758;
+			public static int notification_large_icon_height = 2131099758;
 			
 			// aapt resource value: 0x7f06006f
-			public static int notification_subtext_size = 2131099759;
+			public static int notification_large_icon_width = 2131099759;
+			
+			// aapt resource value: 0x7f060062
+			public static int notification_main_column_padding_top = 2131099746;
+			
+			// aapt resource value: 0x7f060063
+			public static int notification_media_narrow_margin = 2131099747;
 			
 			// aapt resource value: 0x7f060070
-			public static int notification_top_pad = 2131099760;
+			public static int notification_right_icon_size = 2131099760;
+			
+			// aapt resource value: 0x7f060060
+			public static int notification_right_side_padding_top = 2131099744;
 			
 			// aapt resource value: 0x7f060071
-			public static int notification_top_pad_large_text = 2131099761;
+			public static int notification_small_icon_background_padding = 2131099761;
+			
+			// aapt resource value: 0x7f060072
+			public static int notification_small_icon_size_as_large = 2131099762;
+			
+			// aapt resource value: 0x7f060073
+			public static int notification_subtext_size = 2131099763;
+			
+			// aapt resource value: 0x7f060074
+			public static int notification_top_pad = 2131099764;
+			
+			// aapt resource value: 0x7f060075
+			public static int notification_top_pad_large_text = 2131099765;
+			
+			// aapt resource value: 0x7f06005c
+			public static int subtitle_corner_radius = 2131099740;
+			
+			// aapt resource value: 0x7f06005d
+			public static int subtitle_outline_width = 2131099741;
+			
+			// aapt resource value: 0x7f06005e
+			public static int subtitle_shadow_offset = 2131099742;
+			
+			// aapt resource value: 0x7f06005f
+			public static int subtitle_shadow_radius = 2131099743;
 			
 			// aapt resource value: 0x7f060054
 			public static int tooltip_corner_radius = 2131099732;
@@ -1872,6 +1887,9 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0a002b
 			public static int SYM = 2131361835;
 			
+			// aapt resource value: 0x7f0a007c
+			public static int action0 = 2131361916;
+			
 			// aapt resource value: 0x7f0a0067
 			public static int action_bar = 2131361895;
 			
@@ -1899,8 +1917,8 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0a0068
 			public static int action_context_bar = 2131361896;
 			
-			// aapt resource value: 0x7f0a0084
-			public static int action_divider = 2131361924;
+			// aapt resource value: 0x7f0a0080
+			public static int action_divider = 2131361920;
 			
 			// aapt resource value: 0x7f0a007a
 			public static int action_image = 2131361914;
@@ -1923,8 +1941,8 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0a007b
 			public static int action_text = 2131361915;
 			
-			// aapt resource value: 0x7f0a0085
-			public static int actions = 2131361925;
+			// aapt resource value: 0x7f0a0089
+			public static int actions = 2131361929;
 			
 			// aapt resource value: 0x7f0a0046
 			public static int activity_chooser_view_content = 2131361862;
@@ -1959,6 +1977,9 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0a004c
 			public static int buttonPanel = 2131361868;
 			
+			// aapt resource value: 0x7f0a007d
+			public static int cancel_action = 2131361917;
+			
 			// aapt resource value: 0x7f0a0033
 			public static int center = 2131361843;
 			
@@ -1971,8 +1992,8 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0a0060
 			public static int checkbox = 2131361888;
 			
-			// aapt resource value: 0x7f0a0083
-			public static int chronometer = 2131361923;
+			// aapt resource value: 0x7f0a0085
+			public static int chronometer = 2131361925;
 			
 			// aapt resource value: 0x7f0a0036
 			public static int clip_horizontal = 2131361846;
@@ -2010,6 +2031,9 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0a0024
 			public static int end = 2131361828;
 			
+			// aapt resource value: 0x7f0a008b
+			public static int end_padder = 2131361931;
+			
 			// aapt resource value: 0x7f0a0047
 			public static int expand_activities_button = 2131361863;
 			
@@ -2040,8 +2064,8 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0a004b
 			public static int icon = 2131361867;
 			
-			// aapt resource value: 0x7f0a0086
-			public static int icon_group = 2131361926;
+			// aapt resource value: 0x7f0a008a
+			public static int icon_group = 2131361930;
 			
 			// aapt resource value: 0x7f0a002e
 			public static int ifRoom = 2131361838;
@@ -2049,8 +2073,8 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0a0048
 			public static int image = 2131361864;
 			
-			// aapt resource value: 0x7f0a007f
-			public static int info = 2131361919;
+			// aapt resource value: 0x7f0a0086
+			public static int info = 2131361926;
 			
 			// aapt resource value: 0x7f0a0042
 			public static int italic = 2131361858;
@@ -2073,6 +2097,9 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0a0077
 			public static int managedSimpleFragmentTextView = 2131361911;
 			
+			// aapt resource value: 0x7f0a007f
+			public static int media_actions = 2131361919;
+			
 			// aapt resource value: 0x7f0a0076
 			public static int message = 2131361910;
 			
@@ -2091,14 +2118,14 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0a0012
 			public static int normal = 2131361810;
 			
+			// aapt resource value: 0x7f0a0088
+			public static int notification_background = 2131361928;
+			
+			// aapt resource value: 0x7f0a0082
+			public static int notification_main_column = 2131361922;
+			
 			// aapt resource value: 0x7f0a0081
-			public static int notification_background = 2131361921;
-			
-			// aapt resource value: 0x7f0a007d
-			public static int notification_main_column = 2131361917;
-			
-			// aapt resource value: 0x7f0a007c
-			public static int notification_main_column_container = 2131361916;
+			public static int notification_main_column_container = 2131361921;
 			
 			// aapt resource value: 0x7f0a004e
 			public static int parentPanel = 2131361870;
@@ -2115,11 +2142,11 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0a003c
 			public static int right = 2131361852;
 			
-			// aapt resource value: 0x7f0a0080
-			public static int right_icon = 2131361920;
+			// aapt resource value: 0x7f0a0087
+			public static int right_icon = 2131361927;
 			
-			// aapt resource value: 0x7f0a007e
-			public static int right_side = 2131361918;
+			// aapt resource value: 0x7f0a0083
+			public static int right_side = 2131361923;
 			
 			// aapt resource value: 0x7f0a001d
 			public static int screen = 2131361821;
@@ -2196,6 +2223,9 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0a003d
 			public static int start = 2131361853;
 			
+			// aapt resource value: 0x7f0a007e
+			public static int status_bar_latest_event_content = 2131361918;
+			
 			// aapt resource value: 0x7f0a005e
 			public static int submenuarrow = 2131361886;
 			
@@ -2226,8 +2256,8 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0a0052
 			public static int textSpacerNoTitle = 2131361874;
 			
-			// aapt resource value: 0x7f0a0082
-			public static int time = 2131361922;
+			// aapt resource value: 0x7f0a0084
+			public static int time = 2131361924;
 			
 			// aapt resource value: 0x7f0a0010
 			public static int title = 2131361808;
@@ -2397,28 +2427,55 @@ namespace ManagedAarxercise
 			public static int notification_action_tombstone = 2130903071;
 			
 			// aapt resource value: 0x7f030020
-			public static int notification_template_custom_big = 2130903072;
+			public static int notification_media_action = 2130903072;
 			
 			// aapt resource value: 0x7f030021
-			public static int notification_template_icon_group = 2130903073;
+			public static int notification_media_cancel_action = 2130903073;
 			
 			// aapt resource value: 0x7f030022
-			public static int notification_template_part_chronometer = 2130903074;
+			public static int notification_template_big_media = 2130903074;
 			
 			// aapt resource value: 0x7f030023
-			public static int notification_template_part_time = 2130903075;
+			public static int notification_template_big_media_custom = 2130903075;
 			
 			// aapt resource value: 0x7f030024
-			public static int select_dialog_item_material = 2130903076;
+			public static int notification_template_big_media_narrow = 2130903076;
 			
 			// aapt resource value: 0x7f030025
-			public static int select_dialog_multichoice_material = 2130903077;
+			public static int notification_template_big_media_narrow_custom = 2130903077;
 			
 			// aapt resource value: 0x7f030026
-			public static int select_dialog_singlechoice_material = 2130903078;
+			public static int notification_template_custom_big = 2130903078;
 			
 			// aapt resource value: 0x7f030027
-			public static int support_simple_spinner_dropdown_item = 2130903079;
+			public static int notification_template_icon_group = 2130903079;
+			
+			// aapt resource value: 0x7f030028
+			public static int notification_template_lines_media = 2130903080;
+			
+			// aapt resource value: 0x7f030029
+			public static int notification_template_media = 2130903081;
+			
+			// aapt resource value: 0x7f03002a
+			public static int notification_template_media_custom = 2130903082;
+			
+			// aapt resource value: 0x7f03002b
+			public static int notification_template_part_chronometer = 2130903083;
+			
+			// aapt resource value: 0x7f03002c
+			public static int notification_template_part_time = 2130903084;
+			
+			// aapt resource value: 0x7f03002d
+			public static int select_dialog_item_material = 2130903085;
+			
+			// aapt resource value: 0x7f03002e
+			public static int select_dialog_multichoice_material = 2130903086;
+			
+			// aapt resource value: 0x7f03002f
+			public static int select_dialog_singlechoice_material = 2130903087;
+			
+			// aapt resource value: 0x7f030030
+			public static int support_simple_spinner_dropdown_item = 2130903088;
 			
 			static Layout()
 			{
@@ -3280,20 +3337,35 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f0700f1
 			public static int TextAppearance_AppCompat_Widget_TextView_SpinnerItem = 2131165425;
 			
-			// aapt resource value: 0x7f070153
-			public static int TextAppearance_Compat_Notification = 2131165523;
-			
-			// aapt resource value: 0x7f070154
-			public static int TextAppearance_Compat_Notification_Info = 2131165524;
+			// aapt resource value: 0x7f070158
+			public static int TextAppearance_Compat_Notification = 2131165528;
 			
 			// aapt resource value: 0x7f070159
-			public static int TextAppearance_Compat_Notification_Line2 = 2131165529;
+			public static int TextAppearance_Compat_Notification_Info = 2131165529;
 			
-			// aapt resource value: 0x7f070155
-			public static int TextAppearance_Compat_Notification_Time = 2131165525;
+			// aapt resource value: 0x7f070152
+			public static int TextAppearance_Compat_Notification_Info_Media = 2131165522;
+			
+			// aapt resource value: 0x7f07015e
+			public static int TextAppearance_Compat_Notification_Line2 = 2131165534;
 			
 			// aapt resource value: 0x7f070156
-			public static int TextAppearance_Compat_Notification_Title = 2131165526;
+			public static int TextAppearance_Compat_Notification_Line2_Media = 2131165526;
+			
+			// aapt resource value: 0x7f070153
+			public static int TextAppearance_Compat_Notification_Media = 2131165523;
+			
+			// aapt resource value: 0x7f07015a
+			public static int TextAppearance_Compat_Notification_Time = 2131165530;
+			
+			// aapt resource value: 0x7f070154
+			public static int TextAppearance_Compat_Notification_Time_Media = 2131165524;
+			
+			// aapt resource value: 0x7f07015b
+			public static int TextAppearance_Compat_Notification_Title = 2131165531;
+			
+			// aapt resource value: 0x7f070155
+			public static int TextAppearance_Compat_Notification_Title_Media = 2131165525;
 			
 			// aapt resource value: 0x7f0700f2
 			public static int TextAppearance_Widget_AppCompat_ExpandedMenu_Item = 2131165426;
@@ -3604,14 +3676,14 @@ namespace ManagedAarxercise
 			// aapt resource value: 0x7f070151
 			public static int Widget_AppCompat_Toolbar_Button_Navigation = 2131165521;
 			
+			// aapt resource value: 0x7f07015c
+			public static int Widget_Compat_NotificationActionContainer = 2131165532;
+			
+			// aapt resource value: 0x7f07015d
+			public static int Widget_Compat_NotificationActionText = 2131165533;
+			
 			// aapt resource value: 0x7f070157
-			public static int Widget_Compat_NotificationActionContainer = 2131165527;
-			
-			// aapt resource value: 0x7f070158
-			public static int Widget_Compat_NotificationActionText = 2131165528;
-			
-			// aapt resource value: 0x7f070152
-			public static int Widget_Support_CoordinatorLayout = 2131165522;
+			public static int Widget_Support_CoordinatorLayout = 2131165527;
 			
 			static Style()
 			{
