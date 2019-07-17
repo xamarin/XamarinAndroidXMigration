@@ -3,9 +3,6 @@ variables:
   MONO_VERSION: 5_18_1
   XCODE_VERSION: 10.2.1
   BUILD_NUMBER: $[counter('$(Build.SourceBranchName)_counter', 1)]
-  PACKAGE_VERSION: 1.0.0
-  PREVIEW_LABEL: preview
-  PRERELEASE_OVERRIDE: ''
 
 resources:
   repositories:
