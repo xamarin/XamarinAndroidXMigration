@@ -1,7 +1,6 @@
-# Xamarin AndroidX Migration Workspace
+# Xamarin AndroidX Migration
 
-A repository to collect code prototypes and efforts around implementing an
-Android Support to AndroidX migration story for Xamarin apps.
+This repository contains MSBuild Tasks, Utilities, and other Tools to help projects migrate from Android Support Libraries to AndroidX.
 
-You will need to download the latest NuGets from CI: 
-https://dev.azure.com/xamarin/public/_build?definitionId=14
+If you are looking for the source code to the _Xamarin AndroidX bindings_, it is available in the branch: [AndroidX @ xamarin/AndroidSupportComponents](https://github.com/xamarin/AndroidSupportComponents/tree/AndroidX)
+
