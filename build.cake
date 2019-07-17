@@ -20,6 +20,7 @@ var BUILD_NUMBER = EnvironmentVariable("BUILD_NUMBER") ?? "";
 if (string.IsNullOrEmpty(BUILD_NUMBER)) {
     BUILD_NUMBER = "0";
 }
+var PRERELEASE_OVERRIDE = EnvironmentVariable("PRERELEASE_OVERRIDE") ?? "";
 
 Task("JetifierWrapper")
     .Does(() =>
@@ -217,7 +218,9 @@ Task("NuGets")
     DeleteFiles("./output/nugets/*.nupkg");
 
     var stableVersion = $"{PACKAGE_VERSION}";
-    var previewVersion = $"{PACKAGE_VERSION}-{PREVIEW_LABEL}.{BUILD_NUMBER}";
+    var previewVersion = string.IsNullOrEmpty(PRERELEASE_OVERRIDE)
+        ? $"{PACKAGE_VERSION}-{PREVIEW_LABEL}.{BUILD_NUMBER}"
+        : $"{PACKAGE_VERSION}-{PRERELEASE_OVERRIDE}";
 
     foreach (var ns in GetFiles("./nugets/*.nuspec")) {
         var nuspec = ns;
