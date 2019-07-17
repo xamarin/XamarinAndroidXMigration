@@ -12,12 +12,12 @@ This package provides a set of tools and MSBuild tasks to aid in the migration f
     <summary>
 This package provides a set of tools and MSBuild tasks to aid in the migration from Android Support to Android X.
     </summary>
-    <projectUrl>https://github.com/xamarin/XamarinAndroidXMigration</projectUrl>
+    <projectUrl>https://go.microsoft.com/fwlink/?linkid=2099353</projectUrl>
     <!-- <iconUrl></iconUrl> -->
-    <!-- <tags>xamarin android support androidx migration</tags> -->
+    <tags>xamarin android support androidx migration</tags>
 
     <!-- legal -->
-    <licenseUrl>https://github.com/xamarin/XamarinAndroidXMigration/blob/master/LICENSE</licenseUrl>
+    <licenseUrl>https://go.microsoft.com/fwlink/?linkid=2099438</licenseUrl>
     <authors>Microsoft</authors>
     <owners>Microsoft</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -27,13 +27,13 @@ This package provides a set of tools and MSBuild tasks to aid in the migration f
       <group targetFramework="MonoAndroid9.0">
         <dependency id="Xamarin.AndroidX.Migration" version="$version$" include="All" />
 
-        <dependency id="Xamarin.AndroidX.AppCompat" version="1.0.2-rc.20" />
-        <dependency id="Xamarin.AndroidX.Browser" version="1.0.0-rc.20" />
-        <dependency id="Xamarin.AndroidX.CardView" version="1.0.0-rc.20" />
-        <dependency id="Xamarin.AndroidX.Legacy.Support.V4" version="1.0.0-rc.20" />
-        <dependency id="Xamarin.AndroidX.MediaRouter" version="1.0.0-rc.20" />
-        <dependency id="Xamarin.AndroidX.MultiDex" version="2.0.1-rc.20" include="All" />
-        <dependency id="Xamarin.Google.Android.Material" version="1.0.0-rc.20" />
+        <dependency id="Xamarin.AndroidX.AppCompat" version="1.0.2-preview01" />
+        <dependency id="Xamarin.AndroidX.Browser" version="1.0.0-preview01" />
+        <dependency id="Xamarin.AndroidX.CardView" version="1.0.0-preview01" />
+        <dependency id="Xamarin.AndroidX.Legacy.Support.V4" version="1.0.0-preview01" />
+        <dependency id="Xamarin.AndroidX.MediaRouter" version="1.0.0-preview01" />
+        <dependency id="Xamarin.AndroidX.MultiDex" version="2.0.1-preview01" include="All" />
+        <dependency id="Xamarin.Google.Android.Material" version="1.0.0-preview01" />
       </group>
     </dependencies>
 
