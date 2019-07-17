@@ -45,18 +45,18 @@ jobs:
         inputs:
           artifactName: nuget
           pathToPublish: output/nugets
-      # Run some internal auditing
-      - ${{ if eq(variables['System.TeamProject'], 'devdiv') }}:
-        - task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
-          displayName: Component Detection - Log
-          inputs:
-            scanType: LogOnly
-        - task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
-          displayName: Component Detection - Report
-        - task: securedevelopmentteam.vss-secure-development-tools.build-task-policheck.PoliCheck@1
-          displayName: 'PoliCheck'
-          inputs:
-            targetType: F
+      # # Run some internal auditing
+      # - ${{ if eq(variables['System.TeamProject'], 'devdiv') }}:
+      #   - task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
+      #     displayName: Component Detection - Log
+      #     inputs:
+      #       scanType: LogOnly
+      #   - task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
+      #     displayName: Component Detection - Report
+      #   - task: securedevelopmentteam.vss-secure-development-tools.build-task-policheck.PoliCheck@1
+      #     displayName: 'PoliCheck'
+      #     inputs:
+      #       targetType: F
 
   - job: build_macos
     displayName: Build on macOS
