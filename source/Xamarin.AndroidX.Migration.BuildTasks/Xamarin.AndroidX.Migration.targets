@@ -18,11 +18,20 @@
 
     <!-- public properties -->
     <PropertyGroup>
+        <!-- a flag to control whether or not to entirely disable migration -->
         <AndroidXSkipMigration Condition="'$(AndroidXSkipMigration)' == ''">false</AndroidXSkipMigration>
+
+        <!-- a flag for checking the installed packages -->
         <AndroidXSkipValidateInstalledPackages Condition="'$(AndroidXSkipValidateInstalledPackages)' == ''">false</AndroidXSkipValidateInstalledPackages>
         <AndroidXPackageValidationUseWarnings Condition="'$(AndroidXPackageValidationUseWarnings)' == ''">false</AndroidXPackageValidationUseWarnings>
+
+        <!-- a flag for checking the Xamarin.Android version -->
         <AndroidXSkipValidateXamarinAndroid Condition="'$(AndroidXSkipValidateXamarinAndroid)' == ''">false</AndroidXSkipValidateXamarinAndroid>
         <AndroidXXamarinAndroidValidationUseWarnings Condition="'$(AndroidXXamarinAndroidValidationUseWarnings)' == ''">false</AndroidXXamarinAndroidValidationUseWarnings>
+
+        <!-- always use portable pdb so we can cecilfy and not cause issues -->
+        <AndroidXAlwaysUsePortablePdb Condition="'$(AndroidXAlwaysUsePortablePdb)' == ''">true</AndroidXAlwaysUsePortablePdb>
+        <DebugType Condition="'$(AndroidXAlwaysUsePortablePdb)' == 'true'">portable</DebugType>
     </PropertyGroup>
 
     <!-- "private" properties -->
