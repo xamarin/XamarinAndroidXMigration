@@ -21,6 +21,8 @@
         <AndroidXSkipMigration Condition="'$(AndroidXSkipMigration)' == ''">false</AndroidXSkipMigration>
         <AndroidXSkipValidateInstalledPackages Condition="'$(AndroidXSkipValidateInstalledPackages)' == ''">false</AndroidXSkipValidateInstalledPackages>
         <AndroidXPackageValidationUseWarnings Condition="'$(AndroidXPackageValidationUseWarnings)' == ''">false</AndroidXPackageValidationUseWarnings>
+        <AndroidXSkipValidateXamarinAndroid Condition="'$(AndroidXSkipValidateXamarinAndroid)' == ''">false</AndroidXSkipValidateXamarinAndroid>
+        <AndroidXXamarinAndroidValidationUseWarnings Condition="'$(AndroidXXamarinAndroidValidationUseWarnings)' == ''">false</AndroidXXamarinAndroidValidationUseWarnings>
     </PropertyGroup>
 
     <!-- "private" properties -->
@@ -77,6 +79,32 @@
             <_AndroidXJavaPath Condition="'$(_AndroidXJavaPath)' == '' and '$(OS)' == 'Unix'">$(JavaSdkDirectory)\bin\java</_AndroidXJavaPath>
             <_AndroidXJavaPath Condition="'$(_AndroidXJavaPath)' == '' and '$(OS)' != 'Unix'">$(JavaSdkDirectory)\bin\java.exe</_AndroidXJavaPath>
         </PropertyGroup>
+
+    </Target>
+
+    <!--
+    ***************************************************************************
+    * VALIDATE XAMARIN.ANDROID VERSION
+    * This target will make sure that the correct version of Xamarin.Android
+    * is being used.
+    ***************************************************************************
+    -->
+    <Target Name="_AndroidXValidateXamarinAndroid"
+            BeforeTargets="BeforeBuild"
+            Condition="'$(_AndroidXShouldRunMigration)' == 'true' and '$(AndroidXSkipValidateXamarinAndroid)' != 'true'">
+
+        <PropertyGroup>
+            <_AndroidXMinimumXamarinAndroidVersion>9.4.0</_AndroidXMinimumXamarinAndroidVersion>
+            <_AndroidXXamarinAndroidVersion>$(XamarinAndroidVersion.Split('-')[0])</_AndroidXXamarinAndroidVersion>
+            <_AndroidXXamarinAndroidVersionIsValid Condition="$([System.Version]::Parse($(_AndroidXXamarinAndroidVersion))) &gt;= $([System.Version]::Parse($(_AndroidXMinimumXamarinAndroidVersion)))">true</_AndroidXXamarinAndroidVersionIsValid>
+            <_AndroidXXamarinAndroidVersionMessage>Android X migration requires a minimum Xamarin.Android version of $(_AndroidXMinimumXamarinAndroidVersion). Your version is $(_AndroidXXamarinAndroidVersion). Please upgrade your Xamarin installation to a newer version.</_AndroidXXamarinAndroidVersionMessage>
+        </PropertyGroup>
+
+        <Warning Text="$(_AndroidXXamarinAndroidVersionMessage)"
+                 Condition="'$(AndroidXXamarinAndroidValidationUseWarnings)' == 'true' and '$(_AndroidXXamarinAndroidVersionIsValid)' != 'true'" />
+
+        <Error Text="$(_AndroidXXamarinAndroidVersionMessage)"
+               Condition="'$(AndroidXXamarinAndroidValidationUseWarnings)' != 'true' and '$(_AndroidXXamarinAndroidVersionIsValid)' != 'true'" />
 
     </Target>
 
