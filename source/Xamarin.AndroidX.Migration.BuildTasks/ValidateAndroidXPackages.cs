@@ -63,7 +63,7 @@ namespace Xamarin.AndroidX.Migration.BuildTasks
 					Log.LogError(msg);
 			}
 
-			return !hasError;
+			return !hasError || UseWarningsInsteadOfErrors;
 		}
 	}
 }
