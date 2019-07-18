@@ -13,6 +13,8 @@ namespace Xamarin.AndroidX.Migration.BuildTasks
 
 		public bool Verbose { get; set; }
 
+		public bool UseWarningsInsteadOfErrors { get; set; }
+
 		[Output]
 		public bool ContainsSupportAssemblies { get; set; }
 
@@ -53,7 +55,12 @@ namespace Xamarin.AndroidX.Migration.BuildTasks
 				// the mapped assembly was not found, so this is an error
 				hasError = true;
 				mapping.TryGetAndroidXPackage(assembly, out var package);
-				Log.LogError($"Could not find the Android X replacement assembly '{xAssembly}' for '{assembly}'. Make sure the Android X NuGet package '{package}' is installed.");
+				var msg = $"Could not find the Android X replacement assembly '{xAssembly}' for '{assembly}'. Make sure the Android X NuGet package '{package}' is installed.";
+
+				if (UseWarningsInsteadOfErrors)
+					Log.LogWarning(msg);
+				else
+					Log.LogError(msg);
 			}
 
 			return !hasError;

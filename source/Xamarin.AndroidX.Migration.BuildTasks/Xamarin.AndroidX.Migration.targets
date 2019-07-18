@@ -16,8 +16,16 @@
                AssemblyFile="$(MSBuildThisFileDirectory)Xamarin.AndroidX.Migration.BuildTasks.dll" />
     -->
 
+    <!-- public properties -->
     <PropertyGroup>
-        <_AndroidXShouldRunMigration Condition="'$(_AndroidXShouldRunMigration)' == '' and '$(AndroidApplication)' == 'true' and '$(AndroidXIsUsingAndroidXLibraries)' == 'true'">true</_AndroidXShouldRunMigration>
+        <AndroidXSkipMigration Condition="'$(AndroidXSkipMigration)' == ''">false</AndroidXSkipMigration>
+        <AndroidXSkipValidateInstalledPackages Condition="'$(AndroidXSkipValidateInstalledPackages)' == ''">false</AndroidXSkipValidateInstalledPackages>
+        <AndroidXPackageValidationUseWarnings Condition="'$(AndroidXPackageValidationUseWarnings)' == ''">false</AndroidXPackageValidationUseWarnings>
+    </PropertyGroup>
+
+    <!-- "private" properties -->
+    <PropertyGroup>
+        <_AndroidXShouldRunMigration Condition="'$(_AndroidXShouldRunMigration)' == '' and '$(AndroidApplication)' == 'true' and '$(AndroidXIsUsingAndroidXLibraries)' == 'true' and '$(AndroidXSkipMigration)' != 'true'">true</_AndroidXShouldRunMigration>
         <_AndroidXIntermediateOutputPath>$(IntermediateOutputPath)androidx\</_AndroidXIntermediateOutputPath>
         <_AndroidXProguardIntermediateOutputPath>$(_AndroidXIntermediateOutputPath)proguard\</_AndroidXProguardIntermediateOutputPath>
         <_AndroidXJavaLibraryIntermediateOutputPath>$(_AndroidXIntermediateOutputPath)jl\</_AndroidXJavaLibraryIntermediateOutputPath>
@@ -84,6 +92,7 @@
             Condition="'$(_AndroidXShouldRunMigration)' == 'true' and '$(AndroidXSkipValidateInstalledPackages)' != 'true'">
 
         <ValidateAndroidXPackages ResolvedAssemblies="@(ReferencePath)"
+                                  UseWarningsInsteadOfErrors="$(AndroidXPackageValidationUseWarnings)"
                                   Verbose="$(_AndroidXUseVerboseToolOutput)">
             <Output TaskParameter="ContainsSupportAssemblies" PropertyName="_AndroidXContainsSupportAssemblies" />
         </ValidateAndroidXPackages>
