@@ -13,7 +13,7 @@ This package provides a set of tools and MSBuild tasks to aid in the migration f
 This package provides a set of tools and MSBuild tasks to aid in the migration from Android Support to Android X.
     </summary>
     <projectUrl>https://go.microsoft.com/fwlink/?linkid=2099353</projectUrl>
-    <!-- <iconUrl></iconUrl> -->
+    <iconUrl>https://go.microsoft.com/fwlink/?linkid=2099392</iconUrl>
     <tags>xamarin android support androidx migration</tags>
 
     <!-- legal -->
@@ -38,6 +38,8 @@ This package provides a set of tools and MSBuild tasks to aid in the migration f
 
     <file src="_._" target="lib\monoandroid10\_._" />
     <file src="..\LICENSE" target="LICENSE" />
+    <file src="..\External-Dependency-Info.txt" target="THIRD-PARTY-NOTICES.txt" />
+    <file src="..\README.md" target="readme.txt" />
 
   </files>
 </package>
