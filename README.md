@@ -3,6 +3,7 @@ Xamarin AndroidX Migration
 
 [![Build Status][pub-img]][pub-ci] [![Build Status][img]][ci]
 
+
 If you are looking for the source code to the _Xamarin AndroidX bindings_,
 it is available in the branch: [AndroidX @ xamarin/AndroidSupportComponents][src]
 
@@ -53,6 +54,7 @@ Current Limitations or known issues
 -----------------------------------
 
  - Android Designer may become unusable after adding AndroidX Migration package
+
 
 [src]: https://github.com/xamarin/AndroidSupportComponents/tree/AndroidX
 [pub-img]: https://dev.azure.com/xamarin/public/_apis/build/status/AndroidX%20Migration%20(Public)?branchName=master
