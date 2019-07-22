@@ -17,15 +17,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Managed.Support"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.AndroidX.Migration.Tests", "tests\Xamarin.AndroidX.Migration.Tests\Xamarin.AndroidX.Migration.Tests.csproj", "{10832A33-2961-4B0D-8977-7BE49B391F16}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.AndroidX.Migration", "source\Xamarin.AndroidX.Migration\Xamarin.AndroidX.Migration.csproj", "{F22FB2D5-8920-4C8F-9807-0D1E13A16742}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.AndroidX.Migration", "source\Xamarin.AndroidX.Migration\Xamarin.AndroidX.Migration\Xamarin.AndroidX.Migration.csproj", "{F22FB2D5-8920-4C8F-9807-0D1E13A16742}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.AndroidX.Migration.Tool", "source\Xamarin.AndroidX.Migration.Tool\Xamarin.AndroidX.Migration.Tool.csproj", "{C110FCE9-90B5-4CD8-93F3-20F1E3F9D1A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.AndroidX.Migration.Tool", "source\Xamarin.AndroidX.Migration\Xamarin.AndroidX.Migration.Tool\Xamarin.AndroidX.Migration.Tool.csproj", "{C110FCE9-90B5-4CD8-93F3-20F1E3F9D1A9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "externals", "externals", "{F422DC0C-A441-47E9-ABAE-24D7ED879C85}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Android.Tools.Bytecode", "externals\Java.Interop\src\Xamarin.Android.Tools.Bytecode\Xamarin.Android.Tools.Bytecode.csproj", "{B17475BC-45A2-47A3-B8FC-62F3A0959EE0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.AndroidX.Migration.BuildTasks", "source\Xamarin.AndroidX.Migration.BuildTasks\Xamarin.AndroidX.Migration.BuildTasks.csproj", "{C6EBD819-D99B-4F21-8D8D-EA0C26B0E67E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.AndroidX.Migration.BuildTasks", "source\Xamarin.AndroidX.Migration\Xamarin.AndroidX.Migration.BuildTasks\Xamarin.AndroidX.Migration.BuildTasks.csproj", "{C6EBD819-D99B-4F21-8D8D-EA0C26B0E67E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Reference.Support", "tests\Aarxercise.Reference.Support\Aarxercise.Reference.Support.csproj", "{2E8C42AD-1DF4-489A-96E3-9671432D1AAA}"
 EndProject

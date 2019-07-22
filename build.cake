@@ -35,7 +35,7 @@ Task("JetifierWrapper")
 
     // setup
     var outputDir = MakeAbsolute((DirectoryPath)"./output/JetifierWrapper");
-    var jetifierWrapperRoot = MakeAbsolute((DirectoryPath)"./source/com.xamarin.androidx.jetifierWrapper");
+    var jetifierWrapperRoot = MakeAbsolute((DirectoryPath)"./source/Xamarin.AndroidX.Migration/com.xamarin.androidx.jetifierWrapper");
     var jetifierWrapperJar = $"{outputDir}/JetifierWrapper.jar";
     EnsureDirectoryExists(outputDir);
 
@@ -168,7 +168,7 @@ Task("Libraries")
 
     // copy the androidx-migrator tools
     foreach (var tf in new [] { "net47", "netcoreapp2.2" }) {
-        var root = $"./source/Xamarin.AndroidX.Migration.Tool/bin/{configuration}/{tf}";
+        var root = $"./source/Xamarin.AndroidX.Migration/Xamarin.AndroidX.Migration.Tool/bin/{configuration}/{tf}";
         var outRoot = $"./output/androidx-migrator/{tf}";
         EnsureDirectoryExists($"{outRoot}/Tools/");
         CopyDirectory($"{root}/Tools/", $"{outRoot}/Tools/");
@@ -179,7 +179,7 @@ Task("Libraries")
 
     // copy the build tasks
     {
-        var root = $"./source/Xamarin.AndroidX.Migration.BuildTasks/bin/{configuration}/net47";
+        var root = $"./source/Xamarin.AndroidX.Migration/Xamarin.AndroidX.Migration.BuildTasks/bin/{configuration}/net47";
         var outRoot = $"./output/Xamarin.AndroidX.Migration.BuildTasks";
         EnsureDirectoryExists($"{outRoot}/build/Tools/");
         CopyDirectory($"{root}/Tools/", $"{outRoot}/build/Tools/");
@@ -247,7 +247,7 @@ Task("NuGets")
         }
     }
 
-    var tool = "./source/Xamarin.AndroidX.Migration.Tool/Xamarin.AndroidX.Migration.Tool.csproj";
+    var tool = "./source/Xamarin.AndroidX.Migration/Xamarin.AndroidX.Migration.Tool/Xamarin.AndroidX.Migration.Tool.csproj";
     DotNetCorePack(tool, new DotNetCorePackSettings {
         NoBuild = true,
         Configuration = configuration,

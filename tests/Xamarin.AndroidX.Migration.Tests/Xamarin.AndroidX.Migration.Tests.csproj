@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\externals\Java.Interop\src\Xamarin.Android.Tools.Bytecode\Xamarin.Android.Tools.Bytecode.csproj" />
-    <ProjectReference Include="..\..\source\Xamarin.AndroidX.Migration\Xamarin.AndroidX.Migration.csproj" />
+    <ProjectReference Include="..\..\source\Xamarin.AndroidX.Migration\Xamarin.AndroidX.Migration\Xamarin.AndroidX.Migration.csproj" />
   </ItemGroup>
 
   <!-- Jetifier test assets -->
