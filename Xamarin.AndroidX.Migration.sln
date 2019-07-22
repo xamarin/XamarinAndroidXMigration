@@ -31,6 +31,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Reference.Suppor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Reference.AndroidX", "tests\Aarxercise.Reference.AndroidX\Aarxercise.Reference.AndroidX.csproj", "{A387F7E5-9BD1-40F7-A748-96BF84702BBB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Old.Support", "tests\Aarxercise.Old.Support\Aarxercise.Old.Support.csproj", "{9E99019A-1523-44D3-885D-A37AC79A8F3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Old.AndroidX", "tests\Aarxercise.Old.AndroidX\Aarxercise.Old.AndroidX.csproj", "{1E4E7879-779A-4D16-8A5C-4AAE3ED612F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +85,14 @@ Global
 		{A387F7E5-9BD1-40F7-A748-96BF84702BBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A387F7E5-9BD1-40F7-A748-96BF84702BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A387F7E5-9BD1-40F7-A748-96BF84702BBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E99019A-1523-44D3-885D-A37AC79A8F3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E99019A-1523-44D3-885D-A37AC79A8F3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E99019A-1523-44D3-885D-A37AC79A8F3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E99019A-1523-44D3-885D-A37AC79A8F3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E4E7879-779A-4D16-8A5C-4AAE3ED612F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E4E7879-779A-4D16-8A5C-4AAE3ED612F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E4E7879-779A-4D16-8A5C-4AAE3ED612F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E4E7879-779A-4D16-8A5C-4AAE3ED612F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,6 +109,8 @@ Global
 		{C6EBD819-D99B-4F21-8D8D-EA0C26B0E67E} = {AB12F426-C62D-40D7-958C-F39E9915BCDB}
 		{2E8C42AD-1DF4-489A-96E3-9671432D1AAA} = {6E6A8AA4-CAD6-47F4-B4AD-767E62854548}
 		{A387F7E5-9BD1-40F7-A748-96BF84702BBB} = {6E6A8AA4-CAD6-47F4-B4AD-767E62854548}
+		{9E99019A-1523-44D3-885D-A37AC79A8F3D} = {6E6A8AA4-CAD6-47F4-B4AD-767E62854548}
+		{1E4E7879-779A-4D16-8A5C-4AAE3ED612F5} = {6E6A8AA4-CAD6-47F4-B4AD-767E62854548}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8C146F1E-AE90-4D07-9920-5956E1C57719}

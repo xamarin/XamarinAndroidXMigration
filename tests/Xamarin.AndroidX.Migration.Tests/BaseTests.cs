@@ -12,6 +12,8 @@ namespace Xamarin.AndroidX.Migration.Tests
 
 		public const string ManagedSupportDll = "Aarxercise.Managed.Support.dll";
 		public const string ManagedAndroidXDll = "Aarxercise.Managed.AndroidX.dll";
+		public const string OldSupportDll = "Aarxercise.Old.Support.dll";
+		public const string OldAndroidXDll = "Aarxercise.Old.AndroidX.dll";
 		public const string BindingSupportDll = "Aarxercise.Binding.Support.dll";
 		public const string BindingAndroidXDll = "Aarxercise.Binding.AndroidX.dll";
 		public const string ReferenceSupportDll = "Aarxercise.Reference.Support.dll";

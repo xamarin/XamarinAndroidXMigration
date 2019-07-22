@@ -9,6 +9,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 	{
 		[Theory]
 		[InlineData(ManagedSupportDll, true)]
+		[InlineData(OldSupportDll, true)]
 		[InlineData(BindingSupportDll, true)]
 		[InlineData(MergedSupportDll, false)]
 		public void AssembliesHaveSupportReferences(string assembly, bool hasSupportReference)
@@ -41,15 +42,16 @@ namespace Xamarin.AndroidX.Migration.Tests
 		}
 
 		[Theory]
-		[InlineData(ManagedSupportDll, ManagedAndroidXDll)]
-		[InlineData(BindingSupportDll, BindingAndroidXDll)]
-		public void AssembliesHaveTheSameNumberOfTypes(string supportDll, string androidXDll)
+		[InlineData(ManagedSupportDll, ManagedAndroidXDll, false)]
+		[InlineData(OldSupportDll, OldAndroidXDll, true)]
+		[InlineData(BindingSupportDll, BindingAndroidXDll, false)]
+		public void AssembliesHaveTheSameNumberOfTypes(string supportDll, string androidXDll, bool ignoreResourceType)
 		{
 			using (var support = AssemblyDefinition.ReadAssembly(supportDll))
 			using (var androidx = AssemblyDefinition.ReadAssembly(androidXDll))
 			{
-				var supportTypes = support.GetPublicTypes().ToArray();
-				var androidxTypes = androidx.GetPublicTypes().ToArray();
+				var supportTypes = support.GetPublicTypes(ignoreResourceType).ToArray();
+				var androidxTypes = androidx.GetPublicTypes(ignoreResourceType).ToArray();
 
 				Assert.Equal(supportTypes.Length, androidxTypes.Length);
 				CecilAssert.NotEqual(supportTypes, androidxTypes);
@@ -57,21 +59,23 @@ namespace Xamarin.AndroidX.Migration.Tests
 		}
 
 		[Theory]
-		[InlineData(ManagedSupportDll, ManagedAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
-		[InlineData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
-		public void AssembliesHaveTheSameTypesAfterMigration(string supportDll, string androidXDll, CecilMigrationResult expectedResult)
+		[InlineData(ManagedSupportDll, ManagedAndroidXDll, false, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
+		[InlineData(OldSupportDll, OldAndroidXDll, true, CecilMigrationResult.ContainedSupport)]
+		[InlineData(BindingSupportDll, BindingAndroidXDll, false, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
+		public void AssembliesHaveTheSameTypesAfterMigration(string supportDll, string androidXDll, bool ignoreResourceType, CecilMigrationResult expectedResult)
 		{
 			var migratedDll = RunMigration(supportDll, expectedResult);
 
 			using (var migrated = AssemblyDefinition.ReadAssembly(migratedDll))
 			using (var androidx = AssemblyDefinition.ReadAssembly(androidXDll))
 			{
-				CecilAssert.Equal(androidx.GetPublicTypes(), migrated.GetPublicTypes());
+				CecilAssert.Equal(androidx.GetPublicTypes(ignoreResourceType), migrated.GetPublicTypes(ignoreResourceType));
 			}
 		}
 
 		[Theory]
 		[InlineData(ManagedSupportDll, ManagedAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
+		[InlineData(OldSupportDll, OldAndroidXDll, CecilMigrationResult.ContainedSupport)]
 		[InlineData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
 		public void AssembliesHaveTheSameReferencesAfterMigration(string supportDll, string androidXDll, CecilMigrationResult expectedResult)
 		{
@@ -81,23 +85,24 @@ namespace Xamarin.AndroidX.Migration.Tests
 			using (var androidx = AssemblyDefinition.ReadAssembly(androidXDll))
 			{
 				CecilAssert.Equal(
-					androidx.MainModule.AssemblyReferences,
-					migrated.MainModule.AssemblyReferences);
+					androidx.MainModule.AssemblyReferences.OrderBy(a => a.Name),
+					migrated.MainModule.AssemblyReferences.OrderBy(a => a.Name));
 			}
 		}
 
 		[Theory]
-		[InlineData(ManagedSupportDll, ManagedAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
-		[InlineData(BindingSupportDll, BindingAndroidXDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
-		public void AllTypesHaveTheSameMembers(string supportDll, string androidXDll, CecilMigrationResult expectedResult)
+		[InlineData(ManagedSupportDll, ManagedAndroidXDll, false, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
+		[InlineData(OldSupportDll, OldAndroidXDll, true, CecilMigrationResult.ContainedSupport)]
+		[InlineData(BindingSupportDll, BindingAndroidXDll, false, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
+		public void AllTypesHaveTheSameMembers(string supportDll, string androidXDll, bool ignoreResourceType, CecilMigrationResult expectedResult)
 		{
 			var migratedDll = RunMigration(supportDll, expectedResult);
 
 			using (var migrated = AssemblyDefinition.ReadAssembly(migratedDll))
 			using (var androidx = AssemblyDefinition.ReadAssembly(androidXDll))
 			{
-				var mTypes = migrated.GetPublicTypes().ToArray();
-				var xTypes = androidx.GetPublicTypes().ToArray();
+				var mTypes = migrated.GetPublicTypes(ignoreResourceType).OrderBy(t => t.FullName).ToArray();
+				var xTypes = androidx.GetPublicTypes(ignoreResourceType).OrderBy(t => t.FullName).ToArray();
 
 				for (var i = 0; i < xTypes.Length; i++)
 				{

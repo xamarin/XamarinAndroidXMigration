@@ -29,6 +29,10 @@ first - either as part of MSBuild or via a Cake script.
    not use any native code and uses AndroidX
  - `Aarxercise.Managed.Support` - this is a Xamarin.Android project that does
    not use any native code and uses Android Support
+ - `Aarxercise.Old.AndroidX` - this is a Xamarin.Android project that uses types
+   that are type-forwarded and uses AndroidX
+ - `Aarxercise.Old.Support` - this is a Xamarin.Android project that uses types
+   that are type-forwarded and uses Android Support
 
 ## Tests
 

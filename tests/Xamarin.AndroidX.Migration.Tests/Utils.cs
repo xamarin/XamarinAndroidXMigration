@@ -32,8 +32,11 @@ namespace Xamarin.AndroidX.Migration.Tests
 			return newPath;
 		}
 
-		public static IEnumerable<TypeDefinition> GetPublicTypes(this AssemblyDefinition assembly) =>
-			assembly.MainModule.GetTypes().Where(t => t.IsPublic || t.IsNestedPublic);
+		public static IEnumerable<TypeDefinition> GetPublicTypes(this AssemblyDefinition assembly, bool ignoreResourceType = false) =>
+			assembly.MainModule.GetTypes().Where(t => (t.IsPublic || t.IsNestedPublic) && (!ignoreResourceType || !t.IsResourceType()));
+
+		public static bool IsResourceType(this TypeDefinition type) =>
+			type.IsNestedPublic && type.DeclaringType.Name == "Resource";
 
 		public static CustomAttribute GetAnnotationAttribute(this TypeDefinition type) =>
 			type.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == AnnotationAttributeFullName);

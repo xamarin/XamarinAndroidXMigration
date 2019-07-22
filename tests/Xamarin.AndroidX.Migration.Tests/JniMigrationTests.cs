@@ -11,6 +11,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 	{
 		[Theory]
 		[InlineData(ManagedSupportDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
+		[InlineData(OldSupportDll, CecilMigrationResult.ContainedSupport)]
 		[InlineData(BindingSupportDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]
 		[InlineData(ReferenceSupportDll, CecilMigrationResult.ContainedSupport | CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni)]
 		[InlineData(MergedSupportDll, CecilMigrationResult.PotentialJni | CecilMigrationResult.ContainedJni | CecilMigrationResult.PotentialJavaArtifacts | CecilMigrationResult.ContainedJavaArtifacts)]

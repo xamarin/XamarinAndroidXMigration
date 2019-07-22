@@ -353,7 +353,18 @@ namespace Xamarin.AndroidX.Migration
 				{
 					LogVerboseMessage($"    Mapped assembly '{support.Scope.Name}' to '{androidx.Assembly}'.");
 
-					support.Scope.Name = androidx.Assembly;
+					var assemblyReferences = assembly.MainModule.AssemblyReferences;
+					var reference = assemblyReferences.FirstOrDefault(a => a.Name == androidx.Assembly);
+					if (reference == null)
+					{
+						reference = new AssemblyNameReference(androidx.Assembly, new Version(1, 0, 0, 0));
+						assemblyReferences.Add(reference);
+					}
+
+					if (support.Scope is AssemblyNameReference oldAssRef)
+						assemblyReferences.Remove(oldAssRef);
+
+					support.Scope = reference;
 				}
 				else if (support.Scope.Name == androidx.Assembly)
 				{
