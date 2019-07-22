@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Xamarin.AndroidX.Migration\Xamarin.AndroidX.Migration.csproj" />
+    <ProjectReference Include="..\Migration\Xamarin.AndroidX.Migration.csproj" />
   </ItemGroup>
 
   <ItemGroup>
