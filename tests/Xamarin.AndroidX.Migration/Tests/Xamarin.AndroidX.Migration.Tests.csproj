@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\externals\Java.Interop\src\Xamarin.Android.Tools.Bytecode\Xamarin.Android.Tools.Bytecode.csproj" />
-    <ProjectReference Include="..\..\source\Xamarin.AndroidX.Migration\Migration\Xamarin.AndroidX.Migration.csproj" />
+    <ProjectReference Include="..\..\..\externals\Java.Interop\src\Xamarin.Android.Tools.Bytecode\Xamarin.Android.Tools.Bytecode.csproj" />
+    <ProjectReference Include="..\..\..\source\Xamarin.AndroidX.Migration\Migration\Xamarin.AndroidX.Migration.csproj" />
   </ItemGroup>
 
   <!-- Jetifier test assets -->
@@ -29,15 +29,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>aarxersise.java.support.aar</Link>
     </Content>
-    <Content Include="..\..\externals\test-assets\merged-dlls\AndroidSupport.Merged.dll">
+    <Content Include="..\..\..\externals\test-assets\merged-dlls\AndroidSupport.Merged.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>AndroidSupport.Merged.dll</Link>
     </Content>
-    <Content Include="..\..\externals\test-assets\merged-dlls\AndroidX.Merged.dll">
+    <Content Include="..\..\..\externals\test-assets\merged-dlls\AndroidX.Merged.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>AndroidX.Merged.dll</Link>
     </Content>
-    <Content Include="..\..\externals\test-assets\facebook-sdk\facebook-android-sdk.zip">
+    <Content Include="..\..\..\externals\test-assets\facebook-sdk\facebook-android-sdk.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>facebook-android-sdk.zip</Link>
     </Content>

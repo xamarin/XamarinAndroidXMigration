@@ -7,15 +7,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6E6A8AA4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source", "source", "{AB12F426-C62D-40D7-958C-F39E9915BCDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Binding.AndroidX", "tests\Aarxercise.Binding.AndroidX\Aarxercise.Binding.AndroidX.csproj", "{A387F7E5-9BD1-40F7-A748-96BF84702F3B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Binding.AndroidX", "tests\Xamarin.AndroidX.Migration\Aarxercise.Binding.AndroidX\Aarxercise.Binding.AndroidX.csproj", "{A387F7E5-9BD1-40F7-A748-96BF84702F3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Binding.Support", "tests\Aarxercise.Binding.Support\Aarxercise.Binding.Support.csproj", "{2E8C42AD-1DF4-489A-96E3-9671432D1AE4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Binding.Support", "tests\Xamarin.AndroidX.Migration\Aarxercise.Binding.Support\Aarxercise.Binding.Support.csproj", "{2E8C42AD-1DF4-489A-96E3-9671432D1AE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Managed.AndroidX", "tests\Aarxercise.Managed.AndroidX\Aarxercise.Managed.AndroidX.csproj", "{575ABA0A-7B38-4E3A-B3DA-E245164887BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Managed.AndroidX", "tests\Xamarin.AndroidX.Migration\Aarxercise.Managed.AndroidX\Aarxercise.Managed.AndroidX.csproj", "{575ABA0A-7B38-4E3A-B3DA-E245164887BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Managed.Support", "tests\Aarxercise.Managed.Support\Aarxercise.Managed.Support.csproj", "{3EE93671-9B98-4B5B-925F-4629D3946100}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Managed.Support", "tests\Xamarin.AndroidX.Migration\Aarxercise.Managed.Support\Aarxercise.Managed.Support.csproj", "{3EE93671-9B98-4B5B-925F-4629D3946100}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.AndroidX.Migration.Tests", "tests\Xamarin.AndroidX.Migration.Tests\Xamarin.AndroidX.Migration.Tests.csproj", "{10832A33-2961-4B0D-8977-7BE49B391F16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.AndroidX.Migration.Tests", "tests\Xamarin.AndroidX.Migration\Tests\Xamarin.AndroidX.Migration.Tests.csproj", "{10832A33-2961-4B0D-8977-7BE49B391F16}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.AndroidX.Migration", "source\Xamarin.AndroidX.Migration\Migration\Xamarin.AndroidX.Migration.csproj", "{F22FB2D5-8920-4C8F-9807-0D1E13A16742}"
 EndProject
@@ -27,13 +27,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Android.Tools.Bytec
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.AndroidX.Migration.BuildTasks", "source\Xamarin.AndroidX.Migration\BuildTasks\Xamarin.AndroidX.Migration.BuildTasks.csproj", "{C6EBD819-D99B-4F21-8D8D-EA0C26B0E67E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Reference.Support", "tests\Aarxercise.Reference.Support\Aarxercise.Reference.Support.csproj", "{2E8C42AD-1DF4-489A-96E3-9671432D1AAA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Reference.Support", "tests\Xamarin.AndroidX.Migration\Aarxercise.Reference.Support\Aarxercise.Reference.Support.csproj", "{2E8C42AD-1DF4-489A-96E3-9671432D1AAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Reference.AndroidX", "tests\Aarxercise.Reference.AndroidX\Aarxercise.Reference.AndroidX.csproj", "{A387F7E5-9BD1-40F7-A748-96BF84702BBB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Reference.AndroidX", "tests\Xamarin.AndroidX.Migration\Aarxercise.Reference.AndroidX\Aarxercise.Reference.AndroidX.csproj", "{A387F7E5-9BD1-40F7-A748-96BF84702BBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Old.Support", "tests\Aarxercise.Old.Support\Aarxercise.Old.Support.csproj", "{9E99019A-1523-44D3-885D-A37AC79A8F3D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Old.Support", "tests\Xamarin.AndroidX.Migration\Aarxercise.Old.Support\Aarxercise.Old.Support.csproj", "{9E99019A-1523-44D3-885D-A37AC79A8F3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Old.AndroidX", "tests\Aarxercise.Old.AndroidX\Aarxercise.Old.AndroidX.csproj", "{1E4E7879-779A-4D16-8A5C-4AAE3ED612F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aarxercise.Old.AndroidX", "tests\Xamarin.AndroidX.Migration\Aarxercise.Old.AndroidX\Aarxercise.Old.AndroidX.csproj", "{1E4E7879-779A-4D16-8A5C-4AAE3ED612F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

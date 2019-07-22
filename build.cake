@@ -65,8 +65,8 @@ Task("JavaProjects")
     .Does(() =>
 {
     var nativeProjects = new [] {
-        "tests/Aarxersise.Java.AndroidX",
-        "tests/Aarxersise.Java.Support",
+        "tests/Xamarin.AndroidX.Migration/Aarxersise.Java.AndroidX",
+        "tests/Xamarin.AndroidX.Migration/Aarxersise.Java.Support",
         "samples/com.xamarin.CoolLibrary",
     };
 
