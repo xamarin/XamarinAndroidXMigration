@@ -193,7 +193,7 @@ Task("Tests")
     .IsDependentOn("Libraries")
     .Does(() =>
 {
-    var testProjects = GetFiles("./tests/*.Tests/*.csproj");
+    var testProjects = GetFiles("./tests/**/*.Tests.csproj");
     foreach (var proj in testProjects) {
         try {
             DotNetCoreTest(proj.GetFilename().ToString(), new DotNetCoreTestSettings {
