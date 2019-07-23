@@ -24,7 +24,10 @@ namespace VisualStudio.AndroidX.Migration
 			FullTypeNames = new Dictionary<string, string>();
 			Nugets = new Dictionary<string, KeyValuePair<string, string>>();
 
-			var conversionFile = Path.Combine(Path.GetDirectoryName(this.GetType().Assembly.Location), "Resources\\androidx-mapping.csv");
+			var codeBase = new Uri(this.GetType().Assembly.CodeBase).AbsolutePath;
+			var binDirectory = Path.GetDirectoryName(codeBase);
+
+			var conversionFile = Path.Combine(binDirectory, "Resources\\androidx-mapping.csv");
 			foreach (var line in File.ReadLines(conversionFile).Skip(1))
 			{
 				var values = line.Split(',');
@@ -42,7 +45,7 @@ namespace VisualStudio.AndroidX.Migration
 			AndroidAssemblies = AddAssemblies(androidAssemblyLocations ?? new List<string>(), AndroidAssemblies);
 			AndroidXAssemblies = AddAssemblies(androidXAssemblyLocations ?? new List<string>(), AndroidXAssemblies);
 
-			var nugetsFile = Path.Combine(Path.GetDirectoryName(this.GetType().Assembly.Location), "Resources\\androidx-assemblies.csv");
+			var nugetsFile = Path.Combine(binDirectory, "Resources\\androidx-assemblies.csv");
 			foreach (var line in File.ReadLines(nugetsFile).Skip(1))
 			{
 				var values = line.Split(',');

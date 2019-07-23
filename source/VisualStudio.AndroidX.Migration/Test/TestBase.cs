@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,7 +12,10 @@ namespace VisualStudio.AndroidX.Migration
 
 		static TestBase()
 		{
-			var assembliesDirectory = Path.Combine(Path.GetDirectoryName(typeof(NameTests).Assembly.Location), "Assemblies\\Android");
+			var codeBase = new Uri(typeof(TestBase).Assembly.CodeBase).AbsolutePath;
+			var binDirectory = Path.GetDirectoryName(codeBase);
+
+			var assembliesDirectory = Path.Combine(binDirectory, "Assemblies\\Android");
 
 			resolver = new TranslationResolver(Directory.GetFiles(assembliesDirectory), new List<string> { });
 		}
