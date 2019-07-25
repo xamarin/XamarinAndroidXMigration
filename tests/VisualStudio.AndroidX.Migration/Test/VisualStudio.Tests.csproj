@@ -70,7 +70,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj">
+    <ProjectReference Include="..\..\..\source\VisualStudio.AndroidX.Migration\Core\Core.csproj">
       <Project>{297b120f-de08-4460-bce6-5b2a74535c2d}</Project>
       <Name>Core</Name>
     </ProjectReference>

@@ -167,6 +167,7 @@ Task("Libraries")
     .IsDependentOn("JetifierWrapper")
     .IsDependentOn("DownloadAndroidXAssets")
     .IsDependentOn("NativeAssets")
+    .IsDependentOn("VSTestPrepare")
     .Does(() =>
 {
     // needed for nuget restore
@@ -212,7 +213,6 @@ Task("Libraries")
 
 Task("Tests")
     .IsDependentOn("Libraries")
-    .IsDependentOn("VSTestPrepare")
     .Does(() =>
 {
     var testProjects = GetFiles("./tests/**/*.Tests.csproj");
@@ -239,7 +239,7 @@ Task("VSTestPrepare")
     .Does(() =>
 {
         var externalRoot = "./externals/";
-        var testAssembliesFolder = "./source/VisualStudio.AndroidX.Migration/Test/Assemblies/";
+        var testAssembliesFolder = "./tests/VisualStudio.AndroidX.Migration/Test/Assemblies/";
 
         if (!DirectoryExists($"{testAssembliesFolder}AndroidX"))
         {
