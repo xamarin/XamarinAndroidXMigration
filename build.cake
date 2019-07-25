@@ -203,10 +203,16 @@ Task("Libraries")
         CopyFiles($"{root}/Xamarin.*", $"{outRoot}/build/");
         Zip($"{outRoot}/", $"./output/Xamarin.AndroidX.Migration.BuildTasks.zip");
     }
+
+    MSBuild("./source/VisualStudio.AndroidX.Migration/VisualStudio.AndroidX.Migration.sln", new MSBuildSettings {
+        Configuration = configuration,
+        Restore = true
+    });
 });
 
 Task("Tests")
     .IsDependentOn("Libraries")
+    .IsDependentOn("VSTestPrepare")
     .Does(() =>
 {
     var testProjects = GetFiles("./tests/**/*.Tests.csproj");
@@ -324,6 +330,16 @@ Task("NuGets")
             .Append("/p:PackAsTool=True")
             .Append($"/p:PackageVersion={previewVersion}"),
     });
+    var migrator = "./source/VisualStudio.AndroidX.Migration/Core/Core.csproj";
+    NuGetPack(migrator, new NuGetPackSettings {
+            OutputDirectory = "./output/nugets/",
+            RequireLicenseAcceptance = false,
+            Version = previewVersion,
+            Properties = new Dictionary<string, string>
+            {
+                { "Configuration", configuration }
+            }
+    });
 });
 
 Task("Samples")
@@ -359,7 +375,6 @@ Task("Default")
     .IsDependentOn("NativeAssets")
     .IsDependentOn("Libraries")
     .IsDependentOn("NuGets")
-    .IsDependentOn("VSTestPrepare")
     .IsDependentOn("Tests")
     // .IsDependentOn("Samples")
     ;
