@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace VisualStudio.AndroidX.Migration
 {
-	[TestClass]
 	public class ProjectTests
 	{
-		[TestMethod]
+		[Fact]
 		public void when_nuget_version_is_not_inlined_replace_it()
 		{
 			var csproj = versionedCsProj;
@@ -18,14 +17,14 @@ namespace VisualStudio.AndroidX.Migration
 
 			csproj = projectFixer.RewriteCSProj(csproj);
 
-			Assert.IsTrue(csproj.Contains(@"<PackageReference Include=""Xamarin.Google.Android.Material"">"));
-			Assert.IsFalse(csproj.Contains(@"<Version>28.0.0.1</Version>"));
-			Assert.IsTrue(csproj.Contains(@"<Version>1.0.0-preview01</Version>")); //replace version number
-			Assert.IsTrue(csproj.Contains(@"<Version>27.0.0.1</Version>")); //don't remove version for xamarin.essentials
+			Assert.Contains(@"<PackageReference Include=""Xamarin.Google.Android.Material"">", csproj);
+			Assert.DoesNotContain(@"<Version>28.0.0.1</Version>", csproj);
+			Assert.Contains(@"<Version>1.0.0-preview01</Version>", csproj); //replace version number
+			Assert.Contains(@"<Version>27.0.0.1</Version>", csproj); //don't remove version for xamarin.essentials
 		}
 		
 
-		[TestMethod]
+		[Fact]
 		public void when_nuget_is_àppcompat_replace_with_androidx()
 		{
 			var csproj = sampleCsProj;
@@ -35,11 +34,11 @@ namespace VisualStudio.AndroidX.Migration
 
 			csproj = projectFixer.RewriteCSProj(csproj);
 
-			Assert.IsTrue(csproj.Contains(@"<PackageReference Include=""Xamarin.AndroidX.Core"" Version=""1.0.1-preview01"" />"));
+			Assert.Contains(@"<PackageReference Include=""Xamarin.AndroidX.Core"" Version=""1.0.1-preview01"" />", csproj);
 		}
 
 
-		[TestMethod]
+		[Fact]
 		public void when_version_is_inline_replace_inline()
 		{
 			var csproj = sampleCsProj;
@@ -49,10 +48,10 @@ namespace VisualStudio.AndroidX.Migration
 
 			csproj = projectFixer.RewriteCSProj(csproj);
 
-			Assert.IsTrue(csproj.Contains(@"<PackageReference Include=""Xamarin.AndroidX.Browser"" Version=""1.0.0-preview01"" />"));
+			Assert.Contains(@"<PackageReference Include=""Xamarin.AndroidX.Browser"" Version=""1.0.0-preview01"" />", csproj);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void in_poolmath_replace_androidx()
 		{
 			var csproj = poolMathCsproj;
@@ -62,12 +61,12 @@ namespace VisualStudio.AndroidX.Migration
 
 			csproj = projectFixer.RewriteCSProj(csproj);
 
-			Assert.IsTrue(csproj.Contains(@"<PackageReference Include=""Xamarin.AndroidX.Core"">
+			Assert.Contains(@"<PackageReference Include=""Xamarin.AndroidX.Core"">
       <Version>1.0.1-preview01</Version>
-    </PackageReference>"));
+    </PackageReference>", csproj);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void when_nuget_is_support_replace_with_androidx()
 		{
 			var csproj = sampleCsProj;
@@ -77,7 +76,7 @@ namespace VisualStudio.AndroidX.Migration
 				
 			csproj = projectFixer.RewriteCSProj(csproj);
 
-			Assert.IsTrue(csproj.Contains(@"<PackageReference Include=""Xamarin.Google.Android.Material"" Version=""1.0.0-preview01"" />"));
+			Assert.Contains(@"<PackageReference Include=""Xamarin.Google.Android.Material"" Version=""1.0.0-preview01"" />", csproj);
 		}
 
 		string sampleCsProj =

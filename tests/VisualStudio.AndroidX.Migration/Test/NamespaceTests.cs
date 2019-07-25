@@ -1,5 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,10 +9,9 @@ using System.Threading.Tasks;
 
 namespace VisualStudio.AndroidX.Migration
 {
-	[TestClass]
 	public class NamespaceTests : TestBase
 	{
-		[TestMethod]
+		[Fact]
 		public void when_defining_namespaces_then_replace_namespace()
 		{
 			var solution = CreateSolution(@"
@@ -31,11 +30,11 @@ namespace VisualStudio.AndroidX.Migration
 
 			var root = GetText(solution);
 
-			Assert.IsTrue(root.Contains("using AndroidX.Lifecycle;"));
-			Assert.IsFalse(root.Contains("using Android.Arch.Lifecycle;"));
+			Assert.Contains("using AndroidX.Lifecycle;", root);
+			Assert.DoesNotContain("using Android.Arch.Lifecycle;", root);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void when_defining_aliased_namespaces_then_replace_namespace()
 		{
 			var solution = CreateSolution(@"
@@ -54,11 +53,11 @@ namespace VisualStudio.AndroidX.Migration
 
 			var root = GetText(solution);
 
-			Assert.IsTrue(root.Contains("using life = AndroidX.Lifecycle;"));
-			Assert.IsFalse(root.Contains("using life = Android.Arch.Lifecycle;"));
+			Assert.Contains("using life = AndroidX.Lifecycle;", root);
+			Assert.DoesNotContain("using life = Android.Arch.Lifecycle;", root);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void when_defining_aliased_namespaces_then_fully_qualify_if_needed()
 		{
 			var solution = CreateSolution(@"
@@ -79,11 +78,11 @@ namespace VisualStudio.AndroidX.Migration
 
 			var root = GetText(solution);
 
-			Assert.IsTrue(root.Contains(": AndroidX.AppCompat.App.AppCompatActivity"));
-			Assert.IsFalse(root.Contains(": support.V7.App.AppCompatActivity"));
+			Assert.Contains(": AndroidX.AppCompat.App.AppCompatActivity", root);
+			Assert.DoesNotContain(": support.V7.App.AppCompatActivity", root);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void when_defining_types_then_dont_break_fully_qualified()
 		{
 			var solution = CreateSolution(@"
@@ -101,7 +100,7 @@ namespace VisualStudio.AndroidX.Migration
 			
 			var root = GetText(solution);
 
-			Assert.IsTrue(root.Contains(": Android.Support.V7.App.AppCompatActivity"));
+			Assert.Contains(": Android.Support.V7.App.AppCompatActivity", root);
 		}
 	}
 }
