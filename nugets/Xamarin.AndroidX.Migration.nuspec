@@ -25,7 +25,7 @@ This package provides a set of tools and MSBuild tasks to aid in the migration f
 
     <dependencies>
       <group targetFramework="MonoAndroid9.0">
-        <dependency id="Xamarin.AndroidX.MultiDex" version="2.0.1-preview01" include="All" />
+        <dependency id="Xamarin.AndroidX.MultiDex" version="2.0.1-preview02" include="All" />
       </group>
     </dependencies>
 
