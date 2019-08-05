@@ -331,14 +331,10 @@ Task("NuGets")
             .Append($"/p:PackageVersion={previewVersion}"),
     });
     var migrator = "./source/VisualStudio.AndroidX.Migration/Core/Core.csproj";
-    NuGetPack(migrator, new NuGetPackSettings {
-            OutputDirectory = "./output/nugets/",
-            RequireLicenseAcceptance = false,
-            Version = previewVersion,
-            Properties = new Dictionary<string, string>
-            {
-                { "Configuration", configuration }
-            }
+    DotNetCorePack(migrator, new DotNetCorePackSettings {
+        NoBuild = true,
+        Configuration = configuration,
+        OutputDirectory = "./output/nugets/",
     });
 });
 
