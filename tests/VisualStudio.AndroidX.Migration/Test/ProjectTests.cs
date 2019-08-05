@@ -19,7 +19,7 @@ namespace VisualStudio.AndroidX.Migration
 
 			Assert.Contains(@"<PackageReference Include=""Xamarin.Google.Android.Material"">", csproj);
 			Assert.DoesNotContain(@"<Version>28.0.0.1</Version>", csproj);
-			Assert.Contains(@"<Version>1.0.0-preview01</Version>", csproj); //replace version number
+			Assert.Contains(@"<Version>1.0.0-preview02</Version>", csproj); //replace version number
 			Assert.Contains(@"<Version>27.0.0.1</Version>", csproj); //don't remove version for xamarin.essentials
 		}
 		
@@ -34,7 +34,7 @@ namespace VisualStudio.AndroidX.Migration
 
 			csproj = projectFixer.RewriteCSProj(csproj);
 
-			Assert.Contains(@"<PackageReference Include=""Xamarin.AndroidX.Core"" Version=""1.0.1-preview01"" />", csproj);
+			Assert.Contains(@"<PackageReference Include=""Xamarin.AndroidX.Core"" Version=""1.0.1-preview02"" />", csproj);
 		}
 
 
@@ -48,7 +48,7 @@ namespace VisualStudio.AndroidX.Migration
 
 			csproj = projectFixer.RewriteCSProj(csproj);
 
-			Assert.Contains(@"<PackageReference Include=""Xamarin.AndroidX.Browser"" Version=""1.0.0-preview01"" />", csproj);
+			Assert.Contains(@"<PackageReference Include=""Xamarin.AndroidX.Browser"" Version=""1.0.0-preview02"" />", csproj);
 		}
 
 		[Fact]
@@ -62,7 +62,7 @@ namespace VisualStudio.AndroidX.Migration
 			csproj = projectFixer.RewriteCSProj(csproj);
 
 			Assert.Contains(@"<PackageReference Include=""Xamarin.AndroidX.Core"">
-      <Version>1.0.1-preview01</Version>
+      <Version>1.0.1-preview02</Version>
     </PackageReference>", csproj);
 		}
 
@@ -76,7 +76,7 @@ namespace VisualStudio.AndroidX.Migration
 				
 			csproj = projectFixer.RewriteCSProj(csproj);
 
-			Assert.Contains(@"<PackageReference Include=""Xamarin.Google.Android.Material"" Version=""1.0.0-preview01"" />", csproj);
+			Assert.Contains(@"<PackageReference Include=""Xamarin.Google.Android.Material"" Version=""1.0.0-preview02"" />", csproj);
 		}
 
 		string sampleCsProj =
