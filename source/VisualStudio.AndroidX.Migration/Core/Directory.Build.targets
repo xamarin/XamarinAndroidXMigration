@@ -1,0 +1,39 @@
+<Project>
+	<PropertyGroup Condition="'$(CI)' == ''">
+		<CI>false</CI>
+		<CI Condition="'$(TF_BUILD)' == 'true'">true</CI>
+	</PropertyGroup>
+
+    <PropertyGroup>
+        <NoWarn>$(NoWarn);NU5105</NoWarn>
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    </PropertyGroup>
+
+	<ItemGroup Condition=" '$(OS)' != 'Windows_NT' AND '$(TargetFramework)' == 'net472' ">
+		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0-preview.2" PrivateAssets="All" />
+	</ItemGroup>
+
+	<Target Name="SetVersion" BeforeTargets="PrepareForBuild;GetAssemblyVersion;GetPackageVersion;Pack"
+					DependsOnTargets="GitVersion" Returns="$(Version)"
+					Condition="'$(GitInfoImported)' == 'true' And '$(ExcludeRestorePackageImports)' != 'true'">
+
+		<ItemGroup>
+			<VersionMetadata Condition="$(CI) and '$(BUILD_REASON)' == 'PullRequest'"
+											 Include="pr.$(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)"/>
+			<VersionMetadata Include="sha.$(GitCommit)" Condition="'$(GitCommit)' != ''"/>
+			<VersionMetadata Condition="$(CI)"
+											 Include="build.$(BUILD_BUILDID)"/>
+		</ItemGroup>
+
+		<PropertyGroup>
+			<VersionPrefix>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)</VersionPrefix>
+			<VersionSuffix>$(GitSemVerDashLabel)+@(VersionMetadata -> '%(Identity)', '-')</VersionSuffix>
+
+			<AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
+			<FileVersion>$(AssemblyVersion)</FileVersion>
+			<InformationalVersion>$(VersionPrefix)$(VersionSuffix)</InformationalVersion>
+            <PackageVersion>$(InformationalVersion)</PackageVersion>
+		</PropertyGroup>
+
+	</Target>
+</Project>
