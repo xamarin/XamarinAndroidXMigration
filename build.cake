@@ -16,6 +16,8 @@ var azureBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1
 var legacyBuildNumber = "4437";
 var legacyBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1b47c07a8/_apis/build/builds/{legacyBuildNumber}/artifacts?artifactName=nuget&%24format=zip&api-version=5.0";
 
+var JAVA_HOME = EnvironmentVariable ("JAVA_HOME");
+
 var BUILD_BASE_VERSION = EnvironmentVariable("BUILD_BASE_VERSION") ?? "1.0.0";
 var BUILD_PREVIEW_LABEL = EnvironmentVariable("BUILD_PREVIEW_LABEL") ?? "preview";
 var BUILD_NUMBER = EnvironmentVariable("BUILD_NUMBER") ?? "0";
@@ -30,6 +32,7 @@ var BUILD_VERSION_PRERELEASE = string.IsNullOrEmpty(BUILD_PRERELEASE_OVERRIDE)
 var BUILD_PACKAGE_VERSION = BUILD_PRODUCE_PRERELEASE
     ? BUILD_VERSION_PRERELEASE
     : BUILD_VERSION_STABLE;
+
 
 Task("JetifierWrapper")
     .Does(() =>
@@ -165,6 +168,7 @@ Task("Libraries")
         Properties = {
             { "DesignTimeBuild", new [] { "false" } },
             { "AndroidSdkBuildToolsVersion", new [] { "28.0.3" } },
+            { "JavaSdkDirectory", new [] { JAVA_HOME } },
         },
     });
 
@@ -324,6 +328,7 @@ Task("Samples")
             Properties = {
                 { "DesignTimeBuild", new [] { "false" } },
                 { "AndroidSdkBuildToolsVersion", new [] { "28.0.3" } },
+                { "JavaSdkDirectory", new [] { JAVA_HOME } },
             },
         });
     }
