@@ -56,6 +56,8 @@ jobs:
         inputs:
           version: $(DOTNET_CORE_VERSION)
       - powershell: |
+          dotnet --list-sdks
+          dotnet --list-runtimes
           dotnet tool install -g cake.tool --version $(CAKE_VERSION)
         displayName: 'Install dotnet tools'
       # run the main build
