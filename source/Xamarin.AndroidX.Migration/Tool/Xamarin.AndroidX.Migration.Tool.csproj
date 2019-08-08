@@ -7,7 +7,7 @@
     <RootNamespace>AndroidXMigrator</RootNamespace>
     <AssemblyName>androidx-migrator</AssemblyName>
     <ToolCommandName>androidx-migrator</ToolCommandName>
-    <PackAsTool>true</TargetFrameworks>
+    <PackAsTool>true</PackAsTool>
 
     <PackageId>Xamarin.AndroidX.Migration.Tool</PackageId>
     <Title>Migration Tools for Xamarin AndroidX</Title>
