@@ -1,11 +1,10 @@
-#tool "nuget:https://www.nuget.org/api/v2?package=xunit.runner.console&version=2.4.1"
+#tool "nuget:?package=xunit.runner.console&version=2.4.1"
+
 #addin "nuget:?package=Cake.FileHelpers&version=3.2.0"
 
 var target = Argument("t", Argument("target", "Default"));
 var verbosity = Argument("v", Argument("verbosity", "Normal"));
 var configuration = Argument("c", Argument("configuration", "Release"));
-
-var nugetPath = Context.Tools.Resolve("nuget.exe");
 
 var jetifierVersion = "1.0.0";
 var jetifierBetaVersion = "-beta05";
@@ -17,13 +16,27 @@ var azureBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1
 var legacyBuildNumber = "4437";
 var legacyBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1b47c07a8/_apis/build/builds/{legacyBuildNumber}/artifacts?artifactName=nuget&%24format=zip&api-version=5.0";
 
-var PACKAGE_VERSION = EnvironmentVariable("PACKAGE_VERSION") ?? "1.0.0";
-var PREVIEW_LABEL = EnvironmentVariable("PREVIEW_LABEL") ?? "preview";
-var BUILD_NUMBER = EnvironmentVariable("BUILD_NUMBER") ?? "";
-if (string.IsNullOrEmpty(BUILD_NUMBER)) {
-    BUILD_NUMBER = "0";
+var NUGET_EXE = "./tools/nuget.exe";
+if (!FileExists(NUGET_EXE)) {
+    DownloadFile("https://dist.nuget.org/win-x86-commandline/latest/nuget.exe", NUGET_EXE);
 }
-var PRERELEASE_OVERRIDE = EnvironmentVariable("PRERELEASE_OVERRIDE") ?? "";
+
+var JAVA_HOME = EnvironmentVariable ("JAVA_HOME");
+
+var BUILD_BASE_VERSION = EnvironmentVariable("BUILD_BASE_VERSION") ?? "1.0.0";
+var BUILD_PREVIEW_LABEL = EnvironmentVariable("BUILD_PREVIEW_LABEL") ?? "preview";
+var BUILD_NUMBER = EnvironmentVariable("BUILD_NUMBER") ?? "0";
+var BUILD_PRERELEASE_OVERRIDE = EnvironmentVariable("BUILD_PRERELEASE_OVERRIDE") ?? "";
+var BUILD_PRODUCE_PRERELEASE = bool.Parse(EnvironmentVariable("BUILD_PRODUCE_PRERELEASE") ?? "true");
+
+var BUILD_VERSION_STABLE = $"{BUILD_BASE_VERSION}";
+var BUILD_VERSION_PRERELEASE = string.IsNullOrEmpty(BUILD_PRERELEASE_OVERRIDE)
+    ? $"{BUILD_BASE_VERSION}-{BUILD_PREVIEW_LABEL}.{BUILD_NUMBER}"
+    : $"{BUILD_BASE_VERSION}-{BUILD_PRERELEASE_OVERRIDE}";
+
+var BUILD_PACKAGE_VERSION = BUILD_PRODUCE_PRERELEASE
+    ? BUILD_VERSION_PRERELEASE
+    : BUILD_VERSION_STABLE;
 
 Task("JetifierWrapper")
     .Does(() =>
@@ -103,26 +116,6 @@ Task("DownloadNativeFacebookSdk")
     }
 });
 
-Task("DownloadXamarinFacebookSdk")
-    .Does(() =>
-{
-    var sdkRoot = "./externals/test-assets/xamarin-facebook-sdk/";
-
-    string [] facebookSdks = { "AppLinks", "Common", "Core", "Login", "Marketing", "Places", "Share" };
-    var facebookFilename = "Xamarin.Facebook.{0}.Android";
-    var facebookVersion = "4.40.0";
-    var facebookNugets = facebookSdks.Select(sdk => string.Format(facebookFilename, sdk));
-
-    EnsureDirectoryExists(sdkRoot);
-
-    NuGetInstall(facebookNugets, new NuGetInstallSettings {
-        ToolPath = nugetPath,
-        Version = facebookVersion,
-        ExcludeVersion = true,
-        OutputDirectory = sdkRoot
-    });
-});
-
 Task("DownloadAndroidXAssets")
     .Does(() =>
 {
@@ -160,7 +153,6 @@ Task("NativeAssets")
     .IsDependentOn("JavaProjects")
     .IsDependentOn("JetifierWrapper")
     .IsDependentOn("DownloadNativeFacebookSdk")
-    .IsDependentOn("DownloadXamarinFacebookSdk")
     .IsDependentOn("DownloadAndroidXAssets");
 
 Task("Libraries")
@@ -180,19 +172,9 @@ Task("Libraries")
         Properties = {
             { "DesignTimeBuild", new [] { "false" } },
             { "AndroidSdkBuildToolsVersion", new [] { "28.0.3" } },
+            { "JavaSdkDirectory", new [] { JAVA_HOME } },
         },
     });
-
-    // copy the androidx-migrator tools
-    foreach (var tf in new [] { "net47", "netcoreapp2.2" }) {
-        var root = $"./source/Xamarin.AndroidX.Migration/Tool/bin/{configuration}/{tf}";
-        var outRoot = $"./output/androidx-migrator/{tf}";
-        EnsureDirectoryExists($"{outRoot}/Tools/");
-        CopyDirectory($"{root}/Tools/", $"{outRoot}/Tools/");
-        CopyFiles($"{root}/Mono.*", $"{outRoot}/");
-        CopyFiles($"{root}/Xamarin.*", $"{outRoot}/");
-        Zip($"{outRoot}/", $"./output/androidx-migrator.zip");
-    }
 
     // copy the build tasks
     {
@@ -243,43 +225,41 @@ Task("VSTestPrepare")
     .IsDependentOn("DownloadLegacyAssets")
     .Does(() =>
 {
-        var externalRoot = "./externals/";
-        var testAssembliesFolder = "./tests/VisualStudio.AndroidX.Migration/Test/Assemblies/";
+    var externalRoot = "./externals/";
+    var testAssembliesFolder = "./tests/VisualStudio.AndroidX.Migration/Test/Assemblies/";
 
-        if (!DirectoryExists($"{testAssembliesFolder}AndroidX"))
+    if (!DirectoryExists($"{testAssembliesFolder}AndroidX")) {
+        var androidXNugets = new [] {
+            $"{externalRoot}nuget/Xamarin.AndroidX.AppCompat.1*-preview.*.nupkg",
+            $"{externalRoot}nuget/Xamarin.AndroidX.Leanback.1*-preview.*.nupkg",
+            $"{externalRoot}nuget/Xamarin.AndroidX.Lifecycle.Common.2*-preview.*.nupkg"
+        };
+        var androidNugets = new [] {
+            $"{externalRoot}legacy/nuget/Xamarin.Android.Arch.Lifecycle.Common.*.nupkg",
+            $"{externalRoot}legacy/nuget/Xamarin.Android.Support.v7.AppCompat.*.nupkg",
+            $"{externalRoot}legacy/nuget/Xamarin.Android.Support.v17.Leanback.*.nupkg"
+        };
+
+        EnsureDirectoryExists($"{testAssembliesFolder}AndroidX");
+        foreach(var nuget in androidXNugets.SelectMany(n => GetFiles(n)))
         {
-            var androidXNugets = new [] {
-                $"{externalRoot}nuget/Xamarin.AndroidX.AppCompat.1*-preview.*.nupkg",
-                $"{externalRoot}nuget/Xamarin.AndroidX.Leanback.1*-preview.*.nupkg",
-                $"{externalRoot}nuget/Xamarin.AndroidX.Lifecycle.Common.2*-preview.*.nupkg"
-            };
-            var androidNugets = new [] {
-                $"{externalRoot}legacy/nuget/Xamarin.Android.Arch.Lifecycle.Common.*.nupkg",
-                $"{externalRoot}legacy/nuget/Xamarin.Android.Support.v7.AppCompat.*.nupkg",
-                $"{externalRoot}legacy/nuget/Xamarin.Android.Support.v17.Leanback.*.nupkg"
-            };
-
-    
-            EnsureDirectoryExists($"{testAssembliesFolder}AndroidX");
-            foreach(var nuget in androidXNugets.SelectMany(n => GetFiles(n)))
-            {
-                var tmp = System.IO.Path.Combine(System.IO.Path.GetTempPath(), System.IO.Path.GetRandomFileName());
-                CreateDirectory(tmp);
-                Unzip(nuget, tmp);
-                CopyFiles(GetFiles($"{tmp}/lib/monoandroid90/*.dll"),  $"{testAssembliesFolder}AndroidX");
-                DeleteDirectory(tmp, new DeleteDirectorySettings { Recursive = true, Force = true });
-            }
-
-            EnsureDirectoryExists($"{testAssembliesFolder}Android");
-            foreach(var nuget in androidNugets.SelectMany(n => GetFiles(n)))
-            {
-                var tmp = System.IO.Path.Combine(System.IO.Path.GetTempPath(), System.IO.Path.GetRandomFileName());
-                CreateDirectory(tmp);
-                Unzip(nuget, tmp);
-                CopyFiles(GetFiles($"{tmp}/lib/monoandroid90/*.dll"),  $"{testAssembliesFolder}Android");
-                DeleteDirectory(tmp, new DeleteDirectorySettings { Recursive = true, Force = true });
-            }
+            var tmp = System.IO.Path.Combine(System.IO.Path.GetTempPath(), System.IO.Path.GetRandomFileName());
+            CreateDirectory(tmp);
+            Unzip(nuget, tmp);
+            CopyFiles(GetFiles($"{tmp}/lib/monoandroid90/*.dll"),  $"{testAssembliesFolder}AndroidX");
+            DeleteDirectory(tmp, new DeleteDirectorySettings { Recursive = true, Force = true });
         }
+
+        EnsureDirectoryExists($"{testAssembliesFolder}Android");
+        foreach(var nuget in androidNugets.SelectMany(n => GetFiles(n)))
+        {
+            var tmp = System.IO.Path.Combine(System.IO.Path.GetTempPath(), System.IO.Path.GetRandomFileName());
+            CreateDirectory(tmp);
+            Unzip(nuget, tmp);
+            CopyFiles(GetFiles($"{tmp}/lib/monoandroid90/*.dll"),  $"{testAssembliesFolder}Android");
+            DeleteDirectory(tmp, new DeleteDirectorySettings { Recursive = true, Force = true });
+        }
+    }
 });
 
 Task("NuGets")
@@ -288,11 +268,7 @@ Task("NuGets")
 {
     DeleteFiles("./output/nugets/*.nupkg");
 
-    var stableVersion = $"{PACKAGE_VERSION}";
-    var previewVersion = string.IsNullOrEmpty(PRERELEASE_OVERRIDE)
-        ? $"{PACKAGE_VERSION}-{PREVIEW_LABEL}.{BUILD_NUMBER}"
-        : $"{PACKAGE_VERSION}-{PRERELEASE_OVERRIDE}";
-
+    // pack any .nuspec files
     foreach (var ns in GetFiles("./nugets/*.nuspec")) {
         var nuspec = ns;
         var tempNuspec = ns + ".mac.nuspec";
@@ -303,43 +279,32 @@ Task("NuGets")
         }
 
         NuGetPack(nuspec, new NuGetPackSettings {
+            ToolPath = NUGET_EXE,
             OutputDirectory = "./output/nugets/",
             RequireLicenseAcceptance = true,
-            Version = stableVersion,
-        });
-        NuGetPack(nuspec, new NuGetPackSettings {
-            OutputDirectory = "./output/nugets/",
-            RequireLicenseAcceptance = true,
-            Version = previewVersion,
+            Version = BUILD_PACKAGE_VERSION,
         });
 
-        if (FileExists(tempNuspec)) {
+        if (FileExists(tempNuspec))
             DeleteFile(tempNuspec);
-        }
     }
 
+    // pack the tool
     var tool = "./source/Xamarin.AndroidX.Migration/Tool/Xamarin.AndroidX.Migration.Tool.csproj";
     DotNetCorePack(tool, new DotNetCorePackSettings {
         NoBuild = true,
         Configuration = configuration,
         OutputDirectory = "./output/nugets/",
-        ArgumentCustomization = args => args
-            .Append("/p:PackAsTool=True")
-            .Append($"/p:PackageVersion={stableVersion}"),
+        MSBuildSettings = new DotNetCoreMSBuildSettings()
+            .WithProperty("PackageVersion", BUILD_PACKAGE_VERSION),
     });
-    DotNetCorePack(tool, new DotNetCorePackSettings {
-        NoBuild = true,
-        Configuration = configuration,
-        OutputDirectory = "./output/nugets/",
-        ArgumentCustomization = args => args
-            .Append("/p:PackAsTool=True")
-            .Append($"/p:PackageVersion={previewVersion}"),
-    });
+
+    // pack the 
     var migrator = "./source/VisualStudio.AndroidX.Migration/Core/Core.csproj";
     var settings = new MSBuildSettings {
         Configuration = configuration,
         Properties = {
-            { "PackageOutputPath", new [] { "../../../output/nugets/" } },
+            { "PackageOutputPath", new [] { MakeAbsolute((DirectoryPath)"./output/nugets/").FullPath } },
         },
         BinaryLogger = new MSBuildBinaryLogSettings
         {
@@ -368,12 +333,7 @@ Task("Samples")
             Properties = {
                 { "DesignTimeBuild", new [] { "false" } },
                 { "AndroidSdkBuildToolsVersion", new [] { "28.0.3" } },
-
-                // a flag to ensure we use the nugets
-                { "UseMigratorNuGetPackages", new [] { "true" } },
-                // make sure to restore to a temporary location
-                { "RestoreNoCache", new [] { "true" } },
-                { "RestorePackagesPath", new [] { "./externals/packages" } },
+                { "JavaSdkDirectory", new [] { JAVA_HOME } },
             },
         });
     }

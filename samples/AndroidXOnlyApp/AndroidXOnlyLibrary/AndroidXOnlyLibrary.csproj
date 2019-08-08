@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\..\output\Xamarin.AndroidX.Migration.BuildTasks\build\Xamarin.AndroidX.Migration.props" Condition="'$(UseMigratorNuGetPackages)' != 'true'" />
+  <Import Project="..\..\..\output\Xamarin.AndroidX.Migration.BuildTasks\build\Xamarin.AndroidX.Migration.props" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -45,10 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.0.2" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(UseMigratorNuGetPackages)' == 'true'">
-    <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.0" />
+    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.0.2-preview02" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LibraryActivity.cs" />
@@ -62,5 +59,5 @@
     <AndroidResource Include="Resources\values\strings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
-  <Import Project="..\..\..\output\Xamarin.AndroidX.Migration.BuildTasks\build\Xamarin.AndroidX.Migration.targets" Condition="'$(UseMigratorNuGetPackages)' != 'true'" />
+  <Import Project="..\..\..\output\Xamarin.AndroidX.Migration.BuildTasks\build\Xamarin.AndroidX.Migration.targets" />
 </Project>

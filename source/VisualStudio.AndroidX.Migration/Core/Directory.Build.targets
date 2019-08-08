@@ -32,7 +32,7 @@
 			<AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
 			<FileVersion>$(AssemblyVersion)</FileVersion>
 			<InformationalVersion>$(VersionPrefix)$(VersionSuffix)</InformationalVersion>
-            <PackageVersion>$(InformationalVersion)</PackageVersion>
+			<PackageVersion>$(InformationalVersion)</PackageVersion>
 		</PropertyGroup>
 
 	</Target>
