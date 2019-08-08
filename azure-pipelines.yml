@@ -56,7 +56,7 @@ jobs:
         inputs:
           version: $(DOTNET_CORE_VERSION)
       - powershell: |
-          dotnet new globaljson --sdk-version 2.2.108
+          dotnet new globaljson --sdk-version $(DOTNET_CORE_VERSION)
           dotnet tool install -g cake.tool --version $(CAKE_VERSION)
         displayName: 'Install dotnet tools'
       # run the main build
