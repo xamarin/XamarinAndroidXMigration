@@ -9,7 +9,7 @@ variables:
   MONO_VERSION: 5_18_1
   XCODE_VERSION: 10.2.1
   CAKE_VERSION: 0.34.1
-  DOTNET_CORE_VERSION: 3.0.100-preview7-012821
+  DOTNET_CORE_VERSION: 2.2.108
   BUILD_NUMBER: $[counter('$(Build.SourceBranchName)_counter', 1)]
   BUILD_BASE_VERSION: 1.0.0
   # BUILD_PREVIEW_LABEL: [preview]
