@@ -295,7 +295,7 @@ Task("NuGets")
     var settings = new MSBuildSettings {
         Configuration = configuration,
         Properties = {
-            { "PackageOutputPath", new [] { "./output/nugets/" } },
+            { "PackageOutputPath", new [] { MakeAbsolute((DirectoryPath)"./output/nugets/").FullPath } },
         },
         BinaryLogger = new MSBuildBinaryLogSettings
         {
