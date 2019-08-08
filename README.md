@@ -11,6 +11,24 @@ The Migration package helps apps which are transitioning to AndroidX but haven't
 yet updated their own source code to the new AndroidX API's, or still depend on
 third party libraries which have not been updated to use the new AndroidX API's.
 
+Building the Xamarin.AndroidX.Migration NuGet package
+-----------------------------------------------------
+
+The packages are built using Cake, which is very simple to use. All you need is
+the .NET Core tool: [Cake.Tool](https://www.nuget.org/packages/cake.tool)
+
+Installing the tool:
+
+```
+dotnet tool install --global Cake.Tool --version 0.34.1
+```
+
+Starting the build:
+
+```
+dotnet cake
+```
+
 
 Add the Xamarin.AndroidX.Migration NuGet package to your app
 ------------------------------------------------------------
