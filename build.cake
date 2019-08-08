@@ -19,11 +19,9 @@ var legacyBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a
 
 var PACKAGE_VERSION = EnvironmentVariable("PACKAGE_VERSION") ?? "1.0.0";
 var PREVIEW_LABEL = EnvironmentVariable("PREVIEW_LABEL") ?? "preview";
-var BUILD_NUMBER = EnvironmentVariable("BUILD_NUMBER") ?? "";
-if (string.IsNullOrEmpty(BUILD_NUMBER)) {
-    BUILD_NUMBER = "0";
-}
+var BUILD_NUMBER = EnvironmentVariable("BUILD_NUMBER") ?? "0";
 var PRERELEASE_OVERRIDE = EnvironmentVariable("PRERELEASE_OVERRIDE") ?? "";
+var BUILD_PRERELEASE = bool.Parse(EnvironmentVariable("BUILD_PRERELEASE") ?? "true");
 
 Task("JetifierWrapper")
     .Does(() =>
@@ -302,16 +300,19 @@ Task("NuGets")
             nuspec = tempNuspec;
         }
 
-        NuGetPack(nuspec, new NuGetPackSettings {
-            OutputDirectory = "./output/nugets/",
-            RequireLicenseAcceptance = true,
-            Version = stableVersion,
-        });
-        NuGetPack(nuspec, new NuGetPackSettings {
-            OutputDirectory = "./output/nugets/",
-            RequireLicenseAcceptance = true,
-            Version = previewVersion,
-        });
+        if (BUILD_PRERELEASE) {
+            NuGetPack(nuspec, new NuGetPackSettings {
+                OutputDirectory = "./output/nugets/",
+                RequireLicenseAcceptance = true,
+                Version = previewVersion,
+            });
+        } else {
+            NuGetPack(nuspec, new NuGetPackSettings {
+                OutputDirectory = "./output/nugets/",
+                RequireLicenseAcceptance = true,
+                Version = stableVersion,
+            });
+        }
 
         if (FileExists(tempNuspec)) {
             DeleteFile(tempNuspec);
@@ -319,27 +320,31 @@ Task("NuGets")
     }
 
     var tool = "./source/Xamarin.AndroidX.Migration/Tool/Xamarin.AndroidX.Migration.Tool.csproj";
-    DotNetCorePack(tool, new DotNetCorePackSettings {
-        NoBuild = true,
-        Configuration = configuration,
-        OutputDirectory = "./output/nugets/",
-        ArgumentCustomization = args => args
-            .Append("/p:PackAsTool=True")
-            .Append($"/p:PackageVersion={stableVersion}"),
-    });
-    DotNetCorePack(tool, new DotNetCorePackSettings {
-        NoBuild = true,
-        Configuration = configuration,
-        OutputDirectory = "./output/nugets/",
-        ArgumentCustomization = args => args
-            .Append("/p:PackAsTool=True")
-            .Append($"/p:PackageVersion={previewVersion}"),
-    });
+    if (BUILD_PRERELEASE) {
+        DotNetCorePack(tool, new DotNetCorePackSettings {
+            NoBuild = true,
+            Configuration = configuration,
+            OutputDirectory = "./output/nugets/",
+            ArgumentCustomization = args => args
+                .Append("/p:PackAsTool=True")
+                .Append($"/p:PackageVersion={previewVersion}"),
+        });
+    } else {
+        DotNetCorePack(tool, new DotNetCorePackSettings {
+            NoBuild = true,
+            Configuration = configuration,
+            OutputDirectory = "./output/nugets/",
+            ArgumentCustomization = args => args
+                .Append("/p:PackAsTool=True")
+                .Append($"/p:PackageVersion={stableVersion}"),
+        });
+    }
+
     var migrator = "./source/VisualStudio.AndroidX.Migration/Core/Core.csproj";
     var settings = new MSBuildSettings {
         Configuration = configuration,
         Properties = {
-            { "PackageOutputPath", new [] { "../../../output/nugets/" } },
+            { "PackageOutputPath", new [] { "./output/nugets/" } },
         },
         BinaryLogger = new MSBuildBinaryLogSettings
         {
