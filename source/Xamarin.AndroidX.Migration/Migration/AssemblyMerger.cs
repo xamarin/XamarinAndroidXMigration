@@ -12,14 +12,24 @@ namespace Xamarin.AndroidX.Migration
 	{
 		private const string InjectedAttributeNamespace = "Xamarin.AndroidX.Internal";
 		private const string InjectedAttributeTypeName = "InjectedAssemblyNameAttribute";
+		private const string InjectedAttributeFullName = InjectedAttributeNamespace + "." + InjectedAttributeTypeName;
 
 		public List<string> SearchDirectories { get; set; } = new List<string>();
 
 		public bool InjectAssemblyNames { get; set; }
-		
+
 		public void Merge(IEnumerable<string> assemblies, string outputPath)
 		{
 			var assembliesToMerge = assemblies?.ToList() ?? throw new ArgumentNullException(nameof(assemblies));
+
+			var assemblyResolver = new DefaultAssemblyResolver();
+			if (SearchDirectories != null)
+			{
+				foreach (var dir in SearchDirectories)
+				{
+					assemblyResolver.AddSearchDirectory(dir);
+				}
+			}
 
 			LogVerboseMessage("Merging:");
 			foreach (var include in assembliesToMerge)
@@ -38,7 +48,7 @@ namespace Xamarin.AndroidX.Migration
 				{
 					var ass = assembliesToMerge[i];
 					var temp = Path.Combine(tempRoot, Guid.NewGuid().ToString() + ".dll");
-					InjectAssemblyName(ass, temp);
+					InjectAssemblyName(assemblyResolver, ass, temp);
 					assembliesToMerge[i] = temp;
 				}
 
@@ -56,13 +66,13 @@ namespace Xamarin.AndroidX.Migration
 				AllowMultipleAssemblyLevelAttributes = true,
 				LogVerbose = Verbose
 			};
+			options.AllowedDuplicateTypes.Add(InjectedAttributeFullName, InjectedAttributeFullName);
+
 			var repacker = new ILRepack(options);
 			repacker.Repack();
 
 			if (InjectAssemblyNames)
 			{
-				MergeAssemblyNameAttributes(outputPath);
-
 				if (Directory.Exists(tempRoot))
 				{
 					try
@@ -76,7 +86,7 @@ namespace Xamarin.AndroidX.Migration
 			}
 		}
 
-		private void InjectAssemblyName(string assemblyPath, string outputPath)
+		private void InjectAssemblyName(IAssemblyResolver assemblyResolver, string assemblyPath, string outputPath)
 		{
 			var assemblyName = Path.GetFileNameWithoutExtension(assemblyPath);
 
@@ -84,9 +94,7 @@ namespace Xamarin.AndroidX.Migration
 			{
 				var module = assembly.MainModule;
 
-				var mscorlibName = module.AssemblyReferences.FirstOrDefault(a => a.Name == "mscorlib");
-				var mscorlib = module.AssemblyResolver.Resolve(mscorlibName);
-				var attributeType = mscorlib.MainModule.GetType("System.Attribute");
+				var attributeType = ResolveSystemAttribute(module);
 				var baseCtor = attributeType.Methods.FirstOrDefault(m => m.Name == ".ctor");
 
 				var iana = new TypeDefinition(InjectedAttributeNamespace, InjectedAttributeTypeName, TypeAttributes.Class);
@@ -137,43 +145,17 @@ namespace Xamarin.AndroidX.Migration
 
 				assembly.Write(outputPath);
 			}
-		}
 
-		private void MergeAssemblyNameAttributes(string assemblyPath)
-		{
-			using (var assembly = AssemblyDefinition.ReadAssembly(assemblyPath, new ReaderParameters { ReadWrite = true }))
+			TypeDefinition ResolveSystemAttribute(ModuleDefinition module)
 			{
-				var correct = assembly.MainModule.GetType(InjectedAttributeNamespace + "." + InjectedAttributeTypeName);
-				correct.Attributes |= TypeAttributes.Public;
-				correct.CustomAttributes.Clear();
-
-				foreach (var type in assembly.MainModule.Types.ToArray())
+				foreach (var reference in module.AssemblyReferences)
 				{
-					var attribute = type.CustomAttributes.FirstOrDefault(a => IsRandomType(a.AttributeType));
-					if (attribute != null && attribute.Constructor.DeclaringType != correct)
-					{
-						type.CustomAttributes.Add(new CustomAttribute(correct.Methods[0])
-						{
-							ConstructorArguments = { attribute.ConstructorArguments[0] }
-						});
-						type.CustomAttributes.Remove(attribute);
-					}
+					var resolved = assemblyResolver.Resolve(reference);
+					var attributeType = resolved.MainModule.GetType("System.Attribute");
+					if (attributeType != null)
+						return attributeType;
 				}
-
-				foreach (var type in assembly.MainModule.Types.Where(IsRandomType).ToArray())
-				{
-					assembly.MainModule.Types.Remove(type);
-				}
-
-				assembly.Write();
-			}
-
-			bool IsRandomType(TypeReference attr)
-			{
-				return
-					attr.Namespace == InjectedAttributeNamespace &&
-					attr.Name.EndsWith(InjectedAttributeTypeName) &&
-					attr.Name != InjectedAttributeTypeName;
+				throw new Exception("Unable to locate System.Attribute in any of the assemblies.");
 			}
 		}
 	}
