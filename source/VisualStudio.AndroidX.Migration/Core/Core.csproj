@@ -12,7 +12,6 @@
     <PackageTags>Xamarin.AndroidX Xamarin Android Support AndroidX Migration VS VSMac</PackageTags>
     <Authors>Microsoft</Authors>
     <Owners>Microsoft</Owners>
-    <GitBaseVersion>1.0.0</GitBaseVersion>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
   </PropertyGroup>
 
