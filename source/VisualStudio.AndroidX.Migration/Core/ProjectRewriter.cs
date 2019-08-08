@@ -30,7 +30,6 @@ namespace VisualStudio.AndroidX.Migration
 			var itemGroups = doc.GetElementsByTagName("ItemGroup");
 			foreach (var group in itemGroups.OfType<XmlElement>())
 			{
-				//var replacements = new Dictionary<XmlElement, XmlElement>();
 				var references = group.ChildNodes.OfType<XmlElement>().Where(c => c.Name == "PackageReference");
 				foreach (var reference in references)
 				{
@@ -56,19 +55,9 @@ namespace VisualStudio.AndroidX.Migration
 								versionAttribute.InnerText = androidXVersion;
 								reference.Attributes.Append(versionAttribute);
 							}
-							//var replacement = doc.CreateElement(reference.Name, reference.NamespaceURI);
-							//foreach (var attribute in reference.Attributes.OfType<XmlAttribute>())
-							//{
-							//	replacement.Attributes.Append(attribute);
-							//}
-							//replacements.Add(reference, replacement);
-							}
+						}
 					}
 				}
-				//foreach (var replacement in replacements)
-				//{
-				//	group.ReplaceChild(replacement.Value, replacement.Key);
-				//}
 			}
 			return doc.InnerXml;
 		}

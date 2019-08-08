@@ -39,15 +39,15 @@ namespace Core
 
 		public Solution MigrateProject(Project project, Solution solution)
 		{
-			foreach (var reference in project.MetadataReferences)
-				if (resolver.Nugets.Keys.Contains(Path.GetFileNameWithoutExtension(reference.Display)) && !resolver.AndroidAssemblies.Any(a => Path.GetFileName(a.CodeBase) == Path.GetFileName(reference.Display)))
-					resolver.AndroidAssemblies.Add(Assembly.ReflectionOnlyLoadFrom(reference.Display));
-			solution = MigrateDocuments(project, solution);
+			//foreach (var reference in project.MetadataReferences)
+			//	if (resolver.Nugets.Keys.Contains(Path.GetFileNameWithoutExtension(reference.Display)) && !resolver.AndroidAssemblies.Any(a => Path.GetFileName(a.CodeBase) == Path.GetFileName(reference.Display)))
+			//		resolver.AndroidAssemblies.Add(Assembly.ReflectionOnlyLoadFrom(reference.Display));
+			//solution = MigrateDocuments(project, solution);
 			MigrateNugets(project);
-			foreach (var reference in project.MetadataReferences)
-				if (resolver.Nugets.Values.Any(v => v.Key == (Path.GetFileNameWithoutExtension(reference.Display))) && !resolver.AndroidXAssemblies.Any(a => Path.GetFileName(a.CodeBase) == Path.GetFileName(reference.Display)))
-					resolver.AndroidXAssemblies.Add(Assembly.ReflectionOnlyLoadFrom(reference.Display));
-			solution = PostProcessProject(project, solution);
+			//foreach (var reference in project.MetadataReferences)
+			//	if (resolver.Nugets.Values.Any(v => v.Key == (Path.GetFileNameWithoutExtension(reference.Display))) && !resolver.AndroidXAssemblies.Any(a => Path.GetFileName(a.CodeBase) == Path.GetFileName(reference.Display)))
+			//		resolver.AndroidXAssemblies.Add(Assembly.ReflectionOnlyLoadFrom(reference.Display));
+			//solution = PostProcessProject(project, solution);
 			Jetify(project);
 
 			return solution;
