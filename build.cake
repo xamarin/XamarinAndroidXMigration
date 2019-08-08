@@ -1,11 +1,10 @@
-#tool "nuget:https://www.nuget.org/api/v2?package=xunit.runner.console&version=2.4.1"
+#tool "nuget:?package=xunit.runner.console&version=2.4.1"
+
 #addin "nuget:?package=Cake.FileHelpers&version=3.2.0"
 
 var target = Argument("t", Argument("target", "Default"));
 var verbosity = Argument("v", Argument("verbosity", "Normal"));
 var configuration = Argument("c", Argument("configuration", "Release"));
-
-var nugetPath = Context.Tools.Resolve("nuget.exe");
 
 var jetifierVersion = "1.0.0";
 var jetifierBetaVersion = "-beta05";
@@ -123,7 +122,6 @@ Task("DownloadXamarinFacebookSdk")
     EnsureDirectoryExists(sdkRoot);
 
     NuGetInstall(facebookNugets, new NuGetInstallSettings {
-        ToolPath = nugetPath,
         Version = facebookVersion,
         ExcludeVersion = true,
         OutputDirectory = sdkRoot
