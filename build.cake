@@ -207,7 +207,12 @@ Task("Libraries")
 
     MSBuild("./source/VisualStudio.AndroidX.Migration/VisualStudio.AndroidX.Migration.sln", new MSBuildSettings {
         Configuration = configuration,
-        Restore = true
+        Restore = true,
+        BinaryLogger = new MSBuildBinaryLogSettings
+        {
+            Enabled = true,
+            FileName = MakeAbsolute((DirectoryPath)"./output/vsbuild.binlog").FullPath,
+        }
     });
 });
 
@@ -331,11 +336,18 @@ Task("NuGets")
             .Append($"/p:PackageVersion={previewVersion}"),
     });
     var migrator = "./source/VisualStudio.AndroidX.Migration/Core/Core.csproj";
-    DotNetCorePack(migrator, new DotNetCorePackSettings {
-        NoBuild = true,
+    var settings = new MSBuildSettings {
         Configuration = configuration,
-        OutputDirectory = "./output/nugets/",
-    });
+        Properties = {
+            { "PackageOutputPath", new [] { "../../../output/nugets/" } },
+        },
+        BinaryLogger = new MSBuildBinaryLogSettings
+        {
+            Enabled = true,
+            FileName = MakeAbsolute((DirectoryPath)"./output/pack.binlog").FullPath,
+        }
+    };
+    MSBuild(migrator, settings.WithTarget("Pack"));
 });
 
 Task("Samples")
