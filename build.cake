@@ -16,6 +16,11 @@ var azureBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1
 var legacyBuildNumber = "4437";
 var legacyBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1b47c07a8/_apis/build/builds/{legacyBuildNumber}/artifacts?artifactName=nuget&%24format=zip&api-version=5.0";
 
+var NUGET_EXE = "./tools/nuget.exe";
+if (!FileExists(NUGET_EXE)) {
+    DownloadFile("https://dist.nuget.org/win-x86-commandline/latest/nuget.exe", NUGET_EXE);
+}
+
 var JAVA_HOME = EnvironmentVariable ("JAVA_HOME");
 
 var BUILD_BASE_VERSION = EnvironmentVariable("BUILD_BASE_VERSION") ?? "1.0.0";
@@ -32,7 +37,6 @@ var BUILD_VERSION_PRERELEASE = string.IsNullOrEmpty(BUILD_PRERELEASE_OVERRIDE)
 var BUILD_PACKAGE_VERSION = BUILD_PRODUCE_PRERELEASE
     ? BUILD_VERSION_PRERELEASE
     : BUILD_VERSION_STABLE;
-
 
 Task("JetifierWrapper")
     .Does(() =>
@@ -275,6 +279,7 @@ Task("NuGets")
         }
 
         NuGetPack(nuspec, new NuGetPackSettings {
+            ToolPath = NUGET_EXE,
             OutputDirectory = "./output/nugets/",
             RequireLicenseAcceptance = true,
             Version = BUILD_PACKAGE_VERSION,
