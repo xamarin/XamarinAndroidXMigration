@@ -109,25 +109,6 @@ Task("DownloadNativeFacebookSdk")
     }
 });
 
-Task("DownloadXamarinFacebookSdk")
-    .Does(() =>
-{
-    var sdkRoot = "./externals/test-assets/xamarin-facebook-sdk/";
-
-    string [] facebookSdks = { "AppLinks", "Common", "Core", "Login", "Marketing", "Places", "Share" };
-    var facebookFilename = "Xamarin.Facebook.{0}.Android";
-    var facebookVersion = "4.40.0";
-    var facebookNugets = facebookSdks.Select(sdk => string.Format(facebookFilename, sdk));
-
-    EnsureDirectoryExists(sdkRoot);
-
-    NuGetInstall(facebookNugets, new NuGetInstallSettings {
-        Version = facebookVersion,
-        ExcludeVersion = true,
-        OutputDirectory = sdkRoot
-    });
-});
-
 Task("DownloadAndroidXAssets")
     .Does(() =>
 {
@@ -165,7 +146,6 @@ Task("NativeAssets")
     .IsDependentOn("JavaProjects")
     .IsDependentOn("JetifierWrapper")
     .IsDependentOn("DownloadNativeFacebookSdk")
-    .IsDependentOn("DownloadXamarinFacebookSdk")
     .IsDependentOn("DownloadAndroidXAssets");
 
 Task("Libraries")
