@@ -61,7 +61,6 @@ jobs:
       - task: PublishBuildArtifacts@1
         condition: eq(variables['System.JobName'], 'windows')
         displayName: 'Publish artifacts'
-        condition: always()
         inputs:
           PathToPublish: output/nugets
           ArtifactName: nuget
