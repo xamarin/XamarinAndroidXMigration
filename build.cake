@@ -346,12 +346,6 @@ Task("Samples")
             Properties = {
                 { "DesignTimeBuild", new [] { "false" } },
                 { "AndroidSdkBuildToolsVersion", new [] { "28.0.3" } },
-
-                // a flag to ensure we use the nugets
-                { "UseMigratorNuGetPackages", new [] { "true" } },
-                // make sure to restore to a temporary location
-                { "RestoreNoCache", new [] { "true" } },
-                { "RestorePackagesPath", new [] { "./externals/packages" } },
             },
         });
     }

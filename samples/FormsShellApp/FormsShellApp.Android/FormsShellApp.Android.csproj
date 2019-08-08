@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\..\output\Xamarin.AndroidX.Migration.BuildTasks\build\Xamarin.AndroidX.Migration.props" Condition="'$(UseMigratorNuGetPackages)' != 'true'" />
+  <Import Project="..\..\..\output\Xamarin.AndroidX.Migration.BuildTasks\build\Xamarin.AndroidX.Migration.props" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -65,16 +65,12 @@
     <PackageReference Include="Xamarin.Android.Support.Core.Utils" Version="28.0.0.1" />
     <PackageReference Include="Xamarin.Android.Support.CustomTabs" Version="28.0.0.1" />
     <!-- AndroidX -->
-    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.0.0" />
-    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.0.2" />
-    <PackageReference Include="Xamarin.AndroidX.Browser" Version="1.0.0" />
-    <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0" />
-    <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0" />
-    <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.0.0" />
-    <!-- AndroidX Migration -->
-  </ItemGroup>
-  <ItemGroup Condition="'$(UseMigratorNuGetPackages)' == 'true'">
-    <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.0" />
+    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.0.0-preview02" />
+    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.0.2-preview02" />
+    <PackageReference Include="Xamarin.AndroidX.Browser" Version="1.0.0-preview02" />
+    <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0-preview02" />
+    <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0-preview02" />
+    <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.0.0-preview02" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -120,5 +116,5 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
-  <Import Project="..\..\..\output\Xamarin.AndroidX.Migration.BuildTasks\build\Xamarin.AndroidX.Migration.targets" Condition="'$(UseMigratorNuGetPackages)' != 'true'" />
+  <Import Project="..\..\..\output\Xamarin.AndroidX.Migration.BuildTasks\build\Xamarin.AndroidX.Migration.targets" />
 </Project>
