@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Console
+namespace VisualStudio.AndroidX.Migration
 {
 	class Program
 	{
 		static void Main(string[] args)
 		{
-			var runner = new MigrationRunner();
+			var runner = new MigrationRunner(new ConsoleProgress());
 			runner.MigrateSolution(args[0]);
 		}
 	}

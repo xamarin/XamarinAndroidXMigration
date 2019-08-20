@@ -10,12 +10,14 @@ namespace VisualStudio.AndroidX.Migration
 	{
 		public SemanticModel Semantic { get; set; }
 		protected ITranslationResolver resolver;
+        private IProgress<string> progress;
 
-		internal abstract bool UsesSemantic { get; }
+        internal abstract bool UsesSemantic { get; }
 
-		public MigrationRewriter(ITranslationResolver resolver)
+		public MigrationRewriter(ITranslationResolver resolver, IProgress<string> progress)
 		{
 			this.resolver = resolver;
+            this.progress = progress;
 		}
 
 		public Solution Visit(Solution solution, Document document)

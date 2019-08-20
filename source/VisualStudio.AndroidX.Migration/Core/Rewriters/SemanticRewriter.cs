@@ -13,7 +13,7 @@ namespace VisualStudio.AndroidX.Migration
 
 		internal override bool UsesSemantic => true;
 
-		public SemanticRewriter(ITranslationResolver assemblyResolver) : base(assemblyResolver)
+		public SemanticRewriter(ITranslationResolver assemblyResolver, IProgress<string> progress) : base(assemblyResolver, progress)
 		{
 			this.assemblyResolver = assemblyResolver;
 		}

@@ -12,16 +12,18 @@ namespace Core
 	public class MigrationRunner
 	{
 		private TranslationResolver resolver;
+        private IProgress<string> progress;
 
-		public MigrationRunner()
+        public MigrationRunner(IProgress<string> progress)
 		{
 			var androidDirectory = Path.Combine(Path.GetDirectoryName(typeof(MigrationRunner).Assembly.Location), "Assemblies\\Android");
 			var androidXDirectory = Path.Combine(Path.GetDirectoryName(typeof(MigrationRunner).Assembly.Location), "Assemblies\\AndroidX");
 
 			resolver = new TranslationResolver(null, null);
+            this.progress = progress;
 		}
 
-		public void MigrateSolution(string solutionPath)
+		public void MigrateSolution(string solutionPath, bool addMigrationNuget = false, bool migrateCode = false)
 		{
 			var workspace = MSBuildWorkspace.Create();
 			workspace.WorkspaceFailed += (s,e) => { Console.WriteLine(e.Diagnostic.Message); };
@@ -29,21 +31,24 @@ namespace Core
 
 			var newSolution = solution;
 
+            progress.Report("Migrating Solution");
+
 			foreach (var project in solution.Projects)
 			{
-				newSolution = MigrateProject(project, newSolution);
+                progress.Report(project.Name);
+				newSolution = MigrateProject(project, newSolution, addMigrationNuget, migrateCode);
 			}
 
 			workspace.TryApplyChanges(newSolution);
 		}
 
-		public Solution MigrateProject(Project project, Solution solution)
+		public Solution MigrateProject(Project project, Solution solution, bool addMigrationNuget, bool migrateCode)
 		{
 			//foreach (var reference in project.MetadataReferences)
 			//	if (resolver.Nugets.Keys.Contains(Path.GetFileNameWithoutExtension(reference.Display)) && !resolver.AndroidAssemblies.Any(a => Path.GetFileName(a.CodeBase) == Path.GetFileName(reference.Display)))
 			//		resolver.AndroidAssemblies.Add(Assembly.ReflectionOnlyLoadFrom(reference.Display));
 			//solution = MigrateDocuments(project, solution);
-			MigrateNugets(project);
+			MigrateNugets(project, addMigrationNuget);
 			//foreach (var reference in project.MetadataReferences)
 			//	if (resolver.Nugets.Values.Any(v => v.Key == (Path.GetFileNameWithoutExtension(reference.Display))) && !resolver.AndroidXAssemblies.Any(a => Path.GetFileName(a.CodeBase) == Path.GetFileName(reference.Display)))
 			//		resolver.AndroidXAssemblies.Add(Assembly.ReflectionOnlyLoadFrom(reference.Display));
@@ -57,8 +62,8 @@ namespace Core
 		{
 			var rewriters = new List<IRewriter>
 			{
-				new TypeRewriter(resolver),
-				new SemanticRewriter(resolver)
+				new TypeRewriter(resolver, progress),
+				new SemanticRewriter(resolver, progress)
 			};
 
 			foreach (var document in project.Documents)
@@ -69,17 +74,17 @@ namespace Core
 			return solution;
 		}
 
-		private void MigrateNugets(Project project)
+		private void MigrateNugets(Project project, bool addMigrationNuget)
 		{
-			var rewriter = new ProjectRewriter(resolver);
-			rewriter.RewriteProject(project.FilePath);
+			var rewriter = new ProjectRewriter(resolver, progress);
+			rewriter.RewriteProject(project.FilePath, addMigrationNuget);
 		}
 
 		private Solution PostProcessProject(Project project, Solution solution)
 		{
 			var rewriters = new List<IRewriter>
 			{
-				new NamespaceRewriter(resolver)
+				new NamespaceRewriter(resolver, progress)
 			};
 
 			foreach (var document in project.Documents)
