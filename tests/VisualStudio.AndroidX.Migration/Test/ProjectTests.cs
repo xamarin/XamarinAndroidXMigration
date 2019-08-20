@@ -13,7 +13,7 @@ namespace VisualStudio.AndroidX.Migration
 			var csproj = versionedCsProj;
 
 			var resolver = new TranslationResolver(new List<string>(), new List<string> { });
-			var projectFixer = new ProjectRewriter(resolver);
+			var projectFixer = new ProjectRewriter(resolver, new NullProgress());
 
 			csproj = projectFixer.RewriteCSProj(csproj);
 
@@ -23,14 +23,26 @@ namespace VisualStudio.AndroidX.Migration
 			Assert.Contains(@"<Version>27.0.0.1</Version>", csproj); //don't remove version for xamarin.essentials
 		}
 		
+        [Fact]
+        public void when_include_migration_then_migration_is_present()
+        {
+            var csproj = sampleCsProj;
 
-		[Fact]
+            var resolver = new TranslationResolver(new List<string>(), new List<string> { });
+            var projectFixer = new ProjectRewriter(resolver, new NullProgress());
+
+            csproj = projectFixer.RewriteCSProj(csproj, true);
+
+            Assert.Contains(@"<PackageReference Include=""Xamarin.AndroidX.Migration"" Version=""1.0.0-preview03"" />", csproj);
+        }
+
+        [Fact]
 		public void when_nuget_is_àppcompat_replace_with_androidx()
 		{
 			var csproj = sampleCsProj;
 
 			var resolver = new TranslationResolver(new List<string>(), new List<string> { });
-			var projectFixer = new ProjectRewriter(resolver);
+			var projectFixer = new ProjectRewriter(resolver, new NullProgress());
 
 			csproj = projectFixer.RewriteCSProj(csproj);
 
@@ -44,7 +56,7 @@ namespace VisualStudio.AndroidX.Migration
 			var csproj = sampleCsProj;
 
 			var resolver = new TranslationResolver(new List<string>(), new List<string> { });
-			var projectFixer = new ProjectRewriter(resolver);
+			var projectFixer = new ProjectRewriter(resolver, new NullProgress());
 
 			csproj = projectFixer.RewriteCSProj(csproj);
 
@@ -57,7 +69,7 @@ namespace VisualStudio.AndroidX.Migration
 			var csproj = poolMathCsproj;
 
 			var resolver = new TranslationResolver(new List<string>(), new List<string> { });
-			var projectFixer = new ProjectRewriter(resolver);
+			var projectFixer = new ProjectRewriter(resolver, new NullProgress());
 
 			csproj = projectFixer.RewriteCSProj(csproj);
 
@@ -72,7 +84,7 @@ namespace VisualStudio.AndroidX.Migration
 			var csproj = sampleCsProj;
 
 			var resolver = new TranslationResolver(new List<string>(), new List<string> { });
-			var projectFixer = new ProjectRewriter(resolver);
+			var projectFixer = new ProjectRewriter(resolver, new NullProgress());
 				
 			csproj = projectFixer.RewriteCSProj(csproj);
 

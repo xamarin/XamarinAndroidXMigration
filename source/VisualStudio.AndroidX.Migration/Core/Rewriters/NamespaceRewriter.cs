@@ -13,7 +13,7 @@ namespace VisualStudio.AndroidX.Migration
 
 		internal override bool UsesSemantic => false;
 
-		public NamespaceRewriter(ITranslationResolver assemblyResolver) : base(assemblyResolver)
+		public NamespaceRewriter(ITranslationResolver assemblyResolver, IProgress<string> progress) : base(assemblyResolver, progress)
 		{
 			this.assemblyResolver = assemblyResolver;
 		}

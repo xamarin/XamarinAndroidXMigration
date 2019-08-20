@@ -23,7 +23,7 @@ namespace VisualStudio.AndroidX.Migration
 			}
 		}");
 
-			var methodFixer = new TypeRewriter(resolver);
+			var methodFixer = new TypeRewriter(resolver, new NullProgress());
 			solution = methodFixer.Visit(solution, GetFirstDocument(solution));
 
 			var root = GetText(solution);
@@ -48,7 +48,7 @@ namespace VisualStudio.AndroidX.Migration
 
 			var solution = CreateSolution(file);
 
-			var methodFixer = new TypeRewriter(resolver);
+			var methodFixer = new TypeRewriter(resolver, new NullProgress());
 			solution = methodFixer.Visit(solution, GetFirstDocument(solution));
 
 			var root = GetText(solution);
@@ -73,7 +73,7 @@ namespace VisualStudio.AndroidX.Migration
 			}
 		}");
 
-			var methodFixer = new TypeRewriter(resolver);
+			var methodFixer = new TypeRewriter(resolver, new NullProgress());
 			solution = methodFixer.Visit(solution, GetFirstDocument(solution));
 
 			var root = GetText(solution);
@@ -99,7 +99,7 @@ namespace VisualStudio.AndroidX.Migration
 			}
 		}");
 
-			var methodFixer = new TypeRewriter(resolver);
+			var methodFixer = new TypeRewriter(resolver, new NullProgress());
 			solution = methodFixer.Visit(solution, GetFirstDocument(solution));
 
 			var root = GetText(solution);
@@ -123,7 +123,7 @@ namespace VisualStudio.AndroidX.Migration
 			}
 		}");
 
-			var methodFixer = new TypeRewriter(resolver);
+			var methodFixer = new TypeRewriter(resolver, new NullProgress());
 			solution = methodFixer.Visit(solution, GetFirstDocument(solution));
 
 			var root = GetText(solution);

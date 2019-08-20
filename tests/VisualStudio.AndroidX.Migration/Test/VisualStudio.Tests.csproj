@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="NamespaceTests.cs" />
     <Compile Include="NameTests.cs" />
+    <Compile Include="NullProgress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResolverTests.cs" />
     <Compile Include="TestBase.cs" />

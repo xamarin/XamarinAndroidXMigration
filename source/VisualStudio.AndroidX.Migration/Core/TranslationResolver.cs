@@ -24,35 +24,44 @@ namespace VisualStudio.AndroidX.Migration
 			FullTypeNames = new Dictionary<string, string>();
 			Nugets = new Dictionary<string, KeyValuePair<string, string>>();
 
-			var codeBase = new Uri(this.GetType().Assembly.CodeBase).AbsolutePath;
-			var binDirectory = Path.GetDirectoryName(codeBase);
+			using (var mapping = this.GetType().Assembly.GetManifestResourceStream("VisualStudio.AndroidX.Migration.Core.Resources.androidx-mapping.csv"))
+            {
+                using (var reader = new StreamReader(mapping))
+                { 
+                    var line = reader.ReadLine(); //skip first line
+			        while ((line = reader.ReadLine()) != null)
+			        {
+				        var values = line.Split(',');
+				        if (values[SupportNamespace] != string.Empty && values[AndroidXNamespace] != string.Empty)
+				        { 
+					        if (!Namespaces.Any(n => n.Key == values[SupportNamespace]))
+						        Namespaces.Add(values[SupportNamespace], values[AndroidXNamespace]);
 
-			var conversionFile = Path.Combine(binDirectory, "Resources\\androidx-mapping.csv");
-			foreach (var line in File.ReadLines(conversionFile).Skip(1))
-			{
-				var values = line.Split(',');
-				if (values[SupportNamespace] != string.Empty && values[AndroidXNamespace] != string.Empty)
-				{ 
-					if (!Namespaces.Any(n => n.Key == values[SupportNamespace]))
-						Namespaces.Add(values[SupportNamespace], values[AndroidXNamespace]);
+					        if (!FullTypeNames.Any(t => t.Key == $"{values[SupportNamespace]}.{values[SupportTypeName]}"))
+						        FullTypeNames.Add($"{values[SupportNamespace]}.{values[SupportTypeName]}", $"{values[AndroidXNamespace]}.{values[AndroidXTypeName]}");
+				        }
 
-					if (!FullTypeNames.Any(t => t.Key == $"{values[SupportNamespace]}.{values[SupportTypeName]}"))
-						FullTypeNames.Add($"{values[SupportNamespace]}.{values[SupportTypeName]}", $"{values[AndroidXNamespace]}.{values[AndroidXTypeName]}");
-				}
-
-			}
+			        }
+                }
+            }
 
 			AndroidAssemblies = AddAssemblies(androidAssemblyLocations ?? new List<string>(), AndroidAssemblies);
 			AndroidXAssemblies = AddAssemblies(androidXAssemblyLocations ?? new List<string>(), AndroidXAssemblies);
 
-			var nugetsFile = Path.Combine(binDirectory, "Resources\\androidx-assemblies.csv");
-			foreach (var line in File.ReadLines(nugetsFile).Skip(1))
-			{
-				var values = line.Split(',');
-				if (!Nugets.Any(n => n.Key == values[SupportNuget]))
-					Nugets.Add(values[SupportNuget], new KeyValuePair<string, string>(values[AndroidXNuget], values[AndroidXVersion]));
-			}
-		}
+            using (var nugets = this.GetType().Assembly.GetManifestResourceStream("VisualStudio.AndroidX.Migration.Core.Resources.androidx-assemblies.csv"))
+            {
+                using (var reader = new StreamReader(nugets))
+                {
+                    var line = reader.ReadLine(); //skip first line
+                    while ((line = reader.ReadLine()) != null)
+                    {
+				        var values = line.Split(',');
+				        if (!Nugets.Any(n => n.Key == values[SupportNuget]))
+					        Nugets.Add(values[SupportNuget], new KeyValuePair<string, string>(values[AndroidXNuget], values[AndroidXVersion]));
+			        }
+		        }
+            }
+        }
 
 		public IList<Assembly> AddAssemblies(IList<string> assemblyLocations, IList<Assembly> assemblies)
 		{

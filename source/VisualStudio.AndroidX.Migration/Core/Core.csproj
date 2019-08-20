@@ -13,6 +13,9 @@
     <Authors>Microsoft</Authors>
     <Owners>Microsoft</Owners>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>xamarin.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,13 +26,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\mappings\androidx-assemblies.csv">
+    <EmbeddedResource Include="..\..\..\mappings\androidx-assemblies.csv">
       <Link>Resources\androidx-assemblies.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\..\..\mappings\androidx-mapping.csv">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\mappings\androidx-mapping.csv">
       <Link>Resources\androidx-mapping.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
