@@ -133,6 +133,7 @@ Task("DownloadAndroidXAssets")
         CopyFileToDirectory($"{externalsRoot}nuget/AndroidSupport.Merged.dll", dllsRoot);
         CopyFileToDirectory($"{externalsRoot}nuget/AndroidX.Merged.dll", dllsRoot);
         CopyFileToDirectory($"{externalsRoot}nuget/androidx-mapping.csv", "mappings");
+        // CopyFileToDirectory($"{externalsRoot}nuget/dependencies.json", "mappings");
     }
 });
 

@@ -22,6 +22,7 @@ namespace AndroidXMigrator
 				"Available commands:",
 				new CecilfyCommand(),
 				new CompareCommand(),
+				new DependencyTreeCommand(),
 				new GenerateCommand(),
 				new JetifyCommand(),
 				new MergeCommand(),

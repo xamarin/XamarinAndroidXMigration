@@ -1,8 +1,10 @@
-﻿using Microsoft.Build.Framework;
-using Microsoft.Build.Utilities;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using Microsoft.Build.Framework;
+using Microsoft.Build.Utilities;
 
 namespace Xamarin.AndroidX.Migration.BuildTasks
 {
@@ -27,35 +29,69 @@ namespace Xamarin.AndroidX.Migration.BuildTasks
 				return true;
 			}
 
+			var hasMissing = false;
+
 			var assemblyNames = ResolvedAssemblies.Select(a => Path.GetFileNameWithoutExtension(a.ItemSpec));
-			var orderedNames = new SortedSet<string>(assemblyNames);
 
 			var mapping = new AndroidXAssembliesCsvMapping();
 
-			bool hasError = false;
+			var assemblyPairs = new Dictionary<string, string>();
+			var androidxAssemblies = new Dictionary<string, bool>();
 
-			foreach (var assembly in assemblyNames)
+			foreach (var support in assemblyNames)
 			{
 				// if there was no mapping found, then we don't care
-				if (!mapping.TryGetAndroidXAssembly(assembly, out var xAssembly))
+				if (!mapping.TryGetAndroidXAssembly(support, out var androidx))
 					continue;
 
 				ContainsSupportAssemblies = true;
 
-				Log.LogMessage(MessageImportance.Low, $"Making sure that the Android Support assembly '{assembly}' has a replacement Android X assembly...");
+				Log.LogMessage(MessageImportance.Low, $"Making sure that the Android Support assembly '{support}' has a replacement Android X assembly...");
 
 				// make sure the mapped assembly is referenced
-				if (orderedNames.Contains(xAssembly))
-				{
-					Log.LogMessage(MessageImportance.Low, $"Correctly replacing the Android Support assembly '{assembly}' with Android X '{xAssembly}'.");
+				var exists = assemblyNames.Contains(androidx);
+				androidxAssemblies[androidx] = exists;
+				assemblyPairs[androidx] = support;
 
-					continue;
+				if (exists)
+				{
+					Log.LogMessage(MessageImportance.Low, $"Found the Android X assembly '{androidx}'.");
+				}
+				else
+				{
+					Log.LogMessage(MessageImportance.Low, $"Missing the Android X assembly '{androidx}'.");
+					hasMissing = true;
+				}
+			}
+
+			if (hasMissing)
+			{
+				var missing = androidxAssemblies.Where(p => !p.Value).Select(p => p.Key).ToArray();
+
+				var tree = PackageDependencyTree.Load();
+
+				var reduced = tree.Reduce(missing).ToArray();
+
+				var packages = new StringBuilder();
+				var references = new StringBuilder();
+
+				foreach (var assembly in reduced)
+				{
+					mapping.TryGetAndroidXPackage(assembly, out var package);
+					mapping.TryGetAndroidXVersion(assembly, out var version);
+
+					packages.AppendLine();
+					packages.Append($" - {package}");
+
+					references.AppendLine();
+					references.Append($"    <PackageReference Include=\"{package}\" Version=\"{version}\" />");
 				}
 
-				// the mapped assembly was not found, so this is an error
-				hasError = true;
-				mapping.TryGetAndroidXPackage(assembly, out var package);
-				var msg = $"Could not find the Android X replacement assembly '{xAssembly}' for '{assembly}'. Make sure the Android X NuGet package '{package}' is installed.";
+				var msg =
+					$"Could not find {missing.Length} Android X assemblies, make sure to install the following NuGet packages:" +
+					packages + Environment.NewLine +
+					$"You can also copy-and-paste the following snippet into your .csproj file:" +
+					references;
 
 				if (UseWarningsInsteadOfErrors)
 					Log.LogWarning(msg);
@@ -63,7 +99,7 @@ namespace Xamarin.AndroidX.Migration.BuildTasks
 					Log.LogError(msg);
 			}
 
-			return !hasError || UseWarningsInsteadOfErrors;
+			return !hasMissing || UseWarningsInsteadOfErrors;
 		}
 	}
 }
