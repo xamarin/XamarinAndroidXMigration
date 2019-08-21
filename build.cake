@@ -21,8 +21,6 @@ if (!FileExists(NUGET_EXE)) {
     DownloadFile("https://dist.nuget.org/win-x86-commandline/latest/nuget.exe", NUGET_EXE);
 }
 
-var JAVA_HOME = EnvironmentVariable ("JAVA_HOME");
-
 var BUILD_BASE_VERSION = EnvironmentVariable("BUILD_BASE_VERSION") ?? "1.0.0";
 var BUILD_PREVIEW_LABEL = EnvironmentVariable("BUILD_PREVIEW_LABEL") ?? "preview";
 var BUILD_NUMBER = EnvironmentVariable("BUILD_NUMBER") ?? "0";
@@ -173,7 +171,6 @@ Task("Libraries")
         Properties = {
             { "DesignTimeBuild", new [] { "false" } },
             { "AndroidSdkBuildToolsVersion", new [] { "28.0.3" } },
-            { "JavaSdkDirectory", new [] { JAVA_HOME } },
         },
     });
 
@@ -204,6 +201,7 @@ Task("Tests")
     .Does(() =>
 {
     var testProjects = GetFiles("./tests/**/*.Tests.csproj");
+    var failed = false;
     foreach (var proj in testProjects) {
         try {
             DotNetCoreTest(proj.GetFilename().ToString(), new DotNetCoreTestSettings {
@@ -215,10 +213,13 @@ Task("Tests")
                 ResultsDirectory = $"./output/test-results/{proj.GetFilenameWithoutExtension()}",
             });
         } catch (Exception ex) {
-            Error("Tests failed with an error.");
+            failed = true;
+            Error("Tests failed: " + ex.Message);
             Error(ex);
         }
     }
+    if (failed)
+        throw new Exception("Some tests failed.");
 });
 
 Task("VSTestPrepare")
@@ -334,7 +335,6 @@ Task("Samples")
             Properties = {
                 { "DesignTimeBuild", new [] { "false" } },
                 { "AndroidSdkBuildToolsVersion", new [] { "28.0.3" } },
-                { "JavaSdkDirectory", new [] { JAVA_HOME } },
             },
         });
     }
