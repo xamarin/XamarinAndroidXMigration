@@ -8,6 +8,7 @@ namespace Xamarin.AndroidX.Migration
 	{
 		private readonly SortedDictionary<string, string> assemblyMapping = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 		private readonly SortedDictionary<string, string> packageMapping = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+		private readonly SortedDictionary<string, string> versionMapping = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
 		public AndroidXAssembliesCsvMapping()
 		{
@@ -32,21 +33,27 @@ namespace Xamarin.AndroidX.Migration
 			var supportAssembly = record[(int)Column.SupportNetAssembly];
 			var xAssembly = record[(int)Column.AndroidXNetAssembly];
 			var xPackage = record[(int)Column.AndroidXNuGet];
+			var xVersion = record[(int)Column.AndroidXVersion];
 
 			if (string.IsNullOrWhiteSpace(supportAssembly) ||
 				string.IsNullOrWhiteSpace(xAssembly) ||
-				string.IsNullOrWhiteSpace(xPackage))
+				string.IsNullOrWhiteSpace(xPackage) ||
+				string.IsNullOrWhiteSpace(xVersion))
 				return;
 
 			assemblyMapping[supportAssembly] = xAssembly;
-			packageMapping[supportAssembly] = xPackage;
+			packageMapping[xAssembly] = xPackage;
+			versionMapping[xAssembly] = xVersion;
 		}
 
 		public bool TryGetAndroidXAssembly(string supportAssembly, out string xAssembly) =>
 			assemblyMapping.TryGetValue(supportAssembly, out xAssembly);
 
-		public bool TryGetAndroidXPackage(string supportAssembly, out string xPackage) =>
-			packageMapping.TryGetValue(supportAssembly, out xPackage);
+		public bool TryGetAndroidXPackage(string xAssembly, out string xPackage) =>
+			packageMapping.TryGetValue(xAssembly, out xPackage);
+
+		public bool TryGetAndroidXVersion(string xAssembly, out string xVersion) =>
+			versionMapping.TryGetValue(xAssembly, out xVersion);
 
 		public bool ContainsSupportAssembly(string supportAssembly) =>
 			assemblyMapping.ContainsKey(supportAssembly);
@@ -56,7 +63,8 @@ namespace Xamarin.AndroidX.Migration
 			SupportNetAssembly,
 			AndroidXNetAssembly,
 			SupportNuGet,
-			AndroidXNuGet
+			AndroidXNuGet,
+			AndroidXVersion
 		}
 	}
 }

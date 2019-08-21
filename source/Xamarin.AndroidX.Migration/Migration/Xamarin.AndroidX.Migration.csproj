@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Content Include="..\..\..\mappings\*.csv" Link="Tools\Mappings\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\..\mappings\*.json" Link="Tools\Mappings\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="..\..\..\output\JetifierWrapper\*" Link="Tools\JetifierWrapper\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
