@@ -77,7 +77,7 @@ jobs:
         condition: always()
         inputs:
           testResultsFormat: xUnit
-          testResultsFiles: output/test-results/*/TestResults.xml
+          testResultsFiles: output/test-results/**/*.xml
           testRunTitle: 'tests-$(System.JobName)'
       # publish the output with the os name
       - task: PublishBuildArtifacts@1

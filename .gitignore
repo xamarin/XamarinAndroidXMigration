@@ -7,7 +7,6 @@ tools
 !tools/packages.config
 .gradle
 output
-tests/VisualStudio.AndroidX.Migration/Test/Assemblies
 
 # User-specific files
 *.suo

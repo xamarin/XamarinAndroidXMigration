@@ -200,8 +200,10 @@ Task("Tests")
     .IsDependentOn("Libraries")
     .Does(() =>
 {
-    var testProjects = GetFiles("./tests/**/*.Tests.csproj");
     var failed = false;
+
+    // test projects using dotnet core
+    var testProjects = GetFiles("./tests/Xamarin.AndroidX.Migration/**/*.Tests.csproj");
     foreach (var proj in testProjects) {
         try {
             DotNetCoreTest(proj.GetFilename().ToString(), new DotNetCoreTestSettings {
@@ -218,6 +220,19 @@ Task("Tests")
             Error(ex);
         }
     }
+
+    // test projects using xunit test runner
+    try {
+        XUnit2("./tests/VisualStudio.AndroidX.Migration/*/bin/Release/*/VisualStudio.AndroidX.Migration.Tests.dll", new XUnit2Settings {
+            XmlReport = true,
+            OutputDirectory = $"./output/test-results/VisualStudio.AndroidX.Migration.Tests",
+        });
+    } catch (Exception ex) {
+        failed = true;
+        Error("Tests failed: " + ex.Message);
+        Error(ex);
+    }
+
     if (failed)
         throw new Exception("Some tests failed.");
 });
@@ -228,7 +243,7 @@ Task("VSTestPrepare")
     .Does(() =>
 {
     var externalRoot = "./externals/";
-    var testAssembliesFolder = "./tests/VisualStudio.AndroidX.Migration/Test/Assemblies/";
+    var testAssembliesFolder = "./externals/test-assets/vs-tests/Assemblies/";
 
     if (!DirectoryExists($"{testAssembliesFolder}AndroidX")) {
         var androidXNugets = new [] {
