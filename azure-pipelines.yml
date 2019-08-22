@@ -6,7 +6,7 @@ trigger:
 
 variables:
   VERBOSITY: normal
-  MONO_VERSION: 6_0_0
+  MONO_VERSION: 5_18_1
   XCODE_VERSION: 10.3
   CAKE_VERSION: 0.34.1
   DOTNET_CORE_VERSION: 2.2.108
@@ -31,7 +31,6 @@ jobs:
       matrix:
         macos:
           imageName: 'Hosted macOS'
-          DepsFileGenerationMode: old
         windows:
           imageName: 'Hosted Windows 2019 with VS2019'
     displayName: 'Build'
