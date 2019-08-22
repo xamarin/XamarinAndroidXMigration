@@ -8,9 +8,6 @@ namespace VisualStudio.AndroidX.Migration
 {
 	public class TestBase
 	{
-		// the xUnit runner needs this otherwise it loses the assembly when running on CI
-		public static readonly Microsoft.CodeAnalysis.CSharp.LanguageVersion DummyType;
-
 		internal static ITranslationResolver resolver;
 
 		static TestBase()
