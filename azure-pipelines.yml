@@ -30,9 +30,9 @@ jobs:
     strategy:
       matrix:
         macos:
-          imageName: 'Hosted Mac Internal Mojave'
+          imageName: 'macOS-10.14'
         windows:
-          imageName: 'Hosted Windows 2019 with VS2019'
+          imageName: 'windows-2019'
     displayName: 'Build'
     pool:
       name: $(imageName)
