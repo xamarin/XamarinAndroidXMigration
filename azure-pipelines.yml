@@ -6,8 +6,8 @@ trigger:
 
 variables:
   VERBOSITY: normal
-  MONO_VERSION: 5_18_1
-  XCODE_VERSION: 10.2.1
+  MONO_VERSION: 6_0_0
+  XCODE_VERSION: 10.3
   CAKE_VERSION: 0.34.1
   DOTNET_CORE_VERSION: 2.2.108
   BUILD_NUMBER: $[counter('$(Build.SourceBranchName)_counter', 1)]
