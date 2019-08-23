@@ -222,15 +222,20 @@ Task("Tests")
     }
 
     // test projects using xunit test runner
-    try {
-        XUnit2("./tests/VisualStudio.AndroidX.Migration/*/bin/Release/*/VisualStudio.AndroidX.Migration.Tests.dll", new XUnit2Settings {
-            XmlReport = true,
-            OutputDirectory = $"./output/test-results/VisualStudio.AndroidX.Migration.Tests",
-        });
-    } catch (Exception ex) {
-        failed = true;
-        Error("Tests failed: " + ex.Message);
-        Error(ex);
+    var testAssemblies = GetFiles("./tests/VisualStudio.AndroidX.Migration/*/bin/Release/*/*.Tests.dll");
+    foreach (var assembly in testAssemblies) {
+        try {
+            XUnit2(new [] { assembly }, new XUnit2Settings {
+                XmlReport = true,
+                NoAppDomain = true,
+                OutputDirectory = $"./output/test-results/VisualStudio.AndroidX.Migration.Tests",
+                WorkingDirectory = assembly.GetDirectory(),
+            });
+        } catch (Exception ex) {
+            failed = true;
+            Error("Tests failed: " + ex.Message);
+            Error(ex);
+        }
     }
 
     if (failed)
