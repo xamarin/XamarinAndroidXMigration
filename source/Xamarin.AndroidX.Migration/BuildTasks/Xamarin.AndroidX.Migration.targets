@@ -150,8 +150,38 @@
     <Target Name="_AndroidXCecilfyShrinkFindFiles"
             Condition="'$(_AndroidXShouldRunMigration)' == 'true' and '$(AndroidLinkMode)' != 'none'">
         <ItemGroup>
-            <_AndroidXFileToCecilfy Include="@(ResolvedUserAssemblies->'$(MonoAndroidLinkerInputDir)%(Filename)%(Extension)')"
-                                    Condition="'%(ResolvedUserAssemblies.AndroidXSkipAndroidXMigration)' != 'true'" />
+            <_AndroidXResolvedUserAssemblies Condition="'%(ResolvedUserAssemblies.AndroidXSkipAndroidXMigration)' != 'true'"
+                                         Include="@(ResolvedUserAssemblies)" />
+            <_AndroidXFileToCecilfy Condition="'$(MonoAndroidLinkerInputDir)' != ''"
+                                    Include="@(_AndroidXResolvedUserAssemblies->'$(MonoAndroidLinkerInputDir)%(Filename)%(Extension)')" />
+        </ItemGroup>
+    </Target>
+
+    <!-- In Xamarin.Android 10.1, linksrc does not exist -->
+    <Target Name="_AndroidXCecilfyShrinkCopyFiles"
+            Condition="'$(_AndroidXShouldRunMigration)' == 'true' and '$(AndroidLinkMode)' != 'none' and '$(MonoAndroidLinkerInputDir)' == ''"
+            Inputs="@(ResolvedAssemblies)"
+            Outputs="@(ResolvedAssemblies->'$(IntermediateOutputPath)androidx\cecil\%(Filename)%(Extension)')">
+        <ItemGroup>
+            <_AndroidXResolvedPdbs Include="@(ResolvedAssemblies->'%(RootDir)%(Directory)%(Filename).pdb')" />
+            <_AndroidXResolvedMdbs Include="@(ResolvedAssemblies->'%(RootDir)%(Directory)%(Filename)%(Extension).mdb')" />
+            <_AndroidXResolvedSymbols Condition="Exists(%(Identity))" Include="@(_AndroidXResolvedPdbs);@(_AndroidXResolvedMdbs)" />
+        </ItemGroup>
+        <Copy
+            SourceFiles="@(ResolvedAssemblies)"
+            DestinationFiles="@(ResolvedAssemblies->'$(IntermediateOutputPath)androidx\cecil\%(Filename)%(Extension)')"
+        />
+        <Copy
+            SourceFiles="@(_AndroidXResolvedSymbols)"
+            DestinationFiles="@(_AndroidXResolvedSymbols->'$(IntermediateOutputPath)androidx\cecil\%(Filename)%(Extension)')"
+        />
+        <ItemGroup>
+            <_AndroidXFileToCecilfy Include="@(_AndroidXResolvedUserAssemblies->'$(IntermediateOutputPath)androidx\cecil\%(Filename)%(Extension)')" />
+            <!--Fix up our existing item groups-->
+            <ResolvedAssemblies Remove="@(_AndroidXResolvedUserAssemblies)" />
+            <ResolvedAssemblies Include="@(_AndroidXFileToCecilfy)" />
+            <ResolvedUserAssemblies Remove="@(_AndroidXResolvedUserAssemblies)" />
+            <ResolvedUserAssemblies Include="@(_AndroidXFileToCecilfy)" />
         </ItemGroup>
     </Target>
 
@@ -174,7 +204,7 @@
     </Target>
 
     <Target Name="_AndroidXCecilfy"
-            DependsOnTargets="_AndroidXCecilfyShrinkFindFiles;_AndroidXCecilfyNoShrinkFindFiles"
+            DependsOnTargets="_AndroidXCecilfyShrinkFindFiles;_AndroidXCecilfyShrinkCopyFiles;_AndroidXCecilfyNoShrinkFindFiles"
             Inputs="@(_AndroidXFileToCecilfy);$(_AndroidStampDirectory)_CopyIntermediateAssemblies.stamp"
             Outputs="$(_AndroidStampDirectory)_AndroidXCecilfy.stamp"
             Condition="'$(_AndroidXShouldRunMigration)' == 'true'">
