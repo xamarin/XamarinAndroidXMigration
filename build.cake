@@ -6,20 +6,11 @@ var target = Argument("t", Argument("target", "Default"));
 var verbosity = Argument("v", Argument("verbosity", "Normal"));
 var configuration = Argument("c", Argument("configuration", "Release"));
 
-var jetifierVersion = "1.0.0";
-var jetifierBetaVersion = "-beta05";
-var jetifierDownloadUrl = $"https://dl.google.com/dl/android/studio/jetifier-zips/{jetifierVersion}{jetifierBetaVersion}/jetifier-standalone.zip";
-
 var azureBuildNumber = "4945";
 var azureBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1b47c07a8/_apis/build/builds/{azureBuildNumber}/artifacts?artifactName=nuget&%24format=zip&api-version=5.0";
 
 var legacyBuildNumber = "4437";
 var legacyBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1b47c07a8/_apis/build/builds/{legacyBuildNumber}/artifacts?artifactName=nuget&%24format=zip&api-version=5.0";
-
-var NUGET_EXE = "./tools/nuget.exe";
-if (!FileExists(NUGET_EXE)) {
-    DownloadFile("https://dist.nuget.org/win-x86-commandline/latest/nuget.exe", NUGET_EXE);
-}
 
 var BUILD_BASE_VERSION = EnvironmentVariable("BUILD_BASE_VERSION") ?? "1.0.0";
 var BUILD_PREVIEW_LABEL = EnvironmentVariable("BUILD_PREVIEW_LABEL") ?? "preview";
@@ -39,39 +30,19 @@ var BUILD_PACKAGE_VERSION = BUILD_PRODUCE_PRERELEASE
 Task("JetifierWrapper")
     .Does(() =>
 {
-    // download the jetifier
-    if (!FileExists("./externals/jetifier.zip"))
-        DownloadFile(jetifierDownloadUrl, "./externals/jetifier.zip");
-    if (!DirectoryExists("./externals/jetifier-standalone") && !DirectoryExists("./externals/jetifier"))
-        Unzip("./externals/jetifier.zip", "./externals");
-    if (!DirectoryExists("./externals/jetifier") && DirectoryExists("./externals/jetifier-standalone"))
-        MoveDirectory("./externals/jetifier-standalone", "./externals/jetifier");
+    var root = MakeAbsolute((DirectoryPath)"./source/Xamarin.AndroidX.Migration/jetifierWrapper/");
+    var gradlew = root.CombineWithFilePath("gradlew");
+    var exitCode = StartProcess(gradlew, new ProcessSettings {
+        Arguments = "jar",
+        WorkingDirectory = root
+    });
+    if (exitCode != 0)
+        throw new Exception($"Gradle exited with code {exitCode}.");
 
-    // setup
     var outputDir = MakeAbsolute((DirectoryPath)"./output/JetifierWrapper");
-    var jetifierWrapperRoot = MakeAbsolute((DirectoryPath)"./source/Xamarin.AndroidX.Migration/jetifierWrapper");
-    var jetifierWrapperJar = $"{outputDir}/JetifierWrapper.jar";
     EnsureDirectoryExists(outputDir);
 
-    // javac
-    var jarFiles = GetFiles("./externals/jetifier/lib/*.jar");
-    var classPath = string.Join(System.IO.Path.PathSeparator.ToString(), jarFiles);
-    var srcFiles = GetFiles($"{jetifierWrapperRoot}/src/**/*.java");
-    var combinedSource = string.Join(" ", srcFiles);
-    StartProcess("javac", $"-cp {classPath} {combinedSource}");
-
-    // jar
-    var srcRoot = $"{jetifierWrapperRoot}/src";
-    var files = GetFiles($"{srcRoot}/**/*.class").ToList();
-    files.Insert(0, $"{srcRoot}/META-INF/MANIFEST.MF");
-    var combinedfiles = string.Join(" ", files.Select(f => f.FullPath.Replace(srcRoot, ".")));
-    StartProcess("jar", new ProcessSettings {
-        Arguments = $"cfm {jetifierWrapperJar} {combinedfiles}",
-        WorkingDirectory = srcRoot
-    });
-
-    // zip
-    CopyFiles(jarFiles, outputDir);
+    CopyFileToDirectory(root.CombineWithFilePath("build/libs/jetifierWrapper-1.0.jar"), outputDir);
     Zip(outputDir, "./output/JetifierWrapper.zip");
 });
 
@@ -301,7 +272,6 @@ Task("NuGets")
         }
 
         NuGetPack(nuspec, new NuGetPackSettings {
-            ToolPath = NUGET_EXE,
             OutputDirectory = "./output/nugets/",
             RequireLicenseAcceptance = true,
             Version = BUILD_PACKAGE_VERSION,
