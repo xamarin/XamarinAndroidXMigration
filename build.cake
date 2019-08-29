@@ -1,9 +1,9 @@
 #tool "nuget:?package=xunit.runner.console&version=2.4.1"
 
-#addin "nuget:?package=Cake.FileHelpers&version=3.2.0"
+#addin "nuget:?package=Cake.FileHelpers&version=3.2."
 
-var target = Argument("t", Argument("target", "Default"));
-var verbosity = Argument("v", Argument("verbosity", "Normal"));
+var target = Argument("t", Argument("target", "ci"));
+var verbosity = Argument("v", Argument("verbosity", Verbosity.Normal));
 var configuration = Argument("c", Argument("configuration", "Release"));
 
 var azureBuildNumber = "4945";
@@ -330,7 +330,7 @@ Task("Samples")
     }
 });
 
-Task("Default")
+Task("ci")
     .IsDependentOn("NativeAssets")
     .IsDependentOn("Libraries")
     .IsDependentOn("NuGets")
