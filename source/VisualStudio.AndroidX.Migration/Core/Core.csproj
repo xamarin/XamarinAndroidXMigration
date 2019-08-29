@@ -14,7 +14,7 @@
     <Owners>Microsoft</Owners>
     <PackageProjectUrl>https://go.microsoft.com/fwlink/?linkid=2099353</PackageProjectUrl>
     <PackageLicenseUrl>https://go.microsoft.com/fwlink/?linkid=2099438</PackageLicenseUrl>
-    <RequireLicenseAcceptance>true</RequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>xamarin.snk</AssemblyOriginatorKeyFile>
