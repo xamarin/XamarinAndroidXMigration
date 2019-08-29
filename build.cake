@@ -1,6 +1,6 @@
 #tool "nuget:?package=xunit.runner.console&version=2.4.1"
 
-#addin "nuget:?package=Cake.FileHelpers&version=3.2."
+#addin "nuget:?package=Cake.FileHelpers&version=3.2.1"
 
 var target = Argument("t", Argument("target", "ci"));
 var verbosity = Argument("v", Argument("verbosity", Verbosity.Normal));
