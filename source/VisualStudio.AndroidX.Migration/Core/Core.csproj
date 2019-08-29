@@ -12,6 +12,9 @@
     <PackageTags>Xamarin.AndroidX Xamarin Android Support AndroidX Migration VS VSMac</PackageTags>
     <Authors>Microsoft</Authors>
     <Owners>Microsoft</Owners>
+    <PackageProjectUrl>https://go.microsoft.com/fwlink/?linkid=2099353</PackageProjectUrl>
+    <PackageLicenseUrl>https://go.microsoft.com/fwlink/?linkid=2099438</PackageLicenseUrl>
+    <RequireLicenseAcceptance>true</RequireLicenseAcceptance>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>xamarin.snk</AssemblyOriginatorKeyFile>
