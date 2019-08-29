@@ -19,13 +19,11 @@ resources:
       type: github
       name: xamarin/XamarinComponents
       endpoint: xamarin
-      ref: refs/heads/dev/templating
 
 jobs:
   - template: .ci/prepare.yml@components
   - template: .ci/build.yml@components
     parameters:
-      cakeTemplatesBranch: 'dev/templating'
       dotnet: 2.2.108
       postBuildSteps:
         - task: PublishTestResults@2
