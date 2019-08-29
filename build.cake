@@ -27,22 +27,33 @@ var BUILD_PACKAGE_VERSION = BUILD_PRODUCE_PRERELEASE
     ? BUILD_VERSION_PRERELEASE
     : BUILD_VERSION_STABLE;
 
+void RunGradle(DirectoryPath root, string target)
+{
+    root = MakeAbsolute(root);
+    var proc = IsRunningOnWindows()
+        ? root.CombineWithFilePath("gradlew.bat").FullPath
+        : "bash";
+    var args = IsRunningOnWindows()
+        ? ""
+        : root.CombineWithFilePath("gradlew").FullPath;
+    args += $" {target} -p {root}";
+
+    var exitCode = StartProcess(proc, args);
+    if (exitCode != 0)
+        throw new Exception($"Gradle exited with code {exitCode}.");
+}
+
 Task("JetifierWrapper")
     .Does(() =>
 {
-    var root = MakeAbsolute((DirectoryPath)"./source/Xamarin.AndroidX.Migration/jetifierWrapper/");
-    var gradlew = root.CombineWithFilePath("gradlew");
-    var exitCode = StartProcess(gradlew, new ProcessSettings {
-        Arguments = "jar",
-        WorkingDirectory = root
-    });
-    if (exitCode != 0)
-        throw new Exception($"Gradle exited with code {exitCode}.");
+    var root = "./source/Xamarin.AndroidX.Migration/jetifierWrapper/";
+
+    RunGradle(root, "jar");
 
     var outputDir = MakeAbsolute((DirectoryPath)"./output/JetifierWrapper");
     EnsureDirectoryExists(outputDir);
 
-    CopyFileToDirectory(root.CombineWithFilePath("build/libs/jetifierWrapper-1.0.jar"), outputDir);
+    CopyFileToDirectory($"{root}build/libs/jetifierWrapper-1.0.jar", outputDir);
     Zip(outputDir, "./output/JetifierWrapper.zip");
 });
 
@@ -50,18 +61,13 @@ Task("JavaProjects")
     .Does(() =>
 {
     var nativeProjects = new [] {
-        "tests/Xamarin.AndroidX.Migration/Aarxersise.Java.AndroidX",
-        "tests/Xamarin.AndroidX.Migration/Aarxersise.Java.Support",
-        "samples/com.xamarin.CoolLibrary",
+        "./tests/Xamarin.AndroidX.Migration/Aarxersise.Java.AndroidX/",
+        "./tests/Xamarin.AndroidX.Migration/Aarxersise.Java.Support/",
+        "./samples/com.xamarin.CoolLibrary/",
     };
 
     foreach (var native in nativeProjects) {
-        var abs = MakeAbsolute((DirectoryPath)native);
-        if (IsRunningOnWindows()) {
-            StartProcess($"{abs}/gradlew.bat", $"assembleDebug -p {abs}");
-        } else {
-            StartProcess("bash", $"{abs}/gradlew assembleDebug -p {abs}");
-        }
+        RunGradle (native, "assembleDebug");
     }
 });
 
