@@ -16,8 +16,8 @@ namespace Core
 
         public MigrationRunner(IProgress<string> progress)
 		{
-			var androidDirectory = Path.Combine(Path.GetDirectoryName(typeof(MigrationRunner).Assembly.Location), "Assemblies\\Android");
-			var androidXDirectory = Path.Combine(Path.GetDirectoryName(typeof(MigrationRunner).Assembly.Location), "Assemblies\\AndroidX");
+			var androidDirectory = Path.Combine(Path.GetDirectoryName(typeof(MigrationRunner).Assembly.Location), "Assemblies", "Android");
+			var androidXDirectory = Path.Combine(Path.GetDirectoryName(typeof(MigrationRunner).Assembly.Location), "Assemblies", "AndroidX");
 
 			resolver = new TranslationResolver(null, null);
             this.progress = progress;

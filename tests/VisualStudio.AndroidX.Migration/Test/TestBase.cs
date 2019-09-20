@@ -15,7 +15,7 @@ namespace VisualStudio.AndroidX.Migration
 			var codeBase = new Uri(typeof(TestBase).Assembly.CodeBase).AbsolutePath;
 			var binDirectory = Path.GetDirectoryName(codeBase);
 
-			var assembliesDirectory = Path.Combine(binDirectory, "Assemblies\\Android");
+			var assembliesDirectory = Path.Combine(binDirectory, "Assemblies", "Android");
 
 			resolver = new TranslationResolver(Directory.GetFiles(assembliesDirectory), new List<string> { });
 		}

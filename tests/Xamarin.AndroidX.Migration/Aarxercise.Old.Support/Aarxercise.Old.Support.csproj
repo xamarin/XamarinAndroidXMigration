@@ -47,7 +47,6 @@
     <PackageReference Include="Xamarin.Android.Support.v4" Version="28.0.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Supportv4Split.cs" />
   </ItemGroup>

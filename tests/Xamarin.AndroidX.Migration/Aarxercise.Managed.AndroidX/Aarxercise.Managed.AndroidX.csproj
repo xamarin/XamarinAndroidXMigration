@@ -64,9 +64,6 @@
     <AndroidResource Include="Resources\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\drawable\" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\layout\managedsimplefragment.xml" />
   </ItemGroup>
   <ItemGroup>

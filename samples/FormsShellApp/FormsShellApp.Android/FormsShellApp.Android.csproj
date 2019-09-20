@@ -16,7 +16,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
@@ -111,7 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FormsShellApp\FormsShellApp.csproj">
-      <Project>{A0A1E055-5FC4-4A5E-A917-98369FDCAC00}</Project>
+      <Project>{2139ABDA-46EF-43C0-8224-8D14E27B1557}</Project>
       <Name>FormsShellApp</Name>
     </ProjectReference>
   </ItemGroup>

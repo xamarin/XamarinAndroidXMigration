@@ -7,7 +7,7 @@ tools
 !tools/packages.config
 .gradle
 output
-tests/VisualStudio.AndroidX.Migration/Test/Assemblies
+Resource.designer.cs
 
 # User-specific files
 *.suo
@@ -294,7 +294,6 @@ paket-files/
 .fake/
 
 # JetBrains Rider
-.idea/
 *.sln.iml
 
 # CodeRush
@@ -440,6 +439,3 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
-/Cecilfier/samples/Xamarin.AndroidX.Cecilfier.App/.vscode/launch.json
-/Cecilfier/samples/Xamarin.AndroidX.Cecilfier.App/.vscode/tasks.json
-Resource.designer.cs

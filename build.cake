@@ -1,14 +1,10 @@
 #tool "nuget:?package=xunit.runner.console&version=2.4.1"
 
-#addin "nuget:?package=Cake.FileHelpers&version=3.2.0"
+#addin "nuget:?package=Cake.FileHelpers&version=3.2.1"
 
-var target = Argument("t", Argument("target", "Default"));
-var verbosity = Argument("v", Argument("verbosity", "Normal"));
+var target = Argument("t", Argument("target", "ci"));
+var verbosity = Argument("v", Argument("verbosity", Verbosity.Normal));
 var configuration = Argument("c", Argument("configuration", "Release"));
-
-var jetifierVersion = "1.0.0";
-var jetifierBetaVersion = "-beta05";
-var jetifierDownloadUrl = $"https://dl.google.com/dl/android/studio/jetifier-zips/{jetifierVersion}{jetifierBetaVersion}/jetifier-standalone.zip";
 
 var azureBuildNumber = "4945";
 var azureBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1b47c07a8/_apis/build/builds/{azureBuildNumber}/artifacts?artifactName=nuget&%24format=zip&api-version=5.0";
@@ -16,64 +12,36 @@ var azureBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1
 var legacyBuildNumber = "4437";
 var legacyBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1b47c07a8/_apis/build/builds/{legacyBuildNumber}/artifacts?artifactName=nuget&%24format=zip&api-version=5.0";
 
-var NUGET_EXE = "./tools/nuget.exe";
-if (!FileExists(NUGET_EXE)) {
-    DownloadFile("https://dist.nuget.org/win-x86-commandline/latest/nuget.exe", NUGET_EXE);
+var BUILD_VERSION = EnvironmentVariable("BUILD_VERSION") ?? "1.0.0";
+var BUILD_PACKAGE_VERSION = EnvironmentVariable("BUILD_PACKAGE_VERSION") ?? "1.0.0-preview";
+
+void RunGradle(DirectoryPath root, string target)
+{
+    root = MakeAbsolute(root);
+    var proc = IsRunningOnWindows()
+        ? root.CombineWithFilePath("gradlew.bat").FullPath
+        : "bash";
+    var args = IsRunningOnWindows()
+        ? ""
+        : root.CombineWithFilePath("gradlew").FullPath;
+    args += $" {target} -p {root}";
+
+    var exitCode = StartProcess(proc, args);
+    if (exitCode != 0)
+        throw new Exception($"Gradle exited with code {exitCode}.");
 }
-
-var JAVA_HOME = EnvironmentVariable ("JAVA_HOME");
-
-var BUILD_BASE_VERSION = EnvironmentVariable("BUILD_BASE_VERSION") ?? "1.0.0";
-var BUILD_PREVIEW_LABEL = EnvironmentVariable("BUILD_PREVIEW_LABEL") ?? "preview";
-var BUILD_NUMBER = EnvironmentVariable("BUILD_NUMBER") ?? "0";
-var BUILD_PRERELEASE_OVERRIDE = EnvironmentVariable("BUILD_PRERELEASE_OVERRIDE") ?? "";
-var BUILD_PRODUCE_PRERELEASE = bool.Parse(EnvironmentVariable("BUILD_PRODUCE_PRERELEASE") ?? "true");
-
-var BUILD_VERSION_STABLE = $"{BUILD_BASE_VERSION}";
-var BUILD_VERSION_PRERELEASE = string.IsNullOrEmpty(BUILD_PRERELEASE_OVERRIDE)
-    ? $"{BUILD_BASE_VERSION}-{BUILD_PREVIEW_LABEL}.{BUILD_NUMBER}"
-    : $"{BUILD_BASE_VERSION}-{BUILD_PRERELEASE_OVERRIDE}";
-
-var BUILD_PACKAGE_VERSION = BUILD_PRODUCE_PRERELEASE
-    ? BUILD_VERSION_PRERELEASE
-    : BUILD_VERSION_STABLE;
 
 Task("JetifierWrapper")
     .Does(() =>
 {
-    // download the jetifier
-    if (!FileExists("./externals/jetifier.zip"))
-        DownloadFile(jetifierDownloadUrl, "./externals/jetifier.zip");
-    if (!DirectoryExists("./externals/jetifier-standalone") && !DirectoryExists("./externals/jetifier"))
-        Unzip("./externals/jetifier.zip", "./externals");
-    if (!DirectoryExists("./externals/jetifier") && DirectoryExists("./externals/jetifier-standalone"))
-        MoveDirectory("./externals/jetifier-standalone", "./externals/jetifier");
+    var root = "./source/Xamarin.AndroidX.Migration/jetifierWrapper/";
 
-    // setup
+    RunGradle(root, "jar");
+
     var outputDir = MakeAbsolute((DirectoryPath)"./output/JetifierWrapper");
-    var jetifierWrapperRoot = MakeAbsolute((DirectoryPath)"./source/Xamarin.AndroidX.Migration/jetifierWrapper");
-    var jetifierWrapperJar = $"{outputDir}/JetifierWrapper.jar";
     EnsureDirectoryExists(outputDir);
 
-    // javac
-    var jarFiles = GetFiles("./externals/jetifier/lib/*.jar");
-    var classPath = string.Join(System.IO.Path.PathSeparator.ToString(), jarFiles);
-    var srcFiles = GetFiles($"{jetifierWrapperRoot}/src/**/*.java");
-    var combinedSource = string.Join(" ", srcFiles);
-    StartProcess("javac", $"-cp {classPath} {combinedSource}");
-
-    // jar
-    var srcRoot = $"{jetifierWrapperRoot}/src";
-    var files = GetFiles($"{srcRoot}/**/*.class").ToList();
-    files.Insert(0, $"{srcRoot}/META-INF/MANIFEST.MF");
-    var combinedfiles = string.Join(" ", files.Select(f => f.FullPath.Replace(srcRoot, ".")));
-    StartProcess("jar", new ProcessSettings {
-        Arguments = $"cfm {jetifierWrapperJar} {combinedfiles}",
-        WorkingDirectory = srcRoot
-    });
-
-    // zip
-    CopyFiles(jarFiles, outputDir);
+    CopyFileToDirectory($"{root}build/libs/jetifierWrapper-1.0.jar", outputDir);
     Zip(outputDir, "./output/JetifierWrapper.zip");
 });
 
@@ -81,18 +49,13 @@ Task("JavaProjects")
     .Does(() =>
 {
     var nativeProjects = new [] {
-        "tests/Xamarin.AndroidX.Migration/Aarxersise.Java.AndroidX",
-        "tests/Xamarin.AndroidX.Migration/Aarxersise.Java.Support",
-        "samples/com.xamarin.CoolLibrary",
+        "./tests/Xamarin.AndroidX.Migration/Aarxersise.Java.AndroidX/",
+        "./tests/Xamarin.AndroidX.Migration/Aarxersise.Java.Support/",
+        "./samples/com.xamarin.CoolLibrary/",
     };
 
     foreach (var native in nativeProjects) {
-        var abs = MakeAbsolute((DirectoryPath)native);
-        if (IsRunningOnWindows()) {
-            StartProcess($"{abs}/gradlew.bat", $"assembleDebug -p {abs}");
-        } else {
-            StartProcess("bash", $"{abs}/gradlew assembleDebug -p {abs}");
-        }
+        RunGradle (native, "assembleDebug");
     }
 });
 
@@ -173,7 +136,6 @@ Task("Libraries")
         Properties = {
             { "DesignTimeBuild", new [] { "false" } },
             { "AndroidSdkBuildToolsVersion", new [] { "28.0.3" } },
-            { "JavaSdkDirectory", new [] { JAVA_HOME } },
         },
     });
 
@@ -203,7 +165,10 @@ Task("Tests")
     .IsDependentOn("Libraries")
     .Does(() =>
 {
-    var testProjects = GetFiles("./tests/**/*.Tests.csproj");
+    var failed = false;
+
+    // test projects using dotnet core
+    var testProjects = GetFiles("./tests/Xamarin.AndroidX.Migration/**/*.Tests.csproj");
     foreach (var proj in testProjects) {
         try {
             DotNetCoreTest(proj.GetFilename().ToString(), new DotNetCoreTestSettings {
@@ -215,10 +180,31 @@ Task("Tests")
                 ResultsDirectory = $"./output/test-results/{proj.GetFilenameWithoutExtension()}",
             });
         } catch (Exception ex) {
-            Error("Tests failed with an error.");
+            failed = true;
+            Error("Tests failed: " + ex.Message);
             Error(ex);
         }
     }
+
+    // test projects using xunit test runner
+    var testAssemblies = GetFiles("./tests/VisualStudio.AndroidX.Migration/*/bin/Release/*/*.Tests.dll");
+    foreach (var assembly in testAssemblies) {
+        try {
+            XUnit2(new [] { assembly }, new XUnit2Settings {
+                XmlReport = true,
+                NoAppDomain = true,
+                OutputDirectory = $"./output/test-results/VisualStudio.AndroidX.Migration.Tests",
+                WorkingDirectory = assembly.GetDirectory(),
+            });
+        } catch (Exception ex) {
+            failed = true;
+            Error("Tests failed: " + ex.Message);
+            Error(ex);
+        }
+    }
+
+    if (failed)
+        throw new Exception("Some tests failed.");
 });
 
 Task("VSTestPrepare")
@@ -227,7 +213,7 @@ Task("VSTestPrepare")
     .Does(() =>
 {
     var externalRoot = "./externals/";
-    var testAssembliesFolder = "./tests/VisualStudio.AndroidX.Migration/Test/Assemblies/";
+    var testAssembliesFolder = "./externals/test-assets/vs-tests/Assemblies/";
 
     if (!DirectoryExists($"{testAssembliesFolder}AndroidX")) {
         var androidXNugets = new [] {
@@ -280,7 +266,6 @@ Task("NuGets")
         }
 
         NuGetPack(nuspec, new NuGetPackSettings {
-            ToolPath = NUGET_EXE,
             OutputDirectory = "./output/nugets/",
             RequireLicenseAcceptance = true,
             Version = BUILD_PACKAGE_VERSION,
@@ -334,13 +319,12 @@ Task("Samples")
             Properties = {
                 { "DesignTimeBuild", new [] { "false" } },
                 { "AndroidSdkBuildToolsVersion", new [] { "28.0.3" } },
-                { "JavaSdkDirectory", new [] { JAVA_HOME } },
             },
         });
     }
 });
 
-Task("Default")
+Task("ci")
     .IsDependentOn("NativeAssets")
     .IsDependentOn("Libraries")
     .IsDependentOn("NuGets")
