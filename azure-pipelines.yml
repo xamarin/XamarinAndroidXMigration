@@ -4,10 +4,8 @@ trigger:
 
 variables:
   BUILD_NUMBER: $[counter('$(Build.SourceBranchName)_counter', 1)]
-  BUILD_BASE_VERSION: 1.0.0
-  # BUILD_PREVIEW_LABEL: [preview]
-  # BUILD_PRERELEASE_OVERRIDE: []
-  # BUILD_PRODUCE_PRERELEASE: [true]
+  BUILD_VERSION: 1.0.0
+  BUILD_PACKAGE_VERSION: 1.0.0-preview04
 
 resources:
   repositories:
@@ -21,7 +19,6 @@ resources:
       endpoint: xamarin
 
 jobs:
-  - template: .ci/prepare.yml@components
   - template: .ci/build.yml@components
     parameters:
       artifactsPath: 'output/nugets'

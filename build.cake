@@ -12,20 +12,8 @@ var azureBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1
 var legacyBuildNumber = "4437";
 var legacyBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1b47c07a8/_apis/build/builds/{legacyBuildNumber}/artifacts?artifactName=nuget&%24format=zip&api-version=5.0";
 
-var BUILD_BASE_VERSION = EnvironmentVariable("BUILD_BASE_VERSION") ?? "1.0.0";
-var BUILD_PREVIEW_LABEL = EnvironmentVariable("BUILD_PREVIEW_LABEL") ?? "preview";
-var BUILD_NUMBER = EnvironmentVariable("BUILD_NUMBER") ?? "0";
-var BUILD_PRERELEASE_OVERRIDE = EnvironmentVariable("BUILD_PRERELEASE_OVERRIDE") ?? "";
-var BUILD_PRODUCE_PRERELEASE = bool.Parse(EnvironmentVariable("BUILD_PRODUCE_PRERELEASE") ?? "true");
-
-var BUILD_VERSION_STABLE = $"{BUILD_BASE_VERSION}";
-var BUILD_VERSION_PRERELEASE = string.IsNullOrEmpty(BUILD_PRERELEASE_OVERRIDE)
-    ? $"{BUILD_BASE_VERSION}-{BUILD_PREVIEW_LABEL}.{BUILD_NUMBER}"
-    : $"{BUILD_BASE_VERSION}-{BUILD_PRERELEASE_OVERRIDE}";
-
-var BUILD_PACKAGE_VERSION = BUILD_PRODUCE_PRERELEASE
-    ? BUILD_VERSION_PRERELEASE
-    : BUILD_VERSION_STABLE;
+var BUILD_VERSION = EnvironmentVariable("BUILD_VERSION") ?? "1.0.0";
+var BUILD_PACKAGE_VERSION = EnvironmentVariable("BUILD_PACKAGE_VERSION") ?? "1.0.0-preview";
 
 void RunGradle(DirectoryPath root, string target)
 {
