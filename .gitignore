@@ -442,3 +442,4 @@ lint/tmp/
 # lint/reports/
 /Cecilfier/samples/Xamarin.AndroidX.Cecilfier.App/.vscode/launch.json
 /Cecilfier/samples/Xamarin.AndroidX.Cecilfier.App/.vscode/tasks.json
+Resource.designer.cs
