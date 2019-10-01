@@ -22,7 +22,6 @@ jobs:
   - template: .ci/build.yml@components
     parameters:
       artifactsPath: 'output/nugets'
-      dotnet: 2.2.108
       postBuildSteps:
         - task: PublishTestResults@2
           displayName: Publish test results
