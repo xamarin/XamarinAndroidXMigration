@@ -43,6 +43,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 			var expected = new[]
 			{
 				"Xamarin.AndroidX.Annotation",
+				"Xamarin.AndroidX.Migration",
 			};
 
 			var flattened = tree.Flatten(ids);
@@ -64,6 +65,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 			{
 				"Xamarin.AndroidX.Collection",
 				"Xamarin.AndroidX.Annotation",
+				"Xamarin.AndroidX.Migration",
 			};
 
 			var flattened = tree.Flatten(ids);
@@ -87,6 +89,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 				"Xamarin.AndroidX.Collection",
 				"Xamarin.AndroidX.CursorAdapter",
 				"Xamarin.AndroidX.Annotation",
+				"Xamarin.AndroidX.Migration",
 			};
 
 			var flattened = tree.Flatten(ids);
@@ -109,6 +112,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 				"Xamarin.AndroidX.VersionedParcelable",
 				"Xamarin.AndroidX.Annotation",
 				"Xamarin.AndroidX.Collection",
+				"Xamarin.AndroidX.Migration",
 			};
 
 			var flattened = tree.Flatten(ids);
@@ -126,7 +130,10 @@ namespace Xamarin.AndroidX.Migration.Tests
 				"Xamarin.AndroidX.Annotation",
 			};
 
-			var expected = new string[0];
+			var expected = new[]
+			{
+				"Xamarin.AndroidX.Migration",
+			};
 
 			var flattened = tree.Flatten(ids, false);
 
@@ -146,6 +153,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 			var expected = new[]
 			{
 				"Xamarin.AndroidX.Annotation",
+				"Xamarin.AndroidX.Migration",
 			};
 
 			var flattened = tree.Flatten(ids, false);
@@ -167,6 +175,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 			var expected = new[]
 			{
 				"Xamarin.AndroidX.Annotation",
+				"Xamarin.AndroidX.Migration",
 			};
 
 			var flattened = tree.Flatten(ids, false);
@@ -247,8 +256,10 @@ namespace Xamarin.AndroidX.Migration.Tests
 
 			var expected = new[]
 			{
+				"Xamarin.AndroidX.Activity",
 				"Xamarin.AndroidX.Annotation",
 				"Xamarin.AndroidX.AppCompat",
+				"Xamarin.AndroidX.AppCompat.Resources",
 				"Xamarin.AndroidX.Arch.Core.Common",
 				"Xamarin.AndroidX.Arch.Core.Runtime",
 				"Xamarin.AndroidX.AsyncLayoutInflater",
@@ -267,15 +278,16 @@ namespace Xamarin.AndroidX.Migration.Tests
 				"Xamarin.AndroidX.Legacy.Support.Core.Utils",
 				"Xamarin.AndroidX.Legacy.Support.V4",
 				"Xamarin.AndroidX.Lifecycle.Common",
-				"Xamarin.AndroidX.Lifecycle.LiveData",
 				"Xamarin.AndroidX.Lifecycle.LiveData.Core",
 				"Xamarin.AndroidX.Lifecycle.Runtime",
 				"Xamarin.AndroidX.Lifecycle.ViewModel",
 				"Xamarin.AndroidX.Loader",
 				"Xamarin.AndroidX.LocalBroadcastManager",
 				"Xamarin.AndroidX.Media",
+				"Xamarin.AndroidX.Migration",
 				"Xamarin.AndroidX.Print",
 				"Xamarin.AndroidX.RecyclerView",
+				"Xamarin.AndroidX.SavedState",
 				"Xamarin.AndroidX.SlidingPaneLayout",
 				"Xamarin.AndroidX.SwipeRefreshLayout",
 				"Xamarin.AndroidX.Transition",
@@ -344,6 +356,7 @@ namespace Xamarin.AndroidX.Migration.Tests
 			{
 				"Xamarin.AndroidX.Browser",
 				"Xamarin.AndroidX.Legacy.Support.V4",
+				"Xamarin.AndroidX.Lifecycle.LiveData",
 				"Xamarin.AndroidX.MediaRouter",
 				"Xamarin.Google.Android.Material",
 			};
