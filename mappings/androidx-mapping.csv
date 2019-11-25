@@ -1,950 +1,26 @@
 Support .NET namespace,Support .NET type name,AndroidX .NET namespace,AndroidX .NET type name,Support .NET assembly,AndroidX .NET assembly,Support Java package,Support Java class,AndroidX Java package,AndroidX Java class,Messages
 ,,,,,,,,,,WARNING: Unable to find AndroidX type for .NET type Android.Support.Constraints.BuildConfig.
 ,,,,,,,,,,WARNING: Unable to find AndroidX type for .NET type Android.Support.Constraints.Solver.ArrayVariables.
+,,,,,,,,,,WARNING: Unable to find AndroidX type for .NET type Android.Support.Design.Widget.SwipeDismissBehavior.DismissEventArgs.
+,,,,,,,,,,WARNING: Unable to find AndroidX type for .NET type Android.Support.Design.Widget.SwipeDismissBehavior.DragStateChangedEventArgs.
+,,,,,,,,,,WARNING: Unable to find AndroidX type for .NET type Android.Support.Design.Widget.SwipeDismissBehavior.IOnDismissListenerImplementor.
 ,,,,,,,,,,WARNING: Unable to find AndroidX type for .NET type Android.Support.Palette.Additions.
+,,,,,,,,,,WARNING: Unable to find AndroidX type for Java type androidx.appcompat.view.menu.MenuWrapperFactory.
+,,,,,,,,,,WARNING: Unable to find AndroidX type for Java type androidx.appcompat.widget.AppCompatDrawableManager.AsldcInflateDelegate.
+,,,,,,,,,,WARNING: Unable to find AndroidX type for Java type androidx.appcompat.widget.AppCompatDrawableManager.InflateDelegate.
+,,,,,,,,,,WARNING: Unable to find AndroidX type for Java type androidx.appcompat.widget.AppCompatDrawableManager.InflateDelegate.
+,,,,,,,,,,WARNING: Unable to find AndroidX type for Java type androidx.fragment.app.FragmentActivity.NonConfigurationInstances.
+,,,,,,,,,,WARNING: Unable to find AndroidX type for Java type androidx.lifecycle.CompositeGeneratedAdaptersObserver.
 ,,,,,,,,,,WARNING: Unable to find AndroidX type for Java type androidx.lifecycle.HolderFragment.
 ,,,,,,,,,,WARNING: Unable to find AndroidX type for Java type androidx.lifecycle.HolderFragment.HolderFragmentManager.
-,,,,,,android.arch.core.executor,AppToolkitTaskExecutor,androidx.arch.core.executor,AppToolkitTaskExecutor,WARNING: No .NET types found.
-,,,,,,android.arch.core.executor,JunitTaskExecutorRule,androidx.arch.core.executor,JunitTaskExecutorRule,WARNING: No .NET types found.
-,,,,,,android.arch.core.executor,TaskExecutorWithFakeMainThread,androidx.arch.core.executor,TaskExecutorWithFakeMainThread,WARNING: No .NET types found.
-,,,,,,android.arch.core.executor.testing,CountingTaskExecutorRule,androidx.arch.core.executor.testing,CountingTaskExecutorRule,WARNING: No .NET types found.
-,,,,,,android.arch.core.executor.testing,InstantTaskExecutorRule,androidx.arch.core.executor.testing,InstantTaskExecutorRule,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle,ClassesInfoCache,androidx.lifecycle,ClassesInfoCache,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle,DefaultLifecycleObserver,androidx.lifecycle,DefaultLifecycleObserver,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle,Elements_extKt,androidx.lifecycle,Elements_extKt,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle,EmptyActivityLifecycleCallbacks,androidx.lifecycle,EmptyActivityLifecycleCallbacks,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle,ErrorMessages,androidx.lifecycle,ErrorMessages,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle,FullLifecycleObserver,androidx.lifecycle,FullLifecycleObserver,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle,FullLifecycleObserverAdapter,androidx.lifecycle,FullLifecycleObserverAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle,HolderFragment,androidx.lifecycle,HolderFragment,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle,Input_collectorKt,androidx.lifecycle,Input_collectorKt,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle,LifecycleDispatcher,androidx.lifecycle,LifecycleDispatcher,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle,LifecycleProcessor,androidx.lifecycle,LifecycleProcessor,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle,LifecycleRegistryOwner,androidx.lifecycle,LifecycleRegistryOwner,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle,LiveDataReactiveStreams,androidx.lifecycle,LiveDataReactiveStreams,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle,ObserversCollector,androidx.lifecycle,ObserversCollector,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle,OnLifecycleEvent,androidx.lifecycle,OnLifecycleEvent,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle,ReflectiveGenericLifecycleObserver,androidx.lifecycle,ReflectiveGenericLifecycleObserver,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle,TransformationKt,androidx.lifecycle,TransformationKt,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle,Validator,androidx.lifecycle,Validator,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle,WriterKt,androidx.lifecycle,WriterKt,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle.model,AdapterClass,androidx.lifecycle.model,AdapterClass,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle.model,AdapterClassKt,androidx.lifecycle.model,AdapterClassKt,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle.model,EventMethod,androidx.lifecycle.model,EventMethod,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle.model,EventMethodCall,androidx.lifecycle.model,EventMethodCall,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle.model,InputModel,androidx.lifecycle.model,InputModel,WARNING: No .NET types found.
-,,,,,,android.arch.lifecycle.model,LifecycleObserverInfo,androidx.lifecycle.model,LifecycleObserverInfo,WARNING: No .NET types found.
-,,,,,,android.arch.paging,AsyncPagedListDiffer,androidx.paging,AsyncPagedListDiffer,WARNING: No .NET types found.
-,,,,,,android.arch.paging,ContiguousDataSource,androidx.paging,ContiguousDataSource,WARNING: No .NET types found.
-,,,,,,android.arch.paging,ContiguousPagedList,androidx.paging,ContiguousPagedList,WARNING: No .NET types found.
-,,,,,,android.arch.paging,DataSource,androidx.paging,DataSource,WARNING: No .NET types found.
-,,,,,,android.arch.paging,ItemKeyedDataSource,androidx.paging,ItemKeyedDataSource,WARNING: No .NET types found.
-,,,,,,android.arch.paging,ListDataSource,androidx.paging,ListDataSource,WARNING: No .NET types found.
-,,,,,,android.arch.paging,LivePagedListBuilder,androidx.paging,LivePagedListBuilder,WARNING: No .NET types found.
-,,,,,,android.arch.paging,LivePagedListProvider,androidx.paging,LivePagedListProvider,WARNING: No .NET types found.
-,,,,,,android.arch.paging,PagedList,androidx.paging,PagedList,WARNING: No .NET types found.
-,,,,,,android.arch.paging,PagedListAdapter,androidx.paging,PagedListAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.paging,PagedStorage,androidx.paging,PagedStorage,WARNING: No .NET types found.
-,,,,,,android.arch.paging,PagedStorageDiffHelper,androidx.paging,PagedStorageDiffHelper,WARNING: No .NET types found.
-,,,,,,android.arch.paging,PageKeyedDataSource,androidx.paging,PageKeyedDataSource,WARNING: No .NET types found.
-,,,,,,android.arch.paging,PageResult,androidx.paging,PageResult,WARNING: No .NET types found.
-,,,,,,android.arch.paging,PositionalDataSource,androidx.paging,PositionalDataSource,WARNING: No .NET types found.
-,,,,,,android.arch.paging,RxPagedListBuilder,androidx.paging,RxPagedListBuilder,WARNING: No .NET types found.
-,,,,,,android.arch.paging,SnapshotPagedList,androidx.paging,SnapshotPagedList,WARNING: No .NET types found.
-,,,,,,android.arch.paging,TiledDataSource,androidx.paging,TiledDataSource,WARNING: No .NET types found.
-,,,,,,android.arch.paging,TiledPagedList,androidx.paging,TiledPagedList,WARNING: No .NET types found.
-,,,,,,android.arch.paging,WrapperItemKeyedDataSource,androidx.paging,WrapperItemKeyedDataSource,WARNING: No .NET types found.
-,,,,,,android.arch.paging,WrapperPageKeyedDataSource,androidx.paging,WrapperPageKeyedDataSource,WARNING: No .NET types found.
-,,,,,,android.arch.paging,WrapperPositionalDataSource,androidx.paging,WrapperPositionalDataSource,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.db.framework,FrameworkSQLiteDatabase,androidx.sqlite.db.framework,FrameworkSQLiteDatabase,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.db.framework,FrameworkSQLiteOpenHelper,androidx.sqlite.db.framework,FrameworkSQLiteOpenHelper,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.db.framework,FrameworkSQLiteProgram,androidx.sqlite.db.framework,FrameworkSQLiteProgram,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.db.framework,FrameworkSQLiteStatement,androidx.sqlite.db.framework,FrameworkSQLiteStatement,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room,EmptyResultSetException,androidx.room,EmptyResultSetException,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room,RoomProcessor,androidx.room,RoomProcessor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room,RxRoom,androidx.room,RxRoom,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.ext,AndroidTypeNames,androidx.room.ext,AndroidTypeNames,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.ext,ArchTypeNames,androidx.room.ext,ArchTypeNames,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.ext,CommonTypeNames,androidx.room.ext,CommonTypeNames,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.ext,Element_extKt,androidx.room.ext,Element_extKt,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.ext,GuavaBaseTypeNames,androidx.room.ext,GuavaBaseTypeNames,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.ext,GuavaUtilConcurrentTypeNames,androidx.room.ext,GuavaUtilConcurrentTypeNames,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.ext,Javapoet_extKt,androidx.room.ext,Javapoet_extKt,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.ext,KotlinMetadataProcessor,androidx.room.ext,KotlinMetadataProcessor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.ext,LifecyclesTypeNames,androidx.room.ext,LifecyclesTypeNames,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.ext,PagingTypeNames,androidx.room.ext,PagingTypeNames,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.ext,ReactiveStreamsTypeNames,androidx.room.ext,ReactiveStreamsTypeNames,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.ext,RoomGuavaTypeNames,androidx.room.ext,RoomGuavaTypeNames,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.ext,RoomRxJava2TypeNames,androidx.room.ext,RoomRxJava2TypeNames,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.ext,RoomTypeNames,androidx.room.ext,RoomTypeNames,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.ext,RxJava2TypeNames,androidx.room.ext,RxJava2TypeNames,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.ext,SupportDbTypeNames,androidx.room.ext,SupportDbTypeNames,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.guava,GuavaRoom,androidx.room.guava,GuavaRoom,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.log,RLog,androidx.room.log,RLog,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.migration.bundle,BundleUtil,androidx.room.migration.bundle,BundleUtil,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.migration.bundle,DatabaseBundle,androidx.room.migration.bundle,DatabaseBundle,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.migration.bundle,EntityBundle,androidx.room.migration.bundle,EntityBundle,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.migration.bundle,FieldBundle,androidx.room.migration.bundle,FieldBundle,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.migration.bundle,ForeignKeyBundle,androidx.room.migration.bundle,ForeignKeyBundle,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.migration.bundle,IndexBundle,androidx.room.migration.bundle,IndexBundle,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.migration.bundle,PrimaryKeyBundle,androidx.room.migration.bundle,PrimaryKeyBundle,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.migration.bundle,SchemaBundle,androidx.room.migration.bundle,SchemaBundle,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.migration.bundle,SchemaEquality,androidx.room.migration.bundle,SchemaEquality,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.migration.bundle,SchemaEqualityUtil,androidx.room.migration.bundle,SchemaEqualityUtil,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.paging,LimitOffsetDataSource,androidx.room.paging,LimitOffsetDataSource,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.parser,Collate,androidx.room.parser,Collate,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.parser,ParsedQuery,androidx.room.parser,ParsedQuery,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.parser,ParserErrors,androidx.room.parser,ParserErrors,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.parser,QueryType,androidx.room.parser,QueryType,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.parser,QueryVisitor,androidx.room.parser,QueryVisitor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.parser,Section,androidx.room.parser,Section,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.parser,SectionType,androidx.room.parser,SectionType,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.parser,SQLiteBaseListener,androidx.room.parser,SQLiteBaseListener,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.parser,SQLiteBaseVisitor,androidx.room.parser,SQLiteBaseVisitor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.parser,SQLiteLexer,androidx.room.parser,SQLiteLexer,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.parser,SQLiteListener,androidx.room.parser,SQLiteListener,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.parser,SQLiteParser,androidx.room.parser,SQLiteParser,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.parser,SQLiteVisitor,androidx.room.parser,SQLiteVisitor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.parser,SqlParser,androidx.room.parser,SqlParser,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.parser,SQLTypeAffinity,androidx.room.parser,SQLTypeAffinity,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.parser,Table,androidx.room.parser,Table,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.preconditions,Checks,androidx.room.preconditions,Checks,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.processor,Context,androidx.room.processor,Context,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.processor,CustomConverterProcessor,androidx.room.processor,CustomConverterProcessor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.processor,DaoProcessor,androidx.room.processor,DaoProcessor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.processor,DatabaseProcessor,androidx.room.processor,DatabaseProcessor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.processor,DeletionMethodProcessor,androidx.room.processor,DeletionMethodProcessor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.processor,EntityProcessor,androidx.room.processor,EntityProcessor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.processor,FieldProcessor,androidx.room.processor,FieldProcessor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.processor,InsertionMethodProcessor,androidx.room.processor,InsertionMethodProcessor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.processor,OnConflictProcessor,androidx.room.processor,OnConflictProcessor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.processor,PojoMethodProcessor,androidx.room.processor,PojoMethodProcessor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.processor,PojoProcessor,androidx.room.processor,PojoProcessor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.processor,ProcessorErrors,androidx.room.processor,ProcessorErrors,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.processor,QueryMethodProcessor,androidx.room.processor,QueryMethodProcessor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.processor,QueryParameterProcessor,androidx.room.processor,QueryParameterProcessor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.processor,RawQueryMethodProcessor,androidx.room.processor,RawQueryMethodProcessor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.processor,ShortcutMethodProcessor,androidx.room.processor,ShortcutMethodProcessor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.processor,ShortcutParameterProcessor,androidx.room.processor,ShortcutParameterProcessor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.processor,SuppressWarningProcessor,androidx.room.processor,SuppressWarningProcessor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.processor,TransactionMethodProcessor,androidx.room.processor,TransactionMethodProcessor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.processor,UpdateMethodProcessor,androidx.room.processor,UpdateMethodProcessor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.processor.cache,Cache,androidx.room.processor.cache,Cache,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver,CodeGenScope,androidx.room.solver,CodeGenScope,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver,ObservableQueryResultBinderProvider,androidx.room.solver,ObservableQueryResultBinderProvider,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver,QueryResultBinderProvider,androidx.room.solver,QueryResultBinderProvider,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver,TypeAdapterStore,androidx.room.solver,TypeAdapterStore,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.binderprovider,CursorQueryResultBinderProvider,androidx.room.solver.binderprovider,CursorQueryResultBinderProvider,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.binderprovider,DataSourceFactoryQueryResultBinderProvider,androidx.room.solver.binderprovider,DataSourceFactoryQueryResultBinderProvider,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.binderprovider,DataSourceQueryResultBinderProvider,androidx.room.solver.binderprovider,DataSourceQueryResultBinderProvider,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.binderprovider,FlowableQueryResultBinderProvider,androidx.room.solver.binderprovider,FlowableQueryResultBinderProvider,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.binderprovider,GuavaListenableFutureQueryResultBinderProvider,androidx.room.solver.binderprovider,GuavaListenableFutureQueryResultBinderProvider,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.binderprovider,InstantQueryResultBinderProvider,androidx.room.solver.binderprovider,InstantQueryResultBinderProvider,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.binderprovider,LiveDataQueryResultBinderProvider,androidx.room.solver.binderprovider,LiveDataQueryResultBinderProvider,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.binderprovider,RxCallableQueryResultBinderProvider,androidx.room.solver.binderprovider,RxCallableQueryResultBinderProvider,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.binderprovider,RxMaybeQueryResultBinderProvider,androidx.room.solver.binderprovider,RxMaybeQueryResultBinderProvider,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.binderprovider,RxSingleQueryResultBinderProvider,androidx.room.solver.binderprovider,RxSingleQueryResultBinderProvider,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.parameter,ArrayQueryParameterAdapter,androidx.room.solver.query.parameter,ArrayQueryParameterAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.parameter,BasicQueryParameterAdapter,androidx.room.solver.query.parameter,BasicQueryParameterAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.parameter,CollectionQueryParameterAdapter,androidx.room.solver.query.parameter,CollectionQueryParameterAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.parameter,QueryParameterAdapter,androidx.room.solver.query.parameter,QueryParameterAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,ArrayQueryResultAdapter,androidx.room.solver.query.result,ArrayQueryResultAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,BaseObservableQueryResultBinder,androidx.room.solver.query.result,BaseObservableQueryResultBinder,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,CursorQueryResultBinder,androidx.room.solver.query.result,CursorQueryResultBinder,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,DataSourceFactoryQueryResultBinder,androidx.room.solver.query.result,DataSourceFactoryQueryResultBinder,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,EntityRowAdapter,androidx.room.solver.query.result,EntityRowAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,FlowableQueryResultBinder,androidx.room.solver.query.result,FlowableQueryResultBinder,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,GuavaListenableFutureQueryResultBinder,androidx.room.solver.query.result,GuavaListenableFutureQueryResultBinder,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,GuavaOptionalQueryResultAdapter,androidx.room.solver.query.result,GuavaOptionalQueryResultAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,InstantQueryResultBinder,androidx.room.solver.query.result,InstantQueryResultBinder,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,ListQueryResultAdapter,androidx.room.solver.query.result,ListQueryResultAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,LiveDataQueryResultBinder,androidx.room.solver.query.result,LiveDataQueryResultBinder,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,OptionalQueryResultAdapter,androidx.room.solver.query.result,OptionalQueryResultAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,PojoRowAdapter,androidx.room.solver.query.result,PojoRowAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,PositionalDataSourceQueryResultBinder,androidx.room.solver.query.result,PositionalDataSourceQueryResultBinder,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,QueryResultAdapter,androidx.room.solver.query.result,QueryResultAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,QueryResultBinder,androidx.room.solver.query.result,QueryResultBinder,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,RowAdapter,androidx.room.solver.query.result,RowAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,RxCallableQueryResultBinder,androidx.room.solver.query.result,RxCallableQueryResultBinder,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,SingleColumnRowAdapter,androidx.room.solver.query.result,SingleColumnRowAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,SingleEntityQueryResultAdapter,androidx.room.solver.query.result,SingleEntityQueryResultAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,TransactionWrapper,androidx.room.solver.query.result,TransactionWrapper,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.query.result,TransactionWrapperKt,androidx.room.solver.query.result,TransactionWrapperKt,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.types,BoxedBooleanToBoxedIntConverter,androidx.room.solver.types,BoxedBooleanToBoxedIntConverter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.types,BoxedPrimitiveColumnTypeAdapter,androidx.room.solver.types,BoxedPrimitiveColumnTypeAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.types,ByteArrayColumnTypeAdapter,androidx.room.solver.types,ByteArrayColumnTypeAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.types,ColumnTypeAdapter,androidx.room.solver.types,ColumnTypeAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.types,CompositeAdapter,androidx.room.solver.types,CompositeAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.types,CompositeTypeConverter,androidx.room.solver.types,CompositeTypeConverter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.types,CursorValueReader,androidx.room.solver.types,CursorValueReader,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.types,CustomTypeConverterWrapper,androidx.room.solver.types,CustomTypeConverterWrapper,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.types,NoOpConverter,androidx.room.solver.types,NoOpConverter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.types,PrimitiveBooleanToIntConverter,androidx.room.solver.types,PrimitiveBooleanToIntConverter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.types,PrimitiveColumnTypeAdapter,androidx.room.solver.types,PrimitiveColumnTypeAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.types,StatementValueBinder,androidx.room.solver.types,StatementValueBinder,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.types,StringColumnTypeAdapter,androidx.room.solver.types,StringColumnTypeAdapter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.solver.types,TypeConverter,androidx.room.solver.types,TypeConverter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.testing,MigrationTestHelper,androidx.room.testing,MigrationTestHelper,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.verifier,ColumnInfo,androidx.room.verifier,ColumnInfo,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.verifier,DatabaseVerificaitonErrors,androidx.room.verifier,DatabaseVerificaitonErrors,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.verifier,DatabaseVerifier,androidx.room.verifier,DatabaseVerifier,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.verifier,QueryResultInfo,androidx.room.verifier,QueryResultInfo,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,CallType,androidx.room.vo,CallType,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,Constructor,androidx.room.vo,Constructor,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,CustomTypeConverter,androidx.room.vo,CustomTypeConverter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,Dao,androidx.room.vo,Dao,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,DaoMethod,androidx.room.vo,DaoMethod,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,Database,androidx.room.vo,Database,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,DeletionMethod,androidx.room.vo,DeletionMethod,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,EmbeddedField,androidx.room.vo,EmbeddedField,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,Entity,androidx.room.vo,Entity,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,Field,androidx.room.vo,Field,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,FieldGetter,androidx.room.vo,FieldGetter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,FieldSetter,androidx.room.vo,FieldSetter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,FieldWithIndex,androidx.room.vo,FieldWithIndex,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,ForeignKey,androidx.room.vo,ForeignKey,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,ForeignKeyAction,androidx.room.vo,ForeignKeyAction,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,HasSchemaIdentity,androidx.room.vo,HasSchemaIdentity,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,Index,androidx.room.vo,Index,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,InsertionMethod,androidx.room.vo,InsertionMethod,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,Pojo,androidx.room.vo,Pojo,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,PojoMethod,androidx.room.vo,PojoMethod,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,PrimaryKey,androidx.room.vo,PrimaryKey,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,QueryMethod,androidx.room.vo,QueryMethod,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,QueryParameter,androidx.room.vo,QueryParameter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,RawQueryMethod,androidx.room.vo,RawQueryMethod,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,Relation,androidx.room.vo,Relation,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,RelationCollector,androidx.room.vo,RelationCollector,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,SchemaIdentityKey,androidx.room.vo,SchemaIdentityKey,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,ShortcutMethod,androidx.room.vo,ShortcutMethod,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,ShortcutQueryParameter,androidx.room.vo,ShortcutQueryParameter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,TransactionMethod,androidx.room.vo,TransactionMethod,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,UpdateMethod,androidx.room.vo,UpdateMethod,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.vo,Warning,androidx.room.vo,Warning,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.writer,ClassWriter,androidx.room.writer,ClassWriter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.writer,DaoWriter,androidx.room.writer,DaoWriter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.writer,DatabaseWriter,androidx.room.writer,DatabaseWriter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.writer,EntityCursorConverterWriter,androidx.room.writer,EntityCursorConverterWriter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.writer,EntityDeleteComparator,androidx.room.writer,EntityDeleteComparator,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.writer,EntityDeletionAdapterWriter,androidx.room.writer,EntityDeletionAdapterWriter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.writer,EntityInsertionAdapterWriter,androidx.room.writer,EntityInsertionAdapterWriter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.writer,EntityUpdateAdapterWriter,androidx.room.writer,EntityUpdateAdapterWriter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.writer,FieldReadWriteWriter,androidx.room.writer,FieldReadWriteWriter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.writer,PreparedStatementWriter,androidx.room.writer,PreparedStatementWriter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.writer,QueryWriter,androidx.room.writer,QueryWriter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.writer,RelationCollectorMethodWriter,androidx.room.writer,RelationCollectorMethodWriter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.writer,SQLiteOpenHelperWriter,androidx.room.writer,SQLiteOpenHelperWriter,WARNING: No .NET types found.
-,,,,,,android.arch.persistence.room.writer,TableInfoValidationWriter,androidx.room.writer,TableInfoValidationWriter,WARNING: No .NET types found.
-,,,,,,android.databinding,BaseObservable,androidx.databinding,BaseObservable,WARNING: No .NET types found.
-,,,,,,android.databinding,BaseObservableField,androidx.databinding,BaseObservableField,WARNING: No .NET types found.
-,,,,,,android.databinding,Bindable,androidx.databinding,Bindable,WARNING: No .NET types found.
-,,,,,,android.databinding,BindingAdapter,androidx.databinding,BindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding,BindingBuildInfo,androidx.databinding,BindingBuildInfo,WARNING: No .NET types found.
-,,,,,,android.databinding,BindingConversion,androidx.databinding,BindingConversion,WARNING: No .NET types found.
-,,,,,,android.databinding,BindingMethod,androidx.databinding,BindingMethod,WARNING: No .NET types found.
-,,,,,,android.databinding,BindingMethods,androidx.databinding,BindingMethods,WARNING: No .NET types found.
-,,,,,,android.databinding,CallbackRegistry,androidx.databinding,CallbackRegistry,WARNING: No .NET types found.
-,,,,,,android.databinding,DataBinderMapper,androidx.databinding,DataBinderMapper,WARNING: No .NET types found.
-,,,,,,android.databinding,DataBinderMapperImpl,androidx.databinding,DataBinderMapperImpl,WARNING: No .NET types found.
-,,,,,,android.databinding,DataBindingComponent,androidx.databinding,DataBindingComponent,WARNING: No .NET types found.
-,,,,,,android.databinding,DataBindingUtil,androidx.databinding,DataBindingUtil,WARNING: No .NET types found.
-,,,,,,android.databinding,InverseBindingAdapter,androidx.databinding,InverseBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding,InverseBindingListener,androidx.databinding,InverseBindingListener,WARNING: No .NET types found.
-,,,,,,android.databinding,InverseBindingMethod,androidx.databinding,InverseBindingMethod,WARNING: No .NET types found.
-,,,,,,android.databinding,InverseBindingMethods,androidx.databinding,InverseBindingMethods,WARNING: No .NET types found.
-,,,,,,android.databinding,InverseMethod,androidx.databinding,InverseMethod,WARNING: No .NET types found.
-,,,,,,android.databinding,ListChangeRegistry,androidx.databinding,ListChangeRegistry,WARNING: No .NET types found.
-,,,,,,android.databinding,MapChangeRegistry,androidx.databinding,MapChangeRegistry,WARNING: No .NET types found.
-,,,,,,android.databinding,MergedDataBinderMapper,androidx.databinding,MergedDataBinderMapper,WARNING: No .NET types found.
-,,,,,,android.databinding,Observable,androidx.databinding,Observable,WARNING: No .NET types found.
-,,,,,,android.databinding,ObservableArrayList,androidx.databinding,ObservableArrayList,WARNING: No .NET types found.
-,,,,,,android.databinding,ObservableArrayMap,androidx.databinding,ObservableArrayMap,WARNING: No .NET types found.
-,,,,,,android.databinding,ObservableBoolean,androidx.databinding,ObservableBoolean,WARNING: No .NET types found.
-,,,,,,android.databinding,ObservableByte,androidx.databinding,ObservableByte,WARNING: No .NET types found.
-,,,,,,android.databinding,ObservableChar,androidx.databinding,ObservableChar,WARNING: No .NET types found.
-,,,,,,android.databinding,ObservableDouble,androidx.databinding,ObservableDouble,WARNING: No .NET types found.
-,,,,,,android.databinding,ObservableField,androidx.databinding,ObservableField,WARNING: No .NET types found.
-,,,,,,android.databinding,ObservableFloat,androidx.databinding,ObservableFloat,WARNING: No .NET types found.
-,,,,,,android.databinding,ObservableInt,androidx.databinding,ObservableInt,WARNING: No .NET types found.
-,,,,,,android.databinding,ObservableList,androidx.databinding,ObservableList,WARNING: No .NET types found.
-,,,,,,android.databinding,ObservableLong,androidx.databinding,ObservableLong,WARNING: No .NET types found.
-,,,,,,android.databinding,ObservableMap,androidx.databinding,ObservableMap,WARNING: No .NET types found.
-,,,,,,android.databinding,ObservableParcelable,androidx.databinding,ObservableParcelable,WARNING: No .NET types found.
-,,,,,,android.databinding,ObservableShort,androidx.databinding,ObservableShort,WARNING: No .NET types found.
-,,,,,,android.databinding,OnRebindCallback,androidx.databinding,OnRebindCallback,WARNING: No .NET types found.
-,,,,,,android.databinding,PropertyChangeRegistry,androidx.databinding,PropertyChangeRegistry,WARNING: No .NET types found.
-,,,,,,android.databinding,Untaggable,androidx.databinding,Untaggable,WARNING: No .NET types found.
-,,,,,,android.databinding,ViewDataBinding,androidx.databinding,ViewDataBinding,WARNING: No .NET types found.
-,,,,,,android.databinding,ViewStubProxy,androidx.databinding,ViewStubProxy,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,AbsListViewBindingAdapter,androidx.databinding.adapters,AbsListViewBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,AbsSeekBarBindingAdapter,androidx.databinding.adapters,AbsSeekBarBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,AbsSpinnerBindingAdapter,androidx.databinding.adapters,AbsSpinnerBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,ActionMenuViewBindingAdapter,androidx.databinding.adapters,ActionMenuViewBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,AdapterViewBindingAdapter,androidx.databinding.adapters,AdapterViewBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,AutoCompleteTextViewBindingAdapter,androidx.databinding.adapters,AutoCompleteTextViewBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,CalendarViewBindingAdapter,androidx.databinding.adapters,CalendarViewBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,CardViewBindingAdapter,androidx.databinding.adapters,CardViewBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,CheckedTextViewBindingAdapter,androidx.databinding.adapters,CheckedTextViewBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,ChronometerBindingAdapter,androidx.databinding.adapters,ChronometerBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,CompoundButtonBindingAdapter,androidx.databinding.adapters,CompoundButtonBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,Converters,androidx.databinding.adapters,Converters,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,DatePickerBindingAdapter,androidx.databinding.adapters,DatePickerBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,ExpandableListViewBindingAdapter,androidx.databinding.adapters,ExpandableListViewBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,FrameLayoutBindingAdapter,androidx.databinding.adapters,FrameLayoutBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,ImageViewBindingAdapter,androidx.databinding.adapters,ImageViewBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,LinearLayoutBindingAdapter,androidx.databinding.adapters,LinearLayoutBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,ListenerUtil,androidx.databinding.adapters,ListenerUtil,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,NumberPickerBindingAdapter,androidx.databinding.adapters,NumberPickerBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,ObservableListAdapter,androidx.databinding.adapters,ObservableListAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,ProgressBarBindingAdapter,androidx.databinding.adapters,ProgressBarBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,RadioGroupBindingAdapter,androidx.databinding.adapters,RadioGroupBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,RatingBarBindingAdapter,androidx.databinding.adapters,RatingBarBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,SearchViewBindingAdapter,androidx.databinding.adapters,SearchViewBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,SeekBarBindingAdapter,androidx.databinding.adapters,SeekBarBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,SpinnerBindingAdapter,androidx.databinding.adapters,SpinnerBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,SwitchBindingAdapter,androidx.databinding.adapters,SwitchBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,SwitchCompatBindingAdapter,androidx.databinding.adapters,SwitchCompatBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,TabHostBindingAdapter,androidx.databinding.adapters,TabHostBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,TableLayoutBindingAdapter,androidx.databinding.adapters,TableLayoutBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,TabWidgetBindingAdapter,androidx.databinding.adapters,TabWidgetBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,TextViewBindingAdapter,androidx.databinding.adapters,TextViewBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,TimePickerBindingAdapter,androidx.databinding.adapters,TimePickerBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,ToolbarBindingAdapter,androidx.databinding.adapters,ToolbarBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,VideoViewBindingAdapter,androidx.databinding.adapters,VideoViewBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,ViewBindingAdapter,androidx.databinding.adapters,ViewBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,ViewGroupBindingAdapter,androidx.databinding.adapters,ViewGroupBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,ViewStubBindingAdapter,androidx.databinding.adapters,ViewStubBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.databinding.adapters,ZoomControlsBindingAdapter,androidx.databinding.adapters,ZoomControlsBindingAdapter,WARNING: No .NET types found.
-,,,,,,android.support.animation,AnimationHandler,androidx.dynamicanimation.animation,AnimationHandler,WARNING: No .NET types found.
-,,,,,,android.support.animation,Force,androidx.dynamicanimation.animation,Force,WARNING: No .NET types found.
-,,,,,,android.support.compat,R,androidx.core,R,WARNING: No .NET types found.
-,,,,,,android.support.constraint,R,androidx.constraintlayout.widget,R,WARNING: No .NET types found.
-,,,,,,android.support.constraint.solver,Pools,androidx.constraintlayout.solver,Pools,WARNING: No .NET types found.
-,,,,,,android.support.constraint.solver.widgets,Analyzer,androidx.constraintlayout.solver.widgets,Analyzer,WARNING: No .NET types found.
-,,,,,,android.support.constraint.solver.widgets,Chain,androidx.constraintlayout.solver.widgets,Chain,WARNING: No .NET types found.
-,,,,,,android.support.constraint.solver.widgets,ChainHead,androidx.constraintlayout.solver.widgets,ChainHead,WARNING: No .NET types found.
-,,,,,,android.support.constraint.solver.widgets,ConstraintWidgetGroup,androidx.constraintlayout.solver.widgets,ConstraintWidgetGroup,WARNING: No .NET types found.
-,,,,,,android.support.content,ContentPager,androidx.contentpager.content,ContentPager,WARNING: No .NET types found.
-,,,,,,android.support.content,InMemoryCursor,androidx.contentpager.content,InMemoryCursor,WARNING: No .NET types found.
-,,,,,,android.support.content,LoaderQueryRunner,androidx.contentpager.content,LoaderQueryRunner,WARNING: No .NET types found.
-,,,,,,android.support.content,Query,androidx.contentpager.content,Query,WARNING: No .NET types found.
-,,,,,,android.support.coordinatorlayout,R,androidx.coordinatorlayout,R,WARNING: No .NET types found.
-,,,,,,android.support.customtabs,R,androidx.browser,R,WARNING: No .NET types found.
-,,,,,,android.support.design,R,com.google.android.material,R,WARNING: No .NET types found.
-,,,,,,android.support.design.button,MaterialButtonBackgroundDrawable,com.google.android.material.button,MaterialButtonBackgroundDrawable,WARNING: No .NET types found.
-,,,,,,android.support.design.button,MaterialButtonHelper,com.google.android.material.button,MaterialButtonHelper,WARNING: No .NET types found.
-,,,,,,android.support.design.card,MaterialCardViewHelper,com.google.android.material.card,MaterialCardViewHelper,WARNING: No .NET types found.
-,,,,,,android.support.design.internal,NavigationMenuPresenter,com.google.android.material.internal,NavigationMenuPresenter,WARNING: No .NET types found.
-,,,,,,android.support.design.widget,CircularBorderDrawableLollipop,com.google.android.material.internal,CircularBorderDrawableLollipop,WARNING: No .NET types found.
-,,,,,,android.support.design.widget,CutoutDrawable,com.google.android.material.textfield,CutoutDrawable,WARNING: No .NET types found.
-,,,,,,android.support.design.widget,FloatingActionButtonImpl,com.google.android.material.floatingactionbutton,FloatingActionButtonImpl,WARNING: No .NET types found.
-,,,,,,android.support.design.widget,FloatingActionButtonImplLollipop,com.google.android.material.floatingactionbutton,FloatingActionButtonImplLollipop,WARNING: No .NET types found.
-,,,,,,android.support.design.widget,IndicatorViewController,com.google.android.material.textfield,IndicatorViewController,WARNING: No .NET types found.
-,,,,,,android.support.design.widget,SnackbarManager,com.google.android.material.snackbar,SnackbarManager,WARNING: No .NET types found.
-,,,,,,android.support.design.widget,ViewOffsetHelper,com.google.android.material.appbar,ViewOffsetHelper,WARNING: No .NET types found.
-,,,,,,android.support.design.widget,ViewUtilsLollipop,com.google.android.material.appbar,ViewUtilsLollipop,WARNING: No .NET types found.
-,,,,,,android.support.graphics.drawable,AndroidResources,androidx.vectordrawable.graphics.drawable,AndroidResources,WARNING: No .NET types found.
-,,,,,,android.support.media2,BaseRemoteMediaPlayerConnector,android.support.media2,BaseRemoteMediaPlayerConnector,WARNING: No .NET types found.
-,,,,,,android.support.media2,DataSourceDesc2,android.support.media2,DataSourceDesc2,WARNING: No .NET types found.
-,,,,,,android.support.media2,MediaPlayerConnector,android.support.media2,MediaPlayerConnector,WARNING: No .NET types found.
-,,,,,,android.support.media2,MediaPlaylistAgent,android.support.media2,MediaPlaylistAgent,WARNING: No .NET types found.
-,,,,,,android.support.media2,MediaSession2,android.support.media2,MediaSession2,WARNING: No .NET types found.
-,,,,,,android.support.mediacompat,R,androidx.media,R,WARNING: No .NET types found.
-,,,,,,android.support.multidex,MultiDex,androidx.multidex,MultiDex,WARNING: No .NET types found.
-,,,,,,android.support.multidex,MultiDexApplication,androidx.multidex,MultiDexApplication,WARNING: No .NET types found.
-,,,,,,android.support.multidex,MultiDexExtractor,androidx.multidex,MultiDexExtractor,WARNING: No .NET types found.
-,,,,,,android.support.multidex,ZipUtil,androidx.multidex,ZipUtil,WARNING: No .NET types found.
-,,,,,,android.support.percent,R,androidx.percentlayout,R,WARNING: No .NET types found.
-,,,,,,android.support.test,InstrumentationRegistry,androidx.test,InstrumentationRegistry,WARNING: No .NET types found.
-,,,,,,android.support.test.annotation,Beta,androidx.test.annotation,Beta,WARNING: No .NET types found.
-,,,,,,android.support.test.annotation,UiThreadTest,androidx.test.annotation,UiThreadTest,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,AmbiguousViewMatcherException,androidx.test.espresso,AmbiguousViewMatcherException,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,AppNotIdleException,androidx.test.espresso,AppNotIdleException,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,BaseLayerComponent,androidx.test.espresso,BaseLayerComponent,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,DaggerBaseLayerComponent,androidx.test.espresso,DaggerBaseLayerComponent,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,DataInteraction,androidx.test.espresso,DataInteraction,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,DataInteractionRemote,androidx.test.espresso,DataInteractionRemote,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,Espresso,androidx.test.espresso,Espresso,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,EspressoException,androidx.test.espresso,EspressoException,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,FailureHandler,androidx.test.espresso,FailureHandler,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,GraphHolder,androidx.test.espresso,GraphHolder,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,IdlingPolicies,androidx.test.espresso,IdlingPolicies,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,IdlingPolicy,androidx.test.espresso,IdlingPolicy,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,IdlingRegistry,androidx.test.espresso,IdlingRegistry,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,IdlingResource,androidx.test.espresso,IdlingResource,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,IdlingResourceTimeoutException,androidx.test.espresso,IdlingResourceTimeoutException,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,InjectEventSecurityException,androidx.test.espresso,InjectEventSecurityException,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,InteractionResultsHandler,androidx.test.espresso,InteractionResultsHandler,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,NoActivityResumedException,androidx.test.espresso,NoActivityResumedException,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,NoMatchingRootException,androidx.test.espresso,NoMatchingRootException,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,NoMatchingViewException,androidx.test.espresso,NoMatchingViewException,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,PerformException,androidx.test.espresso,PerformException,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,Root,androidx.test.espresso,Root,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,UiController,androidx.test.espresso,UiController,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,ViewAction,androidx.test.espresso,ViewAction,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,ViewAssertion,androidx.test.espresso,ViewAssertion,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,ViewFinder,androidx.test.espresso,ViewFinder,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,ViewInteraction_Factory,androidx.test.espresso,ViewInteraction_Factory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,ViewInteraction,androidx.test.espresso,ViewInteraction,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,ViewInteractionComponent,androidx.test.espresso,ViewInteractionComponent,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,ViewInteractionModule_ProvideNeedsActivityFactory,androidx.test.espresso,ViewInteractionModule_ProvideNeedsActivityFactory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,ViewInteractionModule_ProvideRemoteInteractionFactory,androidx.test.espresso,ViewInteractionModule_ProvideRemoteInteractionFactory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,ViewInteractionModule_ProvideRootMatcherFactory,androidx.test.espresso,ViewInteractionModule_ProvideRootMatcherFactory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,ViewInteractionModule_ProvideRootViewFactory,androidx.test.espresso,ViewInteractionModule_ProvideRootViewFactory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,ViewInteractionModule_ProvideViewFinderFactory,androidx.test.espresso,ViewInteractionModule_ProvideViewFinderFactory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,ViewInteractionModule_ProvideViewMatcherFactory,androidx.test.espresso,ViewInteractionModule_ProvideViewMatcherFactory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso,ViewInteractionModule,androidx.test.espresso,ViewInteractionModule,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.accessibility,AccessibilityChecks,androidx.test.espresso.accessibility,AccessibilityChecks,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,AdapterDataLoaderAction,androidx.test.espresso.action,AdapterDataLoaderAction,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,AdapterDataLoaderActionRemoteMsg,androidx.test.espresso.action,AdapterDataLoaderActionRemoteMsg,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,AdapterViewProtocol,androidx.test.espresso.action,AdapterViewProtocol,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,AdapterViewProtocols,androidx.test.espresso.action,AdapterViewProtocols,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,CloseKeyboardAction,androidx.test.espresso.action,CloseKeyboardAction,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,CoordinatesProvider,androidx.test.espresso.action,CoordinatesProvider,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,EditorAction,androidx.test.espresso.action,EditorAction,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,EspressoKey,androidx.test.espresso.action,EspressoKey,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,GeneralClickAction,androidx.test.espresso.action,GeneralClickAction,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,GeneralClickActionRemoteMessage,androidx.test.espresso.action,GeneralClickActionRemoteMessage,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,GeneralLocation,androidx.test.espresso.action,GeneralLocation,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,GeneralLocationRemoteMessage,androidx.test.espresso.action,GeneralLocationRemoteMessage,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,GeneralSwipeAction,androidx.test.espresso.action,GeneralSwipeAction,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,GeneralSwipeActionRemoteMessage,androidx.test.espresso.action,GeneralSwipeActionRemoteMessage,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,KeyEventAction,androidx.test.espresso.action,KeyEventAction,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,KeyEventActionBase,androidx.test.espresso.action,KeyEventActionBase,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,MotionEvents,androidx.test.espresso.action,MotionEvents,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,OpenLinkAction,androidx.test.espresso.action,OpenLinkAction,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,PrecisionDescriber,androidx.test.espresso.action,PrecisionDescriber,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,Press,androidx.test.espresso.action,Press,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,PressBackAction,androidx.test.espresso.action,PressBackAction,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,PressRemoteMessage,androidx.test.espresso.action,PressRemoteMessage,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,RemoteViewActions,androidx.test.espresso.action,RemoteViewActions,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,RepeatActionUntilViewState,androidx.test.espresso.action,RepeatActionUntilViewState,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,ReplaceTextAction,androidx.test.espresso.action,ReplaceTextAction,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,ScrollToAction,androidx.test.espresso.action,ScrollToAction,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,Swipe,androidx.test.espresso.action,Swipe,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,Swiper,androidx.test.espresso.action,Swiper,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,SwipeRemoteMessage,androidx.test.espresso.action,SwipeRemoteMessage,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,Tap,androidx.test.espresso.action,Tap,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,Tapper,androidx.test.espresso.action,Tapper,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,TapRemoteMessage,androidx.test.espresso.action,TapRemoteMessage,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,TranslatedCoordinatesProvider,androidx.test.espresso.action,TranslatedCoordinatesProvider,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,TranslatedCoordinatesProviderRemoteMessage,androidx.test.espresso.action,TranslatedCoordinatesProviderRemoteMessage,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,TypeTextAction,androidx.test.espresso.action,TypeTextAction,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.action,ViewActions,androidx.test.espresso.action,ViewActions,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.assertion,LayoutAssertions,androidx.test.espresso.assertion,LayoutAssertions,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.assertion,PositionAssertions,androidx.test.espresso.assertion,PositionAssertions,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.assertion,RemoteViewAssertions,androidx.test.espresso.assertion,RemoteViewAssertions,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.assertion,ViewAssertions,androidx.test.espresso.assertion,ViewAssertions,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,ActiveRootLister,androidx.test.espresso.base,ActiveRootLister,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,AsyncTaskPoolMonitor,androidx.test.espresso.base,AsyncTaskPoolMonitor,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,BaseLayerModule_FailureHandlerHolder_Factory,androidx.test.espresso.base,BaseLayerModule_FailureHandlerHolder_Factory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,BaseLayerModule_ProvideActiveRootListerFactory,androidx.test.espresso.base,BaseLayerModule_ProvideActiveRootListerFactory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,BaseLayerModule_ProvideCompatAsyncTaskMonitorFactory,androidx.test.espresso.base,BaseLayerModule_ProvideCompatAsyncTaskMonitorFactory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,BaseLayerModule_ProvideDynamicNotiferFactory,androidx.test.espresso.base,BaseLayerModule_ProvideDynamicNotiferFactory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,BaseLayerModule_ProvideEventInjectorFactory,androidx.test.espresso.base,BaseLayerModule_ProvideEventInjectorFactory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,BaseLayerModule_ProvideFailureHanderFactory,androidx.test.espresso.base,BaseLayerModule_ProvideFailureHanderFactory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,BaseLayerModule_ProvideFailureHandlerFactory,androidx.test.espresso.base,BaseLayerModule_ProvideFailureHandlerFactory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,BaseLayerModule_ProvideLifecycleMonitorFactory,androidx.test.espresso.base,BaseLayerModule_ProvideLifecycleMonitorFactory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,BaseLayerModule_ProvideMainLooperFactory,androidx.test.espresso.base,BaseLayerModule_ProvideMainLooperFactory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,BaseLayerModule_ProvideMainThreadExecutorFactory,androidx.test.espresso.base,BaseLayerModule_ProvideMainThreadExecutorFactory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,BaseLayerModule_ProvideRemoteExecutorFactory,androidx.test.espresso.base,BaseLayerModule_ProvideRemoteExecutorFactory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,BaseLayerModule_ProvideSdkAsyncTaskMonitorFactory,androidx.test.espresso.base,BaseLayerModule_ProvideSdkAsyncTaskMonitorFactory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,BaseLayerModule_ProvideTargetContextFactory,androidx.test.espresso.base,BaseLayerModule_ProvideTargetContextFactory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,BaseLayerModule,androidx.test.espresso.base,BaseLayerModule,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,CompatAsyncTask,androidx.test.espresso.base,CompatAsyncTask,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,Default,androidx.test.espresso.base,Default,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,DefaultFailureHandler,androidx.test.espresso.base,DefaultFailureHandler,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,EventInjectionStrategy,androidx.test.espresso.base,EventInjectionStrategy,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,EventInjector,androidx.test.espresso.base,EventInjector,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,IdleNotifier,androidx.test.espresso.base,IdleNotifier,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,IdlingResourceRegistry_Factory,androidx.test.espresso.base,IdlingResourceRegistry_Factory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,IdlingResourceRegistry,androidx.test.espresso.base,IdlingResourceRegistry,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,IdlingUiController,androidx.test.espresso.base,IdlingUiController,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,InputManagerEventInjectionStrategy,androidx.test.espresso.base,InputManagerEventInjectionStrategy,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,Interrogator,androidx.test.espresso.base,Interrogator,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,InterruptableUiController,androidx.test.espresso.base,InterruptableUiController,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,LooperIdlingResourceInterrogationHandler,androidx.test.espresso.base,LooperIdlingResourceInterrogationHandler,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,MainThread,androidx.test.espresso.base,MainThread,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,NoopIdleNotificationCallbackIdleNotifierProvider,androidx.test.espresso.base,NoopIdleNotificationCallbackIdleNotifierProvider,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,NoopRunnableIdleNotifier,androidx.test.espresso.base,NoopRunnableIdleNotifier,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,RootsOracle_Factory,androidx.test.espresso.base,RootsOracle_Factory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,RootsOracle,androidx.test.espresso.base,RootsOracle,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,RootViewPicker_Factory,androidx.test.espresso.base,RootViewPicker_Factory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,RootViewPicker_RootResultFetcher_Factory,androidx.test.espresso.base,RootViewPicker_RootResultFetcher_Factory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,RootViewPicker,androidx.test.espresso.base,RootViewPicker,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,RootViewPickerScope,androidx.test.espresso.base,RootViewPickerScope,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,SdkAsyncTask,androidx.test.espresso.base,SdkAsyncTask,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,ThreadPoolExecutorExtractor_Factory,androidx.test.espresso.base,ThreadPoolExecutorExtractor_Factory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,ThreadPoolExecutorExtractor,androidx.test.espresso.base,ThreadPoolExecutorExtractor,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,UiControllerImpl_Factory,androidx.test.espresso.base,UiControllerImpl_Factory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,UiControllerImpl,androidx.test.espresso.base,UiControllerImpl,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,UiControllerModule,androidx.test.espresso.base,UiControllerModule,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,ViewFinderImpl_Factory,androidx.test.espresso.base,ViewFinderImpl_Factory,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,ViewFinderImpl,androidx.test.espresso.base,ViewFinderImpl,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.base,WindowManagerEventInjectionStrategy,androidx.test.espresso.base,WindowManagerEventInjectionStrategy,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.contrib,AccessibilityChecks,androidx.test.espresso.contrib,AccessibilityChecks,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.contrib,ActivityResultMatchers,androidx.test.espresso.contrib,ActivityResultMatchers,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.contrib,Checks,androidx.test.espresso.contrib,Checks,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.contrib,DrawerActions,androidx.test.espresso.contrib,DrawerActions,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.contrib,DrawerMatchers,androidx.test.espresso.contrib,DrawerMatchers,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.contrib,NavigationViewActions,androidx.test.espresso.contrib,NavigationViewActions,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.contrib,PickerActions,androidx.test.espresso.contrib,PickerActions,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.contrib,RecyclerViewActions,androidx.test.espresso.contrib,RecyclerViewActions,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.contrib,ViewPagerActions,androidx.test.espresso.contrib,ViewPagerActions,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.idling,CountingIdlingResource,androidx.test.espresso.idling,CountingIdlingResource,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.idling.concurrent,IdlingScheduledThreadPoolExecutor,androidx.test.espresso.idling.concurrent,IdlingScheduledThreadPoolExecutor,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.idling.concurrent,IdlingThreadPoolExecutor,androidx.test.espresso.idling.concurrent,IdlingThreadPoolExecutor,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.idling.net,UriIdlingResource,androidx.test.espresso.idling.net,UriIdlingResource,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.intent,ActivityResultFunction,androidx.test.espresso.intent,ActivityResultFunction,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.intent,Checks,androidx.test.espresso.intent,Checks,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.intent,Intents,androidx.test.espresso.intent,Intents,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.intent,OngoingStubbing,androidx.test.espresso.intent,OngoingStubbing,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.intent,ResettingStubber,androidx.test.espresso.intent,ResettingStubber,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.intent,ResettingStubberImpl,androidx.test.espresso.intent,ResettingStubberImpl,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.intent,ResolvedIntent,androidx.test.espresso.intent,ResolvedIntent,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.intent,ResolvedIntentImpl,androidx.test.espresso.intent,ResolvedIntentImpl,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.intent,VerifiableIntent,androidx.test.espresso.intent,VerifiableIntent,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.intent,VerifiableIntentImpl,androidx.test.espresso.intent,VerifiableIntentImpl,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.intent,VerificationMode,androidx.test.espresso.intent,VerificationMode,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.intent,VerificationModes,androidx.test.espresso.intent,VerificationModes,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.intent.matcher,BundleMatchers,androidx.test.espresso.intent.matcher,BundleMatchers,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.intent.matcher,ComponentNameMatchers,androidx.test.espresso.intent.matcher,ComponentNameMatchers,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.intent.matcher,IntentMatchers,androidx.test.espresso.intent.matcher,IntentMatchers,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.intent.matcher,UriMatchers,androidx.test.espresso.intent.matcher,UriMatchers,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.intent.rule,IntentsTestRule,androidx.test.espresso.intent.rule,IntentsTestRule,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.matcher,BoundedMatcher,androidx.test.espresso.matcher,BoundedMatcher,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.matcher,CursorMatchers,androidx.test.espresso.matcher,CursorMatchers,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.matcher,HasBackgroundMatcher,androidx.test.espresso.matcher,HasBackgroundMatcher,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.matcher,LayoutMatchers,androidx.test.espresso.matcher,LayoutMatchers,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.matcher,PreferenceMatchers,androidx.test.espresso.matcher,PreferenceMatchers,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.matcher,RemoteHamcrestCoreMatchers13,androidx.test.espresso.matcher,RemoteHamcrestCoreMatchers13,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.matcher,RemoteRootMatchers,androidx.test.espresso.matcher,RemoteRootMatchers,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.matcher,RemoteViewMatchers,androidx.test.espresso.matcher,RemoteViewMatchers,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.matcher,RootMatchers,androidx.test.espresso.matcher,RootMatchers,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.matcher,ViewMatchers,androidx.test.espresso.matcher,ViewMatchers,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.proto,UiInteraction,androidx.test.espresso.proto,UiInteraction,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.proto.action,ViewActions,androidx.test.espresso.proto.action,ViewActions,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.proto.assertion,ViewAssertions,androidx.test.espresso.proto.assertion,ViewAssertions,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.proto.matcher,RootMatchers,androidx.test.espresso.proto.matcher,RootMatchers,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.proto.matcher,ViewMatchers,androidx.test.espresso.proto.matcher,ViewMatchers,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.proto.matcher13,HamcrestMatchersv13,androidx.test.espresso.proto.matcher13,HamcrestMatchersv13,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,AnyToTypeConverter,androidx.test.espresso.remote,AnyToTypeConverter,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,Bindable,androidx.test.espresso.remote,Bindable,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,BuilderReflector,androidx.test.espresso.remote,BuilderReflector,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,ByteStringToParcelableConverter,androidx.test.espresso.remote,ByteStringToParcelableConverter,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,ByteStringToTypeConverter,androidx.test.espresso.remote,ByteStringToTypeConverter,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,ConstructorInvocation,androidx.test.espresso.remote,ConstructorInvocation,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,Converter,androidx.test.espresso.remote,Converter,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,EspressoRemote,androidx.test.espresso.remote,EspressoRemote,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,EspressoRemoteMessage,androidx.test.espresso.remote,EspressoRemoteMessage,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,FieldDescriptor,androidx.test.espresso.remote,FieldDescriptor,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,GenericRemoteMessage,androidx.test.espresso.remote,GenericRemoteMessage,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,IInteractionExecutionStatus,androidx.test.espresso.remote,IInteractionExecutionStatus,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,InteractionRequest,androidx.test.espresso.remote,InteractionRequest,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,InteractionResponse,androidx.test.espresso.remote,InteractionResponse,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,MethodInvocation,androidx.test.espresso.remote,MethodInvocation,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,NoopRemoteInteraction,androidx.test.espresso.remote,NoopRemoteInteraction,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,NoRemoteEspressoInstanceException,androidx.test.espresso.remote,NoRemoteEspressoInstanceException,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,ParcelableToByteStringConverter,androidx.test.espresso.remote,ParcelableToByteStringConverter,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,ProtoReflector,androidx.test.espresso.remote,ProtoReflector,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,ProtoUtils,androidx.test.espresso.remote,ProtoUtils,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,RemoteDescriptor,androidx.test.espresso.remote,RemoteDescriptor,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,RemoteDescriptorRegistry,androidx.test.espresso.remote,RemoteDescriptorRegistry,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,RemoteEspressoException,androidx.test.espresso.remote,RemoteEspressoException,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,RemoteInteraction,androidx.test.espresso.remote,RemoteInteraction,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,RemoteInteractionRegistry,androidx.test.espresso.remote,RemoteInteractionRegistry,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,RemoteMessageDeserializer,androidx.test.espresso.remote,RemoteMessageDeserializer,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,RemoteMessageSerializer,androidx.test.espresso.remote,RemoteMessageSerializer,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,RemoteProtocolException,androidx.test.espresso.remote,RemoteProtocolException,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,TypeProtoConverters,androidx.test.espresso.remote,TypeProtoConverters,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,TypeToAnyConverter,androidx.test.espresso.remote,TypeToAnyConverter,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote,TypeToByteStringConverter,androidx.test.espresso.remote,TypeToByteStringConverter,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote.annotation,RemoteMsgConstructor,androidx.test.espresso.remote.annotation,RemoteMsgConstructor,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.remote.annotation,RemoteMsgField,androidx.test.espresso.remote.annotation,RemoteMsgField,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.util,ActivityLifecycles,androidx.test.espresso.util,ActivityLifecycles,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.util,EspressoOptional,androidx.test.espresso.util,EspressoOptional,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.util,HumanReadables,androidx.test.espresso.util,HumanReadables,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.util,TreeIterables,androidx.test.espresso.util,TreeIterables,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.action,AtomAction,androidx.test.espresso.web.action,AtomAction,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.action,AtomActionRemoteMessage,androidx.test.espresso.web.action,AtomActionRemoteMessage,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.action,EnableJavascriptAction,androidx.test.espresso.web.action,EnableJavascriptAction,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.action,EvaluationAtom,androidx.test.espresso.web.action,EvaluationAtom,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.action,IAtomActionResultPropagator,androidx.test.espresso.web.action,IAtomActionResultPropagator,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.action,JavascriptEvaluation,androidx.test.espresso.web.action,JavascriptEvaluation,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.action,RemoteWebActions,androidx.test.espresso.web.action,RemoteWebActions,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.assertion,ByteStringToDocumentConverter,androidx.test.espresso.web.assertion,ByteStringToDocumentConverter,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.assertion,CheckResultWebAssertionRemoteMessage,androidx.test.espresso.web.assertion,CheckResultWebAssertionRemoteMessage,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.assertion,CompressorDecompressor,androidx.test.espresso.web.assertion,CompressorDecompressor,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.assertion,DocumentProtoConverters,androidx.test.espresso.web.assertion,DocumentProtoConverters,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.assertion,DocumentToByteStringConverter,androidx.test.espresso.web.assertion,DocumentToByteStringConverter,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.assertion,RemoteWebViewAssertions,androidx.test.espresso.web.assertion,RemoteWebViewAssertions,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.assertion,TagSoupDocumentParser,androidx.test.espresso.web.assertion,TagSoupDocumentParser,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.assertion,WebAssertion,androidx.test.espresso.web.assertion,WebAssertion,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.assertion,WebViewAssertions,androidx.test.espresso.web.assertion,WebViewAssertions,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.matcher,AmbiguousElementMatcherException,androidx.test.espresso.web.matcher,AmbiguousElementMatcherException,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.matcher,DomMatchers,androidx.test.espresso.web.matcher,DomMatchers,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.matcher,RemoteWebMatchers,androidx.test.espresso.web.matcher,RemoteWebMatchers,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.model,Atom,androidx.test.espresso.web.model,Atom,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.model,Atoms,androidx.test.espresso.web.model,Atoms,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.model,ElementReference,androidx.test.espresso.web.model,ElementReference,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.model,Evaluation,androidx.test.espresso.web.model,Evaluation,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.model,JSONAble,androidx.test.espresso.web.model,JSONAble,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.model,ModelCodec,androidx.test.espresso.web.model,ModelCodec,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.model,RemoteWebModelAtoms,androidx.test.espresso.web.model,RemoteWebModelAtoms,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.model,ScriptWithArgsSimpleAtomRemoteMessage,androidx.test.espresso.web.model,ScriptWithArgsSimpleAtomRemoteMessage,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.model,SimpleAtom,androidx.test.espresso.web.model,SimpleAtom,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.model,TransformingAtom,androidx.test.espresso.web.model,TransformingAtom,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.model,WindowReference,androidx.test.espresso.web.model,WindowReference,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.proto.action,WebActions,androidx.test.espresso.web.proto.action,WebActions,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.proto.assertion,WebAssertions,androidx.test.espresso.web.proto.assertion,WebAssertions,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.proto.matcher,RemoteWebMatchers,androidx.test.espresso.web.proto.matcher,RemoteWebMatchers,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.proto.model,WebModelAtoms,androidx.test.espresso.web.proto.model,WebModelAtoms,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.proto.sugar,WebSugar,androidx.test.espresso.web.proto.sugar,WebSugar,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.proto.webdriver,WebWebdriverAtoms,androidx.test.espresso.web.proto.webdriver,WebWebdriverAtoms,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.sugar,RemoteWebSugar,androidx.test.espresso.web.sugar,RemoteWebSugar,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.sugar,Web,androidx.test.espresso.web.sugar,Web,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.webdriver,DriverAtoms,androidx.test.espresso.web.webdriver,DriverAtoms,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.webdriver,Locator,androidx.test.espresso.web.webdriver,Locator,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.webdriver,RemoteWebDriverAtoms,androidx.test.espresso.web.webdriver,RemoteWebDriverAtoms,WARNING: No .NET types found.
-,,,,,,android.support.test.espresso.web.webdriver,WebDriverAtomScripts,androidx.test.espresso.web.webdriver,WebDriverAtomScripts,WARNING: No .NET types found.
-,,,,,,android.support.test.filters,FlakyTest,androidx.test.filters,FlakyTest,WARNING: No .NET types found.
-,,,,,,android.support.test.filters,LargeTest,androidx.test.filters,LargeTest,WARNING: No .NET types found.
-,,,,,,android.support.test.filters,MediumTest,androidx.test.filters,MediumTest,WARNING: No .NET types found.
-,,,,,,android.support.test.filters,RequiresDevice,androidx.test.filters,RequiresDevice,WARNING: No .NET types found.
-,,,,,,android.support.test.filters,SdkSuppress,androidx.test.filters,SdkSuppress,WARNING: No .NET types found.
-,,,,,,android.support.test.filters,SmallTest,androidx.test.filters,SmallTest,WARNING: No .NET types found.
-,,,,,,android.support.test.filters,Suppress,androidx.test.filters,Suppress,WARNING: No .NET types found.
-,,,,,,android.support.test.jank,GfxMonitor,androidx.test.jank,GfxMonitor,WARNING: No .NET types found.
-,,,,,,android.support.test.jank,JankTest,androidx.test.jank,JankTest,WARNING: No .NET types found.
-,,,,,,android.support.test.jank,JankTestBase,androidx.test.jank,JankTestBase,WARNING: No .NET types found.
-,,,,,,android.support.test.jank,WindowAnimationFrameStatsMonitor,androidx.test.jank,WindowAnimationFrameStatsMonitor,WARNING: No .NET types found.
-,,,,,,android.support.test.jank,WindowContentFrameStatsMonitor,androidx.test.jank,WindowContentFrameStatsMonitor,WARNING: No .NET types found.
-,,,,,,android.support.test.orchestrator.callback,OrchestratorCallback,androidx.test.orchestrator.callback,OrchestratorCallback,WARNING: No .NET types found.
-,,,,,,android.support.test.orchestrator.instrumentationlistener,OrchestratedInstrumentationListener,androidx.test.orchestrator.instrumentationlistener,OrchestratedInstrumentationListener,WARNING: No .NET types found.
-,,,,,,android.support.test.orchestrator.junit,BundleJUnitUtils,androidx.test.orchestrator.junit,BundleJUnitUtils,WARNING: No .NET types found.
-,,,,,,android.support.test.orchestrator.junit,ParcelableDescription,androidx.test.orchestrator.junit,ParcelableDescription,WARNING: No .NET types found.
-,,,,,,android.support.test.orchestrator.junit,ParcelableFailure,androidx.test.orchestrator.junit,ParcelableFailure,WARNING: No .NET types found.
-,,,,,,android.support.test.orchestrator.junit,ParcelableResult,androidx.test.orchestrator.junit,ParcelableResult,WARNING: No .NET types found.
-,,,,,,android.support.test.orchestrator.listeners,OrchestrationListenerManager,androidx.test.orchestrator.listeners,OrchestrationListenerManager,WARNING: No .NET types found.
-,,,,,,android.support.test.orchestrator.listeners,OrchestrationRunListener,androidx.test.orchestrator.listeners,OrchestrationRunListener,WARNING: No .NET types found.
-,,,,,,android.support.test.orchestrator.listeners.result,ITestRunListener,androidx.test.orchestrator.listeners.result,ITestRunListener,WARNING: No .NET types found.
-,,,,,,android.support.test.orchestrator.listeners.result,TestIdentifier,androidx.test.orchestrator.listeners.result,TestIdentifier,WARNING: No .NET types found.
-,,,,,,android.support.test.orchestrator.listeners.result,TestResult,androidx.test.orchestrator.listeners.result,TestResult,WARNING: No .NET types found.
-,,,,,,android.support.test.orchestrator.listeners.result,TestRunResult,androidx.test.orchestrator.listeners.result,TestRunResult,WARNING: No .NET types found.
-,,,,,,android.support.test.rule,ActivityTestRule,androidx.test.rule,ActivityTestRule,WARNING: No .NET types found.
-,,,,,,android.support.test.rule,DisableOnAndroidDebug,androidx.test.rule,DisableOnAndroidDebug,WARNING: No .NET types found.
-,,,,,,android.support.test.rule,GrantPermissionRule,androidx.test.rule,GrantPermissionRule,WARNING: No .NET types found.
-,,,,,,android.support.test.rule,PortForwardingRule,androidx.test.rule,PortForwardingRule,WARNING: No .NET types found.
-,,,,,,android.support.test.rule,ServiceTestRule,androidx.test.rule,ServiceTestRule,WARNING: No .NET types found.
-,,,,,,android.support.test.rule,UiThreadTestRule,androidx.test.rule,UiThreadTestRule,WARNING: No .NET types found.
-,,,,,,android.support.test.rule.logging,AtraceLogger,androidx.test.rule.logging,AtraceLogger,WARNING: No .NET types found.
-,,,,,,android.support.test.rule.provider,DatabaseArgs,androidx.test.rule.provider,DatabaseArgs,WARNING: No .NET types found.
-,,,,,,android.support.test.rule.provider,DelegatingContext,androidx.test.rule.provider,DelegatingContext,WARNING: No .NET types found.
-,,,,,,android.support.test.rule.provider,ProviderArgs,androidx.test.rule.provider,ProviderArgs,WARNING: No .NET types found.
-,,,,,,android.support.test.rule.provider,ProviderTestRule,androidx.test.rule.provider,ProviderTestRule,WARNING: No .NET types found.
-,,,,,,android.support.test.runner,AndroidJUnit4,androidx.test.runner,AndroidJUnit4,WARNING: No .NET types found.
-,,,,,,android.support.test.runner,AndroidJUnitRunner,androidx.test.runner,AndroidJUnitRunner,WARNING: No .NET types found.
-,,,,,,android.support.test.runner,MonitoringInstrumentation,androidx.test.runner,MonitoringInstrumentation,WARNING: No .NET types found.
-,,,,,,android.support.test.runner,UsageTrackerFacilitator,androidx.test.runner,UsageTrackerFacilitator,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.intent,IntentCallback,androidx.test.runner.intent,IntentCallback,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.intent,IntentMonitor,androidx.test.runner.intent,IntentMonitor,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.intent,IntentMonitorRegistry,androidx.test.runner.intent,IntentMonitorRegistry,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.intent,IntentStubber,androidx.test.runner.intent,IntentStubber,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.intent,IntentStubberRegistry,androidx.test.runner.intent,IntentStubberRegistry,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.intercepting,InterceptingActivityFactory,androidx.test.runner.intercepting,InterceptingActivityFactory,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.intercepting,SingleActivityFactory,androidx.test.runner.intercepting,SingleActivityFactory,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.lifecycle,ActivityLifecycleCallback,androidx.test.runner.lifecycle,ActivityLifecycleCallback,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.lifecycle,ActivityLifecycleMonitor,androidx.test.runner.lifecycle,ActivityLifecycleMonitor,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.lifecycle,ActivityLifecycleMonitorRegistry,androidx.test.runner.lifecycle,ActivityLifecycleMonitorRegistry,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.lifecycle,ApplicationLifecycleCallback,androidx.test.runner.lifecycle,ApplicationLifecycleCallback,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.lifecycle,ApplicationLifecycleMonitor,androidx.test.runner.lifecycle,ApplicationLifecycleMonitor,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.lifecycle,ApplicationLifecycleMonitorRegistry,androidx.test.runner.lifecycle,ApplicationLifecycleMonitorRegistry,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.lifecycle,ApplicationStage,androidx.test.runner.lifecycle,ApplicationStage,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.lifecycle,Stage,androidx.test.runner.lifecycle,Stage,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.permission,GrantPermissionCallable,androidx.test.runner.permission,GrantPermissionCallable,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.permission,PermissionRequester,androidx.test.runner.permission,PermissionRequester,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.permission,RequestPermissionCallable,androidx.test.runner.permission,RequestPermissionCallable,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.permission,ShellCommand,androidx.test.runner.permission,ShellCommand,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.permission,UiAutomationShellCommand,androidx.test.runner.permission,UiAutomationShellCommand,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.screenshot,BasicScreenCaptureProcessor,androidx.test.runner.screenshot,BasicScreenCaptureProcessor,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.screenshot,ScreenCapture,androidx.test.runner.screenshot,ScreenCapture,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.screenshot,ScreenCaptureProcessor,androidx.test.runner.screenshot,ScreenCaptureProcessor,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.screenshot,Screenshot,androidx.test.runner.screenshot,Screenshot,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.screenshot,TakeScreenshotCallable,androidx.test.runner.screenshot,TakeScreenshotCallable,WARNING: No .NET types found.
-,,,,,,android.support.test.runner.screenshot,UiAutomationWrapper,androidx.test.runner.screenshot,UiAutomationWrapper,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,AccessibilityNodeInfoDumper,androidx.test.uiautomator,AccessibilityNodeInfoDumper,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,AccessibilityNodeInfoHelper,androidx.test.uiautomator,AccessibilityNodeInfoHelper,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,By,androidx.test.uiautomator,By,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,ByMatcher,androidx.test.uiautomator,ByMatcher,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,BySelector,androidx.test.uiautomator,BySelector,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,Condition,androidx.test.uiautomator,Condition,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,Configurator,androidx.test.uiautomator,Configurator,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,Direction,androidx.test.uiautomator,Direction,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,EventCondition,androidx.test.uiautomator,EventCondition,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,GestureController,androidx.test.uiautomator,GestureController,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,Gestures,androidx.test.uiautomator,Gestures,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,IAutomationSupport,androidx.test.uiautomator,IAutomationSupport,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,InstrumentationAutomationSupport,androidx.test.uiautomator,InstrumentationAutomationSupport,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,InteractionController,androidx.test.uiautomator,InteractionController,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,PointerGesture,androidx.test.uiautomator,PointerGesture,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,QueryController,androidx.test.uiautomator,QueryController,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,Searchable,androidx.test.uiautomator,Searchable,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,SearchCondition,androidx.test.uiautomator,SearchCondition,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,StaleObjectException,androidx.test.uiautomator,StaleObjectException,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,Tracer,androidx.test.uiautomator,Tracer,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,UiAutomatorInstrumentationTestRunner,androidx.test.uiautomator,UiAutomatorInstrumentationTestRunner,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,UiAutomatorTestCase,androidx.test.uiautomator,UiAutomatorTestCase,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,UiCollection,androidx.test.uiautomator,UiCollection,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,UiDevice,androidx.test.uiautomator,UiDevice,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,UiObject,androidx.test.uiautomator,UiObject,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,UiObject2,androidx.test.uiautomator,UiObject2,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,UiObject2Condition,androidx.test.uiautomator,UiObject2Condition,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,UiObjectNotFoundException,androidx.test.uiautomator,UiObjectNotFoundException,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,UiScrollable,androidx.test.uiautomator,UiScrollable,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,UiSelector,androidx.test.uiautomator,UiSelector,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,UiWatcher,androidx.test.uiautomator,UiWatcher,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,Until,androidx.test.uiautomator,Until,WARNING: No .NET types found.
-,,,,,,android.support.test.uiautomator,WaitMixin,androidx.test.uiautomator,WaitMixin,WARNING: No .NET types found.
-,,,,,,android.support.text.emoji,EmojiProcessor,androidx.emoji.text,EmojiProcessor,WARNING: No .NET types found.
-,,,,,,android.support.text.emoji,MetadataListReader,androidx.emoji.text,MetadataListReader,WARNING: No .NET types found.
-,,,,,,android.support.text.emoji,R,androidx.emoji,R,WARNING: No .NET types found.
-,,,,,,android.support.text.emoji.widget,EmojiEditableFactory,androidx.emoji.widget,EmojiEditableFactory,WARNING: No .NET types found.
-,,,,,,android.support.text.emoji.widget,EmojiInputConnection,androidx.emoji.widget,EmojiInputConnection,WARNING: No .NET types found.
-,,,,,,android.support.text.emoji.widget,EmojiInputFilter,androidx.emoji.widget,EmojiInputFilter,WARNING: No .NET types found.
-,,,,,,android.support.text.emoji.widget,EmojiKeyListener,androidx.emoji.widget,EmojiKeyListener,WARNING: No .NET types found.
-,,,,,,android.support.text.emoji.widget,EmojiTextWatcher,androidx.emoji.widget,EmojiTextWatcher,WARNING: No .NET types found.
-,,,,,,android.support.text.emoji.widget,EmojiTransformationMethod,androidx.emoji.widget,EmojiTransformationMethod,WARNING: No .NET types found.
-,,,,,,android.support.transition,AnimatorUtils,androidx.transition,AnimatorUtils,WARNING: No .NET types found.
-,,,,,,android.support.transition,FloatArrayEvaluator,androidx.transition,FloatArrayEvaluator,WARNING: No .NET types found.
-,,,,,,android.support.transition,GhostViewApi14,androidx.transition,GhostViewApi14,WARNING: No .NET types found.
-,,,,,,android.support.transition,GhostViewApi21,androidx.transition,GhostViewApi21,WARNING: No .NET types found.
-,,,,,,android.support.transition,GhostViewImpl,androidx.transition,GhostViewImpl,WARNING: No .NET types found.
-,,,,,,android.support.transition,GhostViewUtils,androidx.transition,GhostViewUtils,WARNING: No .NET types found.
-,,,,,,android.support.transition,ImageViewUtils,androidx.transition,ImageViewUtils,WARNING: No .NET types found.
-,,,,,,android.support.transition,MatrixUtils,androidx.transition,MatrixUtils,WARNING: No .NET types found.
-,,,,,,android.support.transition,ObjectAnimatorUtils,androidx.transition,ObjectAnimatorUtils,WARNING: No .NET types found.
-,,,,,,android.support.transition,PathProperty,androidx.transition,PathProperty,WARNING: No .NET types found.
-,,,,,,android.support.transition,PropertyValuesHolderUtils,androidx.transition,PropertyValuesHolderUtils,WARNING: No .NET types found.
-,,,,,,android.support.transition,R,androidx.transition,R,WARNING: No .NET types found.
-,,,,,,android.support.transition,RectEvaluator,androidx.transition,RectEvaluator,WARNING: No .NET types found.
-,,,,,,android.support.transition,Styleable,androidx.transition,Styleable,WARNING: No .NET types found.
-,,,,,,android.support.transition,TransitionUtils,androidx.transition,TransitionUtils,WARNING: No .NET types found.
-,,,,,,android.support.transition,TransitionValuesMaps,androidx.transition,TransitionValuesMaps,WARNING: No .NET types found.
-,,,,,,android.support.transition,TranslationAnimationCreator,androidx.transition,TranslationAnimationCreator,WARNING: No .NET types found.
-,,,,,,android.support.transition,ViewGroupOverlayApi14,androidx.transition,ViewGroupOverlayApi14,WARNING: No .NET types found.
-,,,,,,android.support.transition,ViewGroupOverlayApi18,androidx.transition,ViewGroupOverlayApi18,WARNING: No .NET types found.
-,,,,,,android.support.transition,ViewGroupOverlayImpl,androidx.transition,ViewGroupOverlayImpl,WARNING: No .NET types found.
-,,,,,,android.support.transition,ViewGroupUtils,androidx.transition,ViewGroupUtils,WARNING: No .NET types found.
-,,,,,,android.support.transition,ViewGroupUtilsApi14,androidx.transition,ViewGroupUtilsApi14,WARNING: No .NET types found.
-,,,,,,android.support.transition,ViewGroupUtilsApi18,androidx.transition,ViewGroupUtilsApi18,WARNING: No .NET types found.
-,,,,,,android.support.transition,ViewOverlayApi14,androidx.transition,ViewOverlayApi14,WARNING: No .NET types found.
-,,,,,,android.support.transition,ViewOverlayApi18,androidx.transition,ViewOverlayApi18,WARNING: No .NET types found.
-,,,,,,android.support.transition,ViewOverlayImpl,androidx.transition,ViewOverlayImpl,WARNING: No .NET types found.
-,,,,,,android.support.transition,ViewUtils,androidx.transition,ViewUtils,WARNING: No .NET types found.
-,,,,,,android.support.transition,ViewUtilsApi19,androidx.transition,ViewUtilsApi19,WARNING: No .NET types found.
-,,,,,,android.support.transition,ViewUtilsApi21,androidx.transition,ViewUtilsApi21,WARNING: No .NET types found.
-,,,,,,android.support.transition,ViewUtilsApi22,androidx.transition,ViewUtilsApi22,WARNING: No .NET types found.
-,,,,,,android.support.transition,ViewUtilsBase,androidx.transition,ViewUtilsBase,WARNING: No .NET types found.
-,,,,,,android.support.transition,WindowIdApi14,androidx.transition,WindowIdApi14,WARNING: No .NET types found.
-,,,,,,android.support.transition,WindowIdApi18,androidx.transition,WindowIdApi18,WARNING: No .NET types found.
-,,,,,,android.support.transition,WindowIdImpl,androidx.transition,WindowIdImpl,WARNING: No .NET types found.
-,,,,,,android.support.v13.view,ViewCompat,androidx.legacy.view,ViewCompat,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback,R,androidx.leanback,R,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.app,DetailsBackgroundVideoHelper,androidx.leanback.app,DetailsBackgroundVideoHelper,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.app,FragmentUtil,androidx.leanback.app,FragmentUtil,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.app,GuidedStepRootLayout,androidx.leanback.app,GuidedStepRootLayout,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.app,ListRowDataAdapter,androidx.leanback.app,ListRowDataAdapter,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.transition,CustomChangeBounds,androidx.leanback.transition,CustomChangeBounds,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.transition,Scale,androidx.leanback.transition,Scale,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.transition,SlideKitkat,androidx.leanback.transition,SlideKitkat,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.transition,TranslationAnimationCreator,androidx.leanback.transition,TranslationAnimationCreator,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,ActionPresenterSelector,androidx.leanback.widget,ActionPresenterSelector,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,CheckableImageView,androidx.leanback.widget,CheckableImageView,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,ControlBar,androidx.leanback.widget,ControlBar,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,ControlBarPresenter,androidx.leanback.widget,ControlBarPresenter,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,DetailsOverviewSharedElementHelper,androidx.leanback.widget,DetailsOverviewSharedElementHelper,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,FocusHighlightHandler,androidx.leanback.widget,FocusHighlightHandler,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,ForegroundHelper,androidx.leanback.widget,ForegroundHelper,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,Grid,androidx.leanback.widget,Grid,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,GuidanceStylingRelativeLayout,androidx.leanback.widget,GuidanceStylingRelativeLayout,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,GuidedActionItemContainer,androidx.leanback.widget,GuidedActionItemContainer,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,GuidedActionsRelativeLayout,androidx.leanback.widget,GuidedActionsRelativeLayout,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,ItemAlignment,androidx.leanback.widget,ItemAlignment,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,ItemAlignmentFacetHelper,androidx.leanback.widget,ItemAlignmentFacetHelper,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,MediaItemActionPresenter,androidx.leanback.widget,MediaItemActionPresenter,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,MediaRowFocusView,androidx.leanback.widget,MediaRowFocusView,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,NonOverlappingFrameLayout,androidx.leanback.widget,NonOverlappingFrameLayout,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,NonOverlappingLinearLayoutWithForeground,androidx.leanback.widget,NonOverlappingLinearLayoutWithForeground,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,NonOverlappingRelativeLayout,androidx.leanback.widget,NonOverlappingRelativeLayout,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,NonOverlappingView,androidx.leanback.widget,NonOverlappingView,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,PersistentFocusWrapper,androidx.leanback.widget,PersistentFocusWrapper,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,PlaybackControlsPresenter,androidx.leanback.widget,PlaybackControlsPresenter,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,PlaybackControlsRowView,androidx.leanback.widget,PlaybackControlsRowView,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,ResizingTextView,androidx.leanback.widget,ResizingTextView,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,RoundedRectHelper,androidx.leanback.widget,RoundedRectHelper,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,RoundedRectHelperApi21,androidx.leanback.widget,RoundedRectHelperApi21,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,ShadowHelper,androidx.leanback.widget,ShadowHelper,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,ShadowHelperApi21,androidx.leanback.widget,ShadowHelperApi21,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,SingleRow,androidx.leanback.widget,SingleRow,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,StaggeredGrid,androidx.leanback.widget,StaggeredGrid,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,StaggeredGridDefault,androidx.leanback.widget,StaggeredGridDefault,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,StaticShadowHelper,androidx.leanback.widget,StaticShadowHelper,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,ViewsStateBundle,androidx.leanback.widget,ViewsStateBundle,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget,WindowAlignment,androidx.leanback.widget,WindowAlignment,WARNING: No .NET types found.
-,,,,,,android.support.v17.leanback.widget.picker,PickerUtility,androidx.leanback.widget.picker,PickerUtility,WARNING: No .NET types found.
-,,,,,,android.support.v17.preference,LeanbackPreferenceFragmentTransitionHelperApi21,androidx.leanback.preference,LeanbackPreferenceFragmentTransitionHelperApi21,WARNING: No .NET types found.
-,,,,,,android.support.v17.preference,R,androidx.leanback.preference,R,WARNING: No .NET types found.
-,,,,,,android.support.v4.app,BackStackRecord,androidx.fragment.app,BackStackRecord,WARNING: No .NET types found.
-,,,,,,android.support.v4.app,BackStackState,androidx.fragment.app,BackStackState,WARNING: No .NET types found.
-,,,,,,android.support.v4.app,FragmentManagerImpl,androidx.fragment.app,FragmentManagerImpl,WARNING: No .NET types found.
-,,,,,,android.support.v4.app,FragmentManagerState,androidx.fragment.app,FragmentManagerState,WARNING: No .NET types found.
-,,,,,,android.support.v4.app,FragmentState,androidx.fragment.app,FragmentState,WARNING: No .NET types found.
-,,,,,,android.support.v4.app,FragmentTransition,androidx.fragment.app,FragmentTransition,WARNING: No .NET types found.
-,,,,,,android.support.v4.app,FragmentTransitionCompat21,androidx.fragment.app,FragmentTransitionCompat21,WARNING: No .NET types found.
-,,,,,,android.support.v4.app,LoaderManagerImpl,androidx.loader.app,LoaderManagerImpl,WARNING: No .NET types found.
-,,,,,,android.support.v4.app,NotificationCompatBuilder,androidx.core.app,NotificationCompatBuilder,WARNING: No .NET types found.
-,,,,,,android.support.v4.app,NotificationCompatJellybean,androidx.core.app,NotificationCompatJellybean,WARNING: No .NET types found.
-,,,,,,android.support.v4.app,OneShotPreDrawListener,androidx.fragment.app,OneShotPreDrawListener,WARNING: No .NET types found.
-,,,,,,android.support.v4.app,SuperNotCalledException,androidx.fragment.app,SuperNotCalledException,WARNING: No .NET types found.
-,,,,,,android.support.v4.content,ModernAsyncTask,androidx.loader.content,ModernAsyncTask,WARNING: No .NET types found.
-,,,,,,android.support.v4.content.res,GradientColorInflaterCompat,androidx.core.content.res,GradientColorInflaterCompat,WARNING: No .NET types found.
-,,,,,,android.support.v4.content.res,GrowingArrayUtils,androidx.core.content.res,GrowingArrayUtils,WARNING: No .NET types found.
-,,,,,,android.support.v4.graphics,TypefaceCompatApi21Impl,androidx.core.graphics,TypefaceCompatApi21Impl,WARNING: No .NET types found.
-,,,,,,android.support.v4.graphics,TypefaceCompatApi24Impl,androidx.core.graphics,TypefaceCompatApi24Impl,WARNING: No .NET types found.
-,,,,,,android.support.v4.graphics,TypefaceCompatApi26Impl,androidx.core.graphics,TypefaceCompatApi26Impl,WARNING: No .NET types found.
-,,,,,,android.support.v4.graphics,TypefaceCompatApi28Impl,androidx.core.graphics,TypefaceCompatApi28Impl,WARNING: No .NET types found.
-,,,,,,android.support.v4.graphics,TypefaceCompatBaseImpl,androidx.core.graphics,TypefaceCompatBaseImpl,WARNING: No .NET types found.
-,,,,,,android.support.v4.graphics.drawable,RoundedBitmapDrawable21,androidx.core.graphics.drawable,RoundedBitmapDrawable21,WARNING: No .NET types found.
-,,,,,,android.support.v4.graphics.drawable,WrappedDrawableApi14,androidx.core.graphics.drawable,WrappedDrawableApi14,WARNING: No .NET types found.
-,,,,,,android.support.v4.graphics.drawable,WrappedDrawableApi21,androidx.core.graphics.drawable,WrappedDrawableApi21,WARNING: No .NET types found.
-,,,,,,android.support.v4.media,AudioAttributesImpl,android.support.v4.media,AudioAttributesImpl,WARNING: No .NET types found.
-,,,,,,android.support.v4.media,AudioAttributesImplApi21,android.support.v4.media,AudioAttributesImplApi21,WARNING: No .NET types found.
-,,,,,,android.support.v4.media,AudioAttributesImplBase,android.support.v4.media,AudioAttributesImplBase,WARNING: No .NET types found.
-,,,,,,android.support.v4.media,MediaBrowserCompatApi21,android.support.v4.media,MediaBrowserCompatApi21,WARNING: No .NET types found.
-,,,,,,android.support.v4.media,MediaBrowserCompatApi23,android.support.v4.media,MediaBrowserCompatApi23,WARNING: No .NET types found.
-,,,,,,android.support.v4.media,MediaBrowserCompatApi26,android.support.v4.media,MediaBrowserCompatApi26,WARNING: No .NET types found.
-,,,,,,android.support.v4.media,MediaBrowserServiceCompatApi21,androidx.media,MediaBrowserServiceCompatApi21,WARNING: No .NET types found.
-,,,,,,android.support.v4.media,MediaBrowserServiceCompatApi23,androidx.media,MediaBrowserServiceCompatApi23,WARNING: No .NET types found.
-,,,,,,android.support.v4.media,MediaBrowserServiceCompatApi26,androidx.media,MediaBrowserServiceCompatApi26,WARNING: No .NET types found.
-,,,,,,android.support.v4.media,MediaDescriptionCompatApi21,android.support.v4.media,MediaDescriptionCompatApi21,WARNING: No .NET types found.
-,,,,,,android.support.v4.media,MediaDescriptionCompatApi23,android.support.v4.media,MediaDescriptionCompatApi23,WARNING: No .NET types found.
-,,,,,,android.support.v4.media,MediaMetadataCompatApi21,android.support.v4.media,MediaMetadataCompatApi21,WARNING: No .NET types found.
-,,,,,,android.support.v4.media,MediaSessionManagerImplApi21,android.support.v4.media,MediaSessionManagerImplApi21,WARNING: No .NET types found.
-,,,,,,android.support.v4.media,MediaSessionManagerImplApi28,android.support.v4.media,MediaSessionManagerImplApi28,WARNING: No .NET types found.
-,,,,,,android.support.v4.media,MediaSessionManagerImplBase,android.support.v4.media,MediaSessionManagerImplBase,WARNING: No .NET types found.
-,,,,,,android.support.v4.media,ParceledListSliceAdapterApi21,android.support.v4.media,ParceledListSliceAdapterApi21,WARNING: No .NET types found.
-,,,,,,android.support.v4.media,VolumeProviderCompatApi21,androidx.media,VolumeProviderCompatApi21,WARNING: No .NET types found.
-,,,,,,android.support.v4.media.session,MediaControllerCompatApi21,android.support.v4.media.session,MediaControllerCompatApi21,WARNING: No .NET types found.
-,,,,,,android.support.v4.media.session,MediaControllerCompatApi23,android.support.v4.media.session,MediaControllerCompatApi23,WARNING: No .NET types found.
-,,,,,,android.support.v4.media.session,MediaControllerCompatApi24,android.support.v4.media.session,MediaControllerCompatApi24,WARNING: No .NET types found.
-,,,,,,android.support.v4.media.session,MediaSessionCompatApi21,android.support.v4.media.session,MediaSessionCompatApi21,WARNING: No .NET types found.
-,,,,,,android.support.v4.media.session,MediaSessionCompatApi22,android.support.v4.media.session,MediaSessionCompatApi22,WARNING: No .NET types found.
-,,,,,,android.support.v4.media.session,MediaSessionCompatApi23,android.support.v4.media.session,MediaSessionCompatApi23,WARNING: No .NET types found.
-,,,,,,android.support.v4.media.session,MediaSessionCompatApi24,android.support.v4.media.session,MediaSessionCompatApi24,WARNING: No .NET types found.
-,,,,,,android.support.v4.media.session,PlaybackStateCompatApi21,android.support.v4.media.session,PlaybackStateCompatApi21,WARNING: No .NET types found.
-,,,,,,android.support.v4.media.session,PlaybackStateCompatApi22,android.support.v4.media.session,PlaybackStateCompatApi22,WARNING: No .NET types found.
-,,,,,,android.support.v4.net,DatagramSocketWrapper,androidx.core.net,DatagramSocketWrapper,WARNING: No .NET types found.
-,,,,,,android.support.v4.os,LocaleHelper,androidx.core.os,LocaleHelper,WARNING: No .NET types found.
-,,,,,,android.support.v4.os,LocaleListHelper,androidx.core.os,LocaleListHelper,WARNING: No .NET types found.
-,,,,,,android.support.v4.os,LocaleListInterface,androidx.core.os,LocaleListInterface,WARNING: No .NET types found.
-,,,,,,android.support.v4.provider,DocumentsContractApi19,androidx.documentfile.provider,DocumentsContractApi19,WARNING: No .NET types found.
-,,,,,,android.support.v4.provider,RawDocumentFile,androidx.documentfile.provider,RawDocumentFile,WARNING: No .NET types found.
-,,,,,,android.support.v4.provider,SingleDocumentFile,androidx.documentfile.provider,SingleDocumentFile,WARNING: No .NET types found.
-,,,,,,android.support.v4.provider,TreeDocumentFile,androidx.documentfile.provider,TreeDocumentFile,WARNING: No .NET types found.
-,,,,,,android.support.v4.text.util,FindAddress,androidx.core.text.util,FindAddress,WARNING: No .NET types found.
-,,,,,,android.support.v4.util,ContainerHelpers,androidx.collection,ContainerHelpers,WARNING: No .NET types found.
-,,,,,,android.support.v4.util,MapCollections,androidx.collection,MapCollections,WARNING: No .NET types found.
-,,,,,,android.support.v4.view.animation,PathInterpolatorApi14,androidx.core.view.animation,PathInterpolatorApi14,WARNING: No .NET types found.
-,,,,,,android.support.v4.widget,CircleImageView,androidx.swiperefreshlayout.widget,CircleImageView,WARNING: No .NET types found.
-,,,,,,android.support.v4.widget,FocusStrategy,androidx.customview.widget,FocusStrategy,WARNING: No .NET types found.
-,,,,,,android.support.v7.app,ActionBarDrawerToggleHoneycomb,androidx.appcompat.app,ActionBarDrawerToggleHoneycomb,WARNING: No .NET types found.
-,,,,,,android.support.v7.app,AlertController,androidx.appcompat.app,AlertController,WARNING: No .NET types found.
-,,,,,,android.support.v7.app,AppCompatDelegateImpl,androidx.appcompat.app,AppCompatDelegateImpl,WARNING: No .NET types found.
-,,,,,,android.support.v7.app,MediaRouteDialogHelper,androidx.mediarouter.app,MediaRouteDialogHelper,WARNING: No .NET types found.
-,,,,,,android.support.v7.app,MediaRouteExpandCollapseButton,androidx.mediarouter.app,MediaRouteExpandCollapseButton,WARNING: No .NET types found.
-,,,,,,android.support.v7.app,MediaRouterThemeHelper,androidx.mediarouter.app,MediaRouterThemeHelper,WARNING: No .NET types found.
-,,,,,,android.support.v7.app,MediaRouteVolumeSlider,androidx.mediarouter.app,MediaRouteVolumeSlider,WARNING: No .NET types found.
-,,,,,,android.support.v7.app,NavItemSelectedListener,androidx.appcompat.app,NavItemSelectedListener,WARNING: No .NET types found.
-,,,,,,android.support.v7.app,OverlayListView,androidx.mediarouter.app,OverlayListView,WARNING: No .NET types found.
-,,,,,,android.support.v7.app,ResourcesFlusher,androidx.appcompat.app,ResourcesFlusher,WARNING: No .NET types found.
-,,,,,,android.support.v7.app,ToolbarActionBar,androidx.appcompat.app,ToolbarActionBar,WARNING: No .NET types found.
-,,,,,,android.support.v7.app,TwilightCalculator,androidx.appcompat.app,TwilightCalculator,WARNING: No .NET types found.
-,,,,,,android.support.v7.app,TwilightManager,androidx.appcompat.app,TwilightManager,WARNING: No .NET types found.
-,,,,,,android.support.v7.appcompat,R,androidx.appcompat,R,WARNING: No .NET types found.
-,,,,,,android.support.v7.cardview,R,androidx.cardview,R,WARNING: No .NET types found.
-,,,,,,android.support.v7.graphics,ColorCutQuantizer,androidx.palette.graphics,ColorCutQuantizer,WARNING: No .NET types found.
-,,,,,,android.support.v7.graphics.drawable,DrawableContainer,androidx.appcompat.graphics.drawable,DrawableContainer,WARNING: No .NET types found.
-,,,,,,android.support.v7.graphics.drawable,StateListDrawable,androidx.appcompat.graphics.drawable,StateListDrawable,WARNING: No .NET types found.
-,,,,,,android.support.v7.gridlayout,R,androidx.gridlayout,R,WARNING: No .NET types found.
-,,,,,,android.support.v7.media,MediaRouteProviderProtocol,androidx.mediarouter.media,MediaRouteProviderProtocol,WARNING: No .NET types found.
-,,,,,,android.support.v7.media,MediaRouterApi24,androidx.mediarouter.media,MediaRouterApi24,WARNING: No .NET types found.
-,,,,,,android.support.v7.media,MediaRouterJellybean,androidx.mediarouter.media,MediaRouterJellybean,WARNING: No .NET types found.
-,,,,,,android.support.v7.media,MediaRouterJellybeanMr1,androidx.mediarouter.media,MediaRouterJellybeanMr1,WARNING: No .NET types found.
-,,,,,,android.support.v7.media,MediaRouterJellybeanMr2,androidx.mediarouter.media,MediaRouterJellybeanMr2,WARNING: No .NET types found.
-,,,,,,android.support.v7.media,RegisteredMediaRouteProvider,androidx.mediarouter.media,RegisteredMediaRouteProvider,WARNING: No .NET types found.
-,,,,,,android.support.v7.media,RouteMediaPlayerConnector,androidx.mediarouter.media,RouteMediaPlayerConnector,WARNING: No .NET types found.
-,,,,,,android.support.v7.mediarouter,R,androidx.mediarouter,R,WARNING: No .NET types found.
-,,,,,,android.support.v7.preference,CollapsiblePreferenceGroupController,androidx.preference,CollapsiblePreferenceGroupController,WARNING: No .NET types found.
-,,,,,,android.support.v7.preference,PreferenceInflater,androidx.preference,PreferenceInflater,WARNING: No .NET types found.
-,,,,,,android.support.v7.preference,R,androidx.preference,R,WARNING: No .NET types found.
-,,,,,,android.support.v7.recyclerview,R,androidx.recyclerview,R,WARNING: No .NET types found.
-,,,,,,android.support.v7.util,MessageThreadUtil,androidx.recyclerview.widget,MessageThreadUtil,WARNING: No .NET types found.
-,,,,,,android.support.v7.util,ThreadUtil,androidx.recyclerview.widget,ThreadUtil,WARNING: No .NET types found.
-,,,,,,android.support.v7.util,TileList,androidx.recyclerview.widget,TileList,WARNING: No .NET types found.
-,,,,,,android.support.v7.view.menu,BaseMenuWrapper,androidx.appcompat.view.menu,BaseMenuWrapper,WARNING: No .NET types found.
-,,,,,,android.support.v7.view.menu,BaseWrapper,androidx.appcompat.view.menu,BaseWrapper,WARNING: No .NET types found.
-,,,,,,android.support.v7.view.menu,CascadingMenuPopup,androidx.appcompat.view.menu,CascadingMenuPopup,WARNING: No .NET types found.
-,,,,,,android.support.v7.view.menu,MenuDialogHelper,androidx.appcompat.view.menu,MenuDialogHelper,WARNING: No .NET types found.
-,,,,,,android.support.v7.view.menu,MenuItemWrapperICS,androidx.appcompat.view.menu,MenuItemWrapperICS,WARNING: No .NET types found.
-,,,,,,android.support.v7.view.menu,MenuItemWrapperJB,androidx.appcompat.view.menu,MenuItemWrapperJB,WARNING: No .NET types found.
-,,,,,,android.support.v7.view.menu,MenuWrapperICS,androidx.appcompat.view.menu,MenuWrapperICS,WARNING: No .NET types found.
-,,,,,,android.support.v7.view.menu,StandardMenuPopup,androidx.appcompat.view.menu,StandardMenuPopup,WARNING: No .NET types found.
-,,,,,,android.support.v7.view.menu,SubMenuWrapperICS,androidx.appcompat.view.menu,SubMenuWrapperICS,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,ActionBarBackgroundDrawable,androidx.appcompat.widget,ActionBarBackgroundDrawable,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,AdapterHelper,androidx.recyclerview.widget,AdapterHelper,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,AppCompatBackgroundHelper,androidx.appcompat.widget,AppCompatBackgroundHelper,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,AppCompatCompoundButtonHelper,androidx.appcompat.widget,AppCompatCompoundButtonHelper,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,AppCompatHintHelper,androidx.appcompat.widget,AppCompatHintHelper,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,AppCompatPopupWindow,androidx.appcompat.widget,AppCompatPopupWindow,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,AppCompatProgressBarHelper,androidx.appcompat.widget,AppCompatProgressBarHelper,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,AppCompatSeekBarHelper,androidx.appcompat.widget,AppCompatSeekBarHelper,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,AppCompatTextHelper,androidx.appcompat.widget,AppCompatTextHelper,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,AppCompatTextViewAutoSizeHelper,androidx.appcompat.widget,AppCompatTextViewAutoSizeHelper,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,CardViewApi17Impl,androidx.cardview.widget,CardViewApi17Impl,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,CardViewApi21Impl,androidx.cardview.widget,CardViewApi21Impl,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,CardViewBaseImpl,androidx.cardview.widget,CardViewBaseImpl,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,CardViewImpl,androidx.cardview.widget,CardViewImpl,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,ChildHelper,androidx.recyclerview.widget,ChildHelper,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,FastScroller,androidx.recyclerview.widget,FastScroller,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,GapWorker,androidx.recyclerview.widget,GapWorker,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,OpReorderer,androidx.recyclerview.widget,OpReorderer,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,ResourcesWrapper,androidx.appcompat.widget,ResourcesWrapper,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,RoundRectDrawable,androidx.cardview.widget,RoundRectDrawable,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,RtlSpacingHelper,androidx.appcompat.widget,RtlSpacingHelper,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,ScrollbarHelper,androidx.recyclerview.widget,ScrollbarHelper,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,SuggestionsAdapter,androidx.appcompat.widget,SuggestionsAdapter,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,ThemeUtils,androidx.appcompat.widget,ThemeUtils,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,TintInfo,androidx.appcompat.widget,TintInfo,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,TintResources,androidx.appcompat.widget,TintResources,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,TooltipCompatHandler,androidx.appcompat.widget,TooltipCompatHandler,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,TooltipPopup,androidx.appcompat.widget,TooltipPopup,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,ViewBoundsCheck,androidx.recyclerview.widget,ViewBoundsCheck,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget,ViewInfoStore,androidx.recyclerview.widget,ViewInfoStore,WARNING: No .NET types found.
-,,,,,,android.support.v7.widget.helper,ItemTouchUIUtilImpl,androidx.recyclerview.widget,ItemTouchUIUtilImpl,WARNING: No .NET types found.
-,,,,,,android.support.wear,R,androidx.wear,R,WARNING: No .NET types found.
-,,,,,,android.support.wear.ambient,AmbientDelegate,androidx.wear.ambient,AmbientDelegate,WARNING: No .NET types found.
-,,,,,,android.support.wear.ambient,SharedLibraryVersion,androidx.wear.ambient,SharedLibraryVersion,WARNING: No .NET types found.
-,,,,,,android.support.wear.widget,BezierSCurveInterpolator,androidx.wear.widget,BezierSCurveInterpolator,WARNING: No .NET types found.
-,,,,,,android.support.wear.widget,CircularProgressLayoutController,androidx.wear.widget,CircularProgressLayoutController,WARNING: No .NET types found.
-,,,,,,android.support.wear.widget,ProgressDrawable,androidx.wear.widget,ProgressDrawable,WARNING: No .NET types found.
-,,,,,,android.support.wear.widget,ResourcesUtil,androidx.wear.widget,ResourcesUtil,WARNING: No .NET types found.
-,,,,,,android.support.wear.widget,ScrollManager,androidx.wear.widget,ScrollManager,WARNING: No .NET types found.
-,,,,,,android.support.wear.widget.drawer,AbsListViewFlingWatcher,androidx.wear.widget.drawer,AbsListViewFlingWatcher,WARNING: No .NET types found.
-,,,,,,android.support.wear.widget.drawer,FlingWatcherFactory,androidx.wear.widget.drawer,FlingWatcherFactory,WARNING: No .NET types found.
-,,,,,,android.support.wear.widget.drawer,NestedScrollViewFlingWatcher,androidx.wear.widget.drawer,NestedScrollViewFlingWatcher,WARNING: No .NET types found.
-,,,,,,android.support.wear.widget.drawer,RecyclerViewFlingWatcher,androidx.wear.widget.drawer,RecyclerViewFlingWatcher,WARNING: No .NET types found.
-,,,,,,android.support.wear.widget.drawer,ScrollViewFlingWatcher,androidx.wear.widget.drawer,ScrollViewFlingWatcher,WARNING: No .NET types found.
-,,,,,,android.support.wear.widget.drawer,WearableActionDrawerMenu,androidx.wear.widget.drawer,WearableActionDrawerMenu,WARNING: No .NET types found.
+,,,,,,,,,,WARNING: Unable to find AndroidX type for Java type androidx.lifecycle.SingleGeneratedAdapterObserver.
+,,,,,,,,,,WARNING: Unable to find AndroidX type for Java type androidx.mediarouter.app.MediaRouteCastDialog.
+,,,,,,,,,,WARNING: Unable to find AndroidX type for Java type androidx.mediarouter.app.MediaRouteDevicePickerDialog.
+,,,,,,,,,,WARNING: Unable to find AndroidX type for Java type androidx.mediarouter.media.MediaRouter.RouteGroup.
+,,,,,,,,,,WARNING: Unable to find AndroidX type for Java type androidx.preference.internal.AbstractMultiSelectListPreference.
+,,,,,,,,,,WARNING: Unable to find AndroidX type for Java type androidx.preference.internal.AbstractMultiSelectListPreference.
+,,,,,,,,,,WARNING: Unable to find AndroidX type for Java type com.google.android.material.behavior.SwipeDismissBehavior.OnDismissListener.
+,,,,,,,,,,WARNING: Unable to find AndroidX type for Java type com.google.android.material.behavior.SwipeDismissBehavior.OnDismissListener.
 Android.Arch.Core.Executor,ArchTaskExecutor,AndroidX.Arch.Core.Executor,ArchTaskExecutor,Xamarin.Android.Arch.Core.Runtime,Xamarin.AndroidX.Arch.Core.Runtime,android.arch.core.executor,ArchTaskExecutor,androidx.arch.core.executor,ArchTaskExecutor,
 Android.Arch.Core.Executor,DefaultTaskExecutor,AndroidX.Arch.Core.Executor,DefaultTaskExecutor,Xamarin.Android.Arch.Core.Runtime,Xamarin.AndroidX.Arch.Core.Runtime,android.arch.core.executor,DefaultTaskExecutor,androidx.arch.core.executor,DefaultTaskExecutor,
 Android.Arch.Core.Executor,TaskExecutor,AndroidX.Arch.Core.Executor,TaskExecutor,Xamarin.Android.Arch.Core.Runtime,Xamarin.AndroidX.Arch.Core.Runtime,android.arch.core.executor,TaskExecutor,androidx.arch.core.executor,TaskExecutor,
@@ -957,7 +33,6 @@ Android.Arch.Core.Internal,SafeIterableMap.ISupportRemoveInvoker,AndroidX.Arch.C
 Android.Arch.Core.Util,IFunction,AndroidX.Arch.Core.Util,IFunction,Xamarin.Android.Arch.Core.Common,Xamarin.AndroidX.Arch.Core.Common,android.arch.core.util,Function,androidx.arch.core.util,Function,
 Android.Arch.Core.Util,IFunctionInvoker,AndroidX.Arch.Core.Util,IFunctionInvoker,Xamarin.Android.Arch.Core.Common,Xamarin.AndroidX.Arch.Core.Common,android.arch.core.util,Function,androidx.arch.core.util,Function,
 Android.Arch.Lifecycle,AndroidViewModel,AndroidX.Lifecycle,AndroidViewModel,Xamarin.Android.Arch.Lifecycle.ViewModel,Xamarin.AndroidX.Lifecycle.ViewModel,android.arch.lifecycle,AndroidViewModel,androidx.lifecycle,AndroidViewModel,
-Android.Arch.Lifecycle,CompositeGeneratedAdaptersObserver,AndroidX.Lifecycle,CompositeGeneratedAdaptersObserver,Xamarin.Android.Arch.Lifecycle.Common,Xamarin.AndroidX.Lifecycle.Common,android.arch.lifecycle,CompositeGeneratedAdaptersObserver,androidx.lifecycle,CompositeGeneratedAdaptersObserver,
 Android.Arch.Lifecycle,ComputableLiveData,AndroidX.Lifecycle,ComputableLiveData,Xamarin.Android.Arch.Lifecycle.LiveData,Xamarin.AndroidX.Lifecycle.LiveData,android.arch.lifecycle,ComputableLiveData,androidx.lifecycle,ComputableLiveData,
 Android.Arch.Lifecycle,ComputableLiveDataInvoker,AndroidX.Lifecycle,ComputableLiveDataInvoker,Xamarin.Android.Arch.Lifecycle.LiveData,Xamarin.AndroidX.Lifecycle.LiveData,android.arch.lifecycle,ComputableLiveData,androidx.lifecycle,ComputableLiveData,
 Android.Arch.Lifecycle,IGeneratedAdapter,AndroidX.Lifecycle,IGeneratedAdapter,Xamarin.Android.Arch.Lifecycle.Common,Xamarin.AndroidX.Lifecycle.Common,android.arch.lifecycle,GeneratedAdapter,androidx.lifecycle,GeneratedAdapter,
@@ -1000,7 +75,6 @@ Android.Arch.Lifecycle,ProcessLifecycleOwnerInitializer,AndroidX.Lifecycle,Proce
 Android.Arch.Lifecycle,ReportFragment,AndroidX.Lifecycle,ReportFragment,Xamarin.Android.Arch.Lifecycle.Runtime,Xamarin.AndroidX.Lifecycle.Runtime,android.arch.lifecycle,ReportFragment,androidx.lifecycle,ReportFragment,
 Android.Arch.Lifecycle,ServiceLifecycleDispatcher,AndroidX.Lifecycle,ServiceLifecycleDispatcher,Xamarin.Android.Arch.Lifecycle.Extensions,Xamarin.AndroidX.Lifecycle.Service,android.arch.lifecycle,ServiceLifecycleDispatcher,androidx.lifecycle,ServiceLifecycleDispatcher,
 Android.Arch.Lifecycle,ServiceLifecycleDispatcher.DispatchRunnable,AndroidX.Lifecycle,ServiceLifecycleDispatcher.DispatchRunnable,Xamarin.Android.Arch.Lifecycle.Extensions,Xamarin.AndroidX.Lifecycle.Service,android.arch.lifecycle,ServiceLifecycleDispatcher.DispatchRunnable,androidx.lifecycle,ServiceLifecycleDispatcher.DispatchRunnable,
-Android.Arch.Lifecycle,SingleGeneratedAdapterObserver,AndroidX.Lifecycle,SingleGeneratedAdapterObserver,Xamarin.Android.Arch.Lifecycle.Common,Xamarin.AndroidX.Lifecycle.Common,android.arch.lifecycle,SingleGeneratedAdapterObserver,androidx.lifecycle,SingleGeneratedAdapterObserver,
 Android.Arch.Lifecycle,Transformations,AndroidX.Lifecycle,Transformations,Xamarin.Android.Arch.Lifecycle.LiveData,Xamarin.AndroidX.Lifecycle.LiveData,android.arch.lifecycle,Transformations,androidx.lifecycle,Transformations,
 Android.Arch.Lifecycle,ViewModel,AndroidX.Lifecycle,ViewModel,Xamarin.Android.Arch.Lifecycle.ViewModel,Xamarin.AndroidX.Lifecycle.ViewModel,android.arch.lifecycle,ViewModel,androidx.lifecycle,ViewModel,
 Android.Arch.Lifecycle,ViewModelInvoker,AndroidX.Lifecycle,ViewModelInvoker,Xamarin.Android.Arch.Lifecycle.ViewModel,Xamarin.AndroidX.Lifecycle.ViewModel,android.arch.lifecycle,ViewModel,androidx.lifecycle,ViewModel,
@@ -1633,11 +707,6 @@ Android.Support.Design.Widget,SnackbarContentLayout,Google.Android.Material.Snac
 Android.Support.Design.Widget,StateListAnimator,Google.Android.Material.Internal,StateListAnimator,Xamarin.Android.Support.Design,Xamarin.Google.Android.Material,android.support.design.widget,StateListAnimator,com.google.android.material.internal,StateListAnimator,
 Android.Support.Design.Widget,StateListAnimator.Tuple,Google.Android.Material.Internal,StateListAnimator.Tuple,Xamarin.Android.Support.Design,Xamarin.Google.Android.Material,android.support.design.widget,StateListAnimator.Tuple,com.google.android.material.internal,StateListAnimator.Tuple,
 Android.Support.Design.Widget,SwipeDismissBehavior,Google.Android.Material.Behavior,SwipeDismissBehavior,Xamarin.Android.Support.Design,Xamarin.Google.Android.Material,android.support.design.widget,SwipeDismissBehavior,com.google.android.material.behavior,SwipeDismissBehavior,
-Android.Support.Design.Widget,SwipeDismissBehavior.DismissEventArgs,Google.Android.Material.Behavior,SwipeDismissBehavior.DismissEventArgs,Xamarin.Android.Support.Design,Xamarin.Google.Android.Material,,,,,
-Android.Support.Design.Widget,SwipeDismissBehavior.DragStateChangedEventArgs,Google.Android.Material.Behavior,SwipeDismissBehavior.DragStateChangedEventArgs,Xamarin.Android.Support.Design,Xamarin.Google.Android.Material,,,,,
-Android.Support.Design.Widget,SwipeDismissBehavior.IOnDismissListener,Google.Android.Material.Behavior,SwipeDismissBehavior.IOnDismissListener,Xamarin.Android.Support.Design,Xamarin.Google.Android.Material,android.support.design.widget,SwipeDismissBehavior.OnDismissListener,com.google.android.material.behavior,SwipeDismissBehavior.OnDismissListener,
-Android.Support.Design.Widget,SwipeDismissBehavior.IOnDismissListenerImplementor,Google.Android.Material.Behavior,SwipeDismissBehavior.IOnDismissListenerImplementor,Xamarin.Android.Support.Design,Xamarin.Google.Android.Material,mono.android.support.design.widget,SwipeDismissBehavior_OnDismissListenerImplementor,mono.com.google.android.material.behavior,SwipeDismissBehavior_OnDismissListenerImplementor,WARNING: Unable to find a Java mapping, so took a guess.
-Android.Support.Design.Widget,SwipeDismissBehavior.IOnDismissListenerInvoker,Google.Android.Material.Behavior,SwipeDismissBehavior.IOnDismissListenerInvoker,Xamarin.Android.Support.Design,Xamarin.Google.Android.Material,android.support.design.widget,SwipeDismissBehavior.OnDismissListener,com.google.android.material.behavior,SwipeDismissBehavior.OnDismissListener,
 Android.Support.Design.Widget,TabItem,Google.Android.Material.Tabs,TabItem,Xamarin.Android.Support.Design,Xamarin.Google.Android.Material,android.support.design.widget,TabItem,com.google.android.material.tabs,TabItem,
 Android.Support.Design.Widget,TabLayout,Google.Android.Material.Tabs,TabLayout,Xamarin.Android.Support.Design,Xamarin.Google.Android.Material,android.support.design.widget,TabLayout,com.google.android.material.tabs,TabLayout,
 Android.Support.Design.Widget,TabLayout.IMode,Google.Android.Material.Tabs,TabLayout.IMode,Xamarin.Android.Support.Design,Xamarin.Google.Android.Material,android.support.design.widget,TabLayout.Mode,com.google.android.material.tabs,TabLayout.Mode,
@@ -2409,7 +1478,6 @@ Android.Support.V4.App,Fragment.InstantiationException,AndroidX.Fragment.App,Fra
 Android.Support.V4.App,Fragment.SavedState,AndroidX.Fragment.App,Fragment.SavedState,Xamarin.Android.Support.Fragment,Xamarin.AndroidX.Fragment,android.support.v4.app,Fragment.SavedState,androidx.fragment.app,Fragment.SavedState,
 Android.Support.V4.App,FragmentActivity,AndroidX.Fragment.App,FragmentActivity,Xamarin.Android.Support.Fragment,Xamarin.AndroidX.Fragment,android.support.v4.app,FragmentActivity,androidx.fragment.app,FragmentActivity,
 Android.Support.V4.App,FragmentActivity.HostCallbacks,AndroidX.Fragment.App,FragmentActivity.HostCallbacks,Xamarin.Android.Support.Fragment,Xamarin.AndroidX.Fragment,android.support.v4.app,FragmentActivity.HostCallbacks,androidx.fragment.app,FragmentActivity.HostCallbacks,
-Android.Support.V4.App,FragmentActivity.NonConfigurationInstances,AndroidX.Fragment.App,FragmentActivity.NonConfigurationInstances,Xamarin.Android.Support.Fragment,Xamarin.AndroidX.Fragment,android.support.v4.app,FragmentActivity.NonConfigurationInstances,androidx.fragment.app,FragmentActivity.NonConfigurationInstances,
 Android.Support.V4.App,FragmentContainer,AndroidX.Fragment.App,FragmentContainer,Xamarin.Android.Support.Fragment,Xamarin.AndroidX.Fragment,android.support.v4.app,FragmentContainer,androidx.fragment.app,FragmentContainer,
 Android.Support.V4.App,FragmentContainerInvoker,AndroidX.Fragment.App,FragmentContainerInvoker,Xamarin.Android.Support.Fragment,Xamarin.AndroidX.Fragment,android.support.v4.app,FragmentContainer,androidx.fragment.app,FragmentContainer,
 Android.Support.V4.App,FragmentController,AndroidX.Fragment.App,FragmentController,Xamarin.Android.Support.Fragment,Xamarin.AndroidX.Fragment,android.support.v4.app,FragmentController,androidx.fragment.app,FragmentController,
@@ -3110,19 +2178,17 @@ Android.Support.V7.App,IAppCompatCallback,AndroidX.AppCompat.App,IAppCompatCallb
 Android.Support.V7.App,IAppCompatCallbackInvoker,AndroidX.AppCompat.App,IAppCompatCallbackInvoker,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.app,AppCompatCallback,androidx.appcompat.app,AppCompatCallback,
 Android.Support.V7.App,MediaRouteActionProvider,AndroidX.MediaRouter.App,MediaRouteActionProvider,Xamarin.Android.Support.v7.MediaRouter,Xamarin.AndroidX.MediaRouter,android.support.v7.app,MediaRouteActionProvider,androidx.mediarouter.app,MediaRouteActionProvider,
 Android.Support.V7.App,MediaRouteButton,AndroidX.MediaRouter.App,MediaRouteButton,Xamarin.Android.Support.v7.MediaRouter,Xamarin.AndroidX.MediaRouter,android.support.v7.app,MediaRouteButton,androidx.mediarouter.app,MediaRouteButton,
-Android.Support.V7.App,MediaRouteCastDialog,AndroidX.MediaRouter.App,MediaRouteCastDialog,Xamarin.Android.Support.v7.MediaRouter,Xamarin.AndroidX.MediaRouter,android.support.v7.app,MediaRouteCastDialog,androidx.mediarouter.app,MediaRouteCastDialog,
 Android.Support.V7.App,MediaRouteChooserDialog,AndroidX.MediaRouter.App,MediaRouteChooserDialog,Xamarin.Android.Support.v7.MediaRouter,Xamarin.AndroidX.MediaRouter,android.support.v7.app,MediaRouteChooserDialog,androidx.mediarouter.app,MediaRouteChooserDialog,
 Android.Support.V7.App,MediaRouteChooserDialog.RouteComparator,AndroidX.MediaRouter.App,MediaRouteChooserDialog.RouteComparator,Xamarin.Android.Support.v7.MediaRouter,Xamarin.AndroidX.MediaRouter,android.support.v7.app,MediaRouteChooserDialog.RouteComparator,androidx.mediarouter.app,MediaRouteChooserDialog.RouteComparator,
 Android.Support.V7.App,MediaRouteChooserDialogFragment,AndroidX.MediaRouter.App,MediaRouteChooserDialogFragment,Xamarin.Android.Support.v7.MediaRouter,Xamarin.AndroidX.MediaRouter,android.support.v7.app,MediaRouteChooserDialogFragment,androidx.mediarouter.app,MediaRouteChooserDialogFragment,
 Android.Support.V7.App,MediaRouteControllerDialog,AndroidX.MediaRouter.App,MediaRouteControllerDialog,Xamarin.Android.Support.v7.MediaRouter,Xamarin.AndroidX.MediaRouter,android.support.v7.app,MediaRouteControllerDialog,androidx.mediarouter.app,MediaRouteControllerDialog,
 Android.Support.V7.App,MediaRouteControllerDialogFragment,AndroidX.MediaRouter.App,MediaRouteControllerDialogFragment,Xamarin.Android.Support.v7.MediaRouter,Xamarin.AndroidX.MediaRouter,android.support.v7.app,MediaRouteControllerDialogFragment,androidx.mediarouter.app,MediaRouteControllerDialogFragment,
-Android.Support.V7.App,MediaRouteDevicePickerDialog,AndroidX.MediaRouter.App,MediaRouteDevicePickerDialog,Xamarin.Android.Support.v7.MediaRouter,Xamarin.AndroidX.MediaRouter,android.support.v7.app,MediaRouteDevicePickerDialog,androidx.mediarouter.app,MediaRouteDevicePickerDialog,
 Android.Support.V7.App,MediaRouteDialogFactory,AndroidX.MediaRouter.App,MediaRouteDialogFactory,Xamarin.Android.Support.v7.MediaRouter,Xamarin.AndroidX.MediaRouter,android.support.v7.app,MediaRouteDialogFactory,androidx.mediarouter.app,MediaRouteDialogFactory,
 Android.Support.V7.App,MediaRouteDiscoveryFragment,AndroidX.MediaRouter.App,MediaRouteDiscoveryFragment,Xamarin.Android.Support.v7.MediaRouter,Xamarin.AndroidX.MediaRouter,android.support.v7.app,MediaRouteDiscoveryFragment,androidx.mediarouter.app,MediaRouteDiscoveryFragment,
 Android.Support.V7.App,WindowDecorActionBar,AndroidX.AppCompat.App,WindowDecorActionBar,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.app,WindowDecorActionBar,androidx.appcompat.app,WindowDecorActionBar,
 Android.Support.V7.App,WindowDecorActionBar.ActionModeImpl,AndroidX.AppCompat.App,WindowDecorActionBar.ActionModeImpl,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.app,WindowDecorActionBar.ActionModeImpl,androidx.appcompat.app,WindowDecorActionBar.ActionModeImpl,
 Android.Support.V7.App,WindowDecorActionBar.TabImpl,AndroidX.AppCompat.App,WindowDecorActionBar.TabImpl,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.app,WindowDecorActionBar.TabImpl,androidx.appcompat.app,WindowDecorActionBar.TabImpl,
-Android.Support.V7.Content.Res,AppCompatResources,AndroidX.AppCompat.Content.Res,AppCompatResources,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.content.res,AppCompatResources,androidx.appcompat.content.res,AppCompatResources,
+Android.Support.V7.Content.Res,AppCompatResources,AndroidX.AppCompat.Content.Res,AppCompatResources,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat.Resources,android.support.v7.content.res,AppCompatResources,androidx.appcompat.content.res,AppCompatResources,
 Android.Support.V7.Graphics,Palette,AndroidX.Palette.Graphics,Palette,Xamarin.Android.Support.v7.Palette,Xamarin.AndroidX.Palette,android.support.v7.graphics,Palette,androidx.palette.graphics,Palette,
 Android.Support.V7.Graphics,Palette.Builder,AndroidX.Palette.Graphics,Palette.Builder,Xamarin.Android.Support.v7.Palette,Xamarin.AndroidX.Palette,android.support.v7.graphics,Palette.Builder,androidx.palette.graphics,Palette.Builder,
 Android.Support.V7.Graphics,Palette.IFilter,AndroidX.Palette.Graphics,Palette.IFilter,Xamarin.Android.Support.v7.Palette,Xamarin.AndroidX.Palette,android.support.v7.graphics,Palette.Filter,androidx.palette.graphics,Palette.Filter,
@@ -3134,8 +2200,8 @@ Android.Support.V7.Graphics,Palette.PaletteAsyncEventArgs,AndroidX.Palette.Graph
 Android.Support.V7.Graphics,Palette.Swatch,AndroidX.Palette.Graphics,Palette.Swatch,Xamarin.Android.Support.v7.Palette,Xamarin.AndroidX.Palette,android.support.v7.graphics,Palette.Swatch,androidx.palette.graphics,Palette.Swatch,
 Android.Support.V7.Graphics,Target,AndroidX.Palette.Graphics,Target,Xamarin.Android.Support.v7.Palette,Xamarin.AndroidX.Palette,android.support.v7.graphics,Target,androidx.palette.graphics,Target,
 Android.Support.V7.Graphics,Target.Builder,AndroidX.Palette.Graphics,Target.Builder,Xamarin.Android.Support.v7.Palette,Xamarin.AndroidX.Palette,android.support.v7.graphics,Target.Builder,androidx.palette.graphics,Target.Builder,
-Android.Support.V7.Graphics.Drawable,AnimatedStateListDrawableCompat,AndroidX.AppCompat.Graphics.Drawable,AnimatedStateListDrawableCompat,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.graphics.drawable,AnimatedStateListDrawableCompat,androidx.appcompat.graphics.drawable,AnimatedStateListDrawableCompat,
-Android.Support.V7.Graphics.Drawable,DrawableWrapper,AndroidX.AppCompat.Graphics.Drawable,DrawableWrapper,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.graphics.drawable,DrawableWrapper,androidx.appcompat.graphics.drawable,DrawableWrapper,
+Android.Support.V7.Graphics.Drawable,AnimatedStateListDrawableCompat,AndroidX.AppCompat.Graphics.Drawable,AnimatedStateListDrawableCompat,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat.Resources,android.support.v7.graphics.drawable,AnimatedStateListDrawableCompat,androidx.appcompat.graphics.drawable,AnimatedStateListDrawableCompat,
+Android.Support.V7.Graphics.Drawable,DrawableWrapper,AndroidX.AppCompat.Graphics.Drawable,DrawableWrapper,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat.Resources,android.support.v7.graphics.drawable,DrawableWrapper,androidx.appcompat.graphics.drawable,DrawableWrapper,
 Android.Support.V7.Graphics.Drawable,DrawerArrowDrawable,AndroidX.AppCompat.Graphics.Drawable,DrawerArrowDrawable,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.graphics.drawable,DrawerArrowDrawable,androidx.appcompat.graphics.drawable,DrawerArrowDrawable,
 Android.Support.V7.Graphics.Drawable,DrawerArrowDrawable.IArrowDirection,AndroidX.AppCompat.Graphics.Drawable,DrawerArrowDrawable.IArrowDirection,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.graphics.drawable,DrawerArrowDrawable.ArrowDirection,androidx.appcompat.graphics.drawable,DrawerArrowDrawable.ArrowDirection,
 Android.Support.V7.Graphics.Drawable,DrawerArrowDrawable.IArrowDirectionInvoker,AndroidX.AppCompat.Graphics.Drawable,DrawerArrowDrawable.IArrowDirectionInvoker,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.graphics.drawable,DrawerArrowDrawable.ArrowDirection,androidx.appcompat.graphics.drawable,DrawerArrowDrawable.ArrowDirection,
@@ -3164,7 +2230,6 @@ Android.Support.V7.Media,MediaRouter.CallbackInvoker,AndroidX.MediaRouter.Media,
 Android.Support.V7.Media,MediaRouter.ControlRequestCallback,AndroidX.MediaRouter.Media,MediaRouter.ControlRequestCallback,Xamarin.Android.Support.v7.MediaRouter,Xamarin.AndroidX.MediaRouter,android.support.v7.media,MediaRouter.ControlRequestCallback,androidx.mediarouter.media,MediaRouter.ControlRequestCallback,
 Android.Support.V7.Media,MediaRouter.ControlRequestCallbackInvoker,AndroidX.MediaRouter.Media,MediaRouter.ControlRequestCallbackInvoker,Xamarin.Android.Support.v7.MediaRouter,Xamarin.AndroidX.MediaRouter,android.support.v7.media,MediaRouter.ControlRequestCallback,androidx.mediarouter.media,MediaRouter.ControlRequestCallback,
 Android.Support.V7.Media,MediaRouter.ProviderInfo,AndroidX.MediaRouter.Media,MediaRouter.ProviderInfo,Xamarin.Android.Support.v7.MediaRouter,Xamarin.AndroidX.MediaRouter,android.support.v7.media,MediaRouter.ProviderInfo,androidx.mediarouter.media,MediaRouter.ProviderInfo,
-Android.Support.V7.Media,MediaRouter.RouteGroup,AndroidX.MediaRouter.Media,MediaRouter.RouteGroup,Xamarin.Android.Support.v7.MediaRouter,Xamarin.AndroidX.MediaRouter,android.support.v7.media,MediaRouter.RouteGroup,androidx.mediarouter.media,MediaRouter.RouteGroup,
 Android.Support.V7.Media,MediaRouter.RouteInfo,AndroidX.MediaRouter.Media,MediaRouter.RouteInfo,Xamarin.Android.Support.v7.MediaRouter,Xamarin.AndroidX.MediaRouter,android.support.v7.media,MediaRouter.RouteInfo,androidx.mediarouter.media,MediaRouter.RouteInfo,
 Android.Support.V7.Media,MediaRouteSelector,AndroidX.MediaRouter.Media,MediaRouteSelector,Xamarin.Android.Support.v7.MediaRouter,Xamarin.AndroidX.MediaRouter,android.support.v7.media,MediaRouteSelector,androidx.mediarouter.media,MediaRouteSelector,
 Android.Support.V7.Media,MediaRouteSelector.Builder,AndroidX.MediaRouter.Media,MediaRouteSelector.Builder,Xamarin.Android.Support.v7.MediaRouter,Xamarin.AndroidX.MediaRouter,android.support.v7.media,MediaRouteSelector.Builder,androidx.mediarouter.media,MediaRouteSelector.Builder,
@@ -3199,8 +2264,6 @@ Android.Support.V7.Media,SystemMediaRouteProvider.LegacyImpl,AndroidX.MediaRoute
 Android.Support.V7.Media,SystemMediaRouteProvider.LegacyImpl.DefaultRouteController,AndroidX.MediaRouter.Media,SystemMediaRouteProvider.LegacyImpl.DefaultRouteController,Xamarin.Android.Support.v7.MediaRouter,Xamarin.AndroidX.MediaRouter,android.support.v7.media,SystemMediaRouteProvider.LegacyImpl.DefaultRouteController,androidx.mediarouter.media,SystemMediaRouteProvider.LegacyImpl.DefaultRouteController,
 Android.Support.V7.Media,SystemMediaRouteProvider.LegacyImpl.VolumeChangeReceiver,AndroidX.MediaRouter.Media,SystemMediaRouteProvider.LegacyImpl.VolumeChangeReceiver,Xamarin.Android.Support.v7.MediaRouter,Xamarin.AndroidX.MediaRouter,android.support.v7.media,SystemMediaRouteProvider.LegacyImpl.VolumeChangeReceiver,androidx.mediarouter.media,SystemMediaRouteProvider.LegacyImpl.VolumeChangeReceiver,
 Android.Support.V7.Media,SystemMediaRouteProviderInvoker,AndroidX.MediaRouter.Media,SystemMediaRouteProviderInvoker,Xamarin.Android.Support.v7.MediaRouter,Xamarin.AndroidX.MediaRouter,android.support.v7.media,SystemMediaRouteProvider,androidx.mediarouter.media,SystemMediaRouteProvider,
-Android.Support.V7.Preference.Internal,AbstractMultiSelectListPreference,AndroidX.Preference.Internal,AbstractMultiSelectListPreference,Xamarin.Android.Support.v7.Preference,Xamarin.AndroidX.Preference,android.support.v7.preference.internal,AbstractMultiSelectListPreference,androidx.preference.internal,AbstractMultiSelectListPreference,
-Android.Support.V7.Preference.Internal,AbstractMultiSelectListPreferenceInvoker,AndroidX.Preference.Internal,AbstractMultiSelectListPreferenceInvoker,Xamarin.Android.Support.v7.Preference,Xamarin.AndroidX.Preference,android.support.v7.preference.internal,AbstractMultiSelectListPreference,androidx.preference.internal,AbstractMultiSelectListPreference,
 Android.Support.V7.Preferences,AndroidResources,AndroidX.Preference,AndroidResources,Xamarin.Android.Support.v7.Preference,Xamarin.AndroidX.Preference,android.support.v7.preference,AndroidResources,androidx.preference,AndroidResources,
 Android.Support.V7.Preferences,CheckBoxPreference,AndroidX.Preference,CheckBoxPreference,Xamarin.Android.Support.v7.Preference,Xamarin.AndroidX.Preference,android.support.v7.preference,CheckBoxPreference,androidx.preference,CheckBoxPreference,
 Android.Support.V7.Preferences,DialogPreference,AndroidX.Preference,DialogPreference,Xamarin.Android.Support.v7.Preference,Xamarin.AndroidX.Preference,android.support.v7.preference,DialogPreference,androidx.preference,DialogPreference,
@@ -3344,7 +2407,6 @@ Android.Support.V7.View.Menu,MenuItemImpl,AndroidX.AppCompat.View.Menu,MenuItemI
 Android.Support.V7.View.Menu,MenuPopup,AndroidX.AppCompat.View.Menu,MenuPopup,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.view.menu,MenuPopup,androidx.appcompat.view.menu,MenuPopup,
 Android.Support.V7.View.Menu,MenuPopupHelper,AndroidX.AppCompat.View.Menu,MenuPopupHelper,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.view.menu,MenuPopupHelper,androidx.appcompat.view.menu,MenuPopupHelper,
 Android.Support.V7.View.Menu,MenuPopupInvoker,AndroidX.AppCompat.View.Menu,MenuPopupInvoker,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.view.menu,MenuPopup,androidx.appcompat.view.menu,MenuPopup,
-Android.Support.V7.View.Menu,MenuWrapperFactory,AndroidX.AppCompat.View.Menu,MenuWrapperFactory,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.view.menu,MenuWrapperFactory,androidx.appcompat.view.menu,MenuWrapperFactory,
 Android.Support.V7.View.Menu,SubMenuBuilder,AndroidX.AppCompat.View.Menu,SubMenuBuilder,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.view.menu,SubMenuBuilder,androidx.appcompat.view.menu,SubMenuBuilder,
 Android.Support.V7.Widget,AbsActionBarView,AndroidX.AppCompat.Widget,AbsActionBarView,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,AbsActionBarView,androidx.appcompat.widget,AbsActionBarView,
 Android.Support.V7.Widget,AbsActionBarView.VisibilityAnimListener,AndroidX.AppCompat.Widget,AbsActionBarView.VisibilityAnimListener,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,AbsActionBarView.VisibilityAnimListener,androidx.appcompat.widget,AbsActionBarView.VisibilityAnimListener,
@@ -3375,9 +2437,6 @@ Android.Support.V7.Widget,AppCompatButton,AndroidX.AppCompat.Widget,AppCompatBut
 Android.Support.V7.Widget,AppCompatCheckBox,AndroidX.AppCompat.Widget,AppCompatCheckBox,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,AppCompatCheckBox,androidx.appcompat.widget,AppCompatCheckBox,
 Android.Support.V7.Widget,AppCompatCheckedTextView,AndroidX.AppCompat.Widget,AppCompatCheckedTextView,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,AppCompatCheckedTextView,androidx.appcompat.widget,AppCompatCheckedTextView,
 Android.Support.V7.Widget,AppCompatDrawableManager,AndroidX.AppCompat.Widget,AppCompatDrawableManager,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,AppCompatDrawableManager,androidx.appcompat.widget,AppCompatDrawableManager,
-Android.Support.V7.Widget,AppCompatDrawableManager.AsldcInflateDelegate,AndroidX.AppCompat.Widget,AppCompatDrawableManager.AsldcInflateDelegate,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,AppCompatDrawableManager.AsldcInflateDelegate,androidx.appcompat.widget,AppCompatDrawableManager.AsldcInflateDelegate,
-Android.Support.V7.Widget,AppCompatDrawableManager.IInflateDelegate,AndroidX.AppCompat.Widget,AppCompatDrawableManager.IInflateDelegate,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,AppCompatDrawableManager.InflateDelegate,androidx.appcompat.widget,AppCompatDrawableManager.InflateDelegate,
-Android.Support.V7.Widget,AppCompatDrawableManager.IInflateDelegateInvoker,AndroidX.AppCompat.Widget,AppCompatDrawableManager.IInflateDelegateInvoker,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,AppCompatDrawableManager.InflateDelegate,androidx.appcompat.widget,AppCompatDrawableManager.InflateDelegate,
 Android.Support.V7.Widget,AppCompatEditText,AndroidX.AppCompat.Widget,AppCompatEditText,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,AppCompatEditText,androidx.appcompat.widget,AppCompatEditText,
 Android.Support.V7.Widget,AppCompatImageButton,AndroidX.AppCompat.Widget,AppCompatImageButton,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,AppCompatImageButton,androidx.appcompat.widget,AppCompatImageButton,
 Android.Support.V7.Widget,AppCompatImageHelper,AndroidX.AppCompat.Widget,AppCompatImageHelper,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,AppCompatImageHelper,androidx.appcompat.widget,AppCompatImageHelper,
@@ -3397,7 +2456,7 @@ Android.Support.V7.Widget,ContentFrameLayout.IOnAttachListenerInvoker,AndroidX.A
 Android.Support.V7.Widget,DefaultItemAnimator,AndroidX.RecyclerView.Widget,DefaultItemAnimator,Xamarin.Android.Support.v7.RecyclerView,Xamarin.AndroidX.RecyclerView,android.support.v7.widget,DefaultItemAnimator,androidx.recyclerview.widget,DefaultItemAnimator,
 Android.Support.V7.Widget,DialogTitle,AndroidX.AppCompat.Widget,DialogTitle,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,DialogTitle,androidx.appcompat.widget,DialogTitle,
 Android.Support.V7.Widget,DividerItemDecoration,AndroidX.RecyclerView.Widget,DividerItemDecoration,Xamarin.Android.Support.v7.RecyclerView,Xamarin.AndroidX.RecyclerView,android.support.v7.widget,DividerItemDecoration,androidx.recyclerview.widget,DividerItemDecoration,
-Android.Support.V7.Widget,DrawableUtils,AndroidX.AppCompat.Widget,DrawableUtils,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,DrawableUtils,androidx.appcompat.widget,DrawableUtils,
+Android.Support.V7.Widget,DrawableUtils,AndroidX.AppCompat.Widget,DrawableUtils,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat.Resources,android.support.v7.widget,DrawableUtils,androidx.appcompat.widget,DrawableUtils,
 Android.Support.V7.Widget,DropDownListView,AndroidX.AppCompat.Widget,DropDownListView,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,DropDownListView,androidx.appcompat.widget,DropDownListView,
 Android.Support.V7.Widget,FitWindowsFrameLayout,AndroidX.AppCompat.Widget,FitWindowsFrameLayout,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,FitWindowsFrameLayout,androidx.appcompat.widget,FitWindowsFrameLayout,
 Android.Support.V7.Widget,FitWindowsLinearLayout,AndroidX.AppCompat.Widget,FitWindowsLinearLayout,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,FitWindowsLinearLayout,androidx.appcompat.widget,FitWindowsLinearLayout,
@@ -3578,7 +2637,7 @@ Android.Support.V7.Widget,StaggeredGridLayoutManager.SavedState,AndroidX.Recycle
 Android.Support.V7.Widget,StaggeredGridLayoutManager.Span,AndroidX.RecyclerView.Widget,StaggeredGridLayoutManager.Span,Xamarin.Android.Support.v7.RecyclerView,Xamarin.AndroidX.RecyclerView,android.support.v7.widget,StaggeredGridLayoutManager.Span,androidx.recyclerview.widget,StaggeredGridLayoutManager.Span,
 Android.Support.V7.Widget,SwitchCompat,AndroidX.AppCompat.Widget,SwitchCompat,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,SwitchCompat,androidx.appcompat.widget,SwitchCompat,
 Android.Support.V7.Widget,ThemedSpinnerAdapterHelper,AndroidX.AppCompat.Widget,ThemedSpinnerAdapterHelper,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,ThemedSpinnerAdapter.Helper,androidx.appcompat.widget,ThemedSpinnerAdapter.Helper,
-Android.Support.V7.Widget,TintContextWrapper,AndroidX.AppCompat.Widget,TintContextWrapper,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,TintContextWrapper,androidx.appcompat.widget,TintContextWrapper,
+Android.Support.V7.Widget,TintContextWrapper,AndroidX.AppCompat.Widget,TintContextWrapper,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat.Resources,android.support.v7.widget,TintContextWrapper,androidx.appcompat.widget,TintContextWrapper,
 Android.Support.V7.Widget,TintTypedArray,AndroidX.AppCompat.Widget,TintTypedArray,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,TintTypedArray,androidx.appcompat.widget,TintTypedArray,
 Android.Support.V7.Widget,Toolbar,AndroidX.AppCompat.Widget,Toolbar,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,Toolbar,androidx.appcompat.widget,Toolbar,
 Android.Support.V7.Widget,Toolbar.IOnMenuItemClickListener,AndroidX.AppCompat.Widget,Toolbar.IOnMenuItemClickListener,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,Toolbar.OnMenuItemClickListener,androidx.appcompat.widget,Toolbar.OnMenuItemClickListener,
@@ -3591,7 +2650,7 @@ Android.Support.V7.Widget,Toolbar.NavigationOnClickEventDispatcher,AndroidX.AppC
 Android.Support.V7.Widget,Toolbar.SavedState,AndroidX.AppCompat.Widget,Toolbar.SavedState,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,Toolbar.SavedState,androidx.appcompat.widget,Toolbar.SavedState,
 Android.Support.V7.Widget,ToolbarWidgetWrapper,AndroidX.AppCompat.Widget,ToolbarWidgetWrapper,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,ToolbarWidgetWrapper,androidx.appcompat.widget,ToolbarWidgetWrapper,
 Android.Support.V7.Widget,TooltipCompat,AndroidX.AppCompat.Widget,TooltipCompat,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,TooltipCompat,androidx.appcompat.widget,TooltipCompat,
-Android.Support.V7.Widget,VectorEnabledTintResources,AndroidX.AppCompat.Widget,VectorEnabledTintResources,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,VectorEnabledTintResources,androidx.appcompat.widget,VectorEnabledTintResources,
+Android.Support.V7.Widget,VectorEnabledTintResources,AndroidX.AppCompat.Widget,VectorEnabledTintResources,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat.Resources,android.support.v7.widget,VectorEnabledTintResources,androidx.appcompat.widget,VectorEnabledTintResources,
 Android.Support.V7.Widget,ViewStubCompat,AndroidX.AppCompat.Widget,ViewStubCompat,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,ViewStubCompat,androidx.appcompat.widget,ViewStubCompat,
 Android.Support.V7.Widget,ViewStubCompat.InflateEventArgs,AndroidX.AppCompat.Widget,ViewStubCompat.InflateEventArgs,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,,,,,
 Android.Support.V7.Widget,ViewStubCompat.IOnInflateListener,AndroidX.AppCompat.Widget,ViewStubCompat.IOnInflateListener,Xamarin.Android.Support.v7.AppCompat,Xamarin.AndroidX.AppCompat,android.support.v7.widget,ViewStubCompat.OnInflateListener,androidx.appcompat.widget,ViewStubCompat.OnInflateListener,
@@ -4042,4 +3101,4 @@ Org.Chromium.SupportLibBoundary,IWebViewProviderFactoryBoundaryInterface,Android
 Org.Chromium.SupportLibBoundary,IWebViewProviderFactoryBoundaryInterfaceInvoker,AndroidX.WebKit.ChromiumLibBoundary,IWebViewProviderFactoryBoundaryInterfaceInvoker,Xamarin.Android.Support.WebKit,Xamarin.AndroidX.WebKit,org.chromium.support_lib_boundary,WebViewProviderFactoryBoundaryInterface,org.chromium.support_lib_boundary,WebViewProviderFactoryBoundaryInterface,WARNING: Unable to find a Java mapping, so took a guess.
 Org.Chromium.SupportLibBoundary.Util,BoundaryInterfaceReflectionUtil,AndroidX.WebKit.ChromiumLibBoundary.Util,BoundaryInterfaceReflectionUtil,Xamarin.Android.Support.WebKit,Xamarin.AndroidX.WebKit,org.chromium.support_lib_boundary.util,BoundaryInterfaceReflectionUtil,org.chromium.support_lib_boundary.util,BoundaryInterfaceReflectionUtil,
 Org.Chromium.SupportLibBoundary.Util,Features,AndroidX.WebKit.ChromiumLibBoundary.Util,Features,Xamarin.Android.Support.WebKit,Xamarin.AndroidX.WebKit,org.chromium.support_lib_boundary.util,Features,org.chromium.support_lib_boundary.util,Features,
-Xamarin.AndroidX.Internal,InjectedAssemblyNameAttribute,Xamarin.AndroidX.Internal,InjectedAssemblyNameAttribute,,,,,,,
+Xamarin.AndroidX.Internal,InjectedAssemblyNameAttribute,Xamarin.AndroidX.Internal,InjectedAssemblyNameAttribute,Xamarin.Android.Support.Annotations,Xamarin.AndroidX.Activity,,,,,
