@@ -6,7 +6,7 @@ var target = Argument("t", Argument("target", "ci"));
 var verbosity = Argument("v", Argument("verbosity", Verbosity.Normal));
 var configuration = Argument("c", Argument("configuration", "Release"));
 
-var SUPPORT_AZURE_BUILD_ID = EnvironmentVariable("SUPPORT_AZURE_BUILD_ID") ?? "10295";
+var SUPPORT_AZURE_BUILD_ID = EnvironmentVariable("SUPPORT_AZURE_BUILD_ID") ?? "10305";
 var ANDROIDX_AZURE_BUILD_ID = EnvironmentVariable("ANDROIDX_AZURE_BUILD_ID") ?? "10297";
 
 var BUILD_VERSION = EnvironmentVariable("BUILD_VERSION") ?? "1.0.0";
