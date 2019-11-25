@@ -6,14 +6,14 @@ var target = Argument("t", Argument("target", "ci"));
 var verbosity = Argument("v", Argument("verbosity", Verbosity.Normal));
 var configuration = Argument("c", Argument("configuration", "Release"));
 
-var azureBuildNumber = "4945";
-var azureBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1b47c07a8/_apis/build/builds/{azureBuildNumber}/artifacts?artifactName=nuget&%24format=zip&api-version=5.0";
-
-var legacyBuildNumber = "4437";
-var legacyBuildUrl = $"https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1b47c07a8/_apis/build/builds/{legacyBuildNumber}/artifacts?artifactName=nuget&%24format=zip&api-version=5.0";
+var SUPPORT_AZURE_BUILD_ID = EnvironmentVariable("SUPPORT_AZURE_BUILD_ID") ?? "10295";
+var ANDROIDX_AZURE_BUILD_ID = EnvironmentVariable("ANDROIDX_AZURE_BUILD_ID") ?? "10297";
 
 var BUILD_VERSION = EnvironmentVariable("BUILD_VERSION") ?? "1.0.0";
 var BUILD_PACKAGE_VERSION = EnvironmentVariable("BUILD_PACKAGE_VERSION") ?? "1.0.0-preview";
+
+var legacyBuildUrl = $"https://dev.azure.com/xamarin/public/_apis/build/builds/{SUPPORT_AZURE_BUILD_ID}/artifacts?artifactName=nuget&%24format=zip&api-version=5.0";
+var azureBuildUrl = $"https://dev.azure.com/xamarin/public/_apis/build/builds/{ANDROIDX_AZURE_BUILD_ID}/artifacts?artifactName=nuget&%24format=zip&api-version=5.0";
 
 void RunGradle(DirectoryPath root, string target)
 {
@@ -96,7 +96,7 @@ Task("DownloadAndroidXAssets")
         CopyFileToDirectory($"{externalsRoot}nuget/AndroidSupport.Merged.dll", dllsRoot);
         CopyFileToDirectory($"{externalsRoot}nuget/AndroidX.Merged.dll", dllsRoot);
         CopyFileToDirectory($"{externalsRoot}nuget/androidx-mapping.csv", "mappings");
-        // CopyFileToDirectory($"{externalsRoot}nuget/dependencies.json", "mappings");
+        CopyFileToDirectory($"{externalsRoot}nuget/dependencies.json", "mappings");
     }
 });
 
