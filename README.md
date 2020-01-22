@@ -117,6 +117,10 @@ Steps for migrating larger codebase (applications):
     Do not forget migrating Android.Support packagenames in layout files (`*.axml`). Failing to do so will
     cause runtime errors (inflation of binary XML file).
 
+    Mapping file (for search and replace):
+
+    https://github.com/xamarin/AndroidX/blob/master/mappings/androidx-mapping.csv
+
 8.  Fixing other issues [TODO]
 
     1.  add `Xamarin.AndroidX.AppCompat`
