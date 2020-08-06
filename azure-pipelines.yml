@@ -16,7 +16,6 @@ resources:
 jobs:
   - template: .ci/build.yml@components
     parameters:
-      verbosity: diagnostic
       artifactsPath: 'output/nugets'
       postBuildSteps:
         - task: PublishTestResults@2

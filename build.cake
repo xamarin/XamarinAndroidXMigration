@@ -63,6 +63,7 @@ Task("tests-externals")
 
 Task("libs")
     .IsDependentOn("externals")
+    .IsDependentOn("tests-externals")
     .Does(() =>
 {
     MSBuild("./VisualStudio.AndroidX.Migration.sln", new MSBuildSettings {
@@ -98,7 +99,6 @@ Task("nuget")
 });
 
 Task("tests")
-    .IsDependentOn("tests-externals")
     .IsDependentOn("libs")
     .Does(() =>
 {
