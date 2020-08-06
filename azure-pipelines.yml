@@ -2,13 +2,6 @@ trigger:
   - master
   - refs/tags/*
 
-variables:
-  BUILD_NUMBER: $[counter('$(Build.SourceBranchName)_counter', 1)]
-  BUILD_VERSION: 1.0.0
-  BUILD_PACKAGE_VERSION: 1.0.0-preview06
-  SUPPORT_AZURE_BUILD_ID: 10305
-  ANDROIDX_AZURE_BUILD_ID: 10297
-
 resources:
   repositories:
     - repository: internal-templates
@@ -24,8 +17,6 @@ jobs:
   - template: .ci/build.yml@components
     parameters:
       artifactsPath: 'output/nugets'
-      tools:
-        - 'xamarin.androidx.migration.tool': '1.0.0-preview05'
       postBuildSteps:
         - task: PublishTestResults@2
           displayName: Publish test results
