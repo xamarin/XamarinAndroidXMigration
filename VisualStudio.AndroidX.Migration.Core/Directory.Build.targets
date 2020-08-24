@@ -34,6 +34,5 @@
 			<InformationalVersion>$(VersionPrefix)$(VersionSuffix)</InformationalVersion>
 			<PackageVersion>$(InformationalVersion)</PackageVersion>
 		</PropertyGroup>
-
 	</Target>
 </Project>
